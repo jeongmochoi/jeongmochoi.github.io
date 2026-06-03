@@ -77,3 +77,47 @@ textarea {
     margin: 0 auto 1.25rem auto;
   }
 }
+
+/* About page typography */
+.jm-about {
+  line-height: 1.68;
+}
+
+.jm-about p {
+  margin-bottom: 1.15rem;
+}
+
+.jm-about h2 {
+  font-size: 1.55rem;
+  font-weight: 500;
+  line-height: 1.3;
+  margin-top: 2.35rem;
+  margin-bottom: 0.85rem;
+}
+
+.jm-about h2:first-of-type {
+  margin-top: 1.9rem;
+}
+
+.jm-about ul {
+  margin-top: 0.45rem;
+  margin-bottom: 1.55rem;
+}
+
+.jm-about li {
+  line-height: 1.55;
+  margin-bottom: 0.32rem;
+}
+
+/* Slightly tighter on small screens */
+@media (max-width: 576px) {
+  .jm-about h2 {
+    font-size: 1.38rem;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .jm-about ul {
+    margin-bottom: 1.35rem;
+  }
+}
