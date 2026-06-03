@@ -30,9 +30,9 @@ latest_posts:
 
 ## 주요 경력
 - **2025/07 – 현재**, Visiting Scholar, Division of Chemistry and Chemical Engineering, California Institute of Technology (초청자: Zhen-Gang Wang)
-- **2024/08 – 현재**, 부산대학교 화학과 부교수
+- **2024/09 – 현재**, 부산대학교 화학과 부교수
 - **2020/09 – 2024/08**, 부산대학교 화학과 조교수
-- **2019/06 – 2020/08**, KAIST 자연과학연구소 연구조교수
+- **2019/06 – 2020/08**, KAIST 자연과학연구소 연수연구원 및 연구조교수
 - **2016/08 – 2019/04**, Postdoctoral Research Associate, Department of Biomedical Engineering, Washington University in St. Louis (지도교수: Rohit V. Pappu)
 
 ## 수상
