@@ -4,6 +4,8 @@ permalink: /publications/
 title: Papers
 nav: true
 nav_order: 2
+lang: en
+ref: publications
 ---
 
 <!-- _pages/publications.md -->
