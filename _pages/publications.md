@@ -12,7 +12,7 @@ ref: publications
 
 <!-- Bibsearch Feature -->
 
-See also my [Google Scholar](http://scholar.google.com/citations?user=xHzl8QQAAAAJ) page.
+See also my [Google Scholar](http://scholar.google.com/citations?user=xHzl8QQAAAAJ) page.<br>
 \* indicates co-first authors and † indicates corresponding authors.
 
 {% include bib_search.liquid %}
