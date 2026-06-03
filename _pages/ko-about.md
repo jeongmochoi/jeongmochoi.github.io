@@ -29,20 +29,20 @@ latest_posts:
 
 
 ## 주요 경력
-- **2025.07 – 현재**, Visiting Scholar, Division of Chemistry and Chemical Engineering, California Institute of Technology (초청자: Zhen-Gang Wang)
-- **2024.08 – 현재**, 부산대학교 화학과 부교수
-- **2020.09 – 2024.08**, 부산대학교 화학과 조교수
-- **2019.06 – 2020.08**, KAIST 자연과학연구소 연구조교수
-- **2016.08 – 2019.04**, Postdoctoral Research Associate, Department of Biomedical Engineering, Washington University in St. Louis (지도교수: Rohit V. Pappu)
+- **2025/07 – 현재**, Visiting Scholar, Division of Chemistry and Chemical Engineering, California Institute of Technology (초청자: Zhen-Gang Wang)
+- **2024/08 – 현재**, 부산대학교 화학과 부교수
+- **2020/09 – 2024/08**, 부산대학교 화학과 조교수
+- **2019/06 – 2020/08**, KAIST 자연과학연구소 연구조교수
+- **2016/08 – 2019/04**, Postdoctoral Research Associate, Department of Biomedical Engineering, Washington University in St. Louis (지도교수: Rohit V. Pappu)
 
 ## 수상
-- **2024–2027**, 한국도레이과학진흥재단, Korea Toray Fellowship
-- **2023–2025**, 포스코청암재단, POSCO Science Fellowship
-- **2022.10**, KCS-Wiley Young Chemist Award, 대한화학회 / John Wiley & Sons
-- **2022.02**, 부산대학교 화학과 강의우수상
-- **2019.03**, 2019 Travel Award, Biophysical Society
-- **2018.02**, Postdoctoral Research Award, IDP Subgroup of the Biophysical Society
+- **2024–2027**, 한국도레이펠로
+- **2023–2025**, 포스코사이언스펠로
+- **2022/10**, KCS-Wiley 젊은화학자상
+- **2022/02**, 부산대학교 화학과 강의우수상
+- **2019/03**, 2019 Travel Award, Biophysical Society
+- **2018/02**, Postdoctoral Research Award, IDP Subgroup of the Biophysical Society
 - **2013 가을**, Harvard University Certificate of Teaching Excellence, Derek Bok Center
 - **2012–2013**, Smith Family Graduate Science and Engineering Fellowship, Harvard University
 - **2011–2016**, 한국고등교육재단 해외유학장학생
-- **2003–2006**, 이공계 국가장학생
+- **2003–2006**, 이공계국가장학생
