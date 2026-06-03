@@ -23,22 +23,17 @@ latest_posts:
 I am an Associate Professor in the Department of Chemistry at Pusan National University. My research group studies the molecular principles of living systems using statistical mechanics, molecular modeling, and computational chemistry. I also write and translate books, give public lectures, and communicate ideas in chemistry and the history of science to broader audiences.
 
 ## Education
-- **2016**, Ph.D. in Chemistry, Harvard University  
-  Advisor: Eugene I. Shakhnovich
-- **2015**, A.M. in History of Science, Harvard University  
-  Advisor: Naomi Oreskes
-- **2011**, B.S. summa cum laude in Chemistry and Physics, KAIST  
-  Advisor: Yoon Sup Lee
+- **2016**, Ph.D. in Chemistry, Harvard University (Advisor: Eugene I. Shakhnovich)
+- **2015**, A.M. in History of Science, Harvard University (Advisor: Naomi Oreskes)
+- **2011**, B.S. _summa cum laude_ in Chemistry and Physics, KAIST (Advisor: Yoon Sup Lee)
 
 
 ## Professional Appointments
-- **Jul 2025 – present**, Visiting Scholar, Division of Chemistry and Chemical Engineering, California Institute of Technology  
-  Host: Zhen-Gang Wang
+- **Jul 2025 – present**, Visiting Scholar, Division of Chemistry and Chemical Engineering, California Institute of Technology (Host: Zhen-Gang Wang)
 - **Aug 2024 – present**, Associate Professor, Department of Chemistry, Pusan National University
 - **Sep 2020 – Aug 2024**, Assistant Professor, Department of Chemistry, Pusan National University
 - **Jun 2019 – Aug 2020**, Research Assistant Professor, Natural Science Research Institute, KAIST
-- **Aug 2016 – Apr 2019**, Postdoctoral Research Associate, Department of Biomedical Engineering, Washington University in St. Louis  
-  Mentor: Rohit V. Pappu
+- **Aug 2016 – Apr 2019**, Postdoctoral Research Associate, Department of Biomedical Engineering, Washington University in St. Louis (Supervisor: Rohit V. Pappu)
 
 
 ## Honors and Awards
