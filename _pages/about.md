@@ -1,4 +1,9 @@
 ---
+nav: true
+nav_order: 1
+lang: en
+ref: about
+
 layout: about
 title: About
 permalink: /
