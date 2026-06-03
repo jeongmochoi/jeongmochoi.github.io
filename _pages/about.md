@@ -19,7 +19,7 @@ announcements:
 latest_posts:
   enabled: false
 ---
-
+<div class="jm-about" markdown="1">
 I am an Associate Professor in the Department of Chemistry at Pusan National University. My research group studies the molecular principles of living systems using statistical mechanics, molecular modeling, and computational chemistry. I also write and translate books, give public lectures, and communicate ideas in chemistry and the history of science to broader audiences.
 
 ## Education
@@ -47,3 +47,4 @@ I am an Associate Professor in the Department of Chemistry at Pusan National Uni
 - **2012–2013**, Smith Family Graduate Science and Engineering Fellowship, Harvard University
 - **2011–2016**, Overseas Fellowship for Graduate Study, Korea Foundation for Advanced Studies
 - **2003–2006**, National Undergraduate S&T Scholarship, Korea Research Foundation
+</div>
