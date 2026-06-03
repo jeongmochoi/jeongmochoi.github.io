@@ -30,7 +30,7 @@ I am an Associate Professor in the Department of Chemistry at Pusan National Uni
 
 ## Professional Appointments
 - **Jul 2025 – present**, Visiting Scholar, Division of Chemistry and Chemical Engineering, California Institute of Technology (Host: Zhen-Gang Wang)
-- **Aug 2024 – present**, Associate Professor, Department of Chemistry, Pusan National University
+- **Sep 2024 – present**, Associate Professor, Department of Chemistry, Pusan National University
 - **Sep 2020 – Aug 2024**, Assistant Professor, Department of Chemistry, Pusan National University
 - **Jun 2019 – Aug 2020**, Research Assistant Professor, Natural Science Research Institute, KAIST
 - **Aug 2016 – Apr 2019**, Postdoctoral Research Associate, Department of Biomedical Engineering, Washington University in St. Louis (Supervisor: Rohit V. Pappu)
