@@ -1,0 +1,55 @@
+---
+# Only the main Sass file needs front matter.
+---
+
+@charset "utf-8";
+
+@use "sass:math";
+@use "sass:string";
+
+@use "variables" with (
+  $max-content-width: {{ site.max_width | default: "930px" }}
+);
+
+@use "themes";
+@use "layout";
+@use "typography";
+@use "navbar";
+@use "footer";
+@use "blog";
+@use "publications";
+@use "components";
+@use "utilities";
+@use "tabs";
+@use "teachings";
+@use "typograms";
+
+/* Korean-friendly system font stack.
+   English remains mostly Roboto; Korean glyphs fall back to Gothic/Dotum-style system fonts. */
+:root {
+  --jm-korean-gothic-font: Roboto, "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕",
+    "Noto Sans KR", "Noto Sans CJK KR", "Dotum", "돋움", sans-serif;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+li,
+div,
+span,
+strong,
+em,
+.navbar,
+.navbar-brand,
+.nav-link,
+button,
+input,
+select,
+textarea {
+  font-family: var(--jm-korean-gothic-font) !important;
+}
