@@ -17,7 +17,7 @@ ref: publications
 
 {% include bib_search.liquid %}
 
-<div class="publications">
+<div class="publications publication-numbered" markdown="1">
 
 {% bibliography %}
 
