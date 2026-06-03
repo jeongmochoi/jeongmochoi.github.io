@@ -1,21 +1,17 @@
 ---
 layout: page
 permalink: /publications/
-title: Papers
+title: Publications
 nav: true
 nav_order: 2
 lang: en
 ref: publications
 ---
 
-<!-- _pages/publications.md -->
+See also my [Google Scholar](http://scholar.google.com/citations?user=xHzl8QQAAAAJ) page.
 
-<!-- Bibsearch Feature -->
+\* indicates co-first authors and † indicates corresponding authors.
 
 {% include bib_search.liquid %}
 
-<div class="publications">
-
 {% bibliography %}
-
-</div>
