@@ -19,7 +19,7 @@ announcements:
 latest_posts:
   enabled: false
 ---
-
+<div class="jm-about" markdown="1">
 저는 부산대학교 화학과 부교수로, 통계역학, 분자모델링, 계산화학을 이용해 생명 시스템의 분자 원리를 연구합니다. 특히 생체분자의 상호작용과 집단적 거동, 생체분자의 진화와 설계, 통계역학의 생물학적 응용에 관심을 두고 있습니다. 연구와 강의 외에도 화학, 과학사, 과학적 사고를 주제로 글을 쓰고 번역하며, 대중 강연과 미디어 활동을 통해 과학을 더 넓은 독자와 청중에게 전달하는 일에도 관심이 있습니다.
 
 ## 학력
@@ -46,3 +46,4 @@ latest_posts:
 - **2012–2013**, Smith Family Graduate Science and Engineering Fellowship, Harvard University
 - **2011–2016**, 한국고등교육재단 해외유학장학생
 - **2003–2006**, 이공계국가장학생
+</div>
