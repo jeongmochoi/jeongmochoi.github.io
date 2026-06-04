@@ -130,3 +130,23 @@ textarea {
   font-weight: 500;
   font-variant-numeric: tabular-nums;
 }
+
+/* Publication bibliographic line */
+.publications ol.bibliography li .jm-periodical {
+  font-style: normal;
+}
+
+.publications ol.bibliography li .jm-periodical .journal-title {
+  font-style: italic;
+}
+
+.publications ol.bibliography li .jm-periodical .journal-volume {
+  font-weight: 600;
+}
+
+.publications ol.bibliography li .jm-periodical .journal-number,
+.publications ol.bibliography li .jm-periodical .journal-pages,
+.publications ol.bibliography li .jm-periodical .journal-year {
+  font-style: normal;
+  font-weight: 400;
+}
