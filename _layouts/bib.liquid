@@ -177,13 +177,7 @@
           <span class="journal-volume">{{ entry.volume }}</span>
         {% endif %}
 
-        {% if entry.number %}
-          <span class="journal-number">({{ entry.number }})</span>
-        {% endif %}
-
-        {% if entry.pages %}
-          <span class="journal-pages">: {{ entry.pages }}</span>
-        {% endif %}
+        {% if entry.number %}<span class="journal-number">({{ entry.number }})</span>{% endif %}{% if entry.pages %}<span class="journal-pages">: {{ entry.pages }}</span>{% endif %}
 
         {% if entry.year %}
           <span class="journal-year">({{ entry.year }})</span>
