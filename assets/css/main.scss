@@ -122,6 +122,12 @@ textarea {
   }
 }
 
+/* Softer italics only inside Publications/Papers pages */
+.publications em,
+.publications i:not([class*="fa-"]) {
+  font-style: oblique 8deg;
+}
+
 /* Publication fixed numbering from BibTeX pubnum field */
 .publications ol.bibliography li .title .pubnum {
   display: inline-block;
@@ -143,7 +149,7 @@ textarea {
 }
 
 .publications ol.bibliography li .jm-periodical .journal-title {
-  font-style: normal;
+  font-style: oblique 8deg;
 }
 
 .publications ol.bibliography li .jm-periodical .journal-volume {
