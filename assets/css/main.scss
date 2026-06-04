@@ -122,18 +122,11 @@ textarea {
   }
 }
 
-/* Publication numbering in reverse-chronological display order */
-.publication-numbered {
-  counter-reset: jm-publication;
-}
-
-.publication-numbered ol.bibliography > li {
-  counter-increment: jm-publication;
-}
-
-.publication-numbered ol.bibliography > li .title::before {
-  content: counter(jm-publication) ". ";
+/* Publication fixed numbering from BibTeX pubnum field */
+.publications ol.bibliography li .title .pubnum {
+  display: inline-block;
+  min-width: 2.25em;
   color: var(--global-text-color-light);
   font-weight: 500;
-  margin-right: 0.35rem;
+  font-variant-numeric: tabular-nums;
 }
