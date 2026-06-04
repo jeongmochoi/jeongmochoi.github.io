@@ -1,41 +1,68 @@
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    const resolveToggleScope = function (link) {
-      const linksContainer = link.closest(".links");
-
-      if (linksContainer && linksContainer.parentElement) {
-        return linksContainer.parentElement;
+    const getTargetSelector = function (link) {
+      if (link.classList.contains("abstract-ko")) {
+        return ".abstract-ko.hidden";
       }
 
-      return link.closest("li, .row") || link.parentElement;
+      if (link.classList.contains("abstract")) {
+        return ".abstract.hidden";
+      }
+
+      return null;
     };
 
-    document.querySelectorAll("a.abstract-ko").forEach(function (link) {
-      link.addEventListener("click", function (event) {
+    document.addEventListener(
+      "click",
+      function (event) {
+        const link = event.target.closest("a.abstract, a.abstract-ko");
+
+        if (!link) {
+          return;
+        }
+
+        const targetSelector = getTargetSelector(link);
+
+        if (!targetSelector) {
+          return;
+        }
+
         event.preventDefault();
 
-        const scope = resolveToggleScope(link);
+        // Prevent the default al-folio abstract toggle from also firing.
+        event.stopPropagation();
+        event.stopImmediatePropagation();
 
-        if (!scope) {
+        const entry = link.closest("li");
+
+        if (!entry) {
           return;
         }
 
-        const panel = scope.querySelector(".abstract-ko.hidden");
+        const targetPanel = entry.querySelector(targetSelector);
 
-        if (!panel) {
+        if (!targetPanel) {
           return;
         }
 
-        scope
-          .querySelectorAll(".abstract.hidden.open, .abstract-ko.hidden.open, .award.hidden.open, .bibtex.hidden.open")
-          .forEach(function (openPanel) {
-            if (openPanel !== panel) {
-              openPanel.classList.remove("open");
-            }
+        const wasOpen = targetPanel.classList.contains("open");
+
+        // Close all expandable panels in the same publication entry.
+        entry
+          .querySelectorAll(
+            ".abstract.hidden.open, .abstract-ko.hidden.open, .award.hidden.open, .bibtex.hidden.open"
+          )
+          .forEach(function (panel) {
+            panel.classList.remove("open");
           });
 
-        panel.classList.toggle("open");
-      });
-    });
+        // If the clicked panel was closed, open it.
+        // If it was already open, leave everything closed.
+        if (!wasOpen) {
+          targetPanel.classList.add("open");
+        }
+      },
+      true
+    );
   });
 </script>
