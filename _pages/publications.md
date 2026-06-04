@@ -22,3 +22,5 @@ See also my [Google Scholar](http://scholar.google.com/citations?user=xHzl8QQAAA
 {% bibliography %}
 
 </div>
+
+{% include publication_extra_toggles.liquid %}
