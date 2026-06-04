@@ -161,3 +161,18 @@ textarea {
 .publications ol.bibliography li .jm-periodical .journal-year {
   font-style: normal;
 }
+
+/* Korean abstract block in Publications */
+.publications ol.bibliography li div.abstract-ko.hidden {
+  border: dashed 1px var(--global-bg-color);
+  font-size: 0.875rem;
+  text-align: justify;
+}
+
+.publications ol.bibliography li div.abstract-ko.hidden.open {
+  border-color: var(--global-text-color);
+}
+
+.publications ol.bibliography li div.abstract-ko.hidden p {
+  line-height: 1.55;
+}
