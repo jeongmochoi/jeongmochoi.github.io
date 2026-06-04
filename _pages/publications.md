@@ -17,7 +17,7 @@ See also my [Google Scholar](http://scholar.google.com/citations?user=xHzl8QQAAA
 
 {% include bib_search.liquid %}
 
-<div class="publications publication-numbered" markdown="1">
+<div class="publications" markdown="1">
 
 {% bibliography %}
 
