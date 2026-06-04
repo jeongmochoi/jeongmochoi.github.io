@@ -131,6 +131,12 @@ textarea {
   font-variant-numeric: tabular-nums;
 }
 
+/* Publication author list */
+.publications ol.bibliography li .author {
+  font-size: 0.85em;
+  line-height: 1.45;
+}
+
 /* Publication bibliographic line */
 .publications ol.bibliography li .jm-periodical {
   font-style: normal;
