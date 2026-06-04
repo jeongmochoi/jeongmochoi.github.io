@@ -22,3 +22,5 @@ ref: publications
 {% bibliography %}
 
 </div>
+
+{% include publication_extra_toggles.liquid %}
