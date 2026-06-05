@@ -38,8 +38,8 @@ latest_posts:
 - **2016/08 – 2019/04**, Postdoctoral Research Associate, [Department of Biomedical Engineering](https://bme.washu.edu/), [Washington University in St. Louis](https://washu.edu/) (지도교수: [Rohit V. Pappu](https://pappulab.wustl.edu/))
 
 ## 수상
-- **2024–2027**, [한국도레이펠로](https://koreatoraysf.org/ko/fellowship/fellowshipLaureatesList.do)
-- **2023–2025**, [포스코사이언스펠로](https://www.postf.org/science/fellow?year=2023)
+- **2024–2027**, [한국도레이펠로](https://koreatoraysf.org/ko/fellowship/fellowshipLaureatesView.do?idx=769)
+- **2023–2025**, [포스코사이언스펠로](https://www.postf.org/science/fellow/1762)
 - **2022/10**, KCS-Wiley 젊은화학자상
 - **2022/02**, 부산대학교 화학과 강의우수상
 - **2019/03**, 2019 Travel Award, Biophysical Society
