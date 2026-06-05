@@ -18,11 +18,11 @@
   award_ko: ""
   award_en: ""
   description_ko: >-
-    연금술과 화학이 단절된 두 지식 체계가 아니라 물질의 본성을 탐구해 온 연속적인 전통임을
-    역사적으로 살피는 대중 과학·과학사 저서입니다.
+    연금술과 화학의 역사를 꼼꼼히 살펴서 연금술을 실패한 과학으로 치부하는 대신 화학과의 연속성을 강조하고,
+    당대의 맥락 속에서 과거의 연금술사 및 화학자들을 보다 깊이 이해하고자 한 과학사 교양서입니다.
   description_en: >-
-    A Korean-language popular science and history-of-science book that revisits the continuity
-    between alchemy and chemistry as traditions for understanding matter.
+    A Korean-language popular science history book that closely examines the history of alchemy and chemistry. 
+    Rather than dismissing alchemy as a failed science, it emphasizes its continuity with chemistry.
   links:
     - label_ko: "교보문고"
       label_en: "Kyobo"
@@ -56,7 +56,7 @@
     대한화학회가 기획하고 8명의 화학자가 집필한 대중 화학 입문서입니다.
     물 한 방울을 출발점으로 화학의 여러 개념과 관점을 소개합니다.
   description_en: >-
-    A Korean-language introductory popular chemistry book planned by the Korean Chemical Society
+    A Korean-language introductory chemistry book for a general audience, planned by the Korean Chemical Society
     and written by eight chemists, using a drop of water as a gateway to chemistry.
   links:
     - label_ko: "교보문고"
