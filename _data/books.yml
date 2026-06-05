@@ -1,55 +1,143 @@
 - id: alchemia
   type: authored
-  cover: alchemia.jpg
   align: right
+  cover: alchemia.jpg
   title_ko: "알-케미아"
   title_en: "Al-Chemia"
-  subtitle_ko: ""
-  subtitle_en: ""
+  subtitle_ko: "현자의 돌에서 주기율표까지 연금술과 화학의 진짜 역사"
+  subtitle_en: "From the Philosopher's Stone to the Periodic Table: A History of Alchemy and Chemistry"
   role_ko: "저자"
   role_en: "Author"
-  publisher_ko: "출판사명"
-  publisher_en: "Publisher"
+  publisher_ko: "바다출판사"
+  publisher_en: "Bada Books"
   year: 2025
-  isbn: ""
+  date: "2025-07-25"
+  pages: 320
+  isbn: "9791166893605"
+  detail_ko: "/ko/books/alchemia/"
   award_ko: ""
   award_en: ""
   description_ko: >-
-    화학, 연금술, 과학사의 관점에서 과학적 사고와 물질 세계를 다룬 대중 과학서입니다.
+    연금술과 화학이 단절된 두 지식 체계가 아니라 물질의 본성을 탐구해 온 연속적인 전통임을
+    역사적으로 살피는 대중 과학·과학사 저서입니다.
   description_en: >-
-    A Korean-language popular science book on chemistry, alchemy, and the history of scientific ideas.
+    A Korean-language popular science and history-of-science book that revisits the continuity
+    between alchemy and chemistry as traditions for understanding matter.
   links:
-    - label_ko: "출판사"
-      label_en: "Publisher"
-      url: ""
-    - label_ko: "서점"
-      label_en: "Bookstore"
-      url: ""
+    - label_ko: "교보문고"
+      label_en: "Kyobo"
+      url: "https://product.kyobobook.co.kr/detail/S000217097034"
+    - label_ko: "YES24"
+      label_en: "YES24"
+      url: "https://www.yes24.com/product/goods/149415163"
+    - label_ko: "알라딘"
+      label_en: "Aladin"
+      url: "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=368410893"
+
+- id: water-chemistry
+  type: authored
+  align: left
+  cover: water-chemistry.jpg
+  title_ko: "물 한 방울로 끝내는 화학 공부"
+  title_en: "물 한 방울로 끝내는 화학 공부"
+  subtitle_ko: "8명의 화학자가 안내하는 화학의 세계"
+  subtitle_en: "A Korean-language popular chemistry book: Eight Chemists Guide You through the World of Chemistry"
+  role_ko: "공저"
+  role_en: "Co-author"
+  publisher_ko: "휴머니스트"
+  publisher_en: "Humanist"
+  year: 2025
+  date: "2025-12-22"
+  pages: 240
+  isbn: "9791170874171"
+  award_ko: ""
+  award_en: ""
+  description_ko: >-
+    대한화학회가 기획하고 8명의 화학자가 집필한 대중 화학 입문서입니다.
+    물 한 방울을 출발점으로 화학의 여러 개념과 관점을 소개합니다.
+  description_en: >-
+    A Korean-language introductory popular chemistry book planned by the Korean Chemical Society
+    and written by eight chemists, using a drop of water as a gateway to chemistry.
+  links:
+    - label_ko: "교보문고"
+      label_en: "Kyobo"
+      url: "https://product.kyobobook.co.kr/detail/S000218782497"
+    - label_ko: "YES24"
+      label_en: "YES24"
+      url: "https://www.yes24.com/product/goods/168500377"
+    - label_ko: "알라딘"
+      label_en: "Aladin"
+      url: "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=379937027"
+
+- id: bridge-basic-chemistry
+  type: authored
+  align: right
+  cover: bridge-basic-chemistry.jpg
+  title_ko: "브릿지 기초화학"
+  title_en: "Bridge Basic Chemistry"
+  subtitle_ko: "일반화학 수강을 위한 최고의 선택"
+  subtitle_en: "A Korean-language introductory textbook for general chemistry"
+  role_ko: "공저"
+  role_en: "Co-author"
+  publisher_ko: "자유아카데미"
+  publisher_en: "Freedom Academy"
+  year: 2025
+  date: "2025-02-28"
+  pages: 200
+  isbn: "9791158086893"
+  award_ko: ""
+  award_en: ""
+  description_ko: >-
+    일반화학을 처음 공부하는 학생들을 위해 기초 개념, 실생활 사례, 연습 문제를 중심으로 구성한
+    기초화학 교재입니다.
+  description_en: >-
+    A Korean-language introductory chemistry textbook designed for students beginning general chemistry,
+    with basic concepts, everyday examples, and exercises.
+  links:
+    - label_ko: "교보문고"
+      label_en: "Kyobo"
+      url: "https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000011138846"
+    - label_ko: "YES24"
+      label_en: "YES24"
+      url: "https://www.yes24.com/product/goods/143299444"
+    - label_ko: "알라딘"
+      label_en: "Aladin"
+      url: "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=359876159"
 
 - id: abacus-cross
   type: translated
+  align: left
   cover: abacus-cross.jpg
-  align: right
   title_ko: "주판과 십자가"
   title_en: "The Abacus and the Cross"
-  subtitle_ko: ""
-  subtitle_en: ""
+  subtitle_ko: "교황이 된 과학자"
+  subtitle_en: "Korean translation of Nancy Marie Brown's The Abacus and the Cross"
   role_ko: "공역"
   role_en: "Co-translator"
-  publisher_ko: "출판사명"
-  publisher_en: "Publisher"
+  publisher_ko: "자연과사람"
+  publisher_en: "Nature and People"
   year: 2015
-  isbn: ""
+  date: "2015-01-30"
+  pages: 432
+  isbn: "9788996919759"
+  original_author_ko: "낸시 마리 브라운"
+  original_author_en: "Nancy Marie Brown"
+  original_title: "The Abacus and the Cross"
   award_ko: ""
   award_en: ""
   description_ko: >-
-    Nancy Marie Brown의 The Abacus and the Cross를 우리말로 옮긴 번역서입니다.
+    낸시 마리 브라운의 The Abacus and the Cross를 우리말로 옮긴 공역서입니다.
+    과학자 교황 실베스테르 2세의 삶을 통해 중세 과학과 종교의 관계를 다시 살펴봅니다.
   description_en: >-
-    Korean translation of Nancy Marie Brown's The Abacus and the Cross.
+    Korean co-translation of Nancy Marie Brown's The Abacus and the Cross, a book on Gerbert of Aurillac,
+    later Pope Sylvester II, and the relationship between science and religion in the medieval world.
   links:
-    - label_ko: "출판사"
-      label_en: "Publisher"
-      url: ""
-    - label_ko: "서점"
-      label_en: "Bookstore"
-      url: ""
+    - label_ko: "교보문고"
+      label_en: "Kyobo"
+      url: "https://product.kyobobook.co.kr/detail/S000001605848"
+    - label_ko: "YES24"
+      label_en: "YES24"
+      url: "https://www.yes24.com/product/goods/16521002"
+    - label_ko: "알라딘"
+      label_en: "Aladin"
+      url: "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=52811498"
