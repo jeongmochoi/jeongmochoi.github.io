@@ -22,8 +22,7 @@ latest_posts:
 <div class="jm-about" markdown="1">
 I am an Associate Professor in the [Department of Chemistry](https://chem.pusan.ac.kr/) at [Pusan National University](https://www.pusan.ac.kr/eng/). [My research group](https://sites.google.com/view/pnummdl-eng/) studies the molecular principles of living systems using statistical mechanics, molecular modeling, and computational chemistry. I also write and translate books, give public lectures, and communicate ideas in chemistry and the history of science to broader audiences.
 
-E-mail: jmchoi at pusan.ac.kr <br>
-[Lab Homepage](https://sites.google.com/view/pnummdl-eng/)
+- Contact: jmchoi at pusan.ac.kr / [Lab Homepage](https://sites.google.com/view/pnummdl-eng/)
 
 ## Education
 - **2016**, Ph.D. in [Chemistry](https://chemistry.harvard.edu/), [Harvard University](https://www.harvard.edu/) (Advisor: [Eugene I. Shakhnovich](https://faculty.chemistry.harvard.edu/shakhnovich))
@@ -32,11 +31,11 @@ E-mail: jmchoi at pusan.ac.kr <br>
 
 
 ## Professional Appointments
-- **Jul 2025 – present**, Visiting Scholar, Division of Chemistry and Chemical Engineering, California Institute of Technology (Host: Zhen-Gang Wang)
+- **Jul 2025 – present**, Visiting Scholar, Division of Chemistry and Chemical Engineering, California Institute of Technology (Host: [Zhen-Gang Wang](http://zgwlab.che.caltech.edu/))
 - **Sep 2024 – present**, Associate Professor, Department of Chemistry, Pusan National University
 - **Sep 2020 – Aug 2024**, Assistant Professor, Department of Chemistry, Pusan National University
 - **Jun 2019 – Aug 2020**, Research Assistant Professor, Natural Science Research Institute, KAIST
-- **Aug 2016 – Apr 2019**, Postdoctoral Research Associate, Department of Biomedical Engineering, Washington University in St. Louis (Supervisor: Rohit V. Pappu)
+- **Aug 2016 – Apr 2019**, Postdoctoral Research Associate, Department of Biomedical Engineering, Washington University in St. Louis (Supervisor: [Rohit V. Pappu](https://pappulab.wustl.edu/))
 
 
 ## Honors and Awards
