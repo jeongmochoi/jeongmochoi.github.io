@@ -1,0 +1,81 @@
+{% assign book = include.book %}
+{% assign lang = include.lang | default: 'en' %}
+
+{% if lang == 'ko' %}
+  {% assign title = book.title_ko | default: book.title_en %}
+  {% assign subtitle = book.subtitle_ko | default: book.subtitle_en %}
+  {% assign role = book.role_ko | default: book.role_en %}
+  {% assign publisher = book.publisher_ko | default: book.publisher_en %}
+  {% assign description = book.description_ko | default: book.description_en %}
+  {% assign award = book.award_ko | default: book.award_en %}
+{% else %}
+  {% assign title = book.title_en | default: book.title_ko %}
+  {% assign subtitle = book.subtitle_en | default: book.subtitle_ko %}
+  {% assign role = book.role_en | default: book.role_ko %}
+  {% assign publisher = book.publisher_en | default: book.publisher_ko %}
+  {% assign description = book.description_en | default: book.description_ko %}
+  {% assign award = book.award_en | default: book.award_ko %}
+{% endif %}
+
+<hr class="book-separator">
+
+<div class="book-entry clearfix">
+
+  {% if book.cover %}
+    <div class="profile float-{% if book.align == 'left' %}left{% else %}right{% endif %}">
+      {% assign book_cover_path = book.cover | prepend: 'assets/img/books/' %}
+      {% assign book_cover_class = 'img-fluid z-depth-1 rounded' %}
+      {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.22 }}px, (min-width: 576px) 24vw, 60vw{% endcapture %}
+      {% include figure.liquid loading="eager" path=book_cover_path class=book_cover_class sizes=sizes alt=title %}
+
+      {% if book.isbn %}
+        <div class="more-info book-more-info">
+          <p>ISBN: {{ book.isbn }}</p>
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <div class="book-body">
+    <h3 class="book-title">{{ title }}</h3>
+
+    {% if subtitle %}
+      <div class="book-subtitle">{{ subtitle }}</div>
+    {% endif %}
+
+    <div class="book-meta">
+      {% if role %}{{ role }}{% endif %}
+      {% if publisher %}{% if role %} · {% endif %}{{ publisher }}{% endif %}
+      {% if book.year %} · {{ book.year }}{% endif %}
+    </div>
+
+    {% if award %}
+      <div class="book-award">{{ award }}</div>
+    {% endif %}
+
+    {% if description %}
+      <div class="book-description">
+        {{ description | markdownify }}
+      </div>
+    {% endif %}
+
+    {% if book.links %}
+      <div class="book-links">
+        {% for link in book.links %}
+          {% if lang == 'ko' %}
+            {% assign link_label = link.label_ko | default: link.label_en %}
+          {% else %}
+            {% assign link_label = link.label_en | default: link.label_ko %}
+          {% endif %}
+
+          {% if link.url and link_label %}
+            <a href="{{ link.url }}" class="btn btn-sm z-depth-0" role="button" target="_blank" rel="noopener noreferrer">
+              {{ link_label }}
+            </a>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+</div>
