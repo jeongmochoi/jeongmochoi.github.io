@@ -41,6 +41,380 @@
 
     setThemeSetting(initialTheme);
   })();
+</script> <script>
+  (function () {
+    const jmSearchPlaceholder = "Type to search";
+    const jmSearchSection = "Navigation";
+    const jmFooterSelect = "select";
+    const jmFooterNavigate = "navigate";
+    const jmFooterClose = "close";
+
+    const jmSearchData = [
+      
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en",
+              title: "About",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-publications",
+              title: "Papers",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/publications/";
+              },
+            },
+          
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-books",
+              title: "Books",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/books/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-media",
+              title: "Media",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/media/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-teaching",
+              title: "Teaching",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/teaching/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+    ];
+
+    function makeFooterHTML() {
+      return `
+        <div class="jm-ninja-footer">
+          <span class="help"><span class="ninja-examplekey esc">enter</span> ${jmFooterSelect}</span>
+          <span class="help"><span class="ninja-examplekey esc">↑↓</span> ${jmFooterNavigate}</span>
+          <span class="help"><span class="ninja-examplekey esc">esc</span> ${jmFooterClose}</span>
+        </div>
+      `;
+    }
+
+    function patchNinjaKeys() {
+      const ninja = document.querySelector("ninja-keys");
+
+      if (!ninja) {
+        return false;
+      }
+
+      // Replace al-search's default data with language-specific navigation only.
+      ninja.data = jmSearchData;
+
+      // Localize placeholder.
+      ninja.placeholder = jmSearchPlaceholder;
+      ninja.setAttribute("placeholder", jmSearchPlaceholder);
+
+      // Remove duplicate/default footer text and replace with localized footer.
+      let footer = ninja.querySelector("[slot='footer']");
+
+      if (!footer) {
+        footer = document.createElement("div");
+        footer.setAttribute("slot", "footer");
+        ninja.appendChild(footer);
+      }
+
+      footer.innerHTML = makeFooterHTML();
+
+      return true;
+    }
+
+    function patchWithRetries() {
+      [0, 50, 150, 400, 1000, 2000].forEach(function (delay) {
+        window.setTimeout(patchNinjaKeys, delay);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", patchWithRetries);
+    window.addEventListener("load", patchWithRetries);
+
+    if (window.customElements && customElements.whenDefined) {
+      customElements.whenDefined("ninja-keys").then(patchWithRetries);
+    }
+  })();
 </script> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">project 2</h1> <p class="post-description">a project with a background image and giscus comments</p> </header> <article> <p>Every project has a beautiful feature showcase page. It’s easy to include images in a flexible 3-column grid format. Make your photos 1/3, 2/3, or full width.</p> <p>To give your project a background in the portfolio page, just add the img tag to the front matter like so:</p> <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
 layout: page
 title: project

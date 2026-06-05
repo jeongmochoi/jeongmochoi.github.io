@@ -41,6 +41,380 @@
 
     setThemeSetting(initialTheme);
   })();
+</script> <script>
+  (function () {
+    const jmSearchPlaceholder = "Type to search";
+    const jmSearchSection = "Navigation";
+    const jmFooterSelect = "select";
+    const jmFooterNavigate = "navigate";
+    const jmFooterClose = "close";
+
+    const jmSearchData = [
+      
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en",
+              title: "About",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-publications",
+              title: "Papers",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/publications/";
+              },
+            },
+          
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-books",
+              title: "Books",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/books/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-media",
+              title: "Media",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/media/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-teaching",
+              title: "Teaching",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/teaching/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+    ];
+
+    function makeFooterHTML() {
+      return `
+        <div class="jm-ninja-footer">
+          <span class="help"><span class="ninja-examplekey esc">enter</span> ${jmFooterSelect}</span>
+          <span class="help"><span class="ninja-examplekey esc">↑↓</span> ${jmFooterNavigate}</span>
+          <span class="help"><span class="ninja-examplekey esc">esc</span> ${jmFooterClose}</span>
+        </div>
+      `;
+    }
+
+    function patchNinjaKeys() {
+      const ninja = document.querySelector("ninja-keys");
+
+      if (!ninja) {
+        return false;
+      }
+
+      // Replace al-search's default data with language-specific navigation only.
+      ninja.data = jmSearchData;
+
+      // Localize placeholder.
+      ninja.placeholder = jmSearchPlaceholder;
+      ninja.setAttribute("placeholder", jmSearchPlaceholder);
+
+      // Remove duplicate/default footer text and replace with localized footer.
+      let footer = ninja.querySelector("[slot='footer']");
+
+      if (!footer) {
+        footer = document.createElement("div");
+        footer.setAttribute("slot", "footer");
+        ninja.appendChild(footer);
+      }
+
+      footer.innerHTML = makeFooterHTML();
+
+      return true;
+    }
+
+    function patchWithRetries() {
+      [0, 50, 150, 400, 1000, 2000].forEach(function (delay) {
+        window.setTimeout(patchNinjaKeys, delay);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", patchWithRetries);
+    window.addEventListener("load", patchWithRetries);
+
+    if (window.customElements && customElements.whenDefined) {
+      customElements.whenDefined("ninja-keys").then(patchWithRetries);
+    }
+  })();
 </script> <div class="container mt-5" role="main"> <div class="row"> <div class="col-sm-3"> <nav id="toc-sidebar" class="sticky-top toc toc-sidebar" aria-label="Table of contents" data-toc-collapse="expanded" data-toc-collapse-depth=""></nav> </div> <div class="col-sm-9"> <div class="post"> <header class="post-header"> <h1 class="post-title"> CV <a href="/assets/pdf/example_pdf.pdf" target="_blank" rel="noopener noreferrer" class="float-right"> <i class="fa-solid fa-file-pdf"></i> </a> </h1> <p class="post-description">This is a description of the page. You can modify it in '_pages/cv.md'. You can also change or remove the top pdf download button.</p> </header> <article> <div class="cv"> <div class="card mt-3 p-3"> <h3 class="card-title font-weight-medium">Contact Information</h3> <table class="table table-cv table-sm table-borderless"> <tr> <td class="p-1 pr-2 font-weight-bold"><b>Name</b></td> <td class="p-1 pl-2 font-weight-light">Albert Einstein</td> </tr> <tr> <td class="p-1 pr-2 font-weight-bold"><b>Professional Title</b></td> <td class="p-1 pl-2 font-weight-light">Scientist</td> </tr> <tr> <td class="p-1 pr-2 font-weight-bold"><b>Email</b></td> <td class="p-1 pl-2 font-weight-light">einstein@example.com</td> </tr> <tr> <td class="p-1 pr-2 font-weight-bold"><b>Location</b></td> <td class="p-1 pl-2 font-weight-light"> 2712 Broadway St, San Francisco, California CA 94115 </td> </tr> </table> </div> <div class="card mt-3 p-3"> <h3 class="card-title font-weight-medium">Professional Summary</h3> <p>A German-born theoretical physicist, widely ranked among the greatest and most influential scientists of all time </p> </div> <a class="anchor" id="experience"></a> <div class="card mt-3 p-3"> <h3 class="card-title font-weight-medium">Experience</h3> <div> <ul class="card-text font-weight-light list-group list-group-flush"> <li class="list-group-item"> <div class="row"> <div class="col-xs-2 col-sm-2 col-md-2 text-center date-column"> <table class="table-cv"> <tbody> <tr> <td> <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 75px"> 1933 - 1955 </span> </td> </tr> <tr> <td> <p class="location"> <i class="fa-solid fa-location-dot iconlocation"></i> Princeton University, NJ </p> </td> </tr> </tbody> </table> </div> <div class="col-xs-10 col-sm-10 col-md-10 mt-2 mt-md-0"> <h6 class="title font-weight-bold ml-1 ml-md-4"> Professor of Theoretical Physics </h6> <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem"> Institute for Advanced Study, Princeton University </h6> <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem; font-style: italic"> Teaching at Palmer Physical Laboratory (now 302 Frist Campus Center). While not a professor at Princeton, I associated with the physics professors and continued to give lectures on campus. </h6> <ul class="items"> <li> <span class="item">Relativity </span> </li> <li> <span class="item">Description 2. </span> </li> </ul> </div> </div> </li> <li class="list-group-item"> <div class="row"> <div class="col-xs-2 col-sm-2 col-md-2 text-center date-column"> <table class="table-cv"> <tbody> <tr> <td> <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 75px"> 1933 - 1933 </span> </td> </tr> <tr> <td> <p class="location"> <i class="fa-solid fa-location-dot iconlocation"></i> Pasadena, California, US </p> </td> </tr> </tbody> </table> </div> <div class="col-xs-10 col-sm-10 col-md-10 mt-2 mt-md-0"> <h6 class="title font-weight-bold ml-1 ml-md-4"> Visiting Professor </h6> <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem"> California Institute of Technology </h6> <ul class="items"> <li> <span class="item">Description 1. </span> </li> <li> <span class="item">Description 2. </span> </li> </ul> </div> </div> </li> <li class="list-group-item"> <div class="row"> <div class="col-xs-2 col-sm-2 col-md-2 text-center date-column"> <table class="table-cv"> <tbody> <tr> <td> <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 75px"> 1917 - 1933 </span> </td> </tr> <tr> <td> <p class="location"> <i class="fa-solid fa-location-dot iconlocation"></i> Berlin, Germany </p> </td> </tr> </tbody> </table> </div> <div class="col-xs-10 col-sm-10 col-md-10 mt-2 mt-md-0"> <h6 class="title font-weight-bold ml-1 ml-md-4"> Director </h6> <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem"> Kaiser Wilhelm Institute for Physics </h6> </div> </div> </li> <li class="list-group-item"> <div class="row"> <div class="col-xs-2 col-sm-2 col-md-2 text-center date-column"> <table class="table-cv"> <tbody> <tr> <td> <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 75px"> 1911 - 1917 </span> </td> </tr> <tr> <td> <p class="location"> <i class="fa-solid fa-location-dot iconlocation"></i> Prague, Czechoslovakia </p> </td> </tr> </tbody> </table> </div> <div class="col-xs-10 col-sm-10 col-md-10 mt-2 mt-md-0"> <h6 class="title font-weight-bold ml-1 ml-md-4"> Professor of Theoretical Physics </h6> <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem"> Karl-Ferdinand University </h6> </div> </div> </li> <li class="list-group-item"> <div class="row"> <div class="col-xs-2 col-sm-2 col-md-2 text-center date-column"> <table class="table-cv"> <tbody> <tr> <td> <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 75px"> 1909 - 1911 </span> </td> </tr> <tr> <td> <p class="location"> <i class="fa-solid fa-location-dot iconlocation"></i> Zurich, Switzerland </p> </td> </tr> </tbody> </table> </div> <div class="col-xs-10 col-sm-10 col-md-10 mt-2 mt-md-0"> <h6 class="title font-weight-bold ml-1 ml-md-4"> Associate Professor of Theoretical Physics </h6> <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem"> University of Zurich </h6> </div> </div> </li> <li class="list-group-item"> <div class="row"> <div class="col-xs-2 col-sm-2 col-md-2 text-center date-column"> <table class="table-cv"> <tbody> <tr> <td> <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 75px"> 2014 - 2015</span> </td> </tr> <tr> <td> <p class="location"> <i class="fa-solid fa-location-dot iconlocation"></i> Zurich, Switzerland </p> </td> </tr> </tbody> </table> </div> <div class="col-xs-10 col-sm-10 col-md-10 mt-2 mt-md-0"> <h6 class="title font-weight-bold ml-1 ml-md-4"> Lead Organizer </h6> <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem"> People's Climate March </h6> <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem; font-style: italic"> Lead organizer for the New York City branch of the People’s Climate March, the largest climate march in history. </h6> <ul class="items"> <li> <span class="item">Awarded ‘Climate Hero’ award by Greenpeace for my efforts organizing the march. </span> </li> <li> <span class="item">Men of the year 2014 by Time magazine </span> </li> </ul> </div> </div> </li> </ul> </div> </div> <a class="anchor" id="education"></a> <div class="card mt-3 p-3"> <h3 class="card-title font-weight-medium">Education</h3> <div> <ul class="card-text font-weight-light list-group list-group-flush"> <li class="list-group-item"> <div class="row"> <div class="col-xs-2 col-sm-2 col-md-2 text-center date-column"> <table class="table-cv"> <tbody> <tr> <td> <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 75px"> 1900 - 1905 </span> </td> </tr> <tr> <td> <p class="location"> <i class="fa-solid fa-location-dot iconlocation"></i> Zurich, Switzerland </p> </td> </tr> </tbody> </table> </div> <div class="col-xs-10 col-sm-10 col-md-10 mt-2 mt-md-0"> <h6 class="title font-weight-bold ml-1 ml-md-4"> <a href="https://www.uzh.ch/" rel="external nofollow noopener" target="_blank"> PhD </a> </h6> <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem">University of Zurich</h6> <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem; font-style: italic">Physics</h6> <ul class="items"> <li> <span class="item">Theory of Relativity</span> </li> <li> <span class="item">Description 1. </span> </li> <li> <span class="item">Description 2. </span> </li> </ul> </div> </div> </li> <li class="list-group-item"> <div class="row"> <div class="col-xs-2 col-sm-2 col-md-2 text-center date-column"> <table class="table-cv"> <tbody> <tr> <td> <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 75px"> 1896 - 1900 </span> </td> </tr> <tr> <td> <p class="location"> <i class="fa-solid fa-location-dot iconlocation"></i> Zurich, Switzerland </p> </td> </tr> </tbody> </table> </div> <div class="col-xs-10 col-sm-10 col-md-10 mt-2 mt-md-0"> <h6 class="title font-weight-bold ml-1 ml-md-4"> Federal teaching diploma </h6> <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem">Eidgenössische Technische Hochschule</h6> <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem; font-style: italic">Physics</h6> <ul class="items"> <li> <span class="item">Description 1. </span> </li> <li> <span class="item">Description 2. </span> </li> </ul> </div> </div> </li> </ul> </div> </div> <a class="anchor" id="awards"></a> <div class="card mt-3 p-3"> <h3 class="card-title font-weight-medium">Awards</h3> <div> <ul class="card-text font-weight-light list-group list-group-flush"> <li class="list-group-item"> <div class="row"> <div class="col-xs-2 col-sm-2 col-md-2 text-center"> <table class="table-cv"> <tbody> <tr> <td> <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 75px"> 1921</span> </td> </tr> </tbody> </table> </div> <div class="col-xs-10 col-sm-10 col-md-10 mt-2 mt-md-0"> <h6 class="title font-weight-bold ml-1 ml-md-4"> <a href="https://www.nobelprize.org/prizes/physics/1921/einstein/biographical/" rel="external nofollow noopener" target="_blank">Nobel Prize in Physics</a> </h6> <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem">Royal Swedish Academy of Sciences</h6> <p class="ml-1 ml-md-4">The Nobel Prizes are five separate prizes that, according to Alfred Nobel’s will of 1895, are awarded to ‘those who, during the preceding year, have conferred the greatest benefit to humankind.’ </p> </div> </div> </li> <li class="list-group-item"> <div class="row"> <div class="col-xs-2 col-sm-2 col-md-2 text-center"> <table class="table-cv"> <tbody> <tr> <td> <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 75px"> 2029 </span> </td> </tr> </tbody> </table> </div> <div class="col-xs-10 col-sm-10 col-md-10 mt-2 mt-md-0"> <h6 class="title font-weight-bold ml-1 ml-md-4">Max Planck Medal</h6> <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem">German Physical Society</h6> <p class="ml-1 ml-md-4">Awarded for outstanding scientific achievement </p> </div> </div> </li> </ul> </div> </div> <a class="anchor" id="publications"></a> <div class="card mt-3 p-3"> <h3 class="card-title font-weight-medium">Publications</h3> <div> <ul class="card-text font-weight-light list-group list-group-flush"> <li class="list-group-item"> <div class="row"> <div class="col-xs-2 col-sm-2 col-md-2 text-center"> <table class="table-cv"> <tbody> <tr> <td> <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 75px"> 1905</span> </td> </tr> </tbody> </table> </div> <div class="col-xs-10 col-sm-10 col-md-10 mt-2 mt-md-0"> <h6 class="title font-weight-bold ml-1 ml-md-4"> <a href="https://en.wikisource.org/wiki/Translation:On_the_Electrodynamics_of_Moving_Bodies" rel="external nofollow noopener" target="_blank">Zur Elektrodynamik bewegter Körper</a> </h6> <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem"> <em>Annalen der Physik</em> </h6> <p class="ml-1 ml-md-4">It concerned an interpretation of the Michelson–Morley experiment and the properties of light and time. Special relativity incorporates the principle that the speed of light is the same for all inertial observers regardless of the state of motion of the source. </p> </div> </div> </li> <li class="list-group-item"> <div class="row"> <div class="col-xs-2 col-sm-2 col-md-2 text-center"> <table class="table-cv"> <tbody> <tr> <td> <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 75px"> 1905</span> </td> </tr> </tbody> </table> </div> <div class="col-xs-10 col-sm-10 col-md-10 mt-2 mt-md-0"> <h6 class="title font-weight-bold ml-1 ml-md-4"> <a href="https://de.wikisource.org/wiki/%C3%9Cber_einen_die_Erzeugung_und_Verwandlung_des_Lichtes_betreffenden_heuristischen_Gesichtspunkt" rel="external nofollow noopener" target="_blank">Über einen die Erzeugung und Verwandlung des Lichtes betreffenden heuristischen Gesichtspunkt</a> </h6> <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem"> <em>Annalen der Physik</em> </h6> <p class="ml-1 ml-md-4">In the second paper, he applied the quantum theory to light to explain the photoelectric effect. In particular, he used the idea of light quanta (photons) to explain experimental results, but stressed the importance of the experimental results. The importance of his work on the photoelectric effect earned him the Nobel Prize in Physics in 1921. </p> </div> </div> </li> <li class="list-group-item"> <div class="row"> <div class="col-xs-2 col-sm-2 col-md-2 text-center"> <table class="table-cv"> <tbody> <tr> <td> <span class="badge font-weight-bold danger-color-dark text-uppercase align-middle" style="min-width: 75px"> 1916</span> </td> </tr> </tbody> </table> </div> <div class="col-xs-10 col-sm-10 col-md-10 mt-2 mt-md-0"> <h6 class="title font-weight-bold ml-1 ml-md-4"> <a href="https://de.wikisource.org/wiki/Die_Grundlage_der_allgemeinen_Relativit%C3%A4tstheorie" rel="external nofollow noopener" target="_blank">Die Grundlage der allgemeinen Relativitätstheorie</a> </h6> <h6 class="ml-1 ml-md-4" style="font-size: 0.95rem"> <em>Annalen der Physik</em> </h6> <p class="ml-1 ml-md-4">The publication of the theory of general relativity made him internationally famous. He was professor of physics at the universities of Zurich (1909–1911) and Prague (1911–1912), before he returned to ETH Zurich (1912–1914). </p> </div> </div> </li> </ul> </div> </div> <a class="anchor" id="skills"></a> <div class="card mt-3 p-3"> <h3 class="card-title font-weight-medium">Skills</h3> <div> <div class="card-text font-weight-light"> <div class="skill-item"> <i class="fa-solid fa-hashtag"></i> <strong>Physics (Master):</strong> Quantum Mechanics, Quantum Computing, Quantum Information, Quantum Cryptography, Quantum Communication, Quantum Teleportation </div> </div> <style>
   .skill-item {
     padding: 0.5rem 0;

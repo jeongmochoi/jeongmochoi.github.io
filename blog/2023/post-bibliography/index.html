@@ -41,6 +41,380 @@
 
     setThemeSetting(initialTheme);
   })();
+</script> <script>
+  (function () {
+    const jmSearchPlaceholder = "Type to search";
+    const jmSearchSection = "Navigation";
+    const jmFooterSelect = "select";
+    const jmFooterNavigate = "navigate";
+    const jmFooterClose = "close";
+
+    const jmSearchData = [
+      
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en",
+              title: "About",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-publications",
+              title: "Papers",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/publications/";
+              },
+            },
+          
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-books",
+              title: "Books",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/books/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-media",
+              title: "Media",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/media/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-teaching",
+              title: "Teaching",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/teaching/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+    ];
+
+    function makeFooterHTML() {
+      return `
+        <div class="jm-ninja-footer">
+          <span class="help"><span class="ninja-examplekey esc">enter</span> ${jmFooterSelect}</span>
+          <span class="help"><span class="ninja-examplekey esc">↑↓</span> ${jmFooterNavigate}</span>
+          <span class="help"><span class="ninja-examplekey esc">esc</span> ${jmFooterClose}</span>
+        </div>
+      `;
+    }
+
+    function patchNinjaKeys() {
+      const ninja = document.querySelector("ninja-keys");
+
+      if (!ninja) {
+        return false;
+      }
+
+      // Replace al-search's default data with language-specific navigation only.
+      ninja.data = jmSearchData;
+
+      // Localize placeholder.
+      ninja.placeholder = jmSearchPlaceholder;
+      ninja.setAttribute("placeholder", jmSearchPlaceholder);
+
+      // Remove duplicate/default footer text and replace with localized footer.
+      let footer = ninja.querySelector("[slot='footer']");
+
+      if (!footer) {
+        footer = document.createElement("div");
+        footer.setAttribute("slot", "footer");
+        ninja.appendChild(footer);
+      }
+
+      footer.innerHTML = makeFooterHTML();
+
+      return true;
+    }
+
+    function patchWithRetries() {
+      [0, 50, 150, 400, 1000, 2000].forEach(function (delay) {
+        window.setTimeout(patchNinjaKeys, delay);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", patchWithRetries);
+    window.addEventListener("load", patchWithRetries);
+
+    if (window.customElements && customElements.whenDefined) {
+      customElements.whenDefined("ninja-keys").then(patchWithRetries);
+    }
+  })();
 </script> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">a post with bibliography</h1> <p class="post-meta"> Created on July 12, 2023 </p> <p class="post-tags"> <a href="/blog/2023"> <i class="fa-solid fa-calendar fa-sm"></i> 2023 </a>   ·   <a href="/blog/tag/formatting"> <i class="fa-solid fa-hashtag fa-sm"></i> formatting</a>   <a href="/blog/tag/bib"> <i class="fa-solid fa-hashtag fa-sm"></i> bib</a>   ·   <a href="/blog/category/sample-posts"> <i class="fa-solid fa-tag fa-sm"></i> sample-posts</a> </p> </header> <article class="post-content"> <div id="markdown-content"> <p>This post shows how to add bibliography to simple blog posts. We support every citation style that <a href="https://github.com/inukshuk/jekyll-scholar" rel="external nofollow noopener" target="_blank">jekyll-scholar</a> does. That means simple citation like (missing reference), multiple citations like (missing reference), long references like (missing reference) or also quotes:</p> <blockquote> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,<br>sed do eiusmod tempor.</p> <p>Lorem ipsum dolor sit amet, consectetur adipisicing.</p> <cite>(missing reference)</cite> </blockquote> <p>If you would like something more academic, check the <a href="/blog/2021/distill/">distill style post</a>.</p> </div> </article> <h2>References</h2> <div class="publications"> <ol class="bibliography"></ol> </div> <div id="giscus_thread" style="max-width: 930px; margin: 0 auto;"> <br> <blockquote class="block-danger"> <h5>giscus comments misconfigured</h5> <p>Please follow instructions at <a href="http://giscus.app" rel="external nofollow noopener" target="_blank">http://giscus.app</a> and update your giscus configuration.</p> <p>Missing required keys: <code>repo_id, category_id</code>.</p> </blockquote> </div> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Jeong-Mo Choi (최정모). Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
   window.alFolio = {
     compatBootstrap: false

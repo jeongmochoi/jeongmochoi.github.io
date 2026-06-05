@@ -41,6 +41,380 @@
 
     setThemeSetting(initialTheme);
   })();
+</script> <script>
+  (function () {
+    const jmSearchPlaceholder = "Type to search";
+    const jmSearchSection = "Navigation";
+    const jmFooterSelect = "select";
+    const jmFooterNavigate = "navigate";
+    const jmFooterClose = "close";
+
+    const jmSearchData = [
+      
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en",
+              title: "About",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-publications",
+              title: "Papers",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/publications/";
+              },
+            },
+          
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-books",
+              title: "Books",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/books/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-media",
+              title: "Media",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/media/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-teaching",
+              title: "Teaching",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/teaching/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+    ];
+
+    function makeFooterHTML() {
+      return `
+        <div class="jm-ninja-footer">
+          <span class="help"><span class="ninja-examplekey esc">enter</span> ${jmFooterSelect}</span>
+          <span class="help"><span class="ninja-examplekey esc">↑↓</span> ${jmFooterNavigate}</span>
+          <span class="help"><span class="ninja-examplekey esc">esc</span> ${jmFooterClose}</span>
+        </div>
+      `;
+    }
+
+    function patchNinjaKeys() {
+      const ninja = document.querySelector("ninja-keys");
+
+      if (!ninja) {
+        return false;
+      }
+
+      // Replace al-search's default data with language-specific navigation only.
+      ninja.data = jmSearchData;
+
+      // Localize placeholder.
+      ninja.placeholder = jmSearchPlaceholder;
+      ninja.setAttribute("placeholder", jmSearchPlaceholder);
+
+      // Remove duplicate/default footer text and replace with localized footer.
+      let footer = ninja.querySelector("[slot='footer']");
+
+      if (!footer) {
+        footer = document.createElement("div");
+        footer.setAttribute("slot", "footer");
+        ninja.appendChild(footer);
+      }
+
+      footer.innerHTML = makeFooterHTML();
+
+      return true;
+    }
+
+    function patchWithRetries() {
+      [0, 50, 150, 400, 1000, 2000].forEach(function (delay) {
+        window.setTimeout(patchNinjaKeys, delay);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", patchWithRetries);
+    window.addEventListener("load", patchWithRetries);
+
+    if (window.customElements && customElements.whenDefined) {
+      customElements.whenDefined("ninja-keys").then(patchWithRetries);
+    }
+  })();
 </script> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Introduction to Machine Learning</h1> <p class="post-description">This course provides an introduction to machine learning concepts, algorithms, and applications. Students will learn about supervised and unsupervised learning, model evaluation, and practical implementations.</p> </header> <article> <div class="course"> <div class="course-info"> <p><strong>Instructor:</strong> Prof. Example</p> <p><strong>Term:</strong> Fall</p> <p><strong>Location:</strong> Main Campus, Room 301</p> <p><strong>Time:</strong> Tuesdays and Thursdays, 10:00-11:30 AM</p> </div> <h2 id="course-overview">Course Overview</h2> <p>This introductory course on machine learning covers fundamental concepts and algorithms in the field. By the end of this course, students will be able to:</p> <ul> <li>Understand key machine learning paradigms and concepts</li> <li>Implement basic machine learning algorithms</li> <li>Evaluate and compare model performance</li> <li>Apply machine learning techniques to real-world problems</li> </ul> <h2 id="prerequisites">Prerequisites</h2> <ul> <li>Basic knowledge of linear algebra and calculus</li> <li>Programming experience in Python</li> <li>Probability and statistics fundamentals</li> </ul> <h2 id="textbooks">Textbooks</h2> <ul> <li>Primary: “Machine Learning: A Probabilistic Perspective” by Kevin Murphy</li> <li>Reference: “Pattern Recognition and Machine Learning” by Christopher Bishop</li> </ul> <h2 id="grading">Grading</h2> <ul> <li>Assignments: 40%</li> <li>Midterm Exam: 20%</li> <li>Final Project: 30%</li> <li>Participation: 10%</li> </ul> <h2>Schedule</h2> <table class="table table-sm table-responsive"> <thead> <tr> <th>Week</th> <th>Date</th> <th>Topic</th> <th>Materials</th> </tr> </thead> <tbody> <tr> <td>1</td> <td>Sept 5</td> <td> <strong>Course Introduction</strong> <div class="schedule-description"> <p>Overview of machine learning, course structure, and expectations.</p> </div> </td> <td> <ul class="schedule-materials"> <li> <a href="/assets/pdf/example_pdf.pdf" target="_blank">Syllabus</a> </li> <li> <a href="/assets/pdf/example_pdf.pdf" target="_blank">Slides</a> </li> </ul> </td> </tr> <tr> <td>2</td> <td>Sept 12</td> <td> <strong>Linear Regression</strong> <div class="schedule-description"> <p>Introduction to linear regression, gradient descent, and model evaluation.</p> </div> </td> <td> <ul class="schedule-materials"> <li> <a href="/assets/pdf/example_pdf.pdf" target="_blank">Lecture Notes</a> </li> <li> <a href="/assets/pdf/example_pdf.pdf" target="_blank">Assignment 1</a> </li> </ul> </td> </tr> <tr> <td>3</td> <td>Sept 19</td> <td> <strong>Classification</strong> <div class="schedule-description"> <p>Logistic regression, decision boundaries, and multi-class classification.</p> </div> </td> <td> <ul class="schedule-materials"> <li> <a href="/assets/pdf/example_pdf.pdf" target="_blank">Lecture Notes</a> </li> <li> <a href="https://github.com/" target="_blank" rel="external nofollow noopener">Coding Lab</a> </li> </ul> </td> </tr> <tr> <td>4</td> <td>Sept 26</td> <td> <strong>Decision Trees and Random Forests</strong> <div class="schedule-description"> <p>Tree-based methods, ensemble learning, and feature importance.</p> </div> </td> <td> <ul class="schedule-materials"> <li> <a href="/assets/pdf/example_pdf.pdf" target="_blank">Lecture Notes</a> </li> <li> <a href="/assets/pdf/example_pdf.pdf" target="_blank">Assignment 2</a> </li> </ul> </td> </tr> <tr> <td>5</td> <td>Oct 3</td> <td> <strong>Support Vector Machines</strong> <div class="schedule-description"> <p>Margin maximization, kernel methods, and support vectors.</p> </div> </td> <td> <ul class="schedule-materials"> <li> <a href="/assets/pdf/example_pdf.pdf" target="_blank">Lecture Notes</a> </li> <li> <a href="/assets/pdf/example_pdf.pdf" target="_blank">Review Materials</a> </li> </ul> </td> </tr> <tr> <td>6</td> <td>Oct 10</td> <td> <strong>Midterm Exam</strong> <div class="schedule-description"> <p>Covers weeks 1-5.</p> </div> </td> <td> </td> </tr> <tr> <td>7</td> <td>Oct 17</td> <td> <strong>Neural Networks Fundamentals</strong> <div class="schedule-description"> <p>Perceptrons, multilayer networks, and backpropagation.</p> </div> </td> <td> <ul class="schedule-materials"> <li> <a href="/assets/pdf/example_pdf.pdf" target="_blank">Lecture Notes</a> </li> <li> <a href="/assets/pdf/example_pdf.pdf" target="_blank">Assignment 3</a> </li> </ul> </td> </tr> <tr> <td>8</td> <td>Oct 24</td> <td> <strong>Deep Learning</strong> <div class="schedule-description"> <p>Convolutional neural networks, recurrent neural networks, and applications.</p> </div> </td> <td> <ul class="schedule-materials"> <li> <a href="/assets/pdf/example_pdf.pdf" target="_blank">Lecture Notes</a> </li> <li> <a href="https://github.com/" target="_blank" rel="external nofollow noopener">Coding Lab</a> </li> </ul> </td> </tr> </tbody> </table> </div> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Jeong-Mo Choi (최정모). Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
   window.alFolio = {
     compatBootstrap: false

@@ -41,6 +41,380 @@
 
     setThemeSetting(initialTheme);
   })();
+</script> <script>
+  (function () {
+    const jmSearchPlaceholder = "Type to search";
+    const jmSearchSection = "Navigation";
+    const jmFooterSelect = "select";
+    const jmFooterNavigate = "navigate";
+    const jmFooterClose = "close";
+
+    const jmSearchData = [
+      
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en",
+              title: "About",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-publications",
+              title: "Papers",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/publications/";
+              },
+            },
+          
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-books",
+              title: "Books",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/books/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-media",
+              title: "Media",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/media/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-teaching",
+              title: "Teaching",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/teaching/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+    ];
+
+    function makeFooterHTML() {
+      return `
+        <div class="jm-ninja-footer">
+          <span class="help"><span class="ninja-examplekey esc">enter</span> ${jmFooterSelect}</span>
+          <span class="help"><span class="ninja-examplekey esc">↑↓</span> ${jmFooterNavigate}</span>
+          <span class="help"><span class="ninja-examplekey esc">esc</span> ${jmFooterClose}</span>
+        </div>
+      `;
+    }
+
+    function patchNinjaKeys() {
+      const ninja = document.querySelector("ninja-keys");
+
+      if (!ninja) {
+        return false;
+      }
+
+      // Replace al-search's default data with language-specific navigation only.
+      ninja.data = jmSearchData;
+
+      // Localize placeholder.
+      ninja.placeholder = jmSearchPlaceholder;
+      ninja.setAttribute("placeholder", jmSearchPlaceholder);
+
+      // Remove duplicate/default footer text and replace with localized footer.
+      let footer = ninja.querySelector("[slot='footer']");
+
+      if (!footer) {
+        footer = document.createElement("div");
+        footer.setAttribute("slot", "footer");
+        ninja.appendChild(footer);
+      }
+
+      footer.innerHTML = makeFooterHTML();
+
+      return true;
+    }
+
+    function patchWithRetries() {
+      [0, 50, 150, 400, 1000, 2000].forEach(function (delay) {
+        window.setTimeout(patchNinjaKeys, delay);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", patchWithRetries);
+    window.addEventListener("load", patchWithRetries);
+
+    if (window.customElements && customElements.whenDefined) {
+      customElements.whenDefined("ninja-keys").then(patchWithRetries);
+    }
+  })();
 </script> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">The Godfather</h1> <p class="post-meta"> Mario Puzo  ·  1969 </p> <p class="post-meta"> <i class="fa-solid fa-play fa-sm" style="color: var(--global-tip-block) !important"></i> <em>2024-08-23</em>  ·  <i class="fa-solid fa-stop fa-sm" style="color: #e56565 !important"></i> <em>2024-09-07</em>  ·  <a target="_blank" href="https://www.goodreads.com/review/show/6318556633" rel="external nofollow noopener"><i class="fa-brands fa-goodreads-g"></i> <i class="fa-solid fa-star fa-sm"></i><i class="fa-solid fa-star fa-sm"></i><i class="fa-solid fa-star fa-sm"></i><i class="fa-solid fa-star fa-sm"></i><i class="fa-solid fa-star fa-sm"></i> </a>  ·  <a target="_blank" href="https://www.amazon.com/Godfather-Deluxe-Mario-Puzo/dp/0593542592" rel="external nofollow noopener"><i class="fa-solid fa-cart-shopping"></i> <i class="fa-brands fa-amazon"></i> </a> </p> <p class="post-tags"> <a href="/books/2024"> <i class="fa-solid fa-calendar fa-sm"></i> 2024</a>  ·  <a href="/books/tag/top-100"> <i class="fa-solid fa-hashtag fa-sm"></i> top-100</a>  ·  <a href="/books/category/classics"> <i class="fa-solid fa-tag fa-sm"></i> classics</a>   <a href="/books/category/crime"> <i class="fa-solid fa-tag fa-sm"></i> crime</a>   <a href="/books/category/historical-fiction"> <i class="fa-solid fa-tag fa-sm"></i> historical-fiction</a>   <a href="/books/category/mystery"> <i class="fa-solid fa-tag fa-sm"></i> mystery</a>   <a href="/books/category/novels"> <i class="fa-solid fa-tag fa-sm"></i> novels</a>   <a href="/books/category/thriller"> <i class="fa-solid fa-tag fa-sm"></i> thriller</a> </p> <hr> </header> <article> <figure> <img alt="The Godfather cover" src="/assets/img/book_covers/the_godfather.jpg"> <figcaption> Cover of <em>The Godfather</em> </figcaption> </figure> <br class="mobile-break" clear="right"> <h4> </h4> <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras sollicitudin eros sit amet ante aliquet, sit amet vulputate lectus mattis. Aenean ullamcorper pretium nunc, sed egestas lorem elementum id. Nulla id mi id neque ultrices egestas ut in urna. Sed ac ultricies nunc. Nam convallis placerat urna id egestas. Nulla porta, est interdum vestibulum venenatis, lorem odio laoreet sapien, in pulvinar tellus eros a dolor. Vivamus sapien justo, ullamcorper a mi eget, scelerisque euismod nunc. In augue augue, ultrices a ornare non, tincidunt quis justo. Donec sit amet consectetur eros. Nullam neque leo, tincidunt id ipsum ac, volutpat lobortis mi. Phasellus consequat ultricies arcu, eu semper ligula ultrices eget. Ut in fringilla elit, ac tincidunt nisi.</p> <p>Nunc commodo elit nec turpis feugiat consectetur. Nullam in nisi egestas, fermentum ligula hendrerit, euismod enim. Nulla eu hendrerit eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et velit ante. Vestibulum pretium vitae quam et sagittis. Proin eu nunc vel velit accumsan eleifend. Nulla facilisis, diam tempus imperdiet ultrices, massa ipsum consequat orci, sed efficitur eros mi a felis. Cras lobortis turpis sem, sed lobortis nunc ullamcorper tristique. Nam vehicula rhoncus ante, in faucibus sapien scelerisque et. Donec semper libero et tincidunt mattis. In vestibulum, nulla pretium dictum commodo, risus nulla vestibulum felis, at tincidunt massa mi in odio. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p> <p>Donec efficitur ultrices purus sit amet imperdiet. Nam consequat metus in erat sodales faucibus. Aliquam maximus fermentum nulla id finibus. Aliquam iaculis sed odio vel rutrum. Curabitur sed odio est. Praesent nec sollicitudin tortor. Praesent pharetra, turpis quis porttitor rhoncus, ante massa fringilla lacus, nec porttitor magna turpis vitae felis. Nullam tristique massa id odio imperdiet, nec sodales massa egestas. Proin nisi metus, euismod sed accumsan vitae, facilisis vel risus. Morbi suscipit auctor erat, nec viverra elit fringilla eu. Mauris congue, purus id tristique facilisis, felis nisi efficitur magna, eu consectetur augue sem vitae lacus. Aliquam erat volutpat. Cras at nibh ultricies, volutpat arcu vitae, dictum est. In ac dolor sagittis, egestas lectus et, semper nisl. Etiam consectetur purus vitae sapien porttitor auctor.</p> <p>Nulla sit amet venenatis odio. Suspendisse ac lacus quis augue mollis tempus vel in lorem. Donec augue turpis, eleifend nec nibh eu, elementum dictum metus. Proin ut est ligula. Etiam vehicula facilisis metus, sit amet consectetur risus ullamcorper porttitor. In congue nibh quis sollicitudin iaculis. Donec a mollis lorem, non mollis lacus. Nulla et leo ex. Aliquam erat volutpat. Nam sit amet tincidunt mauris. Vivamus vitae est sit amet nisi semper egestas. Donec in diam pharetra, commodo diam vitae, imperdiet ligula. Cras iaculis ac diam eget vehicula. Proin suscipit ante enim, quis vehicula mi porta bibendum. Aliquam a diam porttitor, sollicitudin justo vitae, tempor odio.</p> <p>Cras fermentum dignissim pretium. Donec quis turpis eu neque lacinia facilisis in sit amet nibh. Nulla non tortor ultricies, euismod est in, blandit nibh. Ut a neque metus. Sed convallis condimentum nibh quis finibus. Praesent aliquam sem iaculis eros maximus accumsan. Nulla venenatis mauris id aliquet maximus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at enim vitae ex porttitor vestibulum sed eget nibh. Suspendisse accumsan feugiat quam eget ultricies.</p> </article> </div> <style>
       .post article {
         display: flow-root;

@@ -41,6 +41,380 @@
 
     setThemeSetting(initialTheme);
   })();
+</script> <script>
+  (function () {
+    const jmSearchPlaceholder = "검색어를 입력하세요";
+    const jmSearchSection = "메뉴";
+    const jmFooterSelect = "선택";
+    const jmFooterNavigate = "이동";
+    const jmFooterClose = "닫기";
+
+    const jmSearchData = [
+      
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-ko-ko",
+              title: "소개",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/ko/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-ko-ko-publications",
+              title: "논문",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/ko/publications/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-ko-ko-books",
+              title: "책",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/ko/books/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-ko-ko-media",
+              title: "미디어",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/ko/media/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-ko-ko-teaching",
+              title: "강의",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/ko/teaching/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+    ];
+
+    function makeFooterHTML() {
+      return `
+        <div class="jm-ninja-footer">
+          <span class="help"><span class="ninja-examplekey esc">enter</span> ${jmFooterSelect}</span>
+          <span class="help"><span class="ninja-examplekey esc">↑↓</span> ${jmFooterNavigate}</span>
+          <span class="help"><span class="ninja-examplekey esc">esc</span> ${jmFooterClose}</span>
+        </div>
+      `;
+    }
+
+    function patchNinjaKeys() {
+      const ninja = document.querySelector("ninja-keys");
+
+      if (!ninja) {
+        return false;
+      }
+
+      // Replace al-search's default data with language-specific navigation only.
+      ninja.data = jmSearchData;
+
+      // Localize placeholder.
+      ninja.placeholder = jmSearchPlaceholder;
+      ninja.setAttribute("placeholder", jmSearchPlaceholder);
+
+      // Remove duplicate/default footer text and replace with localized footer.
+      let footer = ninja.querySelector("[slot='footer']");
+
+      if (!footer) {
+        footer = document.createElement("div");
+        footer.setAttribute("slot", "footer");
+        ninja.appendChild(footer);
+      }
+
+      footer.innerHTML = makeFooterHTML();
+
+      return true;
+    }
+
+    function patchWithRetries() {
+      [0, 50, 150, 400, 1000, 2000].forEach(function (delay) {
+        window.setTimeout(patchNinjaKeys, delay);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", patchWithRetries);
+    window.addEventListener("load", patchWithRetries);
+
+    if (window.customElements && customElements.whenDefined) {
+      customElements.whenDefined("ninja-keys").then(patchWithRetries);
+    }
+  })();
 </script> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">알-케미아</h1> <p class="post-description"></p> </header> <article> <div class="book-detail"> <p><a href="/ko/books/">← 저서 목록으로</a></p> <p><img src="/assets/img/books/alchemia.jpg" alt="알-케미아 표지" class="book-detail-cover"></p> <p><strong>저자:</strong> 최정모<br> <strong>출판사:</strong> 출판사명<br> <strong>출간:</strong> 2025</p> <h2 id="section">책 소개</h2> <p>여기에 책에 대한 자세한 소개를 씁니다. 목록 페이지에는 짧은 설명만 두고, 이 페이지에는 책의 배경, 집필 의도, 주요 내용, 독자층 등을 충분히 적을 수 있습니다.</p> <h2 id="section-1">수상 및 선정</h2> <ul> <li>제○회 ○○도서상 수상</li> <li>○○기관 올해의 책 선정</li> </ul> <h2 id="section-2">서평과 추천사</h2> <blockquote> <p>여기에 서평 또는 추천사를 넣습니다.</p> </blockquote> <p>— ○○○</p> <h2 id="section-3">관련 미디어</h2> <ul> <li><a href="https://example.com" rel="external nofollow noopener" target="_blank">인터뷰 제목</a></li> <li><a href="https://example.com" rel="external nofollow noopener" target="_blank">강연 영상 제목</a></li> </ul> <h2 id="section-4">구입 및 관련 링크</h2> <ul> <li><a href="https://example.com" rel="external nofollow noopener" target="_blank">출판사</a></li> <li><a href="https://example.com" rel="external nofollow noopener" target="_blank">서점</a></li> </ul> </div> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Jeong-Mo Choi (최정모). Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
   window.alFolio = {
     compatBootstrap: false

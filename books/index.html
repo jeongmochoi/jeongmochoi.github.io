@@ -41,6 +41,380 @@
 
     setThemeSetting(initialTheme);
   })();
+</script> <script>
+  (function () {
+    const jmSearchPlaceholder = "Type to search";
+    const jmSearchSection = "Navigation";
+    const jmFooterSelect = "select";
+    const jmFooterNavigate = "navigate";
+    const jmFooterClose = "close";
+
+    const jmSearchData = [
+      
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en",
+              title: "About",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-publications",
+              title: "Papers",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/publications/";
+              },
+            },
+          
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-books",
+              title: "Books",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/books/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-media",
+              title: "Media",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/media/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-teaching",
+              title: "Teaching",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/teaching/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+    ];
+
+    function makeFooterHTML() {
+      return `
+        <div class="jm-ninja-footer">
+          <span class="help"><span class="ninja-examplekey esc">enter</span> ${jmFooterSelect}</span>
+          <span class="help"><span class="ninja-examplekey esc">↑↓</span> ${jmFooterNavigate}</span>
+          <span class="help"><span class="ninja-examplekey esc">esc</span> ${jmFooterClose}</span>
+        </div>
+      `;
+    }
+
+    function patchNinjaKeys() {
+      const ninja = document.querySelector("ninja-keys");
+
+      if (!ninja) {
+        return false;
+      }
+
+      // Replace al-search's default data with language-specific navigation only.
+      ninja.data = jmSearchData;
+
+      // Localize placeholder.
+      ninja.placeholder = jmSearchPlaceholder;
+      ninja.setAttribute("placeholder", jmSearchPlaceholder);
+
+      // Remove duplicate/default footer text and replace with localized footer.
+      let footer = ninja.querySelector("[slot='footer']");
+
+      if (!footer) {
+        footer = document.createElement("div");
+        footer.setAttribute("slot", "footer");
+        ninja.appendChild(footer);
+      }
+
+      footer.innerHTML = makeFooterHTML();
+
+      return true;
+    }
+
+    function patchWithRetries() {
+      [0, 50, 150, 400, 1000, 2000].forEach(function (delay) {
+        window.setTimeout(patchNinjaKeys, delay);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", patchWithRetries);
+    window.addEventListener("load", patchWithRetries);
+
+    if (window.customElements && customElements.whenDefined) {
+      customElements.whenDefined("ninja-keys").then(patchWithRetries);
+    }
+  })();
 </script> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">Books</h1> <p class="post-description"></p> </header> <article> <div class="books-profile-page"> <h2 class="book-section-heading">Authored Books</h2> <hr class="book-separator"> <div class="book-entry clearfix"> <div class="book-cover-wrap float-right"> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/books/alchemia-480.webp 480w,/assets/img/books/alchemia-800.webp 800w,/assets/img/books/alchemia-1400.webp 1400w," type="image/webp" sizes="(min-width: 930px) 220px, (min-width: 576px) 220px, 60vw"> <img src="/assets/img/books/alchemia.jpg" class="img-fluid z-depth-1 rounded book-cover-img" width="100%" height="auto" alt="알케미아" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"> </source></picture> </figure> </div> <h3 class="book-title">알케미아</h3> <div class="book-subtitle">Al-Chemia</div> <div class="book-meta"> Bada Books · 2025 · 9791166893605 </div> <div class="book-award"></div> <div class="book-description"> <p>A Korean-language popular science and history-of-science book that revisits the continuity between alchemy and chemistry as traditions for understanding matter.</p> </div> <div class="book-links"> <a href="https://product.kyobobook.co.kr/detail/S000217097034" class="btn btn-sm z-depth-0" role="button" target="_blank" rel="noopener noreferrer"> Kyobo </a> <a href="https://www.yes24.com/product/goods/149415163" class="btn btn-sm z-depth-0" role="button" target="_blank" rel="noopener noreferrer"> YES24 </a> <a href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=368410893" class="btn btn-sm z-depth-0" role="button" target="_blank" rel="noopener noreferrer"> Aladin </a> </div> </div> <hr class="book-separator"> <div class="book-entry clearfix"> <div class="book-cover-wrap float-left"> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/books/water-chemistry-480.webp 480w,/assets/img/books/water-chemistry-800.webp 800w,/assets/img/books/water-chemistry-1400.webp 1400w," type="image/webp" sizes="(min-width: 930px) 220px, (min-width: 576px) 220px, 60vw"> <img src="/assets/img/books/water-chemistry.jpg" class="img-fluid z-depth-1 rounded book-cover-img" width="100%" height="auto" alt="물 한 방울로 끝내는 화학 공부" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"> </source></picture> </figure> </div> <h3 class="book-title">물 한 방울로 끝내는 화학 공부</h3> <div class="book-subtitle">Mastering Chemistry with a Single Drop of Water</div> <div class="book-meta"> Humanist · 2025 · 9791170874171 </div> <div class="book-award"></div> <div class="book-description"> <p>A Korean-language introductory popular chemistry book planned by the Korean Chemical Society and written by eight chemists, using a drop of water as a gateway to chemistry.</p> </div> <div class="book-links"> <a href="https://product.kyobobook.co.kr/detail/S000218782497" class="btn btn-sm z-depth-0" role="button" target="_blank" rel="noopener noreferrer"> Kyobo </a> <a href="https://www.yes24.com/product/goods/168500377" class="btn btn-sm z-depth-0" role="button" target="_blank" rel="noopener noreferrer"> YES24 </a> <a href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=379937027" class="btn btn-sm z-depth-0" role="button" target="_blank" rel="noopener noreferrer"> Aladin </a> </div> </div> <hr class="book-separator"> <div class="book-entry clearfix"> <div class="book-cover-wrap float-right"> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/books/bridge-basic-chemistry-480.webp 480w,/assets/img/books/bridge-basic-chemistry-800.webp 800w,/assets/img/books/bridge-basic-chemistry-1400.webp 1400w," type="image/webp" sizes="(min-width: 930px) 220px, (min-width: 576px) 220px, 60vw"> <img src="/assets/img/books/bridge-basic-chemistry.jpg" class="img-fluid z-depth-1 rounded book-cover-img" width="100%" height="auto" alt="브릿지 기초화학" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"> </source></picture> </figure> </div> <h3 class="book-title">브릿지 기초화학</h3> <div class="book-subtitle">Bridge to General Chemistry</div> <div class="book-meta"> Freedom Academy · 2025 · 9791158086893 </div> <div class="book-award"></div> <div class="book-description"> <p>A Korean-language introductory chemistry textbook designed for students beginning general chemistry, with basic concepts, everyday examples, and exercises.</p> </div> <div class="book-links"> <a href="https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000011138846" class="btn btn-sm z-depth-0" role="button" target="_blank" rel="noopener noreferrer"> Kyobo </a> <a href="https://www.yes24.com/product/goods/143299444" class="btn btn-sm z-depth-0" role="button" target="_blank" rel="noopener noreferrer"> YES24 </a> <a href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=359876159" class="btn btn-sm z-depth-0" role="button" target="_blank" rel="noopener noreferrer"> Aladin </a> </div> </div> <h2 class="book-section-heading">Translated Books</h2> <hr class="book-separator"> <div class="book-entry clearfix"> <div class="book-cover-wrap float-left"> <figure> <picture> <source class="responsive-img-srcset" srcset="/assets/img/books/abacus-cross-480.webp 480w,/assets/img/books/abacus-cross-800.webp 800w,/assets/img/books/abacus-cross-1400.webp 1400w," type="image/webp" sizes="(min-width: 930px) 220px, (min-width: 576px) 220px, 60vw"> <img src="/assets/img/books/abacus-cross.jpg" class="img-fluid z-depth-1 rounded book-cover-img" width="100%" height="auto" alt="주판과 십자가" loading="eager" onerror="this.onerror=null; document.querySelectorAll('.responsive-img-srcset').forEach(function (n) { n.remove(); });"> </source></picture> </figure> </div> <h3 class="book-title">주판과 십자가</h3> <div class="book-subtitle">The Abacus and the Cross</div> <div class="book-meta"> Nature and People · 2015 · 9788996919759 </div> <div class="book-award"></div> <div class="book-description"> <p>Korean co-translation of Nancy Marie Brown’s The Abacus and the Cross, a book on Gerbert of Aurillac, later Pope Sylvester II, and the relationship between science and religion in the medieval world.</p> </div> <div class="book-links"> <a href="https://product.kyobobook.co.kr/detail/S000001605848" class="btn btn-sm z-depth-0" role="button" target="_blank" rel="noopener noreferrer"> Kyobo </a> <a href="https://www.yes24.com/product/goods/16521002" class="btn btn-sm z-depth-0" role="button" target="_blank" rel="noopener noreferrer"> YES24 </a> <a href="https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=52811498" class="btn btn-sm z-depth-0" role="button" target="_blank" rel="noopener noreferrer"> Aladin </a> </div> </div> </div> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Jeong-Mo Choi (최정모). Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
   window.alFolio = {
     compatBootstrap: false

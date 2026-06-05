@@ -41,6 +41,383 @@
 
     setThemeSetting(initialTheme);
   })();
+</script> <script>
+  (function () {
+    const jmSearchPlaceholder = "Type to search";
+    const jmSearchSection = "Navigation";
+    const jmFooterSelect = "select";
+    const jmFooterNavigate = "navigate";
+    const jmFooterClose = "close";
+
+    const jmSearchData = [
+      
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en",
+              title: "About",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-publications",
+              title: "Papers",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/publications/";
+              },
+            },
+          
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-books",
+              title: "Books",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/books/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-media",
+              title: "Media",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/media/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+      
+        
+        
+          
+            
+            
+
+            
+
+            {
+              id: "jm-en-teaching",
+              title: "Teaching",
+              description: "",
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = "/teaching/";
+              },
+            },
+          
+        
+      
+        
+        
+      
+        
+        
+      
+    ];
+
+    function makeFooterHTML() {
+      return `
+        <div class="jm-ninja-footer">
+          <span class="help"><span class="ninja-examplekey esc">enter</span> ${jmFooterSelect}</span>
+          <span class="help"><span class="ninja-examplekey esc">↑↓</span> ${jmFooterNavigate}</span>
+          <span class="help"><span class="ninja-examplekey esc">esc</span> ${jmFooterClose}</span>
+        </div>
+      `;
+    }
+
+    function patchNinjaKeys() {
+      const ninja = document.querySelector("ninja-keys");
+
+      if (!ninja) {
+        return false;
+      }
+
+      // Replace al-search's default data with language-specific navigation only.
+      ninja.data = jmSearchData;
+
+      // Localize placeholder.
+      ninja.placeholder = jmSearchPlaceholder;
+      ninja.setAttribute("placeholder", jmSearchPlaceholder);
+
+      // Remove duplicate/default footer text and replace with localized footer.
+      let footer = ninja.querySelector("[slot='footer']");
+
+      if (!footer) {
+        footer = document.createElement("div");
+        footer.setAttribute("slot", "footer");
+        ninja.appendChild(footer);
+      }
+
+      footer.innerHTML = makeFooterHTML();
+
+      return true;
+    }
+
+    function patchWithRetries() {
+      [0, 50, 150, 400, 1000, 2000].forEach(function (delay) {
+        window.setTimeout(patchNinjaKeys, delay);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", patchWithRetries);
+    window.addEventListener("load", patchWithRetries);
+
+    if (window.customElements && customElements.whenDefined) {
+      customElements.whenDefined("ninja-keys").then(patchWithRetries);
+    }
+  })();
 </script> <div class="container mt-5" role="main"> <div class="post"> <header class="post-header"> <h1 class="post-title">repositories</h1> <p class="post-description">Edit the `_data/repositories.yml` and change the `github_users` and `github_repos` lists to include your own GitHub profile and repositories.</p> </header> <article> <h2 id="github-users">GitHub users</h2> <div class="repositories d-flex flex-wrap flex-md-row flex-column justify-content-between align-items-center"> <div class="repo p-2 text-center"> <a href="https://github.com/torvalds" rel="external nofollow noopener" target="_blank"> <img class="only-light w-100" alt="torvalds" src="https://github-readme-stats.vercel.app/api/?username=torvalds&amp;theme=default&amp;locale=en&amp;show_icons=true" onerror="this.closest('.repo').style.display='none'"> <img class="only-dark w-100" alt="torvalds" src="https://github-readme-stats.vercel.app/api/?username=torvalds&amp;theme=dark&amp;locale=en&amp;show_icons=true" onerror="this.closest('.repo').style.display='none'"> </a> </div> <div class="repo p-2 text-center"> <a href="https://github.com/alshedivat" rel="external nofollow noopener" target="_blank"> <img class="only-light w-100" alt="alshedivat" src="https://github-readme-stats.vercel.app/api/?username=alshedivat&amp;theme=default&amp;locale=en&amp;show_icons=true" onerror="this.closest('.repo').style.display='none'"> <img class="only-dark w-100" alt="alshedivat" src="https://github-readme-stats.vercel.app/api/?username=alshedivat&amp;theme=dark&amp;locale=en&amp;show_icons=true" onerror="this.closest('.repo').style.display='none'"> </a> </div> </div> <hr> <h4>torvalds</h4> <div class="repositories d-flex flex-wrap flex-md-row flex-column justify-content-between align-items-center"> <div class="repo p-2 text-center"> <a href="https://github.com/ryo-ma/github-profile-trophy" rel="external nofollow noopener" target="_blank"> <span class="d-none d-sm-none d-md-block"> <img class="only-light" alt="torvalds" src="https://github-profile-trophy.vercel.app/?username=torvalds&amp;theme=flat&amp;locale=en&amp;margin-w=15&amp;margin-h=15&amp;no-bg=true&amp;rank=-C&amp;column=6" onerror="this.closest('.repo').style.display='none'"> <img class="only-dark" alt="torvalds" src="https://github-profile-trophy.vercel.app/?username=torvalds&amp;theme=gitdimmed&amp;locale=en&amp;margin-w=15&amp;margin-h=15&amp;no-bg=true&amp;rank=-C&amp;column=6" onerror="this.closest('.repo').style.display='none'"> </span> <span class="d-none d-sm-block d-md-none"> <img class="only-light" alt="torvalds" src="https://github-profile-trophy.vercel.app/?username=torvalds&amp;theme=flat&amp;locale=en&amp;margin-w=15&amp;margin-h=15&amp;no-bg=true&amp;rank=-C&amp;column=4" onerror="this.closest('.repo').style.display='none'"> <img class="only-dark" alt="torvalds" src="https://github-profile-trophy.vercel.app/?username=torvalds&amp;theme=gitdimmed&amp;locale=en&amp;margin-w=15&amp;margin-h=15&amp;no-bg=true&amp;rank=-C&amp;column=4" onerror="this.closest('.repo').style.display='none'"> </span> <span class="d-block d-sm-none"> <img class="only-light" alt="torvalds" src="https://github-profile-trophy.vercel.app/?username=torvalds&amp;theme=flat&amp;locale=en&amp;margin-w=15&amp;margin-h=15&amp;no-bg=true&amp;rank=-C&amp;column=3" onerror="this.closest('.repo').style.display='none'"> <img class="only-dark" alt="torvalds" src="https://github-profile-trophy.vercel.app/?username=torvalds&amp;theme=gitdimmed&amp;locale=en&amp;margin-w=15&amp;margin-h=15&amp;no-bg=true&amp;rank=-C&amp;column=3" onerror="this.closest('.repo').style.display='none'"> </span> </a> </div> </div> <hr> <h4>alshedivat</h4> <div class="repositories d-flex flex-wrap flex-md-row flex-column justify-content-between align-items-center"> <div class="repo p-2 text-center"> <a href="https://github.com/ryo-ma/github-profile-trophy" rel="external nofollow noopener" target="_blank"> <span class="d-none d-sm-none d-md-block"> <img class="only-light" alt="alshedivat" src="https://github-profile-trophy.vercel.app/?username=alshedivat&amp;theme=flat&amp;locale=en&amp;margin-w=15&amp;margin-h=15&amp;no-bg=true&amp;rank=-C&amp;column=6" onerror="this.closest('.repo').style.display='none'"> <img class="only-dark" alt="alshedivat" src="https://github-profile-trophy.vercel.app/?username=alshedivat&amp;theme=gitdimmed&amp;locale=en&amp;margin-w=15&amp;margin-h=15&amp;no-bg=true&amp;rank=-C&amp;column=6" onerror="this.closest('.repo').style.display='none'"> </span> <span class="d-none d-sm-block d-md-none"> <img class="only-light" alt="alshedivat" src="https://github-profile-trophy.vercel.app/?username=alshedivat&amp;theme=flat&amp;locale=en&amp;margin-w=15&amp;margin-h=15&amp;no-bg=true&amp;rank=-C&amp;column=4" onerror="this.closest('.repo').style.display='none'"> <img class="only-dark" alt="alshedivat" src="https://github-profile-trophy.vercel.app/?username=alshedivat&amp;theme=gitdimmed&amp;locale=en&amp;margin-w=15&amp;margin-h=15&amp;no-bg=true&amp;rank=-C&amp;column=4" onerror="this.closest('.repo').style.display='none'"> </span> <span class="d-block d-sm-none"> <img class="only-light" alt="alshedivat" src="https://github-profile-trophy.vercel.app/?username=alshedivat&amp;theme=flat&amp;locale=en&amp;margin-w=15&amp;margin-h=15&amp;no-bg=true&amp;rank=-C&amp;column=3" onerror="this.closest('.repo').style.display='none'"> <img class="only-dark" alt="alshedivat" src="https://github-profile-trophy.vercel.app/?username=alshedivat&amp;theme=gitdimmed&amp;locale=en&amp;margin-w=15&amp;margin-h=15&amp;no-bg=true&amp;rank=-C&amp;column=3" onerror="this.closest('.repo').style.display='none'"> </span> </a> </div> </div> <hr> <h2 id="github-repositories">GitHub Repositories</h2> <div class="repositories d-flex flex-wrap flex-md-row flex-column justify-content-between align-items-center"> <div class="repo p-2 text-center"> <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank"> <img class="only-light w-100" alt="alshedivat/al-folio" src="https://github-readme-stats.vercel.app/api/pin/?username=alshedivat&amp;repo=al-folio&amp;theme=default&amp;locale=en&amp;show_owner=false&amp;description_lines_count=2" onerror="this.closest('.repo').style.display='none'"> <img class="only-dark w-100" alt="alshedivat/al-folio" src="https://github-readme-stats.vercel.app/api/pin/?username=alshedivat&amp;repo=al-folio&amp;theme=dark&amp;locale=en&amp;show_owner=false&amp;description_lines_count=2" onerror="this.closest('.repo').style.display='none'"> </a> </div> <div class="repo p-2 text-center"> <a href="https://github.com/jekyll/jekyll" rel="external nofollow noopener" target="_blank"> <img class="only-light w-100" alt="jekyll/jekyll" src="https://github-readme-stats.vercel.app/api/pin/?username=jekyll&amp;repo=jekyll&amp;theme=default&amp;locale=en&amp;show_owner=true&amp;description_lines_count=2" onerror="this.closest('.repo').style.display='none'"> <img class="only-dark w-100" alt="jekyll/jekyll" src="https://github-readme-stats.vercel.app/api/pin/?username=jekyll&amp;repo=jekyll&amp;theme=dark&amp;locale=en&amp;show_owner=true&amp;description_lines_count=2" onerror="this.closest('.repo').style.display='none'"> </a> </div> <div class="repo p-2 text-center"> <a href="https://github.com/twbs/bootstrap" rel="external nofollow noopener" target="_blank"> <img class="only-light w-100" alt="twbs/bootstrap" src="https://github-readme-stats.vercel.app/api/pin/?username=twbs&amp;repo=bootstrap&amp;theme=default&amp;locale=en&amp;show_owner=true&amp;description_lines_count=2" onerror="this.closest('.repo').style.display='none'"> <img class="only-dark w-100" alt="twbs/bootstrap" src="https://github-readme-stats.vercel.app/api/pin/?username=twbs&amp;repo=bootstrap&amp;theme=dark&amp;locale=en&amp;show_owner=true&amp;description_lines_count=2" onerror="this.closest('.repo').style.display='none'"> </a> </div> <div class="repo p-2 text-center"> <a href="https://github.com/jquery/jquery" rel="external nofollow noopener" target="_blank"> <img class="only-light w-100" alt="jquery/jquery" src="https://github-readme-stats.vercel.app/api/pin/?username=jquery&amp;repo=jquery&amp;theme=default&amp;locale=en&amp;show_owner=true&amp;description_lines_count=2" onerror="this.closest('.repo').style.display='none'"> <img class="only-dark w-100" alt="jquery/jquery" src="https://github-readme-stats.vercel.app/api/pin/?username=jquery&amp;repo=jquery&amp;theme=dark&amp;locale=en&amp;show_owner=true&amp;description_lines_count=2" onerror="this.closest('.repo').style.display='none'"> </a> </div> <div class="repo p-2 text-center"> <a href="https://github.com/FortAwesome/Font-Awesome" rel="external nofollow noopener" target="_blank"> <img class="only-light w-100" alt="FortAwesome/Font-Awesome" src="https://github-readme-stats.vercel.app/api/pin/?username=FortAwesome&amp;repo=Font-Awesome&amp;theme=default&amp;locale=en&amp;show_owner=true&amp;description_lines_count=2" onerror="this.closest('.repo').style.display='none'"> <img class="only-dark w-100" alt="FortAwesome/Font-Awesome" src="https://github-readme-stats.vercel.app/api/pin/?username=FortAwesome&amp;repo=Font-Awesome&amp;theme=dark&amp;locale=en&amp;show_owner=true&amp;description_lines_count=2" onerror="this.closest('.repo').style.display='none'"> </a> </div> <div class="repo p-2 text-center"> <a href="https://github.com/mathjax/MathJax" rel="external nofollow noopener" target="_blank"> <img class="only-light w-100" alt="mathjax/MathJax" src="https://github-readme-stats.vercel.app/api/pin/?username=mathjax&amp;repo=MathJax&amp;theme=default&amp;locale=en&amp;show_owner=true&amp;description_lines_count=2" onerror="this.closest('.repo').style.display='none'"> <img class="only-dark w-100" alt="mathjax/MathJax" src="https://github-readme-stats.vercel.app/api/pin/?username=mathjax&amp;repo=MathJax&amp;theme=dark&amp;locale=en&amp;show_owner=true&amp;description_lines_count=2" onerror="this.closest('.repo').style.display='none'"> </a> </div> <div class="repo p-2 text-center"> <a href="https://github.com/jpswalsh/academicons" rel="external nofollow noopener" target="_blank"> <img class="only-light w-100" alt="jpswalsh/academicons" src="https://github-readme-stats.vercel.app/api/pin/?username=jpswalsh&amp;repo=academicons&amp;theme=default&amp;locale=en&amp;show_owner=true&amp;description_lines_count=2" onerror="this.closest('.repo').style.display='none'"> <img class="only-dark w-100" alt="jpswalsh/academicons" src="https://github-readme-stats.vercel.app/api/pin/?username=jpswalsh&amp;repo=academicons&amp;theme=dark&amp;locale=en&amp;show_owner=true&amp;description_lines_count=2" onerror="this.closest('.repo').style.display='none'"> </a> </div> </div> </article> </div> </div> <footer class="fixed-bottom" role="contentinfo"> <div class="container mt-0"> © Copyright 2026 Jeong-Mo Choi (최정모). Powered by <a href="https://jekyllrb.com/" target="_blank" rel="external nofollow noopener">Jekyll</a> with <a href="https://github.com/alshedivat/al-folio" rel="external nofollow noopener" target="_blank">al-folio</a> theme. Hosted by <a href="https://pages.github.com/" target="_blank" rel="external nofollow noopener">GitHub Pages</a>. </div> </footer> <script>
   window.alFolio = {
     compatBootstrap: false
