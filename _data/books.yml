@@ -1,0 +1,55 @@
+- id: alchemia
+  type: authored
+  cover: alchemia.jpg
+  align: right
+  title_ko: "알-케미아"
+  title_en: "Al-Chemia"
+  subtitle_ko: ""
+  subtitle_en: ""
+  role_ko: "저자"
+  role_en: "Author"
+  publisher_ko: "출판사명"
+  publisher_en: "Publisher"
+  year: 2025
+  isbn: ""
+  award_ko: ""
+  award_en: ""
+  description_ko: >-
+    화학, 연금술, 과학사의 관점에서 과학적 사고와 물질 세계를 다룬 대중 과학서입니다.
+  description_en: >-
+    A Korean-language popular science book on chemistry, alchemy, and the history of scientific ideas.
+  links:
+    - label_ko: "출판사"
+      label_en: "Publisher"
+      url: ""
+    - label_ko: "서점"
+      label_en: "Bookstore"
+      url: ""
+
+- id: abacus-cross
+  type: translated
+  cover: abacus-cross.jpg
+  align: right
+  title_ko: "주판과 십자가"
+  title_en: "The Abacus and the Cross"
+  subtitle_ko: ""
+  subtitle_en: ""
+  role_ko: "공역"
+  role_en: "Co-translator"
+  publisher_ko: "출판사명"
+  publisher_en: "Publisher"
+  year: 2015
+  isbn: ""
+  award_ko: ""
+  award_en: ""
+  description_ko: >-
+    Nancy Marie Brown의 The Abacus and the Cross를 우리말로 옮긴 번역서입니다.
+  description_en: >-
+    Korean translation of Nancy Marie Brown's The Abacus and the Cross.
+  links:
+    - label_ko: "출판사"
+      label_en: "Publisher"
+      url: ""
+    - label_ko: "서점"
+      label_en: "Bookstore"
+      url: ""
