@@ -29,11 +29,32 @@ layout: page
               {% assign offering_url = offering.url_en %}
             {% endif %}
 
-            {% capture offering_title %}
-              {{ offering.term }}
-              {% if offering.section %}, section {{ offering.section }}{% endif %}
-              {% if offering.unit_short %}, {{ offering.unit_short }}{% endif %}
-            {% endcapture %}
+            {% assign term_year = offering.term | slice: 0, 4 %}
+            {% assign term_semester = offering.term | slice: 4, 1 %}
+
+            {% if term_semester == 'S' %}
+              {% assign term_en = 'Spring ' | append: term_year %}
+              {% assign term_ko = term_year | append: ' 봄학기' %}
+            {% elsif term_semester == 'F' %}
+              {% assign term_en = 'Fall ' | append: term_year %}
+              {% assign term_ko = term_year | append: ' 가을학기' %}
+            {% else %}
+              {% assign term_en = offering.term %}
+              {% assign term_en = offering.term %}
+              {% assign term_ko = offering.term %}
+            {% endif %}
+
+            {% capture offering_title -%}
+              {%- if current_lang == 'ko' -%}
+                {{ term_ko -}}
+                {%- if offering.section -%}, 분반 {{ offering.section }}{%- endif -%}
+                {%- if offering.unit_ko -%}, {{ offering.unit_ko }}{%- endif -%}
+              {%- else -%}
+                {{ term_en -}}
+                {%- if offering.section -%}, section {{ offering.section }}{%- endif -%}
+                {%- if offering.unit_en -%}, {{ offering.unit_en }}{%- endif -%}
+              {%- endif -%}
+            {%- endcapture %}
 
             {% if offering_url %}
               <a class="course-term-link" href="{{ offering_url | relative_url }}" title="{{ offering_title | strip }}">{{- offering.label -}}</a>
