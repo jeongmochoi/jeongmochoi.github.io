@@ -252,8 +252,23 @@ i:not([class*="fa-"]) {
 }
 
 .books-profile-page .book-links .btn {
+  border: 1px solid var(--global-text-color);
+  border-radius: 0;
+  color: var(--global-text-color);
+  background-color: transparent;
+  box-shadow: none;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  padding: 0.25rem 0.75rem;
   margin-right: 0.35rem;
   margin-bottom: 0.35rem;
+  text-transform: none;
+}
+
+.books-profile-page .book-links .btn:hover {
+  border-color: var(--global-theme-color);
+  color: var(--global-theme-color);
+  background-color: transparent;
 }
 
 .books-profile-page .book-more-info {
