@@ -20,10 +20,13 @@ latest_posts:
   enabled: false
 ---
 <div class="jm-about" markdown="1">
-I am an Associate Professor in the Department of Chemistry at Pusan National University. My research group studies the molecular principles of living systems using statistical mechanics, molecular modeling, and computational chemistry. I also write and translate books, give public lectures, and communicate ideas in chemistry and the history of science to broader audiences.
+I am an Associate Professor in the [Department of Chemistry](https://chem.pusan.ac.kr/) at [Pusan National University](https://www.pusan.ac.kr/eng/). [My research group](https://sites.google.com/view/pnummdl-eng/) studies the molecular principles of living systems using statistical mechanics, molecular modeling, and computational chemistry. I also write and translate books, give public lectures, and communicate ideas in chemistry and the history of science to broader audiences.
+
+E-mail: jmchoi at pusan.ac.kr
+[Lab Homepage](https://sites.google.com/view/pnummdl-eng/)
 
 ## Education
-- **2016**, Ph.D. in Chemistry, Harvard University (Advisor: Eugene I. Shakhnovich)
+- **2016**, Ph.D. in [Chemistry](https://chemistry.harvard.edu/), [Harvard University](https://www.harvard.edu/) (Advisor: [Eugene I. Shakhnovich](https://faculty.chemistry.harvard.edu/shakhnovich))
 - **2015**, A.M. in History of Science, Harvard University (Advisor: Naomi Oreskes)
 - **2011**, B.S. _summa cum laude_ in Chemistry and Physics, KAIST (Advisor: Yoon Sup Lee)
 
