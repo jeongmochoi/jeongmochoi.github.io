@@ -22,10 +22,10 @@
 <div class="book-entry clearfix">
 
   {% if book.cover %}
-    <div class="profile float-{% if book.align == 'left' %}left{% else %}right{% endif %}">
+    <div class="profile float-{% if book.align == 'left' %}left{% else %}right{% endif %} book-cover-wrap">
       {% assign book_cover_path = book.cover | prepend: 'assets/img/books/' %}
       {% assign book_cover_class = 'img-fluid z-depth-1 rounded' %}
-      {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.22 }}px, (min-width: 576px) 24vw, 60vw{% endcapture %}
+      {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3 }}px, (min-width: 576px) 30vw, 95vw{% endcapture %}
       {% include figure.liquid loading="eager" path=book_cover_path class=book_cover_class sizes=sizes alt=title %}
 
       {% if book.isbn %}
@@ -36,65 +36,63 @@
     </div>
   {% endif %}
 
-  <div class="book-body">
-    <h3 class="book-title">{{ title }}</h3>
+  <h3 class="book-title">{{ title }}</h3>
 
-    {% if subtitle %}
-      <div class="book-subtitle">{{ subtitle }}</div>
-    {% endif %}
+  {% if subtitle %}
+    <div class="book-subtitle">{{ subtitle }}</div>
+  {% endif %}
 
-    <div class="book-meta">
-      {% if role %}{{ role }}{% endif %}
-      {% if publisher %}{% if role %} · {% endif %}{{ publisher }}{% endif %}
-      {% if book.year %} · {{ book.year }}{% endif %}
-    </div>
-
-    {% if award %}
-      <div class="book-award">{{ award }}</div>
-    {% endif %}
-
-    {% if description %}
-      <div class="book-description">
-        {{ description | markdownify }}
-      </div>
-    {% endif %}
-
-    {% assign detail_url = '' %}
-    {% assign detail_label = '' %}
-
-    {% if lang == 'ko' and book.detail_ko %}
-      {% assign detail_url = book.detail_ko %}
-      {% assign detail_label = '자세히 보기' %}
-    {% elsif lang != 'ko' and book.detail_en %}
-      {% assign detail_url = book.detail_en %}
-      {% assign detail_label = 'Details' %}
-    {% endif %}
-
-    {% if detail_url != '' or book.links %}
-      <div class="book-links">
-        {% if detail_url != '' %}
-          <a href="{{ detail_url | relative_url }}" class="btn btn-sm z-depth-0" role="button">
-            {{ detail_label }}
-          </a>
-        {% endif %}
-
-        {% if book.links %}
-          {% for link in book.links %}
-            {% if lang == 'ko' %}
-              {% assign link_label = link.label_ko | default: link.label_en %}
-            {% else %}
-              {% assign link_label = link.label_en | default: link.label_ko %}
-            {% endif %}
-
-            {% if link.url and link_label %}
-              <a href="{{ link.url }}" class="btn btn-sm z-depth-0" role="button" target="_blank" rel="noopener noreferrer">
-                {{ link_label }}
-              </a>
-            {% endif %}
-          {% endfor %}
-        {% endif %}
-      </div>
-    {% endif %}
+  <div class="book-meta">
+    {% if role %}{{ role }}{% endif %}
+    {% if publisher %}{% if role %} · {% endif %}{{ publisher }}{% endif %}
+    {% if book.year %} · {{ book.year }}{% endif %}
   </div>
+
+  {% if award %}
+    <div class="book-award">{{ award }}</div>
+  {% endif %}
+
+  {% if description %}
+    <div class="book-description">
+      {{ description | markdownify }}
+    </div>
+  {% endif %}
+
+  {% assign detail_url = '' %}
+  {% assign detail_label = '' %}
+
+  {% if lang == 'ko' and book.detail_ko %}
+    {% assign detail_url = book.detail_ko %}
+    {% assign detail_label = '자세히 보기' %}
+  {% elsif lang != 'ko' and book.detail_en %}
+    {% assign detail_url = book.detail_en %}
+    {% assign detail_label = 'Details' %}
+  {% endif %}
+
+  {% if detail_url != '' or book.links %}
+    <div class="book-links">
+      {% if detail_url != '' %}
+        <a href="{{ detail_url | relative_url }}" class="btn btn-sm z-depth-0" role="button">
+          {{ detail_label }}
+        </a>
+      {% endif %}
+
+      {% if book.links %}
+        {% for link in book.links %}
+          {% if lang == 'ko' %}
+            {% assign link_label = link.label_ko | default: link.label_en %}
+          {% else %}
+            {% assign link_label = link.label_en | default: link.label_ko %}
+          {% endif %}
+
+          {% if link.url and link_label %}
+            <a href="{{ link.url }}" class="btn btn-sm z-depth-0" role="button" target="_blank" rel="noopener noreferrer">
+              {{ link_label }}
+            </a>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  {% endif %}
 
 </div>
