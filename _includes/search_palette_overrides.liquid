@@ -1,0 +1,107 @@
+{% assign current_lang = page.lang | default: site.lang | default: 'en' %}
+
+{% if current_lang == 'ko' %}
+  {% assign search_placeholder = '검색어를 입력하세요' %}
+  {% assign search_section = '메뉴' %}
+  {% assign footer_select = '선택' %}
+  {% assign footer_navigate = '이동' %}
+  {% assign footer_close = '닫기' %}
+{% else %}
+  {% assign search_placeholder = 'Type to search' %}
+  {% assign search_section = 'Navigation' %}
+  {% assign footer_select = 'select' %}
+  {% assign footer_navigate = 'navigate' %}
+  {% assign footer_close = 'close' %}
+{% endif %}
+
+{% if site.search_enabled %}
+<script>
+  (function () {
+    const jmSearchPlaceholder = {{ search_placeholder | jsonify }};
+    const jmSearchSection = {{ search_section | jsonify }};
+    const jmFooterSelect = {{ footer_select | jsonify }};
+    const jmFooterNavigate = {{ footer_navigate | jsonify }};
+    const jmFooterClose = {{ footer_close | jsonify }};
+
+    const jmSearchData = [
+      {% assign sorted_pages = site.pages | sort: "nav_order" %}
+      {% for p in sorted_pages %}
+        {% assign p_lang = p.lang | default: site.lang | default: 'en' %}
+        {% if p.nav and p.autogen == null and p_lang == current_lang %}
+          {% unless p.dropdown %}
+            {% assign p_title = p.title | strip %}
+            {% assign p_description = p.description | default: '' | strip_html | strip_newlines | strip %}
+
+            {% if p.permalink contains '://' %}
+              {% assign p_url = p.permalink %}
+            {% else %}
+              {% assign p_url = p.url | relative_url %}
+            {% endif %}
+
+            {
+              id: {{ 'jm-' | append: current_lang | append: '-' | append: p.url | slugify | jsonify }},
+              title: {{ p_title | jsonify }},
+              description: {{ p_description | jsonify }},
+              section: jmSearchSection,
+              handler: () => {
+                window.location.href = {{ p_url | jsonify }};
+              },
+            },
+          {% endunless %}
+        {% endif %}
+      {% endfor %}
+    ];
+
+    function makeFooterHTML() {
+      return `
+        <div class="jm-ninja-footer">
+          <span class="help"><span class="ninja-examplekey esc">enter</span> ${jmFooterSelect}</span>
+          <span class="help"><span class="ninja-examplekey esc">↑↓</span> ${jmFooterNavigate}</span>
+          <span class="help"><span class="ninja-examplekey esc">esc</span> ${jmFooterClose}</span>
+        </div>
+      `;
+    }
+
+    function patchNinjaKeys() {
+      const ninja = document.querySelector("ninja-keys");
+
+      if (!ninja) {
+        return false;
+      }
+
+      // Replace al-search's default data with language-specific navigation only.
+      ninja.data = jmSearchData;
+
+      // Localize placeholder.
+      ninja.placeholder = jmSearchPlaceholder;
+      ninja.setAttribute("placeholder", jmSearchPlaceholder);
+
+      // Remove duplicate/default footer text and replace with localized footer.
+      let footer = ninja.querySelector("[slot='footer']");
+
+      if (!footer) {
+        footer = document.createElement("div");
+        footer.setAttribute("slot", "footer");
+        ninja.appendChild(footer);
+      }
+
+      footer.innerHTML = makeFooterHTML();
+
+      return true;
+    }
+
+    function patchWithRetries() {
+      [0, 50, 150, 400, 1000, 2000].forEach(function (delay) {
+        window.setTimeout(patchNinjaKeys, delay);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", patchWithRetries);
+    window.addEventListener("load", patchWithRetries);
+
+    if (window.customElements && customElements.whenDefined) {
+      customElements.whenDefined("ninja-keys").then(patchWithRetries);
+    }
+  })();
+</script>
+{% endif %}
