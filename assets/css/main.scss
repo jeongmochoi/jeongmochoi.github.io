@@ -369,86 +369,68 @@ i:not([class*="fa-"]) {
 
 /* Teaching index page */
 .teaching-index {
-  line-height: 1.65;
+  line-height: 1.7;
 }
 
 .teaching-index .course-list {
-  margin-top: 1.6rem;
+  margin-top: 1.4rem;
+  display: block;
 }
 
 .teaching-index .course-entry {
+  display: block;
   border-top: 1px solid var(--global-divider-color);
-  padding: 1.25rem 0 1.2rem 0;
+  padding: 0.8rem 0;
 }
 
 .teaching-index .course-entry:last-child {
   border-bottom: 1px solid var(--global-divider-color);
 }
 
-.teaching-index .course-heading {
-  margin-bottom: 0.65rem;
+.teaching-index .course-line {
+  font-size: 1rem;
+  line-height: 1.7;
 }
 
-.teaching-index .course-title {
-  font-size: 1.18rem;
-  font-weight: 600;
-  line-height: 1.35;
-  margin-bottom: 0.15rem;
-}
-
-.teaching-index .course-subtitle {
-  font-size: 0.92rem;
-  color: var(--global-text-color-light);
-}
-
-.teaching-index .course-term-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  margin-top: 0.65rem;
-}
-
-.teaching-index .course-term-chip {
-  display: inline-block;
-  border: 1px solid var(--global-text-color);
-  border-radius: 0;
+.teaching-index .course-name {
+  font-weight: 500;
   color: var(--global-text-color);
-  background-color: transparent;
-  box-shadow: none;
-  font-size: 0.78rem;
-  line-height: 1.45;
-  padding: 0.22rem 0.65rem;
+}
+
+.teaching-index .course-sep {
+  margin: 0 0.25rem 0 0.2rem;
+  color: var(--global-text-color);
+}
+
+.teaching-index .course-terms {
+  display: inline;
+}
+
+.teaching-index .course-term-link {
+  display: inline;
+  margin-right: 0.45rem;
+  color: var(--global-theme-color);
   text-decoration: none;
   white-space: nowrap;
 }
 
-.teaching-index .course-term-chip:hover {
-  border-color: var(--global-theme-color);
-  color: var(--global-theme-color);
+.teaching-index .course-term-link:hover {
+  text-decoration: underline;
+}
+
+.teaching-index .course-term-link.disabled {
+  color: var(--global-text-color-light);
+  cursor: default;
   text-decoration: none;
 }
 
-.teaching-index .course-term-chip.disabled {
-  border-color: var(--global-divider-color);
-  color: var(--global-text-color-light);
-  cursor: default;
-}
-
 @media (max-width: 576px) {
+  .teaching-index .course-line {
+    font-size: 0.95rem;
+    line-height: 1.75;
+  }
+
   .teaching-index .course-entry {
-    padding: 1.1rem 0;
-  }
-
-  .teaching-index .course-title {
-    font-size: 1.08rem;
-  }
-
-  .teaching-index .course-subtitle {
-    font-size: 0.86rem;
-  }
-
-  .teaching-index .course-term-chip {
-    font-size: 0.74rem;
-    padding: 0.2rem 0.55rem;
+    padding: 0.7rem 0;
   }
 }
