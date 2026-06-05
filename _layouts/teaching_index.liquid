@@ -9,60 +9,49 @@ layout: page
 
   {{ content }}
 
-  <div class="course-list">
-    {% for course in courses %}
-      {% if current_lang == 'ko' %}
-        {% assign title_main = course.title_ko | default: course.title_en %}
-        {% assign title_sub = course.title_en | default: course.title_ko %}
-      {% else %}
-        {% assign title_main = course.title_en | default: course.title_ko %}
-        {% assign title_sub = course.title_ko | default: course.title_en %}
-      {% endif %}
+<div class="course-list">
+  {% for course in courses %}
+    <section class="course-entry" id="{{ course.id }}">
+      <div class="course-line">
+        <span class="course-name">
+          {{ course.title_ko }} / {{ course.title_en }}
+        </span>
+        <span class="course-sep">:</span>
 
-      <section class="course-entry" id="{{ course.id }}">
-        <div class="course-heading">
-          <h3 class="course-title">{{ title_main }}</h3>
+        <span class="course-terms">
+          {% for offering in course.offerings %}
+            {% assign offering_url = offering.url %}
 
-          {% if title_sub and title_sub != title_main %}
-            <div class="course-subtitle">{{ title_sub }}</div>
-          {% endif %}
-        </div>
+            {% if current_lang == 'ko' and offering.url_ko %}
+              {% assign offering_url = offering.url_ko %}
+            {% elsif current_lang != 'ko' and offering.url_en %}
+              {% assign offering_url = offering.url_en %}
+            {% endif %}
 
-        {% if course.offerings %}
-          <div class="course-term-list">
-            {% for offering in course.offerings %}
-              {% assign offering_url = offering.url %}
+            {% capture offering_title %}
+              {{ offering.term }}
+              {% if offering.section %}, section {{ offering.section }}{% endif %}
+              {% if offering.unit_short %}, {{ offering.unit_short }}{% endif %}
+            {% endcapture %}
 
-              {% if current_lang == 'ko' and offering.url_ko %}
-                {% assign offering_url = offering.url_ko %}
-              {% elsif current_lang != 'ko' and offering.url_en %}
-                {% assign offering_url = offering.url_en %}
-              {% endif %}
-
-              {% capture offering_title %}
-                {{ offering.term }}
-                {% if offering.section %}, section {{ offering.section }}{% endif %}
-                {% if offering.unit_short %}, {{ offering.unit_short }}{% endif %}
-              {% endcapture %}
-
-              {% if offering_url %}
-                <a
-                  class="course-term-chip"
-                  href="{{ offering_url | relative_url }}"
-                  title="{{ offering_title | strip }}"
-                >
-                  {{ offering.label }}
-                </a>
-              {% else %}
-                <span class="course-term-chip disabled" title="{{ offering_title | strip }}">
-                  {{ offering.label }}
-                </span>
-              {% endif %}
-            {% endfor %}
-          </div>
-        {% endif %}
-      </section>
-    {% endfor %}
-  </div>
+            {% if offering_url %}
+              <a
+                class="course-term-link"
+                href="{{ offering_url | relative_url }}"
+                title="{{ offering_title | strip }}"
+              >
+                {{ offering.label }}
+              </a>
+            {% else %}
+              <span class="course-term-link disabled" title="{{ offering_title | strip }}">
+                {{ offering.label }}
+              </span>
+            {% endif %}
+          {% endfor %}
+        </span>
+      </div>
+    </section>
+  {% endfor %}
+</div>
 
 </div>
