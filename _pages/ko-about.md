@@ -25,21 +25,21 @@ latest_posts:
 - 연락처: jmchoi at pusan.ac.kr / [연구실 홈페이지](https://sites.google.com/view/pnummdl)
 
 ## 학력
-- **2016**, Ph.D. in Chemistry, Harvard University (지도교수: Eugene I. Shakhnovich)
-- **2015**, A.M. in History of Science, Harvard University (지도교수: Naomi Oreskes)
-- **2011**, B.S. _summa cum laude_ in Chemistry and Physics, KAIST (지도교수: 이윤섭)
+- **2016**, Ph.D. in [Chemistry](https://chemistry.harvard.edu/), [Harvard University](https://www.harvard.edu/) (지도교수: [Eugene I. Shakhnovich](https://faculty.chemistry.harvard.edu/shakhnovich))
+- **2015**, A.M. in [History of Science](https://histsci.fas.harvard.edu/), [Harvard University](https://www.harvard.edu/) (지도교수: [Naomi Oreskes](https://prod-hos.drupalsites.harvard.edu/people/naomi-oreskes))
+- **2011**, B.S. _summa cum laude_ in [Chemistry](https://chem.kaist.ac.kr/) and [Physics](https://physics.kaist.ac.kr/), [KAIST](https://www.kaist.ac.kr/kr/) (지도교수: 이윤섭)
 
 
 ## 주요 경력
-- **2025/07 – 현재**, Visiting Scholar, Division of Chemistry and Chemical Engineering, California Institute of Technology (초청자: Zhen-Gang Wang)
-- **2024/09 – 현재**, 부산대학교 화학과 부교수
-- **2020/09 – 2024/08**, 부산대학교 화학과 조교수
-- **2019/06 – 2020/08**, KAIST 자연과학연구소 연수연구원 및 연구조교수
-- **2016/08 – 2019/04**, Postdoctoral Research Associate, Department of Biomedical Engineering, Washington University in St. Louis (지도교수: Rohit V. Pappu)
+- **2025/07 – 현재**, Visiting Scholar, [Division of Chemistry and Chemical Engineering](https://cce.caltech.edu/), [California Institute of Technology](https://www.caltech.edu/) (초청자: [Zhen-Gang Wang](http://zgwlab.che.caltech.edu/))
+- **2024/09 – 현재**, [부산대학교](https://www.pusan.ac.kr/kor/) [화학과](https://chem.pusan.ac.kr/) 부교수
+- **2020/09 – 2024/08**, [부산대학교](https://www.pusan.ac.kr/kor/) [화학과](https://chem.pusan.ac.kr/) 조교수
+- **2019/06 – 2020/08**, [KAIST](https://www.kaist.ac.kr/kr/) 자연과학연구소 연수연구원 및 연구조교수
+- **2016/08 – 2019/04**, Postdoctoral Research Associate, [Department of Biomedical Engineering](https://bme.washu.edu/), [Washington University in St. Louis](https://washu.edu/) (지도교수: [Rohit V. Pappu](https://pappulab.wustl.edu/))
 
 ## 수상
-- **2024–2027**, 한국도레이펠로
-- **2023–2025**, 포스코사이언스펠로
+- **2024–2027**, [한국도레이펠로](https://koreatoraysf.org/ko/fellowship/fellowshipLaureatesList.do)
+- **2023–2025**, [포스코사이언스펠로](https://www.postf.org/science/fellow?year=2023)
 - **2022/10**, KCS-Wiley 젊은화학자상
 - **2022/02**, 부산대학교 화학과 강의우수상
 - **2019/03**, 2019 Travel Award, Biophysical Society
