@@ -27,20 +27,20 @@ I am an Associate Professor in the [Department of Chemistry](https://chem.pusan.
 ## Education
 - **2016**, Ph.D. in [Chemistry](https://chemistry.harvard.edu/), [Harvard University](https://www.harvard.edu/) (Advisor: [Eugene I. Shakhnovich](https://faculty.chemistry.harvard.edu/shakhnovich))
 - **2015**, A.M. in [History of Science](https://histsci.fas.harvard.edu/), [Harvard University](https://www.harvard.edu/) (Advisor: [Naomi Oreskes](https://prod-hos.drupalsites.harvard.edu/people/naomi-oreskes))
-- **2011**, B.S. _summa cum laude_ in [Chemistry](https://chem.kaist.ac.kr/) and [Physics](https://physics.kaist.ac.kr/), [KAIST](https://www.kaist.ac.kr/) (Advisor: Yoon Sup Lee)
+- **2011**, B.S. _summa cum laude_ in [Chemistry](https://chem.kaist.ac.kr/) and [Physics](https://physics.kaist.ac.kr/), [KAIST](https://www.kaist.ac.kr/en/) (Advisor: Yoon Sup Lee)
 
 
 ## Professional Appointments
-- **Jul 2025 – present**, Visiting Scholar, Division of Chemistry and Chemical Engineering, California Institute of Technology (Host: [Zhen-Gang Wang](http://zgwlab.che.caltech.edu/))
-- **Sep 2024 – present**, Associate Professor, Department of Chemistry, Pusan National University
-- **Sep 2020 – Aug 2024**, Assistant Professor, Department of Chemistry, Pusan National University
-- **Jun 2019 – Aug 2020**, Research Assistant Professor, Natural Science Research Institute, KAIST
-- **Aug 2016 – Apr 2019**, Postdoctoral Research Associate, Department of Biomedical Engineering, Washington University in St. Louis (Supervisor: [Rohit V. Pappu](https://pappulab.wustl.edu/))
+- **Jul 2025 – present**, Visiting Scholar, [Division of Chemistry and Chemical Engineering](https://cce.caltech.edu/), [California Institute of Technology](https://www.caltech.edu/) (Host: [Zhen-Gang Wang](http://zgwlab.che.caltech.edu/))
+- **Sep 2024 – present**, Associate Professor, [Department of Chemistry](http://chem.pusan.ac.kr/), [Pusan National University](https://www.pusan.ac.kr/eng/)
+- **Sep 2020 – Aug 2024**, Assistant Professor, [Department of Chemistry](http://chem.pusan.ac.kr/), [Pusan National University](https://www.pusan.ac.kr/eng/)
+- **Jun 2019 – Aug 2020**, Research Assistant Professor, Natural Science Research Institute, [KAIST](https://www.kaist.ac.kr/en/)
+- **Aug 2016 – Apr 2019**, Postdoctoral Research Associate, [Department of Biomedical Engineering](https://bme.washu.edu/), [Washington University in St. Louis](https://washu.edu/) (Supervisor: [Rohit V. Pappu](https://pappulab.wustl.edu/))
 
 
 ## Honors and Awards
-- **2024–2027**, Korea Toray Fellowship, Korea Toray Science Foundation
-- **2023–2025**, POSCO Science Fellowship, POSCO TJ Park Foundation
+- **2024–2027**, [Korea Toray Fellowship](https://koreatoraysf.org/en/fellowship/fellowshipInfo.do), Korea Toray Science Foundation
+- **2023–2025**, [POSCO Science Fellowship](https://www.postf.org/en/science/), POSCO TJ Park Foundation
 - **Oct 2022**, KCS-Wiley Young Chemist Award, Korean Chemical Society and John Wiley & Sons
 - **Feb 2022**, Teaching Excellence Award, Department of Chemistry, Pusan National University
 - **Mar 2019**, 2019 Travel Award, Biophysical Society
