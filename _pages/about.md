@@ -22,13 +22,13 @@ latest_posts:
 <div class="jm-about" markdown="1">
 I am an Associate Professor in the [Department of Chemistry](https://chem.pusan.ac.kr/) at [Pusan National University](https://www.pusan.ac.kr/eng/). [My research group](https://sites.google.com/view/pnummdl-eng/) studies the molecular principles of living systems using statistical mechanics, molecular modeling, and computational chemistry. I also write and translate books, give public lectures, and communicate ideas in chemistry and the history of science to broader audiences.
 
-E-mail: jmchoi at pusan.ac.kr
+E-mail: jmchoi at pusan.ac.kr <br>
 [Lab Homepage](https://sites.google.com/view/pnummdl-eng/)
 
 ## Education
 - **2016**, Ph.D. in [Chemistry](https://chemistry.harvard.edu/), [Harvard University](https://www.harvard.edu/) (Advisor: [Eugene I. Shakhnovich](https://faculty.chemistry.harvard.edu/shakhnovich))
-- **2015**, A.M. in History of Science, Harvard University (Advisor: Naomi Oreskes)
-- **2011**, B.S. _summa cum laude_ in Chemistry and Physics, KAIST (Advisor: Yoon Sup Lee)
+- **2015**, A.M. in [History of Science](https://histsci.fas.harvard.edu/), [Harvard University](https://www.harvard.edu/) (Advisor: [Naomi Oreskes](https://prod-hos.drupalsites.harvard.edu/people/naomi-oreskes))
+- **2011**, B.S. _summa cum laude_ in [Chemistry](https://chem.kaist.ac.kr/) and [Physics](https://physics.kaist.ac.kr/), [KAIST](https://www.kaist.ac.kr/) (Advisor: Yoon Sup Lee)
 
 
 ## Professional Appointments
