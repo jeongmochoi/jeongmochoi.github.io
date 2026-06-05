@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: book_profiles
 title: Books
 permalink: /books/
 nav: true
@@ -8,12 +8,4 @@ lang: en
 ref: books
 ---
 
-This page lists authored and translated books.
-
-## Authored Books
-
-Content to be added.
-
-## Translated Books
-
-Content to be added.
+This page lists books I have authored and translated.
