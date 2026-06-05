@@ -1,5 +1,17 @@
 {% assign current_lang = page.lang | default: site.lang | default: 'en' %}
 
+{% if current_lang == 'ko' %}
+  {% assign search_title = '검색' %}
+  {% assign search_aria = '검색 열기' %}
+  {% assign theme_title = '테마 변경' %}
+  {% assign theme_aria = '라이트/다크 모드 전환' %}
+{% else %}
+  {% assign search_title = 'Search' %}
+  {% assign search_aria = 'Open search' %}
+  {% assign theme_title = 'Change theme' %}
+  {% assign theme_aria = 'Toggle light/dark mode' %}
+{% endif %}
+
 {% assign home_url = '/' %}
 {% if current_lang == 'ko' %}
   {% assign home_url = '/ko/' %}
@@ -166,7 +178,7 @@
           {% if site.search_enabled %}
             <!-- Search -->
             <li class="nav-item">
-              <button id="search-toggle" type="button" title="Search" aria-label="Open search">
+              <button id="search-toggle" type="button" title="{{ search_title }}" aria-label="{{ search_aria }}">
                 <span class="nav-link"><i class="fa-solid fa-magnifying-glass"></i></span>
               </button>
             </li>
@@ -175,8 +187,7 @@
           {% if site.enable_darkmode %}
             <!-- Toggle theme mode -->
             <li class="toggle-container">
-              <button id="light-toggle" type="button" title="Change theme" aria-label="Change color theme">
-                <i class="fa-half-sun-moon" id="light-toggle-system"></i>
+              <button id="light-toggle" type="button" title="{{ theme_title }}" aria-label="{{ theme_aria }}">
                 <i class="fa-solid fa-moon" id="light-toggle-dark"></i>
                 <i class="fa-solid fa-sun" id="light-toggle-light"></i>
               </button>
@@ -196,3 +207,44 @@
     </progress>
   {% endif %}
 </header>
+
+{% if site.enable_darkmode %}
+<script>
+  // Override al-folio's default three-state theme cycle.
+  // New behavior: light <-> dark only. No system mode.
+
+  (function () {
+    if (typeof determineThemeSetting !== "function" || typeof setThemeSetting !== "function") {
+      return;
+    }
+
+    const storedTheme = localStorage.getItem("theme");
+    let initialTheme = storedTheme;
+
+    // If the old value is "system" or invalid, collapse it into the currently computed theme.
+    if (initialTheme !== "dark" && initialTheme !== "light") {
+      if (typeof determineComputedTheme === "function") {
+        initialTheme = determineComputedTheme();
+      } else {
+        initialTheme = "light";
+      }
+    }
+
+    if (initialTheme !== "dark" && initialTheme !== "light") {
+      initialTheme = "light";
+    }
+
+    determineThemeSetting = function () {
+      const themeSetting = localStorage.getItem("theme");
+      return themeSetting === "dark" ? "dark" : "light";
+    };
+
+    toggleThemeSetting = function () {
+      const currentTheme = determineThemeSetting();
+      setThemeSetting(currentTheme === "dark" ? "light" : "dark");
+    };
+
+    setThemeSetting(initialTheme);
+  })();
+</script>
+{% endif %}
