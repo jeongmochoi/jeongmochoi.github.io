@@ -8,4 +8,4 @@ lang: en
 ref: teaching
 ---
 
-Below is a course-based list of classes I have taught at Pusan National University. Each term links to a course page with the course overview, schedule, and publicly available materials.
+Below is a course-based list of classes I have taught at Pusan National University. Each term links to a course page with the course overview, schedule, and course materials.
