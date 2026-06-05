@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: book_profiles
 title: 저서
 permalink: /ko/books/
 nav: true
@@ -8,4 +8,4 @@ lang: ko
 ref: books
 ---
 
-저서와 번역서를 정리하는 페이지입니다.
+저서와 번역서를 정리한 페이지입니다.
