@@ -275,6 +275,17 @@ i:not([class*="fa-"]) {
   background-color: transparent;
 }
 
+.books-profile-page .book-links .btn.book-detail-link {
+  border-color: var(--global-highlight-color);
+  color: var(--global-highlight-color);
+}
+
+.books-profile-page .book-links .btn.book-detail-link:hover {
+  border-color: var(--global-highlight-color);
+  color: var(--global-highlight-color);
+  background-color: transparent;
+}
+
 .books-profile-page .book-more-info {
   font-size: 0.78rem;
   text-align: center;
