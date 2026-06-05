@@ -13,12 +13,13 @@ layout: page
   {% for course in courses %}
     <section class="course-entry" id="{{ course.id }}">
       <div class="course-line">
-        <span class="course-name">
-          {{ course.title_ko }} / {{ course.title_en }}
-        </span>
-        <span class="course-sep">:</span>
+        <div class="course-name">
+          <span class="course-title-ko">{{ course.title_ko }}</span>
+          <span class="course-title-separator">/</span>
+          <span class="course-title-en">{{ course.title_en }}</span>
+        </div>
 
-        <span class="course-terms">
+        <div class="course-terms">
           {% for offering in course.offerings %}
             {% assign offering_url = offering.url %}
 
@@ -35,20 +36,12 @@ layout: page
             {% endcapture %}
 
             {% if offering_url %}
-              <a
-                class="course-term-link"
-                href="{{ offering_url | relative_url }}"
-                title="{{ offering_title | strip }}"
-              >
-                {{ offering.label }}
-              </a>
+              <a class="course-term-link" href="{{ offering_url | relative_url }}" title="{{ offering_title | strip }}">{{- offering.label -}}</a>
             {% else %}
-              <span class="course-term-link disabled" title="{{ offering_title | strip }}">
-                {{ offering.label }}
-              </span>
+              <span class="course-term-link disabled" title="{{ offering_title | strip }}">{{- offering.label -}}</span>
             {% endif %}
           {% endfor %}
-        </span>
+        </div>
       </div>
     </section>
   {% endfor %}
