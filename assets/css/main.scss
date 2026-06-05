@@ -177,7 +177,7 @@ i:not([class*="fa-"]) {
   line-height: 1.55;
 }
 
-/* Books page based on the people/profile layout */
+/* Books page: profile-style layout adapted from the people page */
 .books-profile-page {
   line-height: 1.65;
 }
@@ -185,33 +185,42 @@ i:not([class*="fa-"]) {
 .books-profile-page .book-section-heading {
   font-size: 1.55rem;
   font-weight: 500;
-  margin-top: 2.7rem;
+  margin-top: 2.8rem;
   margin-bottom: 1.1rem;
 }
 
 .books-profile-page .book-separator {
-  margin-top: 1.6rem;
-  margin-bottom: 1.6rem;
+  margin-top: 1.7rem;
+  margin-bottom: 1.7rem;
 }
 
 .books-profile-page .book-entry {
-  margin-bottom: 2.2rem;
+  margin-bottom: 2.4rem;
+  min-height: 240px;
 }
 
-.books-profile-page .book-entry .profile {
-  width: 170px;
-  max-width: 24%;
-  margin-left: 1.5rem;
+.books-profile-page .book-cover-wrap {
+  width: 30%;
+  max-width: 270px;
+  min-width: 170px;
   margin-bottom: 1rem;
 }
 
-.books-profile-page .book-entry .profile img {
+.books-profile-page .book-cover-wrap.float-right {
+  margin-left: 1.5rem;
+}
+
+.books-profile-page .book-cover-wrap.float-left {
+  margin-right: 1.5rem;
+}
+
+.books-profile-page .book-cover-wrap img {
   width: 100%;
   height: auto;
 }
 
 .books-profile-page .book-title {
-  font-size: 1.25rem;
+  font-size: 1.28rem;
   font-weight: 600;
   line-height: 1.35;
   margin-bottom: 0.25rem;
@@ -253,21 +262,26 @@ i:not([class*="fa-"]) {
 }
 
 @media (max-width: 576px) {
-  .books-profile-page .book-entry .profile.float-right,
-  .books-profile-page .book-entry .profile.float-left {
+  .books-profile-page .book-entry {
+    min-height: 0;
+  }
+
+  .books-profile-page .book-cover-wrap.float-right,
+  .books-profile-page .book-cover-wrap.float-left {
     float: none !important;
-    width: 55%;
-    max-width: 190px;
+    width: 60%;
+    max-width: 220px;
+    min-width: 0;
     margin: 0 auto 1.25rem auto;
   }
 
   .books-profile-page .book-section-heading {
     font-size: 1.38rem;
-    margin-top: 2.2rem;
+    margin-top: 2.3rem;
   }
 
   .books-profile-page .book-title {
-    font-size: 1.15rem;
+    font-size: 1.16rem;
   }
 }
 
