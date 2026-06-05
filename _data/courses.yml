@@ -1,0 +1,238 @@
+- id: general-chemistry-1
+  order: 1
+  title_en: "General Chemistry 1"
+  title_ko: "일반화학 1"
+  codes:
+    - "CH15845"
+    - "CH1500845"
+  offerings:
+    - term: "2021S"
+      label: "21S"
+      language: "ko"
+      url_ko: "/ko/teaching/2021-spring-general-chemistry-1/"
+    - term: "2025S"
+      label: "25S"
+      language: "ko"
+      url_ko: "/ko/teaching/2025-spring-general-chemistry-1/"
+
+- id: general-chemistry-2
+  order: 2
+  title_en: "General Chemistry 2"
+  title_ko: "일반화학 2"
+  codes:
+    - "CH15847"
+    - "CH1500847"
+  offerings:
+    - term: "2020F"
+      label: "20F-002"
+      language: "ko"
+      section: "002"
+      url_ko: "/ko/teaching/2020-fall-general-chemistry-2-section-002/"
+    - term: "2020F"
+      label: "20F-006"
+      language: "ko"
+      section: "006"
+      url_ko: "/ko/teaching/2020-fall-general-chemistry-2-section-006/"
+    - term: "2023F"
+      label: "23F"
+      language: "ko"
+      url_ko: "/ko/teaching/2023-fall-general-chemistry-2/"
+
+- id: applied-mathematics-for-chemists
+  order: 3
+  title_en: "Applied Mathematics for Chemists"
+  title_ko: "화학수학"
+  codes:
+    - "CH16561"
+    - "CH1600561"
+  offerings:
+    - term: "2021F"
+      label: "21F-034"
+      language: "en"
+      section: "034"
+      url_ko: "/ko/teaching/2021-fall-applied-mathematics-for-chemists-section-034/"
+    - term: "2021F"
+      label: "21F-035"
+      language: "ko"
+      section: "035"
+      url_ko: "/ko/teaching/2021-fall-applied-mathematics-for-chemists-section-035/"
+    - term: "2022F"
+      label: "22F-034"
+      language: "ko"
+      section: "034"
+      url_ko: "/ko/teaching/2022-fall-applied-mathematics-for-chemists-section-034/"
+    - term: "2022F"
+      label: "22F-035"
+      language: "ko"
+      section: "035"
+      url_ko: "/ko/teaching/2022-fall-applied-mathematics-for-chemists-section-035/"
+    - term: "2024F"
+      label: "24F"
+      language: "ko"
+      url_ko: "/ko/teaching/2024-fall-applied-mathematics-for-chemists/"
+
+- id: physical-chemistry-1
+  order: 4
+  title_en: "Physical Chemistry 1"
+  title_ko: "물리화학 1"
+  codes:
+    - "CH22601"
+    - "CH2200601"
+    - "CI22601"
+    - "CI2200601"
+  offerings:
+    - term: "2021S"
+      label: "21S"
+      language: "ko"
+      url_ko: "/ko/teaching/2021-spring-physical-chemistry-1/"
+    - term: "2022S"
+      label: "22S"
+      language: "ko"
+      url_ko: "/ko/teaching/2022-spring-physical-chemistry-1/"
+    - term: "2023S"
+      label: "23S-CH"
+      language: "ko"
+      unit_short: "CH"
+      url_ko: "/ko/teaching/2023-spring-physical-chemistry-1-ch/"
+    - term: "2023S"
+      label: "23S-CI"
+      language: "ko"
+      unit_short: "CI"
+      url_ko: "/ko/teaching/2023-spring-physical-chemistry-1-ci/"
+    - term: "2024S"
+      label: "24S"
+      language: "ko"
+      url_ko: "/ko/teaching/2024-spring-physical-chemistry-1/"
+    - term: "2025S"
+      label: "25S"
+      language: "ko"
+      url_ko: "/ko/teaching/2025-spring-physical-chemistry-1/"
+
+- id: physical-chemistry-2
+  order: 5
+  title_en: "Physical Chemistry 2"
+  title_ko: "물리화학 2"
+  codes:
+    - "CH22604"
+    - "CH2200604"
+  offerings:
+    - term: "2022F"
+      label: "22F"
+      language: "ko"
+      url_ko: "/ko/teaching/2022-fall-physical-chemistry-2/"
+    - term: "2023F"
+      label: "23F"
+      language: "ko"
+      url_ko: "/ko/teaching/2023-fall-physical-chemistry-2/"
+
+- id: big-chem
+  order: 6
+  title_en: "Big Chem: Big Data Analysis in Chemistry"
+  title_ko: "화학 빅데이터 분석법"
+  codes:
+    - "CH35440"
+    - "CH3500440"
+  offerings:
+    - term: "2021S"
+      label: "21S"
+      language: "ko"
+      url_ko: "/ko/teaching/2021-spring-big-chem/"
+    - term: "2022S"
+      label: "22S"
+      language: "ko"
+      url_ko: "/ko/teaching/2022-spring-big-chem/"
+    - term: "2023S"
+      label: "23S"
+      language: "ko"
+      url_ko: "/ko/teaching/2023-spring-big-chem/"
+
+- id: physical-chemistry-of-materials
+  order: 7
+  title_en: "Physical Chemistry of Materials"
+  title_ko: "소재물리화학"
+  codes:
+    - "CH2001796"
+  offerings:
+    - term: "2024F"
+      label: "24F"
+      language: "ko"
+      url_ko: "/ko/teaching/2024-fall-physical-chemistry-of-materials/"
+
+- id: advanced-physical-chemistry
+  order: 8
+  title_en: "Advanced Physical Chemistry"
+  title_ko: "고등물리화학"
+  codes:
+    - "CH60375"
+    - "CH6000375"
+  offerings:
+    - term: "2022S"
+      label: "22S"
+      language: "en"
+      url_ko: "/ko/teaching/2022-spring-advanced-physical-chemistry/"
+    - term: "2023S"
+      label: "23S"
+      language: "en"
+      url_ko: "/ko/teaching/2023-spring-advanced-physical-chemistry/"
+    - term: "2024S"
+      label: "24S"
+      language: "en"
+      url_ko: "/ko/teaching/2024-spring-advanced-physical-chemistry/"
+
+- id: molecular-modeling-ai-chemistry
+  order: 9
+  title_en: "Molecular Modeling and AI Chemistry"
+  title_ko: "분자모델링및AI화학"
+  codes:
+    - "CH6001550"
+  offerings:
+    - term: "2025S"
+      label: "25S"
+      language: "en"
+      url_ko: "/ko/teaching/2025-spring-molecular-modeling-ai-chemistry/"
+
+- id: chemical-physics
+  order: 10
+  title_en: "Chemical Physics"
+  title_ko: "화학물리"
+  codes:
+    - "CH70445"
+    - "CH7000445"
+  offerings:
+    - term: "2020F"
+      label: "20F"
+      language: "en"
+      url_ko: "/ko/teaching/2020-fall-chemical-physics/"
+
+- id: scientific-writing-for-chemists
+  order: 11
+  title_en: "Scientific Writing for Chemists"
+  title_ko: "화학영어논문작성법"
+  codes:
+    - "CH76141"
+    - "CH7600141"
+  offerings:
+    - term: "2021F"
+      label: "21F"
+      language: "en"
+      url_ko: "/ko/teaching/2021-fall-scientific-writing-for-chemists/"
+    - term: "2023F"
+      label: "23F"
+      language: "en"
+      url_ko: "/ko/teaching/2023-fall-scientific-writing-for-chemists/"
+    - term: "2024F"
+      label: "24F"
+      language: "en"
+      url_ko: "/ko/teaching/2024-fall-scientific-writing-for-chemists/"
+
+- id: science-writing
+  order: 12
+  title_en: "Science Writing"
+  title_ko: "과학 글쓰기"
+  codes:
+    - "GC1101033"
+  offerings:
+    - term: "2023F"
+      label: "23F"
+      language: "ko"
+      url_ko: "/ko/teaching/2023-fall-science-writing/"
