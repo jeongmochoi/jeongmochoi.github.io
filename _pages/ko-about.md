@@ -41,7 +41,7 @@ latest_posts:
 - **2024–2027**, [한국도레이펠로](https://koreatoraysf.org/ko/fellowship/fellowshipLaureatesView.do?idx=769)
 - **2023–2025**, [포스코사이언스펠로](https://www.postf.org/science/fellow/1762)
 - **2022/10**, KCS-Wiley 젊은화학자상
-- **2022/02**, 부산대학교 화학과 강의우수상
+- **2022/02**, 부산대학교 화학과 우수강의상
 - **2019/03**, 2019 Travel Award, Biophysical Society
 - **2018/02**, Postdoctoral Research Award, IDP Subgroup of the Biophysical Society
 - **2013 가을**, Harvard University Certificate of Teaching Excellence, Derek Bok Center
