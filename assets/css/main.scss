@@ -200,10 +200,14 @@ i:not([class*="fa-"]) {
 }
 
 .books-profile-page .book-cover-wrap {
-  width: 30%;
-  max-width: 270px;
-  min-width: 170px;
+  width: 220px;
+  max-width: 30%;
+  min-width: 0;
   margin-bottom: 1rem;
+}
+
+.books-profile-page .book-cover-wrap figure {
+  margin: 0;
 }
 
 .books-profile-page .book-cover-wrap.float-right {
