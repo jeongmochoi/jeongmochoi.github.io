@@ -270,3 +270,55 @@ i:not([class*="fa-"]) {
     font-size: 1.15rem;
   }
 }
+
+/* Individual book detail pages */
+.book-detail {
+  line-height: 1.75;
+}
+
+.book-detail-cover {
+  float: right;
+  width: 220px;
+  max-width: 30%;
+  margin: 0 0 1.25rem 1.75rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15);
+}
+
+.book-detail h2 {
+  font-size: 1.45rem;
+  font-weight: 500;
+  margin-top: 2.4rem;
+  margin-bottom: 0.9rem;
+}
+
+.book-detail blockquote {
+  border-left: 3px solid var(--global-theme-color);
+  padding-left: 1rem;
+  margin: 1rem 0 1.2rem 0;
+  color: var(--global-text-color);
+}
+
+.book-detail ul {
+  margin-bottom: 1.4rem;
+}
+
+.book-detail li {
+  line-height: 1.65;
+  margin-bottom: 0.35rem;
+}
+
+@media (max-width: 576px) {
+  .book-detail-cover {
+    float: none;
+    display: block;
+    width: 60%;
+    max-width: 220px;
+    margin: 0 auto 1.5rem auto;
+  }
+
+  .book-detail h2 {
+    font-size: 1.32rem;
+    margin-top: 2rem;
+  }
+}
