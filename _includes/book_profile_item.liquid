@@ -43,8 +43,7 @@
   {% endif %}
 
   <div class="book-meta">
-    {% if role %}{{ role }}{% endif %}
-    {% if publisher %}{% if role %} · {% endif %}{{ publisher }}{% endif %}
+    {% if publisher %}{{ publisher }}{% endif %}
     {% if book.year %} · {{ book.year }}{% endif %}
   </div>
 
