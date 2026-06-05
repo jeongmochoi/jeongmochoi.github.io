@@ -39,7 +39,7 @@
   <div class="book-meta">
     {% if publisher %}{{ publisher }}{% endif %}
     {% if book.year %}{% if publisher %} · {% endif %}{{ book.year }}{% endif %}
-    {% if book.isbn %} · ISBN {{ book.isbn }}{% endif %}
+    {% if book.isbn %} · {{ book.isbn }}{% endif %}
   </div>
 
   {% if award %}
