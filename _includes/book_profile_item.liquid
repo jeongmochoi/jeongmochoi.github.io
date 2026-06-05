@@ -66,7 +66,7 @@
   {% if detail_url != '' or book.links %}
     <div class="book-links">
       {% if detail_url != '' %}
-        <a href="{{ detail_url | relative_url }}" class="btn btn-sm z-depth-0" role="button">
+        <a href="{{ detail_url | relative_url }}" class="btn btn-sm z-depth-0 book-detail-link" role="button">
           {{ detail_label }}
         </a>
       {% endif %}
