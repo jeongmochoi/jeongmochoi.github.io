@@ -27,12 +27,6 @@
       {% assign book_cover_class = 'img-fluid z-depth-1 rounded' %}
       {% capture sizes %}(min-width: {{ site.max_width }}) {{ site.max_width | minus: 30 | times: 0.3 }}px, (min-width: 576px) 30vw, 95vw{% endcapture %}
       {% include figure.liquid loading="eager" path=book_cover_path class=book_cover_class sizes=sizes alt=title %}
-
-      {% if book.isbn %}
-        <div class="more-info book-more-info">
-          <p>ISBN: {{ book.isbn }}</p>
-        </div>
-      {% endif %}
     </div>
   {% endif %}
 
@@ -45,6 +39,7 @@
   <div class="book-meta">
     {% if publisher %}{{ publisher }}{% endif %}
     {% if book.year %} · {{ book.year }}{% endif %}
+    {% if book.isbn %} · ISBN {{ book.isbn }}{% endif %}
   </div>
 
   {% if award %}
