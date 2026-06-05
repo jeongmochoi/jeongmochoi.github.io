@@ -31,9 +31,11 @@ layout: page
         {% if course.offerings %}
           <div class="course-term-list">
             {% for offering in course.offerings %}
-              {% assign offering_url = offering.url_ko %}
+              {% assign offering_url = offering.url %}
 
-              {% if current_lang != 'ko' and offering.url_en %}
+              {% if current_lang == 'ko' and offering.url_ko %}
+                {% assign offering_url = offering.url_ko %}
+              {% elsif current_lang != 'ko' and offering.url_en %}
                 {% assign offering_url = offering.url_en %}
               {% endif %}
 
