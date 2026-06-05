@@ -123,8 +123,8 @@ textarea {
 }
 
 /* Softer italics only inside Publications/Papers pages */
-.publications em,
-.publications i:not([class*="fa-"]) {
+em,
+i:not([class*="fa-"]) {
   font-style: oblique 8deg;
 }
 
