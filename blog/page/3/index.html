@@ -41,9 +41,66 @@
 
     setThemeSetting(initialTheme);
   })();
-</script> <script>
+</script> <style>
+  ninja-keys [slot="footer"] {
+    display: block;
+    border-top: 1px solid var(--global-divider-color);
+    background: var(--global-bg-color);
+  }
+
+  .jm-ninja-footer {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+    padding: 0.55rem 0.9rem;
+    font-size: 0.78rem;
+    color: var(--global-text-color-light);
+    line-height: 1.2;
+  }
+
+  .jm-ninja-help {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.28rem;
+    white-space: nowrap;
+  }
+
+  .jm-ninja-footer kbd {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.35rem;
+    height: 1.25rem;
+    padding: 0 0.35rem;
+    border: 1px solid var(--global-divider-color);
+    border-radius: 0.25rem;
+    background: var(--global-code-bg-color, #f3f4f6);
+    color: var(--global-text-color);
+    font-family: inherit;
+    font-size: 0.68rem;
+    font-weight: 500;
+    line-height: 1;
+    box-shadow: none;
+  }
+
+  @media (max-width: 576px) {
+    .jm-ninja-footer {
+      gap: 0.65rem;
+      padding: 0.5rem 0.65rem;
+      font-size: 0.72rem;
+      flex-wrap: wrap;
+    }
+
+    .jm-ninja-footer kbd {
+      min-width: 1.2rem;
+      height: 1.15rem;
+      font-size: 0.62rem;
+      padding: 0 0.28rem;
+    }
+  }
+</style> <script>
   (function () {
-    const jmSearchPlaceholder = "Type to search";
+    const jmSearchPlaceholder = "Type to start searching";
     const jmSearchSection = "Navigation";
     const jmFooterSelect = "select";
     const jmFooterNavigate = "navigate";
@@ -370,9 +427,18 @@
     function makeFooterHTML() {
       return `
         <div class="jm-ninja-footer">
-          <span class="help"><span class="ninja-examplekey esc">enter</span> ${jmFooterSelect}</span>
-          <span class="help"><span class="ninja-examplekey esc">↑↓</span> ${jmFooterNavigate}</span>
-          <span class="help"><span class="ninja-examplekey esc">esc</span> ${jmFooterClose}</span>
+          <span class="jm-ninja-help">
+            <kbd>enter</kbd>
+            <span>${jmFooterSelect}</span>
+          </span>
+          <span class="jm-ninja-help">
+            <kbd>↑</kbd><kbd>↓</kbd>
+            <span>${jmFooterNavigate}</span>
+          </span>
+          <span class="jm-ninja-help">
+            <kbd>esc</kbd>
+            <span>${jmFooterClose}</span>
+          </span>
         </div>
       `;
     }
