@@ -13,7 +13,7 @@ ref: publications
 <!-- Bibsearch Feature -->
 
 제 [Google Scholar](http://scholar.google.com/citations?user=xHzl8QQAAAAJ) 페이지도 참고해 주세요.<br>
-\*는 공동 제1저자, †는 교신저자를 뜻합니다.
+아래에서 \*는 공동 제1저자, †는 교신저자를 뜻합니다.
 
 {% include bib_search.liquid %}
 
