@@ -402,12 +402,12 @@ i:not([class*="fa-"]) {
 }
 
 .teaching-index .course-name::after {
-  content: ":";
-  margin-left: 0.25rem;
+  content: "";
+  margin-left: 0;
 }
 
 .teaching-index .course-title-ko {
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .teaching-index .course-title-separator {
@@ -417,6 +417,10 @@ i:not([class*="fa-"]) {
 
 .teaching-index .course-title-en {
   font-weight: 600;
+}
+
+.teaching-index .course-sep {
+  display: none;
 }
 
 .teaching-index .course-terms {
