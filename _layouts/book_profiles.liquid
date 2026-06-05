@@ -1,0 +1,38 @@
+---
+layout: page
+---
+
+{% assign current_lang = page.lang | default: 'en' %}
+
+{% if current_lang == 'ko' %}
+  {% assign authored_heading = '저서' %}
+  {% assign translated_heading = '역서' %}
+{% else %}
+  {% assign authored_heading = 'Authored Books' %}
+  {% assign translated_heading = 'Translated Books' %}
+{% endif %}
+
+<div class="books-profile-page">
+
+  {{ content }}
+
+  {% assign authored_books = site.data.books | where: 'type', 'authored' %}
+  {% assign translated_books = site.data.books | where: 'type', 'translated' %}
+
+  {% if authored_books.size > 0 %}
+    <h2 class="book-section-heading">{{ authored_heading }}</h2>
+
+    {% for book in authored_books %}
+      {% include book_profile_item.liquid book=book lang=current_lang %}
+    {% endfor %}
+  {% endif %}
+
+  {% if translated_books.size > 0 %}
+    <h2 class="book-section-heading">{{ translated_heading }}</h2>
+
+    {% for book in translated_books %}
+      {% include book_profile_item.liquid book=book lang=current_lang %}
+    {% endfor %}
+  {% endif %}
+
+</div>
