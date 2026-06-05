@@ -190,6 +190,8 @@ i:not([class*="fa-"]) {
 }
 
 .books-profile-page .book-separator {
+  border: 0;
+  border-top: 1px solid var(--global-divider-color);
   margin-top: 1.7rem;
   margin-bottom: 1.7rem;
 }
