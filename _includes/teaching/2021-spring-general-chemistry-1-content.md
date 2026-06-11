@@ -1,23 +1,11 @@
 ## 강의 개요
 
 <dl class="course-meta-list">
-  <dt>과목명</dt>
-  <dd>일반화학 1 / General Chemistry 1</dd>
-
   <dt>교과목 번호</dt>
   <dd>CH15845</dd>
 
-  <dt>학기</dt>
-  <dd>2021년 봄학기</dd>
-
-  <dt>강의 언어</dt>
-  <dd>한국어</dd>
-
   <dt>시간 및 장소</dt>
   <dd>월수 오후 4:30–5:45, 비대면 강의</dd>
-
-  <dt>담당 교수</dt>
-  <dd>최정모</dd>
 
   <dt>기본 교재</dt>
   <dd>『레이먼드 창의 일반화학』 12판, 사이플러스, ISBN 9791188731114</dd>
