@@ -71,7 +71,23 @@ layout: page
                 {%- endif -%}
               {%- endcapture %}
 
+              {% assign page_exists = false %}
+
               {% if offering_url %}
+                {% for site_page in site.pages %}
+                  {% if site_page.url == offering_url %}
+                    {% assign page_exists = true %}
+                  {% endif %}
+                {% endfor %}
+
+                {% for teaching_page in site.teachings %}
+                  {% if teaching_page.url == offering_url %}
+                    {% assign page_exists = true %}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+
+              {% if offering_url and page_exists %}
                 <a
                   class="course-term-link"
                   href="{{ offering_url | relative_url }}"
