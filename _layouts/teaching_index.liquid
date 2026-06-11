@@ -9,63 +9,87 @@ layout: page
 
   {{ content }}
 
-<div class="course-list">
-  {% for course in courses %}
-    <section class="course-entry" id="{{ course.id }}">
-      <div class="course-line">
-        <div class="course-name">
-          <span class="course-title-ko">{{ course.title_ko }}</span>
-          <span class="course-title-separator">/</span>
-          <span class="course-title-en">{{ course.title_en }}</span>
+  <div class="course-list">
+    {% for course in courses %}
+      <section class="course-entry" id="{{ course.id }}">
+        <div class="course-line">
+          <div class="course-name">
+            <span class="course-title-ko">{{ course.title_ko }}</span>
+            <span class="course-title-separator">/</span>
+            <span class="course-title-en">{{ course.title_en }}</span>
+          </div>
+
+          <div class="course-terms">
+            {% for offering in course.offerings %}
+              {% assign offering_url = offering.url %}
+
+              {% if current_lang == 'ko' and offering.url_ko %}
+                {% assign offering_url = offering.url_ko %}
+              {% elsif current_lang != 'ko' and offering.url_en %}
+                {% assign offering_url = offering.url_en %}
+              {% endif %}
+
+              {% assign term_year = offering.term | slice: 0, 4 %}
+              {% assign term_year_short = term_year | slice: 2, 2 %}
+              {% assign term_semester = offering.term | slice: 4, 1 %}
+
+              {% if offering.label %}
+                {% assign term_label = offering.label %}
+              {% else %}
+                {% assign term_label = term_year_short | append: term_semester %}
+              {% endif %}
+
+              {% if term_semester == 'S' %}
+                {% assign term_en = 'Spring ' | append: term_year %}
+                {% assign term_ko = term_year | append: ' 봄학기' %}
+              {% elsif term_semester == 'F' %}
+                {% assign term_en = 'Fall ' | append: term_year %}
+                {% assign term_ko = term_year | append: ' 가을학기' %}
+              {% else %}
+                {% assign term_en = offering.term %}
+                {% assign term_ko = offering.term %}
+              {% endif %}
+
+              {% capture offering_title -%}
+                {%- if current_lang == 'ko' -%}
+                  {{ term_ko -}}
+                  {%- if offering.unit_ko -%}
+                    , {{ offering.unit_ko -}}
+                  {%- endif -%}
+                {%- else -%}
+                  {{ term_en -}}
+                  {%- if offering.unit_en -%}
+                    , {{ offering.unit_en -}}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endcapture %}
+
+              {% capture term_display -%}
+                {{- term_label -}}
+                {%- if offering.suffix -%}
+                  <sub>{{- offering.suffix -}}</sub>
+                {%- endif -%}
+              {%- endcapture %}
+
+              {% if offering_url %}
+                <a
+                  class="course-term-link"
+                  href="{{ offering_url | relative_url }}"
+                  title="{{ offering_title | strip }}"
+                  aria-label="{{ offering_title | strip }}"
+                >{{ term_display }}</a>
+              {% else %}
+                <span
+                  class="course-term-link disabled"
+                  title="{{ offering_title | strip }}"
+                  aria-label="{{ offering_title | strip }}"
+                >{{ term_display }}</span>
+              {% endif %}
+            {% endfor %}
+          </div>
         </div>
-
-        <div class="course-terms">
-          {% for offering in course.offerings %}
-            {% assign offering_url = offering.url %}
-
-            {% if current_lang == 'ko' and offering.url_ko %}
-              {% assign offering_url = offering.url_ko %}
-            {% elsif current_lang != 'ko' and offering.url_en %}
-              {% assign offering_url = offering.url_en %}
-            {% endif %}
-
-            {% assign term_year = offering.term | slice: 0, 4 %}
-            {% assign term_semester = offering.term | slice: 4, 1 %}
-
-            {% if term_semester == 'S' %}
-              {% assign term_en = 'Spring ' | append: term_year %}
-              {% assign term_ko = term_year | append: ' 봄학기' %}
-            {% elsif term_semester == 'F' %}
-              {% assign term_en = 'Fall ' | append: term_year %}
-              {% assign term_ko = term_year | append: ' 가을학기' %}
-            {% else %}
-              {% assign term_en = offering.term %}
-              {% assign term_en = offering.term %}
-              {% assign term_ko = offering.term %}
-            {% endif %}
-
-            {% capture offering_title -%}
-              {%- if current_lang == 'ko' -%}
-                {{ term_ko -}}
-                {%- if offering.section -%}, 분반 {{ offering.section }}{%- endif -%}
-                {%- if offering.unit_ko -%}, {{ offering.unit_ko }}{%- endif -%}
-              {%- else -%}
-                {{ term_en -}}
-                {%- if offering.section -%}, section {{ offering.section }}{%- endif -%}
-                {%- if offering.unit_en -%}, {{ offering.unit_en }}{%- endif -%}
-              {%- endif -%}
-            {%- endcapture %}
-
-            {% if offering_url %}
-              <a class="course-term-link" href="{{ offering_url | relative_url }}" title="{{ offering_title | strip }}">{{- offering.label -}}</a>
-            {% else %}
-              <span class="course-term-link disabled" title="{{ offering_title | strip }}">{{- offering.label -}}</span>
-            {% endif %}
-          {% endfor %}
-        </div>
-      </div>
-    </section>
-  {% endfor %}
-</div>
+      </section>
+    {% endfor %}
+  </div>
 
 </div>
