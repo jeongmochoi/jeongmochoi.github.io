@@ -487,6 +487,17 @@ i:not([class*="fa-"]) {
   margin-left: 0.03rem;
 }
 
+.teaching-index .course-term-link.disabled {
+  color: var(--global-text-color-light);
+  cursor: default;
+  text-decoration: none;
+}
+
+.teaching-index .course-term-link.disabled:hover {
+  color: var(--global-text-color-light);
+  text-decoration: none;
+}
+
 /* Individual teaching pages */
 .course-detail {
   line-height: 1.75;
