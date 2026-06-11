@@ -4,7 +4,7 @@ title: "2021 Spring, General Chemistry 1"
 permalink: /teaching/2021-spring-general-chemistry-1/
 nav: false
 lang: en
-ref: teaching
+ref: teaching-2021-spring-general-chemistry-1
 course_id: general-chemistry-1
 course_code: CH15845
 term: 2021S
