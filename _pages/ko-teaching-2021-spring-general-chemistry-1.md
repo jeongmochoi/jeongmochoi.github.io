@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "2021 Spring, General Chemistry 1"
+title: "2021 봄학기 일반화학 1"
 permalink: /ko/teaching/2021-spring-general-chemistry-1/
 nav: false
 lang: ko
