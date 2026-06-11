@@ -479,3 +479,10 @@ i:not([class*="fa-"]) {
     gap: 0.1rem 0.45rem;
   }
 }
+
+.teaching-index .course-term-link sub {
+  font-size: 0.7em;
+  line-height: 0;
+  vertical-align: -0.28em;
+  margin-left: 0.03rem;
+}
