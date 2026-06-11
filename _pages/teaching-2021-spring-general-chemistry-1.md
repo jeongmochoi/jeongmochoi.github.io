@@ -13,7 +13,7 @@ term_label: 21S
 
 <div class="course-detail" markdown="1">
 
-[← Back to Teaching](/teaching/)
+[← Back to Teaching test](/teaching/)
 
 {% include teaching/2021-spring-general-chemistry-1-content.md %}
 
