@@ -4,7 +4,7 @@ title: "2021 봄학기 일반화학 1"
 permalink: /ko/teaching/2021-spring-general-chemistry-1/
 nav: false
 lang: ko
-ref: teaching
+ref: teaching-2021-spring-general-chemistry-1
 course_id: general-chemistry-1
 course_code: CH15845
 term: 2021S
