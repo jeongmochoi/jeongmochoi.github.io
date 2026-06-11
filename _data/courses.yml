@@ -11,11 +11,13 @@
       language: "ko"
       course_code: "CH15845"
       url: "/teaching/2021-spring-general-chemistry-1/"
+      url_ko: "/ko/teaching/2021-spring-general-chemistry-1/"
     - term: "2025S"
       label: "25S"
       language: "ko"
       course_code: "CH1500845"
       url: "/teaching/2025-spring-general-chemistry-1/"
+      url_ko: "/ko/teaching/2025-spring-general-chemistry-1/"
 
 - id: general-chemistry-2
   order: 2
@@ -33,6 +35,7 @@
       unit_en: "section 002"
       unit_ko: "002분반"
       url: "/teaching/2020-fall-general-chemistry-2-002/"
+      url_ko: "/ko/teaching/2020-fall-general-chemistry-2-002/"
     - term: "2020F"
       label: "20F"
       suffix: "006"
@@ -41,11 +44,13 @@
       unit_en: "section 006"
       unit_ko: "006분반"
       url: "/teaching/2020-fall-general-chemistry-2-006/"
+      url_ko: "/ko/teaching/2020-fall-general-chemistry-2-006/"
     - term: "2023F"
       label: "23F"
       language: "ko"
       course_code: "CH1500847"
       url: "/teaching/2023-fall-general-chemistry-2/"
+      url_ko: "/ko/teaching/2023-fall-general-chemistry-2/"
 
 - id: applied-mathematics-for-chemists
   order: 3
@@ -63,6 +68,7 @@
       unit_en: "section 034"
       unit_ko: "034분반"
       url: "/teaching/2021-fall-applied-mathematics-for-chemists-034/"
+      url_ko: "/ko/teaching/2021-fall-applied-mathematics-for-chemists-034/"
     - term: "2021F"
       label: "21F"
       suffix: "035"
@@ -71,6 +77,7 @@
       unit_en: "section 035"
       unit_ko: "035분반"
       url: "/teaching/2021-fall-applied-mathematics-for-chemists-035/"
+      url_ko: "/ko/teaching/2021-fall-applied-mathematics-for-chemists-035/"
     - term: "2022F"
       label: "22F"
       suffix: "034"
@@ -79,6 +86,7 @@
       unit_en: "section 034"
       unit_ko: "034분반"
       url: "/teaching/2022-fall-applied-mathematics-for-chemists-034/"
+      url_ko: "/ko/teaching/2022-fall-applied-mathematics-for-chemists-034/"
     - term: "2022F"
       label: "22F"
       suffix: "035"
@@ -87,11 +95,13 @@
       unit_en: "section 035"
       unit_ko: "035분반"
       url: "/teaching/2022-fall-applied-mathematics-for-chemists-035/"
+      url_ko: "/ko/teaching/2022-fall-applied-mathematics-for-chemists-035/"
     - term: "2024F"
       label: "24F"
       language: "ko"
       course_code: "CH1600561"
       url: "/teaching/2024-fall-applied-mathematics-for-chemists/"
+      url_ko: "/ko/teaching/2024-fall-applied-mathematics-for-chemists/"
 
 - id: physical-chemistry-1
   order: 4
@@ -108,11 +118,13 @@
       language: "ko"
       course_code: "CH22601"
       url: "/teaching/2021-spring-physical-chemistry-1/"
+      url_ko: "/ko/teaching/2021-spring-physical-chemistry-1/"
     - term: "2022S"
       label: "22S"
       language: "ko"
       course_code: "CH22601"
       url: "/teaching/2022-spring-physical-chemistry-1/"
+      url_ko: "/ko/teaching/2022-spring-physical-chemistry-1/"
     - term: "2023S"
       label: "23S"
       suffix: "Chem"
@@ -121,6 +133,7 @@
       unit_en: "Chemistry"
       unit_ko: "화학과 개설"
       url: "/teaching/2023-spring-physical-chemistry-1-chem/"
+      url_ko: "/ko/teaching/2023-spring-physical-chemistry-1-chem/"
     - term: "2023S"
       label: "23S"
       suffix: "ChemEdu"
@@ -129,16 +142,19 @@
       unit_en: "Chemistry Education"
       unit_ko: "화학교육과 개설"
       url: "/teaching/2023-spring-physical-chemistry-1-chemedu/"
+      url_ko: "/ko/teaching/2023-spring-physical-chemistry-1-chemedu/"
     - term: "2024S"
       label: "24S"
       language: "ko"
       course_code: "CH2200601"
       url: "/teaching/2024-spring-physical-chemistry-1/"
+      url_ko: "/ko/teaching/2024-spring-physical-chemistry-1/"
     - term: "2025S"
       label: "25S"
       language: "ko"
       course_code: "CH2200601"
       url: "/teaching/2025-spring-physical-chemistry-1/"
+      url_ko: "/ko/teaching/2025-spring-physical-chemistry-1/"
 
 - id: physical-chemistry-2
   order: 5
@@ -153,11 +169,13 @@
       language: "ko"
       course_code: "CH22604"
       url: "/teaching/2022-fall-physical-chemistry-2/"
+      url_ko: "/ko/teaching/2022-fall-physical-chemistry-2/"
     - term: "2023F"
       label: "23F"
       language: "ko"
       course_code: "CH2200604"
       url: "/teaching/2023-fall-physical-chemistry-2/"
+      url_ko: "/ko/teaching/2023-fall-physical-chemistry-2/"
 
 - id: big-chem
   order: 6
@@ -172,16 +190,19 @@
       language: "ko"
       course_code: "CH35440"
       url: "/teaching/2021-spring-big-chem/"
+      url_ko: "/ko/teaching/2021-spring-big-chem/"
     - term: "2022S"
       label: "22S"
       language: "ko"
       course_code: "CH35440"
       url: "/teaching/2022-spring-big-chem/"
+      url_ko: "/ko/teaching/2022-spring-big-chem/"
     - term: "2023S"
       label: "23S"
       language: "ko"
       course_code: "CH35440"
       url: "/teaching/2023-spring-big-chem/"
+      url_ko: "/ko/teaching/2023-spring-big-chem/"
 
 - id: physical-chemistry-of-materials
   order: 7
@@ -195,6 +216,7 @@
       language: "ko"
       course_code: "CH2001796"
       url: "/teaching/2024-fall-physical-chemistry-of-materials/"
+      url_ko: "/ko/teaching/2024-fall-physical-chemistry-of-materials/"
 
 - id: advanced-physical-chemistry
   order: 8
@@ -209,16 +231,19 @@
       language: "en"
       course_code: "CH60375"
       url: "/teaching/2022-spring-advanced-physical-chemistry/"
+      url_ko: "/ko/teaching/2022-spring-advanced-physical-chemistry/"
     - term: "2023S"
       label: "23S"
       language: "en"
       course_code: "CH60375"
       url: "/teaching/2023-spring-advanced-physical-chemistry/"
+      url_ko: "/ko/teaching/2023-spring-advanced-physical-chemistry/"
     - term: "2024S"
       label: "24S"
       language: "en"
       course_code: "CH6000375"
       url: "/teaching/2024-spring-advanced-physical-chemistry/"
+      url_ko: "/ko/teaching/2024-spring-advanced-physical-chemistry/"
 
 - id: molecular-modeling-ai-chemistry
   order: 9
@@ -232,6 +257,7 @@
       language: "en"
       course_code: "CH6001550"
       url: "/teaching/2025-spring-molecular-modeling-ai-chemistry/"
+      url_ko: "/ko/teaching/2025-spring-molecular-modeling-ai-chemistry/"
 
 - id: chemical-physics
   order: 10
@@ -246,6 +272,7 @@
       language: "en"
       course_code: "CH70445"
       url: "/teaching/2020-fall-chemical-physics/"
+      url_ko: "/ko/teaching/2020-fall-chemical-physics/"
 
 - id: scientific-writing-for-chemists
   order: 11
@@ -260,16 +287,19 @@
       language: "en"
       course_code: "CH76141"
       url: "/teaching/2021-fall-scientific-writing-for-chemists/"
+      url_ko: "/ko/teaching/2021-fall-scientific-writing-for-chemists/"
     - term: "2023F"
       label: "23F"
       language: "en"
       course_code: "CH7600141"
       url: "/teaching/2023-fall-scientific-writing-for-chemists/"
+      url_ko: "/ko/teaching/2023-fall-scientific-writing-for-chemists/"
     - term: "2024F"
       label: "24F"
       language: "en"
       course_code: "CH7600141"
       url: "/teaching/2024-fall-scientific-writing-for-chemists/"
+      url_ko: "/ko/teaching/2024-fall-scientific-writing-for-chemists/"
 
 - id: science-writing
   order: 12
@@ -283,3 +313,4 @@
       language: "ko"
       course_code: "GC1101033"
       url: "/teaching/2023-fall-science-writing/"
+      url_ko: "/ko/teaching/2023-fall-science-writing/"
