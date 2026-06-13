@@ -78,6 +78,64 @@ textarea {
   }
 }
 
+/* Mobile navbar controls: keep language and theme buttons on the same row */
+@media (max-width: 575.98px) {
+  #navbarNav .navbar-menu-list {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center;
+  }
+
+  #navbarNav .navbar-menu-list > li.nav-item:not(.navbar-language-toggle):not(.navbar-search-toggle) {
+    flex: 0 0 100%;
+    width: 100%;
+  }
+
+  #navbarNav .navbar-menu-list > .navbar-language-toggle {
+    order: 10;
+    flex: 0 0 auto;
+    width: auto;
+    margin-right: 1.1rem;
+  }
+
+  #navbarNav .navbar-menu-list > .navbar-theme-toggle {
+    order: 11;
+    flex: 0 0 auto;
+    width: auto;
+    margin-right: 1.1rem;
+  }
+
+  #navbarNav .navbar-menu-list > .navbar-search-toggle {
+    order: 12;
+    flex: 0 0 100%;
+    width: 100%;
+  }
+
+  #navbarNav .navbar-menu-list > .navbar-language-toggle .nav-link,
+  #navbarNav .navbar-menu-list > .navbar-search-toggle .nav-link {
+    display: inline-flex;
+    align-items: center;
+    width: auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  #navbarNav .navbar-menu-list > .navbar-theme-toggle {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  #navbarNav .navbar-menu-list > .navbar-theme-toggle button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 /* About page typography */
 .jm-about {
   line-height: 1.68;
