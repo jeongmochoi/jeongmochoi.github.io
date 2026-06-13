@@ -31,7 +31,7 @@
 | 3 | 3/22 | 6강 | 3장 “화학 반응에서의 질량 관계”; 4장 “수용액에서의 반응” | [슬라이드](https://drive.google.com/file/d/1Odo-xi4OCPMoGYiYNgP1j840IKPg5_Xv/view?usp=sharing) · [영상](https://www.youtube.com/watch?v=BUGKCXMgu3A) |
 | 4 | 3/24 | 7강 | 4장 “수용액에서의 반응” | [슬라이드](https://drive.google.com/file/d/1OCU59nLAYM_ITCZAhNzxJgSMUXOr25YA/view?usp=sharing) · [영상](https://www.youtube.com/watch?v=1YG0IgWXI5g) |
 | 4 | 3/29 | 8강 | 4장 “수용액에서의 반응”; 5장 “기체” | [슬라이드](https://drive.google.com/file/d/1T-41LcPR4OntRhVXcyN4ojYLuRyxMztT/view?usp=sharing) · [영상](https://www.youtube.com/watch?v=SR3R8RAULbs) |
-| 5 | 3/31 | — | 휴강 | — |
+| 5 | 3/31 |  | 휴강 |  |
 | 5 | 4/5 | 9강 | 5장 “기체” | [슬라이드](https://drive.google.com/file/d/1uERobd4ujnKYD7udonrnlnzp0NRi9CDP/view?usp=sharing) · [영상](https://www.youtube.com/watch?v=8UEhfO87Xm0) |
 | 6 | 4/7 | 10강 | 6장 “열화학” | [슬라이드](https://drive.google.com/file/d/1Xmcrk7VFaLP6DUTNXo2lAepo7908fIfC/view?usp=sharing) · [영상](https://www.youtube.com/watch?v=rOK3OI4Ron8) |
 | 6 | 4/12 | 11강 | 6장 “열화학” | [슬라이드](https://drive.google.com/file/d/1YJoo_9yZIOyiTolOdHQSgMOl0oH2mIuE/view?usp=sharing) · [영상](https://www.youtube.com/watch?v=VEPLTuaGHKA) |
