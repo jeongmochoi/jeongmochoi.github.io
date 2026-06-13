@@ -242,7 +242,7 @@ i:not([class*="fa-"]) {
 
 .books-profile-page .book-section-heading {
   font-size: 1.55rem;
-  font-weight: 500;
+  font-weight: 600;
   margin-top: 2.8rem;
   margin-bottom: 1.1rem;
 }
@@ -250,43 +250,67 @@ i:not([class*="fa-"]) {
 .books-profile-page .book-separator {
   border: 0;
   border-top: 1px solid var(--global-divider-color);
+  height: 0;
   margin-top: 1.7rem;
   margin-bottom: 1.7rem;
 }
 
 .books-profile-page .book-entry {
+  display: grid;
+  column-gap: 1.5rem;
+  align-items: start;
   margin-bottom: 2.4rem;
-  min-height: 240px;
 }
 
-.books-profile-page .book-cover-wrap {
+.books-profile-page .book-entry.book-align-right {
+  grid-template-columns: minmax(0, 1fr) 220px;
+}
+
+.books-profile-page .book-entry.book-align-left {
+  grid-template-columns: 220px minmax(0, 1fr);
+}
+
+.books-profile-page .book-entry.book-align-right .book-info-panel {
+  grid-column: 1;
+}
+
+.books-profile-page .book-entry.book-align-right .book-cover-panel {
+  grid-column: 2;
+}
+
+.books-profile-page .book-entry.book-align-left .book-cover-panel {
+  grid-column: 1;
+}
+
+.books-profile-page .book-entry.book-align-left .book-info-panel {
+  grid-column: 2;
+}
+
+.books-profile-page .book-entry.book-no-cover {
+  display: block;
+}
+
+.books-profile-page .book-cover-panel {
   width: 220px;
-  max-width: 30%;
-  min-width: 0;
-  margin-bottom: 1rem;
+  max-width: 100%;
 }
 
-.books-profile-page .book-cover-wrap figure {
+.books-profile-page .book-cover-panel figure {
   margin: 0;
 }
 
-.books-profile-page .book-cover-wrap.float-right {
-  margin-left: 1.5rem;
-}
-
-.books-profile-page .book-cover-wrap.float-left {
-  margin-right: 1.5rem;
-}
-
-.books-profile-page .book-cover-wrap img {
+.books-profile-page .book-cover-panel img {
+  display: block;
   width: 100%;
   height: auto;
+  margin: 0 auto;
 }
 
 .books-profile-page .book-title {
   font-size: 1.28rem;
   font-weight: 600;
   line-height: 1.35;
+  margin-top: 0;
   margin-bottom: 0.25rem;
 }
 
@@ -312,6 +336,9 @@ i:not([class*="fa-"]) {
 }
 
 .books-profile-page .book-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
   margin-top: 0.8rem;
 }
 
@@ -324,8 +351,7 @@ i:not([class*="fa-"]) {
   font-size: 0.75rem;
   line-height: 1.5;
   padding: 0.25rem 0.75rem;
-  margin-right: 0.35rem;
-  margin-bottom: 0.35rem;
+  margin: 0;
   text-transform: none;
 }
 
@@ -346,23 +372,21 @@ i:not([class*="fa-"]) {
   background-color: transparent;
 }
 
-.books-profile-page .book-more-info {
-  font-size: 0.78rem;
-  text-align: center;
-}
-
 @media (max-width: 576px) {
-  .books-profile-page .book-entry {
-    min-height: 0;
+  .books-profile-page .book-entry,
+  .books-profile-page .book-entry.book-align-left,
+  .books-profile-page .book-entry.book-align-right {
+    display: block;
   }
 
-  .books-profile-page .book-cover-wrap.float-right,
-  .books-profile-page .book-cover-wrap.float-left {
-    float: none !important;
+  .books-profile-page .book-cover-panel {
     width: 60%;
     max-width: 220px;
-    min-width: 0;
     margin: 0 auto 1.25rem auto;
+  }
+
+  .books-profile-page .book-info-panel {
+    width: 100%;
   }
 
   .books-profile-page .book-section-heading {
@@ -424,50 +448,6 @@ i:not([class*="fa-"]) {
   .book-detail h2 {
     font-size: 1.32rem;
     margin-top: 2rem;
-  }
-}
-
-/* Mobile Books page: center all book covers, regardless of left/right alignment */
-@media (max-width: 576px) {
-  .books-profile-page .book-entry {
-    min-height: 0;
-  }
-
-  .books-profile-page .book-entry .book-cover-wrap,
-  .books-profile-page .book-entry .book-cover-wrap.float-left,
-  .books-profile-page .book-entry .book-cover-wrap.float-right,
-  .books-profile-page .book-entry .book-cover-wrap.float-start,
-  .books-profile-page .book-entry .book-cover-wrap.float-end,
-  .books-profile-page .book-entry .profile.float-left,
-  .books-profile-page .book-entry .profile.float-right,
-  .books-profile-page .book-entry .profile.float-start,
-  .books-profile-page .book-entry .profile.float-end,
-  .books-profile-page .book-entry > figure {
-    float: none !important;
-    display: block !important;
-    clear: both;
-    width: 60%;
-    max-width: 220px;
-    min-width: 0;
-    margin: 0 auto 1.25rem auto !important;
-  }
-
-  .books-profile-page .book-entry .book-cover-wrap figure,
-  .books-profile-page .book-entry .profile figure,
-  .books-profile-page .book-entry > figure {
-    margin-left: auto !important;
-    margin-right: auto !important;
-    text-align: center;
-  }
-
-  .books-profile-page .book-entry .book-cover-wrap img,
-  .books-profile-page .book-entry .profile img,
-  .books-profile-page .book-entry > figure img,
-  .books-profile-page .book-entry img.book-cover-img {
-    display: block;
-    width: 100%;
-    height: auto;
-    margin: 0 auto;
   }
 }
 
