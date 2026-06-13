@@ -427,6 +427,50 @@ i:not([class*="fa-"]) {
   }
 }
 
+/* Mobile Books page: center all book covers, regardless of left/right alignment */
+@media (max-width: 576px) {
+  .books-profile-page .book-entry {
+    min-height: 0;
+  }
+
+  .books-profile-page .book-entry .book-cover-wrap,
+  .books-profile-page .book-entry .book-cover-wrap.float-left,
+  .books-profile-page .book-entry .book-cover-wrap.float-right,
+  .books-profile-page .book-entry .book-cover-wrap.float-start,
+  .books-profile-page .book-entry .book-cover-wrap.float-end,
+  .books-profile-page .book-entry .profile.float-left,
+  .books-profile-page .book-entry .profile.float-right,
+  .books-profile-page .book-entry .profile.float-start,
+  .books-profile-page .book-entry .profile.float-end,
+  .books-profile-page .book-entry > figure {
+    float: none !important;
+    display: block !important;
+    clear: both;
+    width: 60%;
+    max-width: 220px;
+    min-width: 0;
+    margin: 0 auto 1.25rem auto !important;
+  }
+
+  .books-profile-page .book-entry .book-cover-wrap figure,
+  .books-profile-page .book-entry .profile figure,
+  .books-profile-page .book-entry > figure {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center;
+  }
+
+  .books-profile-page .book-entry .book-cover-wrap img,
+  .books-profile-page .book-entry .profile img,
+  .books-profile-page .book-entry > figure img,
+  .books-profile-page .book-entry img.book-cover-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+  }
+}
+
 /* Teaching index page */
 .teaching-index {
   line-height: 1.7;
@@ -568,9 +612,11 @@ i:not([class*="fa-"]) {
   margin-bottom: 0.9rem;
 }
 
+/*
 .course-detail table {
   font-size: 0.9rem;
 }
+*/
 
 .course-detail table th {
   font-weight: 600;
