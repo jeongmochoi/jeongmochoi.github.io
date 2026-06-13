@@ -13,7 +13,6 @@ layout: page
 {% endif %}
 
 <div class="books-profile-page">
-
   {{ content }}
 
   {% assign authored_books = site.data.books | where: 'type', 'authored' %}
@@ -34,5 +33,4 @@ layout: page
       {% include book_profile_item.liquid book=book lang=current_lang %}
     {% endfor %}
   {% endif %}
-
 </div>
