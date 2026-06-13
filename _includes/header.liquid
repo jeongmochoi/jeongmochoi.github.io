@@ -163,7 +163,7 @@
           {% endfor %}
 
           <!-- Language switch -->
-          <li class="nav-item">
+          <li class="nav-item navbar-language-toggle">
             <a
               class="nav-link"
               href="{{ language_switch_url | relative_url }}"
@@ -177,7 +177,7 @@
 
           {% if site.search_enabled %}
             <!-- Search -->
-            <li class="nav-item">
+            <li class="nav-item navbar-search-toggle">
               <button id="search-toggle" type="button" title="{{ search_title }}" aria-label="{{ search_aria }}">
                 <span class="nav-link"><i class="fa-solid fa-magnifying-glass"></i></span>
               </button>
@@ -186,7 +186,7 @@
 
           {% if site.enable_darkmode %}
             <!-- Toggle theme mode -->
-            <li class="toggle-container">
+            <li class="toggle-container navbar-theme-toggle">
               <button id="light-toggle" type="button" title="{{ theme_title }}" aria-label="{{ theme_aria }}">
                 <i class="fa-solid fa-moon" id="light-toggle-dark"></i>
                 <i class="fa-solid fa-sun" id="light-toggle-light"></i>
