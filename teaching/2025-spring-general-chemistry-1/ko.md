@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "2025 Spring, General Chemistry 1"
+title: "2025년 봄학기 일반화학 1"
 permalink: /ko/teaching/2025-spring-general-chemistry-1/
 nav: false
 lang: ko
