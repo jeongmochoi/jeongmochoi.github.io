@@ -700,32 +700,6 @@ html[data-theme="dark"] .course-detail {
   }
 }
 
-/* Sticky header for teaching schedule tables */
-@media (min-width: 769px) {
-  .course-detail .course-table-wrap {
-    overflow: visible;
-  }
-
-  .course-detail .course-table-wrap table {
-    border-collapse: separate;
-    border-spacing: 0;
-  }
-
-  .course-detail .course-table-wrap thead th {
-    position: sticky;
-    top: 3.75rem;
-    z-index: 5;
-    background-color: var(--global-bg-color);
-    box-shadow: 0 1px 0 var(--global-divider-color);
-  }
-}
-
-@media (max-width: 768px) {
-  .course-detail .course-table-wrap {
-    overflow-x: auto;
-  }
-}
-
 /* Make exam labels as bold as table headers */
 .course-detail table tbody .course-row-muted strong,
 .course-detail table tbody .course-row-holiday strong,
