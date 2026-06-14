@@ -286,6 +286,11 @@ i:not([class*="fa-"]) {
   grid-column: 2;
 }
 
+.books-profile-page .book-entry .book-cover-panel,
+.books-profile-page .book-entry .book-info-panel {
+  grid-row: 1;
+}
+
 .books-profile-page .book-entry.book-no-cover {
   display: block;
 }
