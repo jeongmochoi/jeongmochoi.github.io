@@ -41,7 +41,7 @@
 |  | 4/26 | 13강 | 7장 “양자론과 원자의 전자 구조” | [슬라이드](https://drive.google.com/file/d/1u-2yEeIrXEn8U-5Q6psMMs-ZFohOCiMB/view?usp=sharing) · [영상](https://www.youtube.com/watch?v=W1cj5C2ZyqQ) |
 | 9 | 4/28 | 14강 | 7장 “양자론과 원자의 전자 구조” | [슬라이드](https://drive.google.com/file/d/1qNqHCrJPNvN6A5AScNedYj_V6dZB1FDq/view?usp=sharing) · [영상](https://www.youtube.com/watch?v=JH7JsyK249g) |
 |  | 5/3 | 15강 | 7장 “양자론과 원자의 전자 구조” | [슬라이드](https://drive.google.com/file/d/1wG0QOcODdGrrdFvvCEQ3Ib4PPwD_F4yj/view?usp=sharing) · [영상](https://www.youtube.com/watch?v=WZrorDqvJ3s) |
-| 10 | 5/5 |  | 어린이날 |  |
+| 10 | 5/5 |  | <span class="course-row-holiday">어린이날</span> |  |
 |  | 5/10 | 16강 | 7장 “양자론과 원자의 전자 구조”; 8장 “원소의 주기성” | [슬라이드](https://drive.google.com/file/d/1bvE_VkE76oF2RHjUlUDx9wfgzP82sucb/view?usp=sharing) · [영상](https://www.youtube.com/watch?v=XhSDTSKcQu8) |
 | 11 | 5/12 |  | <span class="course-row-muted">휴강</span> |  |
 |  | 5/17 | 17강 | 8장 “원소의 주기성”; 9장 “화학 결합 I” | [슬라이드](https://drive.google.com/file/d/1jUv_Faf907Et4LlNWiK2XBArpUFNEf52/view?usp=sharing) · [영상](https://www.youtube.com/watch?v=9jp3AyGm-PE) |
