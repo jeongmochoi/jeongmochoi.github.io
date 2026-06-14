@@ -53,7 +53,7 @@
 |  | 6/5 | 20강 | 구조와 결합 이론들(10장) | [슬라이드](https://drive.google.com/file/d/1trRROWUew417OhDzxK4ik6OWE1GRagJ0/view?usp=drive_link) · [영상](https://www.youtube.com/watch?v=ryHqRi-HVwA) |
 | 15 | 6/10 | 21강 | 복습 | [슬라이드](https://drive.google.com/file/d/1jeY8zrOOziZN-36rVsflgZ5v5FTir2tz/view?usp=drive_link) · [영상](https://www.youtube.com/watch?v=s1HFy3oi-oU) |
 |  | 6/12 |  | <span class="course-row-muted">**기말고사**</span> |  |
-| 16 | 6/17 |  |  |  |
-|  | 6/19 |  |  |  |
+| 16 | 6/17 |  | <span class="course-row-muted"></span> |  |
+|  | 6/19 |  | <span class="course-row-muted"></span> |  |
 
 </div>
