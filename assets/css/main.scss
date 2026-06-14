@@ -592,11 +592,9 @@ i:not([class*="fa-"]) {
   margin-bottom: 0.9rem;
 }
 
-/*
 .course-detail table {
   font-size: 0.9rem;
 }
-*/
 
 .course-detail table th {
   font-weight: 600;
@@ -617,6 +615,27 @@ i:not([class*="fa-"]) {
   min-width: 760px;
 }
 
+.course-detail table tbody tr:has(.course-row-muted) {
+  background-color: rgba(0, 0, 0, 0.035);
+}
+
+.course-detail table tbody tr:has(.course-row-muted):hover {
+  background-color: rgba(0, 0, 0, 0.035) !important;
+}
+
+.course-detail table tbody tr:has(.course-row-holiday) {
+  background-color: rgba(220, 53, 69, 0.08);
+}
+
+.course-detail table tbody tr:has(.course-row-holiday):hover {
+  background-color: rgba(220, 53, 69, 0.08) !important;
+}
+
+.course-detail .course-row-muted,
+.course-detail .course-row-holiday {
+  font-weight: 500;
+}
+
 @media (max-width: 576px) {
   .course-detail h2 {
     font-size: 1.32rem;
@@ -635,7 +654,6 @@ i:not([class*="fa-"]) {
   column-gap: 1.1rem;
   row-gap: 0.55rem;
   margin: 1rem 0 1.7rem 0;
-  font-size: 0.95rem;
 }
 
 .course-detail .course-meta-list dt {
