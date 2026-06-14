@@ -620,25 +620,38 @@ i:not([class*="fa-"]) {
   min-width: 760px;
 }
 
-.course-detail table tbody tr:has(.course-row-muted) {
-  background-color: rgba(0, 0, 0, 0.035);
+/* Special rows in teaching schedule tables */
+.course-detail {
+  --jm-course-muted-row-bg: rgba(0, 0, 0, 0.035);
+  --jm-course-holiday-text-color: #b00020;
 }
 
-.course-detail table tbody tr:has(.course-row-muted):hover {
-  background-color: rgba(0, 0, 0, 0.035) !important;
+html[data-theme="dark"] .course-detail {
+  --jm-course-muted-row-bg: rgba(255, 255, 255, 0.045);
+  --jm-course-holiday-text-color: #ff8a8a;
 }
 
-.course-detail table tbody tr:has(.course-row-holiday) {
-  background-color: rgba(220, 53, 69, 0.08);
+.course-detail table tbody tr:has(.course-row-muted),
+.course-detail table tbody tr:has(.course-row-muted) > *,
+.course-detail table tbody tr:has(.course-row-holiday),
+.course-detail table tbody tr:has(.course-row-holiday) > * {
+  background-color: var(--jm-course-muted-row-bg) !important;
 }
 
-.course-detail table tbody tr:has(.course-row-holiday):hover {
-  background-color: rgba(220, 53, 69, 0.08) !important;
+.course-detail table tbody tr:has(.course-row-muted):hover,
+.course-detail table tbody tr:has(.course-row-muted):hover > *,
+.course-detail table tbody tr:has(.course-row-holiday):hover,
+.course-detail table tbody tr:has(.course-row-holiday):hover > * {
+  background-color: var(--jm-course-muted-row-bg) !important;
 }
 
 .course-detail .course-row-muted,
 .course-detail .course-row-holiday {
-  font-weight: 500;
+  font-weight: inherit;
+}
+
+.course-detail .course-row-holiday {
+  color: var(--jm-course-holiday-text-color);
 }
 
 @media (max-width: 576px) {
