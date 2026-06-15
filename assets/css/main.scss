@@ -685,6 +685,28 @@ html[data-theme="dark"] .course-detail {
   color: var(--global-text-color);
 }
 
+/* Lists inside course metadata */
+.course-detail .course-meta-list dd ul,
+.course-detail .course-meta-list dd ol {
+  margin-top: 0.35rem;
+  margin-bottom: 0;
+  padding-left: 1.35rem;
+}
+
+.course-detail .course-meta-list dd li {
+  line-height: inherit;
+  margin-top: 0;
+  margin-bottom: 0.15rem;
+}
+
+.course-detail .course-meta-list dd li:last-child {
+  margin-bottom: 0;
+}
+
+.course-detail .course-meta-list dd li > p {
+  margin: 0;
+}
+
 @media (max-width: 576px) {
   .course-detail .course-meta-list {
     grid-template-columns: 1fr;
