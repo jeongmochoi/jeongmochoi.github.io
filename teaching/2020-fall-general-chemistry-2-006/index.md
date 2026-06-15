@@ -14,7 +14,7 @@ course_asset_base: /teaching/2020-fall-general-chemistry-2-006/
 
 <div class="course-detail" markdown="1">
 
-[← Back to Teaching](/teaching/)
+[← Back to Teaching kkk](/teaching/)
 
 {% include_relative _content.md %}
 
