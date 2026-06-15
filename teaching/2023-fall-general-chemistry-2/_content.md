@@ -67,7 +67,7 @@
 |  | 12/7 | 22강 | 고분자 화학 및 생화학(25장) | [슬라이드]({{ page.course_asset_base | append: 'lec22.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=fLyBhf5h6co) |
 | 15 | 12/12 | 23강 | 시험 안내 및 복습 | [슬라이드]({{ page.course_asset_base | append: 'lec23.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=zCH8ULWhVHQ) |
 |  | 12/14 |  | <span class="course-row-muted">**기말고사**</span> |  |
-| 16 | 12/19 |  | <span class="course-row-muted">**기말고사**</span> |  |
-|  | 12/21 |  | <span class="course-row-muted">**기말고사**</span> |  |
+| 16 | 12/19 |  | <span class="course-row-muted"></span> |  |
+|  | 12/21 |  | <span class="course-row-muted"></span> |  |
 
 </div>
