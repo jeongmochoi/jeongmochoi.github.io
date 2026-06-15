@@ -27,7 +27,7 @@
 |  | 3/8 | 2강 | 1장 “화학: 변화에 대한 연구” | [슬라이드]({{ page.course_asset_base | append: 'lec02.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=rAgFwK9uwiQ) |
 | 2 | 3/10 | 3강 | 1장 “화학: 변화에 대한 연구” / 2장 “원자, 분자 및 이온” | [슬라이드]({{ page.course_asset_base | append: 'lec03.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=3IjGDTzRokM) |
 |  | 3/15 | 4강 | 2장 “원자, 분자 및 이온” | [슬라이드]({{ page.course_asset_base | append: 'lec04.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=C42qoTm3PNI) |
-| 3 | 3/17 | 5강 | 2장 “원자, 분자 및 이온” · 3장 “화학 반응에서의 질량 관계” | [슬라이드]({{ page.course_asset_base | append: 'lec05.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=_Erc7Zv1Nmc) |
+| 3 | 3/17 | 5강 | 2장 “원자, 분자 및 이온” / 3장 “화학 반응에서의 질량 관계” | [슬라이드]({{ page.course_asset_base | append: 'lec05.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=_Erc7Zv1Nmc) |
 |  | 3/22 | 6강 | 3장 “화학 반응에서의 질량 관계” / 4장 “수용액에서의 반응” | [슬라이드]({{ page.course_asset_base | append: 'lec06.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=BUGKCXMgu3A) |
 | 4 | 3/24 | 7강 | 4장 “수용액에서의 반응” | [슬라이드]({{ page.course_asset_base | append: 'lec07.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=1YG0IgWXI5g) |
 |  | 3/29 | 8강 | 4장 “수용액에서의 반응” / 5장 “기체” | [슬라이드]({{ page.course_asset_base | append: 'lec08.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=SR3R8RAULbs) |
