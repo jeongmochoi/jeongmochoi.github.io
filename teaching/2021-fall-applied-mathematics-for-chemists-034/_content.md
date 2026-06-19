@@ -14,7 +14,7 @@
   <dd>본 강의의 목표는 학생들이 전공 과목에서 필요로 하는 수학적 기술을 익히고 화학 문제에 적용할 수 있도록 하는 것입니다.</dd>
 
   <dt>기본 교재</dt>
-  <dd>Robert G. Mortimer, Mathematics for Physical Chemistry, 4th Ed., Elsevier, ISBN 9780124158092</dd>
+  <dd>Robert G. Mortimer, <em>Mathematics for Physical Chemistry</em>, 4th Ed., Elsevier, ISBN 9780124158092</dd>
 
   <dt>수업 범위</dt>
   <dd>교재의 8, 9, 12, 13장</dd>
