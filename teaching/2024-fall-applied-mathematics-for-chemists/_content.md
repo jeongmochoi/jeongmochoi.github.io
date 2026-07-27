@@ -53,9 +53,9 @@
 |  | 11/14 | 17강 | 군론 | [슬라이드]({{ page.course_asset_base | append: 'lec17.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=PsvmK9tivgw) |
 | 12 | 11/19 | 18강 | 확률 | [슬라이드]({{ page.course_asset_base | append: 'lec18.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=ptt3tgkK6To) |
 |  | 11/21 |  | <span class="course-row-muted">휴강</span> |  |
-| 13 | 11/26 |  | 확률 | [슬라이드]({{ page.course_asset_base | append: 'lec19.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=NYxeiOu0n_Y) |
+| 13 | 11/26 | 19강 | 확률 | [슬라이드]({{ page.course_asset_base | append: 'lec19.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=NYxeiOu0n_Y) |
 |  | 11/28 |  | <span class="course-row-muted">휴강</span> |  |
-| 14 | 12/3 |  | 시험 안내 및 복습 | [슬라이드]({{ page.course_asset_base | append: 'lec20.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=_q1aYUlMGbg) |
+| 14 | 12/3 | 20강 | 시험 안내 및 복습 | [슬라이드]({{ page.course_asset_base | append: 'lec20.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=_q1aYUlMGbg) |
 |  | 12/5 |  | <span class="course-row-muted">**기말고사**</span> |  |
 | 15 | 12/10 |  | <span class="course-row-muted"></span> |  |
 |  | 12/12 |  | <span class="course-row-muted"></span> |  |
