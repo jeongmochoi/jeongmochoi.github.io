@@ -49,7 +49,7 @@ ref: books
 <div class="book-detail-awards" markdown="1">
 
 - [아태이론물리연구소(APCTP) 선정 **2025 올해의 과학도서**](https://www.apctp.org/bbs/board.php?bo_table=media&wr_id=7593)
-- [대한출판문화협회/한국출판문화진흥재단 선정 **2025년 하반기 올해의 청소년 교양도서**](https://www.tkpf.or.kr/contents/readCountN.php?no=126)
+- [대한출판문화협회/한국출판문화진흥재단 선정 **2025년 하반기 올해의 청소년 교양도서**](http://www.tkpf.or.kr/contents/community_notice_view.php?no=126)
 - [교보문고 **MD의 선택**](https://product.kyobobook.co.kr/detail/S000217097034)
 
 </div>
@@ -59,5 +59,5 @@ ref: books
 - [고관수, 「화학자는 현대의 연금술사」, 브런치](https://brunch.co.kr/@kwansooko/1497)
 - [김영의 사서, 광진구립도서관 이달의 추천도서 서평](https://www.gwangjinlib.seoul.kr/gunja/recommendBookDetail.do?bookIdx=5751&recommendTypeCd=general)
 - [다니엘, 네이버 블로그 리뷰](https://blog.naver.com/genetic2002/224132877370)
-- 
+
 </div>
