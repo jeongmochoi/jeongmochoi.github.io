@@ -7,7 +7,7 @@
   <dt>Time and venue</dt>
   <dd>MW 3:00–4:15, on-line</dd>
 
-  <dt>Prerequisites</dt>
+  <dt>Prerequisite</dt>
   <dd>Mathematics (I)</dd>
 
   <dt>Course objective</dt>
