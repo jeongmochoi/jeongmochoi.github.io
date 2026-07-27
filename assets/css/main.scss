@@ -561,6 +561,56 @@ i:not([class*="fa-"]) {
   font-weight: 500;
 }
 
+/* Book detail awards: prominent card-like text list */
+.book-detail-awards {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.book-detail-awards .book-award-item {
+  display: block;
+  border: 0;
+  border-left: 3px solid var(--global-theme-color);
+  padding: 0.55rem 0 0.55rem 0.85rem;
+  background: rgba(0, 0, 0, 0.025);
+  box-shadow: none;
+  color: var(--global-text-color);
+  text-decoration: none;
+}
+
+.book-detail-awards .book-award-item:hover {
+  border-left-color: var(--global-theme-color);
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--global-text-color);
+  text-decoration: none;
+}
+
+.book-detail-awards .book-award-title {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--global-text-color);
+}
+
+.book-detail-awards .book-award-source {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: var(--global-text-color-light);
+}
+
+html[data-theme="dark"] .book-detail-awards .book-award-item {
+  background: rgba(255, 255, 255, 0.045);
+}
+
+html[data-theme="dark"] .book-detail-awards .book-award-item:hover {
+  background: rgba(255, 255, 255, 0.065);
+}
+
 /* Teaching index page */
 .teaching-index {
   line-height: 1.7;
