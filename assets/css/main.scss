@@ -594,6 +594,44 @@ i:not([class*="fa-"]) {
   font-weight: 600;
 }
 
+/* Book detail table of contents */
+.book-detail-toc {
+  margin-top: 0.7rem;
+  margin-bottom: 2rem;
+}
+
+.book-detail-toc > ul {
+  padding-left: 1.25rem;
+  margin-bottom: 0;
+}
+
+.book-detail-toc li {
+  line-height: 1.65;
+  margin-bottom: 0.25rem;
+}
+
+.book-detail-toc li:last-child {
+  margin-bottom: 0;
+}
+
+.book-detail-toc ul ul {
+  margin-top: 0.25rem;
+  margin-bottom: 0.45rem;
+  padding-left: 1.25rem;
+}
+
+.book-detail-toc > ul > li {
+  margin-bottom: 0.55rem;
+}
+
+.book-detail-toc > ul > li > ul > li {
+  color: var(--global-text-color);
+}
+
+.book-detail-toc > ul > li:not(:has(ul)) {
+  font-weight: 500;
+}
+
 /* Teaching index page */
 .teaching-index {
   line-height: 1.7;
