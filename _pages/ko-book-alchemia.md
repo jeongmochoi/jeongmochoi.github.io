@@ -106,7 +106,7 @@ ref: books
 
 </div>
 
-## 서평과 반응
+## 서평
 
 - [고관수, 「화학자는 현대의 연금술사」, 브런치](https://brunch.co.kr/@kwansooko/1497)
 - [김영의 사서, 광진구립도서관 이달의 추천도서 서평](https://www.gwangjinlib.seoul.kr/gunja/recommendBookDetail.do?bookIdx=5751&recommendTypeCd=general)
