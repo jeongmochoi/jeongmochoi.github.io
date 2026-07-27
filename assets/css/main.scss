@@ -532,55 +532,49 @@ i:not([class*="fa-"]) {
 .book-detail-toc ul {
   list-style: none;
   padding-left: 0;
-  margin-bottom: 0;
+  margin: 0;
 }
 
 .book-detail-toc > ul > li {
-  margin-bottom: 1.1rem;
-}
-
-.book-detail-toc > ul > li > strong:first-child {
-  display: block;
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.5;
-  margin-bottom: 0.35rem;
-  color: var(--global-text-color);
-}
-
-.book-detail-toc > ul > li > ul {
-  padding-left: 1rem;
-  margin-top: 0.2rem;
-}
-
-.book-detail-toc > ul > li > ul > li {
-  position: relative;
-  line-height: 1.6;
-  margin-bottom: 0.18rem;
-  color: var(--global-text-color);
-}
-
-.book-detail-toc > ul > li > ul > li::before {
-  content: "";
-  position: absolute;
-  left: -0.75rem;
-  top: 0.78em;
-  width: 0.28rem;
-  height: 1px;
-  background-color: var(--global-text-color-light);
+  margin-bottom: 1rem;
+  line-height: 1.65;
 }
 
 .book-detail-toc > ul > li:last-child {
   margin-bottom: 0;
 }
 
+.book-detail-toc > ul > li > strong:first-child {
+  display: block;
+  font-weight: 600;
+  line-height: 1.55;
+  margin-bottom: 0.35rem;
+  color: var(--global-text-color);
+}
+
+.book-detail-toc > ul > li > ul {
+  margin-top: 0.25rem;
+  margin-bottom: 0;
+  padding-left: 1.25rem;
+}
+
+.book-detail-toc > ul > li > ul > li {
+  margin-bottom: 0.18rem;
+  line-height: 1.6;
+  color: var(--global-text-color);
+}
+
+.book-detail-toc > ul > li > ul > li:last-child {
+  margin-bottom: 0;
+}
+
 @media (max-width: 576px) {
   .book-detail-toc > ul > li {
-    margin-bottom: 0.95rem;
+    margin-bottom: 0.85rem;
   }
 
   .book-detail-toc > ul > li > ul {
-    padding-left: 0.85rem;
+    padding-left: 1rem;
   }
 }
 
