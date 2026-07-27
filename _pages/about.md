@@ -31,8 +31,8 @@ I am an Associate Professor in the [Department of Chemistry](https://chem.pusan.
 
 
 ## Professional Appointments
-- **Jul 2025 – present**, Visiting Scholar, [Division of Chemistry and Chemical Engineering](https://cce.caltech.edu/), [California Institute of Technology](https://www.caltech.edu/) (Host: [Zhen-Gang Wang](http://zgwlab.che.caltech.edu/))
 - **Sep 2024 – present**, Associate Professor, [Department of Chemistry](http://chem.pusan.ac.kr/), [Pusan National University](https://www.pusan.ac.kr/eng/)
+- **Jul 2025 – Jul 2026**, Visiting Scholar, [Division of Chemistry and Chemical Engineering](https://cce.caltech.edu/), [California Institute of Technology](https://www.caltech.edu/) (Host: [Zhen-Gang Wang](http://zgwlab.che.caltech.edu/))
 - **Sep 2020 – Aug 2024**, Assistant Professor, [Department of Chemistry](http://chem.pusan.ac.kr/), [Pusan National University](https://www.pusan.ac.kr/eng/)
 - **Jun 2019 – Aug 2020**, Research Assistant Professor, Research Center for Natural Sciences, [KAIST](https://www.kaist.ac.kr/en/)
 - **Aug 2016 – Apr 2019**, Postdoctoral Research Associate, [Department of Biomedical Engineering](https://bme.washu.edu/), [Washington University in St. Louis](https://washu.edu/) (Supervisor: [Rohit V. Pappu](https://pappulab.wustl.edu/))
