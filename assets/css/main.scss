@@ -561,6 +561,28 @@ i:not([class*="fa-"]) {
   font-weight: 500;
 }
 
+.book-detail ul,
+.book-detail ol,
+.book-detail-toc > ul {
+  padding-left: 1.35rem;
+  margin-left: 0;
+}
+
+.book-detail-toc ul ul {
+  padding-left: 1.35rem;
+  margin-left: 0;
+}
+
+.book-detail li,
+.book-detail-toc li {
+  line-height: 1.65;
+  margin-bottom: 0.35rem;
+}
+
+.book-detail-toc > ul > li {
+  margin-bottom: 0.55rem;
+}
+
 /* Book detail awards: prominent card-like text list */
 .book-detail-awards {
   display: grid;
