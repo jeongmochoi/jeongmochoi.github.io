@@ -13,7 +13,7 @@ ref: books
 
 <img src="{{ '/assets/img/books/alchemia.jpg' | relative_url }}" alt="알케미아 표지" class="book-detail-cover">
 
-<p class="book-detail-subtitle">현자의 돌에서 주기율표까지 연금술과 화학의 진짜 역사</p>
+<p class="book-detail-subtitle">현자의 돌에서 주기율표까지 연금술과 화학의 역사</p>
 
 <dl class="book-detail-meta">
   <dt>저자</dt>
