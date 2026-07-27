@@ -42,18 +42,18 @@ ref: books
 
 <div class="book-detail-awards">
   <a class="book-award-item" href="https://www.apctp.org/bbs/board.php?bo_table=media&wr_id=7593" target="_blank" rel="noopener noreferrer">
-    <span class="book-award-title">2025 올해의 과학도서</span>
     <span class="book-award-source">아태이론물리연구소(APCTP) 선정</span>
+    <span class="book-award-title">2025 올해의 과학도서</span>
   </a>
 
   <a class="book-award-item" href="http://www.tkpf.or.kr/contents/community_notice_view.php?no=126" target="_blank" rel="noopener noreferrer">
-    <span class="book-award-title">2025년 하반기 올해의 청소년 교양도서</span>
     <span class="book-award-source">대한출판문화협회/한국출판문화진흥재단 선정</span>
+    <span class="book-award-title">2025년 하반기 올해의 청소년 교양도서</span>
   </a>
 
   <a class="book-award-item" href="https://product.kyobobook.co.kr/detail/S000217097034" target="_blank" rel="noopener noreferrer">
-    <span class="book-award-title">MD의 선택</span>
     <span class="book-award-source">교보문고</span>
+    <span class="book-award-title">MD의 선택</span>
   </a>
 </div>
 
