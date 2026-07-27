@@ -548,6 +548,52 @@ i:not([class*="fa-"]) {
   }
 }
 
+/* Book detail awards: use prominent text links, not button boxes */
+.book-detail-awards {
+  margin-top: 0.7rem;
+  margin-bottom: 2rem;
+}
+
+.book-detail-awards ul {
+  list-style: disc;
+  padding-left: 1.35rem;
+  margin-bottom: 0;
+}
+
+.book-detail-awards li {
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 0.45rem;
+}
+
+.book-detail-awards li:last-child {
+  margin-bottom: 0;
+}
+
+.book-detail-awards a {
+  display: inline;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--global-theme-color);
+  font-size: inherit;
+  line-height: inherit;
+  text-decoration: none;
+}
+
+.book-detail-awards a:hover {
+  border: 0;
+  background: transparent;
+  color: var(--global-theme-color);
+  text-decoration: underline;
+}
+
+.book-detail-awards strong {
+  font-weight: 600;
+}
+
 /* Teaching index page */
 .teaching-index {
   line-height: 1.7;
