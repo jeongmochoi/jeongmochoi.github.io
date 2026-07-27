@@ -1,6 +1,6 @@
 ---
 layout: page
-title: 알-케미아
+title: 알케미아
 permalink: /ko/books/alchemia/
 nav: false
 lang: ko
