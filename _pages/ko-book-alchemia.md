@@ -40,13 +40,9 @@ ref: books
 
 ## 선정 및 추천
 
-<div class="book-detail-awards" markdown="1">
-
 - [아태이론물리연구소(APCTP) 선정 **2025 올해의 과학도서**](https://www.apctp.org/bbs/board.php?bo_table=media&wr_id=7593)
 - [대한출판문화협회/한국출판문화진흥재단 선정 **2025년 하반기 올해의 청소년 교양도서**](http://www.tkpf.or.kr/contents/community_notice_view.php?no=126)
 - [교보문고 **MD의 선택**](https://product.kyobobook.co.kr/detail/S000217097034)
-
-</div>
 
 ## 책 소개
 
