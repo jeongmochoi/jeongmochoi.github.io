@@ -30,7 +30,7 @@
   <dd>중간고사 30%, 기말고사 30%, 발표 20%, 과제 20%</dd>
 </dl>
 
-## 진도 계획 및 강의 자료
+## 진도 계획
 
 <div class="course-table-wrap" markdown="1">
 
