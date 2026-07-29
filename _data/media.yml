@@ -1,0 +1,286 @@
+channel:
+  title_ko: "최정모 YouTube 채널"
+  title_en: "Jeong-Mo Choi on YouTube"
+  description_ko: >-
+    물리화학 관련 강의 영상을 모아두었습니다.
+  description_en: >-
+    Lecture videos on physical chemistry.
+  url: "https://www.youtube.com/@jeongmochoi"
+  label_ko: "채널 방문"
+  label_en: "Visit channel"
+
+broadcasts:
+  - id: ebs-docuprime-chemistry
+    date_ko: "2025년 3월"
+    date_en: "March 2025"
+    source_ko: "EBS 다큐프라임"
+    source_en: "EBS DocuPrime"
+    title_ko: "생각보다 화학"
+    title_en: "Chemistry Is Closer Than You Think"
+    role_ko: "책임자문·출연"
+    role_en: "Lead scientific advisor and on-screen contributor"
+    description_ko: >-
+      우리 몸과 일상, 에너지와 문명, 주기율표의 역사를 통해
+      세상 곳곳에 숨어 있는 화학을 살펴본 3부작 다큐멘터리입니다.
+    description_en: >-
+      A three-part documentary examining chemistry in the human body,
+      everyday life, energy, civilization, and the history of the periodic table.
+    youtube_id: "RXi1PAeqaUQ"
+    visual_url: "https://www.youtube.com/watch?v=RXi1PAeqaUQ"
+    image_alt_ko: "EBS 다큐프라임 생각보다 화학"
+    image_alt_en: "EBS DocuPrime Chemistry Is Closer Than You Think"
+    episodes:
+      - date: "2025.03.24"
+        title_ko: "1부 「생각보다 화학적인 인간」"
+        title_en: "Part 1: The Chemical Human"
+      - date: "2025.03.25"
+        title_ko: "2부 「생각보다 힘이 되는 화학」"
+        title_en: "Part 2: Chemistry as a Source of Energy"
+      - date: "2025.03.31"
+        title_ko: "3부 「피리오딕 테이블 주기율표」"
+        title_en: "Part 3: The Periodic Table"
+    links:
+      - label_ko: "공식 다시보기"
+        label_en: "Official replay"
+        url: "https://docuprime.ebs.co.kr/docuprime/newReplayList?courseId=BP0PAPB0000000005&stepId=60056312"
+      - label_ko: "1부 예고편"
+        label_en: "Part 1 Preview"
+        url: "https://www.youtube.com/watch?v=RXi1PAeqaUQ"
+      - label_ko: "2부 예고편"
+        label_en: "Part 2 Preview"
+        url: "https://www.youtube.com/watch?v=sH984ib6fBs"
+      - label_ko: "3부 예고편"
+        label_en: "Part 3 Preview"
+        url: "https://www.youtube.com/watch?v=NGkrkLG_YR8"
+      - label_ko: "301회 이달의 PD상"
+        label_en: "301st PD of the Month Award"
+        url: "https://www.kpda.co/new/gb/bbs/board.php?bo_table=monthPD2&wr_id=96"
+        highlight: true
+
+  - id: ebs-hobby-science-ai
+    date_ko: "2025.03.14"
+    date_en: "Mar 14, 2025"
+    source_ko: "EBS 「취미는 과학」 24화"
+    source_en: "EBS Hobby Is Science, Episode 24"
+    title_ko: "AI 특이점, 5년 안에 온다고?"
+    title_en: "Will the AI Singularity Arrive Within Five Years?"
+    role_ko: "출연"
+    role_en: "Guest panelist"
+    description_ko: >-
+      AI 특이점과 인공일반지능, 휴머노이드 로봇의 발전,
+      특이점 이후의 사회를 함께 논의했습니다.
+    description_en: >-
+      A discussion of the AI singularity, artificial general intelligence,
+      humanoid robots, and possible social changes.
+    youtube_id: "0KDosjF0iYM"
+    visual_url: "https://www.youtube.com/watch?v=0KDosjF0iYM"
+    image_alt_ko: "EBS 취미는 과학 AI 특이점"
+    image_alt_en: "EBS Hobby Is Science AI Singularity"
+    links:
+      - label_ko: "EBS 공식 소개"
+        label_en: "Official EBS page"
+        url: "https://about.ebs.co.kr/board/bbs?boardId=31&boardTypeId=1&cmd=view&option=respond&postId=30004010629&uri=%2Fkor%2Fpr%2Frelease"
+      - label_ko: "확장판 영상"
+        label_en: "Extended video"
+        url: "https://www.youtube.com/watch?v=0KDosjF0iYM"
+      - label_ko: "예고편"
+        label_en: "Preview"
+        url: "https://www.youtube.com/watch?v=glWS2Jd7wLo"
+
+  - id: ebs-hobby-science-alien
+    date_ko: "2025.04.04"
+    date_en: "Apr 4, 2025"
+    source_ko: "EBS 「취미는 과학」 27화"
+    source_en: "EBS Hobby Is Science, Episode 27"
+    title_ko: "외계 문명, 방정식으로 찾아볼까?"
+    title_en: "Can We Estimate Extraterrestrial Civilizations with an Equation?"
+    role_ko: "출연"
+    role_en: "Guest panelist"
+    description_ko: >-
+      드레이크 방정식과 SETI를 중심으로 외계 지적생명체의 존재 가능성과
+      과학적 탐색 방법을 살펴봤습니다.
+    description_en: >-
+      A discussion of the Drake equation, SETI, and scientific approaches
+      to estimating the existence of extraterrestrial civilizations.
+    youtube_id: "6orpJMykMe8"
+    visual_url: "https://www.youtube.com/watch?v=rrYwxNjBtsE"
+    image_alt_ko: "EBS 취미는 과학 외계 문명"
+    image_alt_en: "EBS Hobby Is Science Extraterrestrial Civilizations"
+    links:
+      - label_ko: "EBS 공식 소개"
+        label_en: "Official EBS page"
+        url: "https://about.ebs.co.kr/board/bbs?boardId=31&boardTypeId=1&cmd=view&no=6&option=respond&pageNo=1&postId=30004062627&searchCondition=title&searchKeyword="
+      - label_ko: "관련 영상"
+        label_en: "Related video"
+        url: "https://www.youtube.com/watch?v=rrYwxNjBtsE"
+      - label_ko: "예고편"
+        label_en: "Preview"
+        url: "https://www.youtube.com/watch?v=6orpJMykMe8"
+
+  - id: ytn-nobel-chemistry-2024
+    date_ko: "2025.01.29"
+    date_en: "Jan 29, 2025"
+    source_ko: "YTN 사이언스 「사이언스포럼」"
+    source_en: "YTN Science Forum"
+    title_ko: "2024 노벨화학상: 단백질의 비밀, AI로 풀다"
+    title_en: "2024 Nobel Prize in Chemistry: Solving Protein Mysteries with AI"
+    role_ko: "출연"
+    role_en: "Featured speaker"
+    description_ko: >-
+      단백질 설계와 구조 예측, 알파폴드와 인공지능의 역할을 중심으로
+      2024년 노벨화학상 수상 연구를 해설했습니다.
+    description_en: >-
+      An overview of the 2024 Nobel Prize in Chemistry, focusing on
+      protein design, structure prediction, AlphaFold, and artificial intelligence.
+    youtube_id: "HrSQgKcLdYg"
+    visual_url: "https://www.youtube.com/watch?v=HrSQgKcLdYg"
+    image_alt_ko: "YTN 사이언스포럼 2024 노벨화학상"
+    image_alt_en: "YTN Science Forum 2024 Nobel Prize in Chemistry"
+    links:
+      - label_ko: "공식 프로그램"
+        label_en: "Official program page"
+        url: "https://science.ytn.co.kr/program/view.php?mcd=0085&key=202501311016227808"
+      - label_ko: "영상 보기"
+        label_en: "Watch video"
+        url: "https://www.youtube.com/watch?v=HrSQgKcLdYg"
+
+youtube_groups:
+  - id: unrealscience
+    title_ko: "안될과학"
+    title_en: "Unrealscience"
+    items:
+      - id: nobel-chemistry-2024-part-1
+        title_ko: "2024 노벨화학상 해설 1부"
+        title_en: "2024 Nobel Prize in Chemistry, Part 1"
+        youtube_id: "tq9BirqS12c"
+        url: "https://www.youtube.com/watch?v=tq9BirqS12c"
+
+      - id: nobel-chemistry-2024-part-2
+        title_ko: "2024 노벨화학상 해설 2부: AI와 단백질 구조 예측"
+        title_en: "2024 Nobel Prize in Chemistry, Part 2: AI and Protein Structure Prediction"
+        youtube_id: "hPnVfGZk86U"
+        url: "https://www.youtube.com/watch?v=hPnVfGZk86U"
+
+      - id: cof-999-background
+        title_ko: "이산화탄소를 제거하는 물질 COF-999"
+        title_en: "COF-999: A Material for Carbon Dioxide Capture"
+        youtube_id: "S0iTk9liUKQ"
+        url: "https://www.youtube.com/watch?v=S0iTk9liUKQ"
+
+      - id: cof-999-mechanism
+        title_ko: "COF-999의 흡착 원리와 상용화 가능성"
+        title_en: "How COF-999 Captures Carbon Dioxide"
+        youtube_id: "AwHJryy_0vo"
+        url: "https://www.youtube.com/watch?v=AwHJryy_0vo"
+
+      - id: nobel-chemistry-2025-mof-cof
+        title_ko: "2025 노벨화학상 특집: MOF와 COF"
+        title_en: "2025 Nobel Prize in Chemistry: MOFs and COFs"
+        youtube_id: "1g6xOq3Hf2M"
+        url: "https://www.youtube.com/watch?v=1g6xOq3Hf2M"
+
+  - id: zero-energy-bar
+    title_ko: "제로에너지바"
+    title_en: "Zero Energy Bar"
+    items:
+      - id: zero-energy-cof-999-1
+        title_ko: "이산화탄소를 흡착하는 COF-999"
+        title_en: "COF-999 and Carbon Dioxide Capture"
+        youtube_id: "Ryubz9AwsHc"
+        url: "https://www.youtube.com/watch?v=Ryubz9AwsHc"
+
+      - id: zero-energy-cof-999-2
+        title_ko: "COF-999로 이산화탄소를 제거하려면?"
+        title_en: "What Would It Take to Remove Carbon Dioxide with COF-999?"
+        youtube_id: "2c0y2yyhF8c"
+        url: "https://www.youtube.com/watch?v=2c0y2yyhF8c"
+
+public_items:
+  - id: kaist-scientific-influencer
+    date_ko: "2024.11.01"
+    date_en: "Nov 1, 2024"
+    source_ko: "KAIST 자연과학과 함께하는 토크 콘서트"
+    source_en: "KAIST Natural Sciences Talk Concert"
+    title_ko: "과학, 통섭, 그리고 삶"
+    title_en: "Science, Convergence, and Life"
+    role_ko: "공개 강연"
+    role_en: "Public lecture"
+    description_ko: >-
+      KAIST의 「더 Scientific 인플루언서」 토크 콘서트에서
+      과학과 통섭, 연구자의 삶을 주제로 강연했습니다.
+    description_en: >-
+      A public lecture on science, intellectual integration, and the life of a researcher.
+    youtube_id: "7UEpnDLdB4w"
+    visual_url: "https://www.youtube.com/watch?v=7UEpnDLdB4w"
+    image_alt_ko: "KAIST 자연과학과 함께하는 토크 콘서트"
+    image_alt_en: "KAIST Natural Sciences Talk Concert"
+    links:
+      - label_ko: "영상 보기"
+        label_en: "Watch video"
+        url: "https://www.youtube.com/watch?v=7UEpnDLdB4w"
+
+  - id: kfas-dream-lecture
+    date_ko: "2023.09.23"
+    date_en: "Sep 23, 2023"
+    source_ko: "한국고등교육재단 제67회 드림렉쳐"
+    source_en: "Korea Foundation for Advanced Studies, 67th Dream Lecture"
+    title_ko: "생물리화학: 화학, 물리, 생물학의 경계에서"
+    title_en: "Biophysical Chemistry: At the Interface of Chemistry, Physics, and Biology"
+    role_ko: "공개 강연"
+    role_en: "Public lecture"
+    description_ko: >-
+      생물리화학의 연구 대상과 접근법을 소개하고,
+      화학·물리학·생물학의 경계에서 이루어지는 연구를 설명했습니다.
+    description_en: >-
+      An introduction to biophysical chemistry and research at the interface
+      of chemistry, physics, and biology.
+    youtube_id: "FwBaFDAWEEE"
+    visual_url: "https://www.youtube.com/watch?v=FwBaFDAWEEE"
+    image_alt_ko: "한국고등교육재단 드림렉쳐 생물리화학"
+    image_alt_en: "KFAS Dream Lecture on Biophysical Chemistry"
+    links:
+      - label_ko: "영상 보기"
+        label_en: "Watch video"
+        url: "https://www.youtube.com/watch?v=FwBaFDAWEEE"
+
+  - id: cric-written-interview
+    date_ko: "2022.10.06"
+    date_en: "Oct 6, 2022"
+    source_ko: "화학연구정보센터(CRIC)"
+    source_en: "Chemical Research Information Center (CRIC)"
+    title_ko: "신진연구자 서면 인터뷰"
+    title_en: "Early-Career Researcher Written Interview"
+    role_ko: "서면 인터뷰"
+    role_en: "Written interview"
+    description_ko: >-
+      연구 분야와 연구자로서의 경험을 소개한 CRIC 연구자 인터뷰입니다.
+    description_en: >-
+      A written researcher profile and interview published by CRIC.
+    visual_label_ko: "서면 인터뷰"
+    visual_label_en: "Written interview"
+    visual_url: "https://cric.re.kr/interviews"
+    links:
+      - label_ko: "CRIC 인터뷰 목록"
+        label_en: "CRIC interview archive"
+        url: "https://cric.re.kr/interviews"
+
+  - id: chemiey-interview
+    source_ko: "케미은영(ChemiEY)"
+    source_en: "ChemiEY"
+    title_ko: "생물리화학 전공의 유쾌한 최정모 교수님"
+    title_en: "A Conversation on Biophysical Chemistry and an Academic Career"
+    role_ko: "영상 인터뷰"
+    role_en: "Video interview"
+    description_ko: >-
+      생물리화학 연구와 학업·연구 경력에 관해 나눈 인터뷰입니다.
+    description_en: >-
+      A conversation about biophysical chemistry, academic training,
+      and a career in research.
+    youtube_id: "J3R_RQ2-LI0"
+    visual_url: "https://www.youtube.com/watch?v=J3R_RQ2-LI0"
+    image_alt_ko: "케미은영 최정모 교수 인터뷰"
+    image_alt_en: "ChemiEY interview with Jeong-Mo Choi"
+    links:
+      - label_ko: "영상 보기"
+        label_en: "Watch video"
+        url: "https://www.youtube.com/watch?v=J3R_RQ2-LI0"
