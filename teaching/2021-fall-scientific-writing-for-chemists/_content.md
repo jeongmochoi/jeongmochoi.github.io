@@ -11,7 +11,7 @@
   <dd>Thu 9:00–12:00 am, Room 112</dd>
 
   <dt>Instructors</dt>
-  <dd><a href="/">Jeong-Mo Choi</a> and <a href="https://phyc.chem.oregonstate.edu/cheong/">Paul Ha-Yeon Cheong</a></dd>
+  <dd>Jeong-Mo Choi and <a href="https://phyc.chem.oregonstate.edu/cheong/">Paul Ha-Yeon Cheong</a></dd>
 
   <dt>Evaluation</dt>
   <dd>Assignments (20% × 4 = 80%), attendance (20%)</dd>
