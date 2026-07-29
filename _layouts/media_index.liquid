@@ -1,0 +1,96 @@
+---
+layout: page
+---
+
+{% assign current_lang = page.lang | default: 'en' %}
+{% assign media = site.data.media %}
+
+{% if current_lang == 'ko' %}
+  {% assign broadcast_heading = '방송 및 다큐멘터리' %}
+  {% assign youtube_heading = 'YouTube 출연' %}
+  {% assign public_heading = '공개 강연 및 인터뷰' %}
+
+  {% assign channel_title = media.channel.title_ko | default: media.channel.title_en %}
+  {% assign channel_description = media.channel.description_ko | default: media.channel.description_en %}
+  {% assign channel_label = media.channel.label_ko | default: media.channel.label_en %}
+{% else %}
+  {% assign broadcast_heading = 'Broadcasts and Documentaries' %}
+  {% assign youtube_heading = 'YouTube Appearances' %}
+  {% assign public_heading = 'Public Talks and Interviews' %}
+
+  {% assign channel_title = media.channel.title_en | default: media.channel.title_ko %}
+  {% assign channel_description = media.channel.description_en | default: media.channel.description_ko %}
+  {% assign channel_label = media.channel.label_en | default: media.channel.label_ko %}
+{% endif %}
+
+<div class="media-index">
+  {{ content }}
+
+  {% if media.channel %}
+    <section class="media-channel-banner">
+      <div class="media-channel-copy">
+        <div class="media-channel-kicker">
+          <i class="fa-brands fa-youtube" aria-hidden="true"></i>
+          <span>YouTube</span>
+        </div>
+
+        <h2 class="media-channel-title">{{ channel_title }}</h2>
+
+        <div class="media-channel-description">
+          {{ channel_description | markdownify }}
+        </div>
+      </div>
+
+      <a
+        class="media-channel-button"
+        href="{{ media.channel.url }}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {{ channel_label }}
+      </a>
+    </section>
+  {% endif %}
+
+  {% if media.broadcasts %}
+    <h2 class="media-section-heading">{{ broadcast_heading }}</h2>
+
+    <div class="media-feature-list">
+      {% for item in media.broadcasts %}
+        {% include media_feature_item.liquid item=item lang=current_lang %}
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if media.youtube_groups %}
+    <h2 class="media-section-heading">{{ youtube_heading }}</h2>
+
+    {% for group in media.youtube_groups %}
+      {% if current_lang == 'ko' %}
+        {% assign group_title = group.title_ko | default: group.title_en %}
+      {% else %}
+        {% assign group_title = group.title_en | default: group.title_ko %}
+      {% endif %}
+
+      <section class="media-video-group">
+        <h3 class="media-video-group-title">{{ group_title }}</h3>
+
+        <div class="media-video-grid">
+          {% for item in group.items %}
+            {% include media_video_item.liquid item=item lang=current_lang %}
+          {% endfor %}
+        </div>
+      </section>
+    {% endfor %}
+  {% endif %}
+
+  {% if media.public_items %}
+    <h2 class="media-section-heading">{{ public_heading }}</h2>
+
+    <div class="media-feature-list">
+      {% for item in media.public_items %}
+        {% include media_feature_item.liquid item=item lang=current_lang %}
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
