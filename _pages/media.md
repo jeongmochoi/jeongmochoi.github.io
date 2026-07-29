@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: media_index
 title: Media
 permalink: /media/
 nav: true
@@ -8,12 +8,4 @@ lang: en
 ref: media
 ---
 
-This page collects media appearances, interviews, public videos, and selected public lectures.
-
-## Media Appearances
-
-Content to be added.
-
-## Public Talks
-
-Content to be added.
+Selected broadcast appearances, YouTube videos, public talks, and interviews are listed below. Most linked content is in Korean.
