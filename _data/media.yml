@@ -72,10 +72,10 @@ broadcasts:
     description_en: >-
       A discussion of the AI singularity, artificial general intelligence,
       humanoid robots, and possible social changes.
-    youtube_id: "0KDosjF0iYM"
-    visual_url: "https://www.youtube.com/watch?v=0KDosjF0iYM"
-    image_alt_ko: "EBS 취미는 과학 AI 특이점"
-    image_alt_en: "EBS Hobby Is Science AI Singularity"
+    youtube_id: "glWS2Jd7wLo"
+    visual_url: "https://www.youtube.com/watch?v=glWS2Jd7wLo"
+    image_alt_ko: "EBS 취미는 과학: AI 특이점"
+    image_alt_en: "EBS Hobby Is Science: AI Singularity"
     links:
       - label_ko: "EBS 공식 소개"
         label_en: "Official EBS page"
@@ -103,9 +103,9 @@ broadcasts:
       A discussion of the Drake equation, SETI, and scientific approaches
       to estimating the existence of extraterrestrial civilizations.
     youtube_id: "6orpJMykMe8"
-    visual_url: "https://www.youtube.com/watch?v=rrYwxNjBtsE"
-    image_alt_ko: "EBS 취미는 과학 외계 문명"
-    image_alt_en: "EBS Hobby Is Science Extraterrestrial Civilizations"
+    visual_url: "https://www.youtube.com/watch?v=6orpJMykMe8"
+    image_alt_ko: "EBS 취미는 과학: 외계 문명"
+    image_alt_en: "EBS Hobby Is Science: Extraterrestrial Civilizations"
     links:
       - label_ko: "EBS 공식 소개"
         label_en: "Official EBS page"
@@ -134,8 +134,8 @@ broadcasts:
       protein design, structure prediction, AlphaFold, and artificial intelligence.
     youtube_id: "HrSQgKcLdYg"
     visual_url: "https://www.youtube.com/watch?v=HrSQgKcLdYg"
-    image_alt_ko: "YTN 사이언스포럼 2024 노벨화학상"
-    image_alt_en: "YTN Science Forum 2024 Nobel Prize in Chemistry"
+    image_alt_ko: "YTN 사이언스포럼: 2024 노벨화학상"
+    image_alt_en: "YTN Science Forum: 2024 Nobel Prize in Chemistry"
     links:
       - label_ko: "YTN 사이언스 공식 소개"
         label_en: "Official program page"
