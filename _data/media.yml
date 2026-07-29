@@ -33,13 +33,13 @@ broadcasts:
     image_alt_ko: "EBS 다큐프라임 생각보다 화학"
     image_alt_en: "EBS DocuPrime Chemistry Is Closer Than You Think"
     episodes:
-      - date: "2025.03.24"
+      - date: "2025-03-24"
         title_ko: "1부 「생각보다 화학적인 인간」"
         title_en: "Part 1: The Chemical Human"
-      - date: "2025.03.25"
+      - date: "2025-03-25"
         title_ko: "2부 「생각보다 힘이 되는 화학」"
         title_en: "Part 2: Chemistry as a Source of Energy"
-      - date: "2025.03.31"
+      - date: "2025-03-31"
         title_ko: "3부 「피리오딕 테이블 주기율표」"
         title_en: "Part 3: The Periodic Table"
     links:
