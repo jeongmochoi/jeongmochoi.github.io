@@ -11,7 +11,7 @@
   <dd>Wed 4:30–7:30 pm, Room 112</dd>
 
   <dt>Instructors</dt>
-  <dd>Jeong-Mo Choi et al.</dd>
+  <dd>Jeong-Mo Choi <em>et al.</em></dd>
 
   <dt>Evaluation</dt>
   <dd>Essays (40% × 2 = 80%), attendance (20%)</dd>
