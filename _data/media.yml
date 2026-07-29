@@ -58,7 +58,7 @@ broadcasts:
         highlight: true
 
   - id: ebs-hobby-science-ai
-    date_ko: "2025.03.14"
+    date_ko: "2025-03-14"
     date_en: "Mar 14, 2025"
     source_ko: "EBS 「취미는 과학」 24화"
     source_en: "EBS Hobby Is Science, Episode 24"
@@ -80,15 +80,15 @@ broadcasts:
       - label_ko: "EBS 공식 소개"
         label_en: "Official EBS page"
         url: "https://about.ebs.co.kr/board/bbs?boardId=31&boardTypeId=1&cmd=view&option=respond&postId=30004010629&uri=%2Fkor%2Fpr%2Frelease"
-      - label_ko: "확장판 영상"
-        label_en: "Extended video"
-        url: "https://www.youtube.com/watch?v=0KDosjF0iYM"
       - label_ko: "예고편"
         label_en: "Preview"
         url: "https://www.youtube.com/watch?v=glWS2Jd7wLo"
+      - label_ko: "확장판 영상"
+        label_en: "Extended video"
+        url: "https://www.youtube.com/watch?v=0KDosjF0iYM"
 
   - id: ebs-hobby-science-alien
-    date_ko: "2025.04.04"
+    date_ko: "2025-04-04"
     date_en: "Apr 4, 2025"
     source_ko: "EBS 「취미는 과학」 27화"
     source_en: "EBS Hobby Is Science, Episode 27"
@@ -110,15 +110,15 @@ broadcasts:
       - label_ko: "EBS 공식 소개"
         label_en: "Official EBS page"
         url: "https://about.ebs.co.kr/board/bbs?boardId=31&boardTypeId=1&cmd=view&no=6&option=respond&pageNo=1&postId=30004062627&searchCondition=title&searchKeyword="
-      - label_ko: "관련 영상"
-        label_en: "Related video"
-        url: "https://www.youtube.com/watch?v=rrYwxNjBtsE"
       - label_ko: "예고편"
         label_en: "Preview"
         url: "https://www.youtube.com/watch?v=6orpJMykMe8"
+      - label_ko: "관련 영상"
+        label_en: "Related video"
+        url: "https://www.youtube.com/watch?v=rrYwxNjBtsE"
 
   - id: ytn-nobel-chemistry-2024
-    date_ko: "2025.01.29"
+    date_ko: "2025-01-29"
     date_en: "Jan 29, 2025"
     source_ko: "YTN 사이언스 「사이언스포럼」"
     source_en: "YTN Science Forum"
@@ -137,7 +137,7 @@ broadcasts:
     image_alt_ko: "YTN 사이언스포럼 2024 노벨화학상"
     image_alt_en: "YTN Science Forum 2024 Nobel Prize in Chemistry"
     links:
-      - label_ko: "공식 프로그램"
+      - label_ko: "YTN 사이언스 공식 소개"
         label_en: "Official program page"
         url: "https://science.ytn.co.kr/program/view.php?mcd=0085&key=202501311016227808"
       - label_ko: "영상 보기"
@@ -150,32 +150,32 @@ youtube_groups:
     title_en: "Unrealscience"
     items:
       - id: nobel-chemistry-2024-part-1
-        title_ko: "2024 노벨화학상 해설 1부"
+        title_ko: "2024 노벨 화학상 해설 1부"
         title_en: "2024 Nobel Prize in Chemistry, Part 1"
         youtube_id: "tq9BirqS12c"
         url: "https://www.youtube.com/watch?v=tq9BirqS12c"
 
       - id: nobel-chemistry-2024-part-2
-        title_ko: "2024 노벨화학상 해설 2부: AI와 단백질 구조 예측"
+        title_ko: "2024 노벨 화학상 해설 2부"
         title_en: "2024 Nobel Prize in Chemistry, Part 2: AI and Protein Structure Prediction"
         youtube_id: "hPnVfGZk86U"
         url: "https://www.youtube.com/watch?v=hPnVfGZk86U"
 
       - id: cof-999-background
-        title_ko: "이산화탄소를 제거하는 물질 COF-999"
+        title_ko: "COF-999의 탄생 배경"
         title_en: "COF-999: A Material for Carbon Dioxide Capture"
         youtube_id: "S0iTk9liUKQ"
         url: "https://www.youtube.com/watch?v=S0iTk9liUKQ"
 
       - id: cof-999-mechanism
-        title_ko: "COF-999의 흡착 원리와 상용화 가능성"
+        title_ko: "COF-999의 능력과 원리"
         title_en: "How COF-999 Captures Carbon Dioxide"
         youtube_id: "AwHJryy_0vo"
         url: "https://www.youtube.com/watch?v=AwHJryy_0vo"
 
       - id: nobel-chemistry-2025-mof-cof
-        title_ko: "2025 노벨화학상 특집: MOF와 COF"
-        title_en: "2025 Nobel Prize in Chemistry: MOFs and COFs"
+        title_ko: "2025 노벨 화학상 특집: COF-999"
+        title_en: "2025 Nobel Prize in Chemistry: COF-999"
         youtube_id: "1g6xOq3Hf2M"
         url: "https://www.youtube.com/watch?v=1g6xOq3Hf2M"
 
@@ -197,7 +197,7 @@ youtube_groups:
 
 public_items:
   - id: kaist-scientific-influencer
-    date_ko: "2024.11.01"
+    date_ko: "2024-11-01"
     date_en: "Nov 1, 2024"
     source_ko: "KAIST 자연과학과 함께하는 토크 콘서트"
     source_en: "KAIST Natural Sciences Talk Concert"
@@ -220,7 +220,7 @@ public_items:
         url: "https://www.youtube.com/watch?v=7UEpnDLdB4w"
 
   - id: kfas-dream-lecture
-    date_ko: "2023.09.23"
+    date_ko: "2023-09-23"
     date_en: "Sep 23, 2023"
     source_ko: "한국고등교육재단 제67회 드림렉쳐"
     source_en: "Korea Foundation for Advanced Studies, 67th Dream Lecture"
@@ -243,8 +243,31 @@ public_items:
         label_en: "Watch video"
         url: "https://www.youtube.com/watch?v=FwBaFDAWEEE"
 
+  - id: chemiey-interview
+    date_ko: "2022-11-29"
+    date_en: "Nov 29, 2022"
+    source_ko: "케미은영(ChemiEY)"
+    source_en: "ChemiEY"
+    title_ko: "생물리화학 전공의 유쾌한 최정모 교수님"
+    title_en: "A Conversation on Biophysical Chemistry and an Academic Career"
+    role_ko: "인터뷰 보기"
+    role_en: "Watch interview"
+    description_ko: >-
+      생물리화학 연구와 학업·연구 경력에 관해 나눈 인터뷰입니다.
+    description_en: >-
+      A conversation about biophysical chemistry, academic training,
+      and a career in research.
+    youtube_id: "J3R_RQ2-LI0"
+    visual_url: "https://www.youtube.com/watch?v=J3R_RQ2-LI0"
+    image_alt_ko: "케미은영 최정모 교수 인터뷰"
+    image_alt_en: "ChemiEY interview with Jeong-Mo Choi"
+    links:
+      - label_ko: "영상 보기"
+        label_en: "Watch video"
+        url: "https://www.youtube.com/watch?v=J3R_RQ2-LI0"
+
   - id: cric-written-interview
-    date_ko: "2022.10.06"
+    date_ko: "2022-10-06"
     date_en: "Oct 6, 2022"
     source_ko: "화학연구정보센터(CRIC)"
     source_en: "Chemical Research Information Center (CRIC)"
@@ -260,27 +283,6 @@ public_items:
     visual_label_en: "Written interview"
     visual_url: "https://cric.re.kr/interviews?o=i8419"
     links:
-      - label_ko: "CRIC 인터뷰 목록"
-        label_en: "CRIC interview archive"
+      - label_ko: "인터뷰 보기"
+        label_en: "View interview"
         url: "https://cric.re.kr/interviews?o=i8419"
-
-  - id: chemiey-interview
-    source_ko: "케미은영(ChemiEY)"
-    source_en: "ChemiEY"
-    title_ko: "생물리화학 전공의 유쾌한 최정모 교수님"
-    title_en: "A Conversation on Biophysical Chemistry and an Academic Career"
-    role_ko: "영상 인터뷰"
-    role_en: "Video interview"
-    description_ko: >-
-      생물리화학 연구와 학업·연구 경력에 관해 나눈 인터뷰입니다.
-    description_en: >-
-      A conversation about biophysical chemistry, academic training,
-      and a career in research.
-    youtube_id: "J3R_RQ2-LI0"
-    visual_url: "https://www.youtube.com/watch?v=J3R_RQ2-LI0"
-    image_alt_ko: "케미은영 최정모 교수 인터뷰"
-    image_alt_en: "ChemiEY interview with Jeong-Mo Choi"
-    links:
-      - label_ko: "영상 보기"
-        label_en: "Watch video"
-        url: "https://www.youtube.com/watch?v=J3R_RQ2-LI0"
