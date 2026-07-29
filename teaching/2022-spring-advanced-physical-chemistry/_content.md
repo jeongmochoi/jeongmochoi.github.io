@@ -26,7 +26,7 @@
   <dd><a href="https://youtube.com/playlist?list=PL33H1AxVwTvx11GDDzY9AcPR5Wm4XYrad">On-line guide lectures</a> (in Korean)</dd>
 </dl>
 
-## 진도 계획
+## Schedule
 
 <div class="course-table-wrap" markdown="1">
 
