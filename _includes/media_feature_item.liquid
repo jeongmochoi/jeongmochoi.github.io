@@ -100,8 +100,24 @@
       </a>
     </h3>
 
-    {% if role %}
-      <div class="media-role-badge">{{ role }}</div>
+    {% if item.roles %}
+      <div class="media-role-badges">
+        {% for role_item in item.roles %}
+          {% if lang == 'ko' %}
+            {% assign role_label = role_item.ko | default: role_item.en %}
+          {% else %}
+            {% assign role_label = role_item.en | default: role_item.ko %}
+          {% endif %}
+
+          {% if role_label %}
+            <span class="media-role-badge">{{ role_label }}</span>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% elsif role %}
+      <div class="media-role-badges">
+        <span class="media-role-badge">{{ role }}</span>
+      </div>
     {% endif %}
 
     {% if description %}
