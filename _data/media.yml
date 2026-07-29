@@ -17,8 +17,11 @@ broadcasts:
     source_en: "EBS DocuPrime"
     title_ko: "생각보다 화학"
     title_en: "Chemistry Is Closer Than You Think"
-    role_ko: "책임자문·출연"
-    role_en: "Lead scientific advisor and on-screen contributor"
+    roles:
+      - ko: "책임자문"
+        en: "Lead scientific advisor"
+      - ko: "출연"
+        en: "On-screen contributor"
     description_ko: >-
       우리 몸과 일상, 에너지와 문명, 주기율표의 역사를 통해
       세상 곳곳에 숨어 있는 화학을 살펴본 3부작 다큐멘터리입니다.
