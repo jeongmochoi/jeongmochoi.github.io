@@ -1,0 +1,60 @@
+{% assign item = include.item %}
+{% assign lang = include.lang | default: 'en' %}
+
+{% if lang == 'ko' %}
+  {% assign title = item.title_ko | default: item.title_en %}
+  {% assign description = item.description_ko | default: item.description_en %}
+  {% assign image_alt = item.image_alt_ko | default: title %}
+{% else %}
+  {% assign title = item.title_en | default: item.title_ko %}
+  {% assign description = item.description_en | default: item.description_ko %}
+  {% assign image_alt = item.image_alt_en | default: title %}
+{% endif %}
+
+{% assign image_url = '' %}
+
+{% if item.image %}
+  {% assign image_url = item.image | relative_url %}
+{% elsif item.youtube_id %}
+  {% capture image_url -%}
+    https://i.ytimg.com/vi/{{ item.youtube_id }}/hqdefault.jpg
+  {%- endcapture %}
+{% endif %}
+
+<article class="media-video-card">
+  <a
+    class="media-video-thumbnail"
+    href="{{ item.url }}"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="{{ title }}"
+  >
+    <img
+      src="{{ image_url }}"
+      alt="{{ image_alt }}"
+      loading="lazy"
+    >
+
+    <span class="media-play-icon" aria-hidden="true">
+      <i class="fa-solid fa-play"></i>
+    </span>
+  </a>
+
+  <div class="media-video-body">
+    <h4 class="media-video-title">
+      <a
+        href="{{ item.url }}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {{ title }}
+      </a>
+    </h4>
+
+    {% if description %}
+      <div class="media-video-description">
+        {{ description | markdownify }}
+      </div>
+    {% endif %}
+  </div>
+</article>
