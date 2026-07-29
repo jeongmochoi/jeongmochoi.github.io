@@ -1,0 +1,151 @@
+{% assign item = include.item %}
+{% assign lang = include.lang | default: 'en' %}
+
+{% if lang == 'ko' %}
+  {% assign title = item.title_ko | default: item.title_en %}
+  {% assign date = item.date_ko | default: item.date_en %}
+  {% assign source = item.source_ko | default: item.source_en %}
+  {% assign role = item.role_ko | default: item.role_en %}
+  {% assign description = item.description_ko | default: item.description_en %}
+  {% assign image_alt = item.image_alt_ko | default: title %}
+  {% assign visual_label = item.visual_label_ko | default: '영상 보기' %}
+{% else %}
+  {% assign title = item.title_en | default: item.title_ko %}
+  {% assign date = item.date_en | default: item.date_ko %}
+  {% assign source = item.source_en | default: item.source_ko %}
+  {% assign role = item.role_en | default: item.role_ko %}
+  {% assign description = item.description_en | default: item.description_ko %}
+  {% assign image_alt = item.image_alt_en | default: title %}
+  {% assign visual_label = item.visual_label_en | default: 'View item' %}
+{% endif %}
+
+{% assign visual_url = item.visual_url %}
+
+{% if visual_url == nil or visual_url == '' %}
+  {% if item.links %}
+    {% assign visual_url = item.links.first.url %}
+  {% endif %}
+{% endif %}
+
+{% assign image_url = '' %}
+
+{% if item.image %}
+  {% assign image_url = item.image | relative_url %}
+{% elsif item.youtube_id %}
+  {% capture image_url -%}
+    https://i.ytimg.com/vi/{{ item.youtube_id }}/hqdefault.jpg
+  {%- endcapture %}
+{% endif %}
+
+<article class="media-feature-card">
+  <div class="media-feature-visual">
+    {% if image_url != '' %}
+      <a
+        class="media-feature-visual-link"
+        href="{{ visual_url }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="{{ title }}"
+      >
+        <img
+          src="{{ image_url }}"
+          alt="{{ image_alt }}"
+          loading="lazy"
+        >
+
+        {% if item.youtube_id %}
+          <span class="media-play-icon" aria-hidden="true">
+            <i class="fa-solid fa-play"></i>
+          </span>
+        {% endif %}
+      </a>
+    {% else %}
+      <a
+        class="media-feature-placeholder"
+        href="{{ visual_url }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="{{ title }}"
+      >
+        <i class="fa-regular fa-file-lines" aria-hidden="true"></i>
+        <span>{{ visual_label }}</span>
+      </a>
+    {% endif %}
+  </div>
+
+  <div class="media-feature-body">
+    {% if date or source %}
+      <div class="media-feature-meta">
+        {% if date %}
+          <span>{{ date }}</span>
+        {% endif %}
+
+        {% if date and source %}
+          <span aria-hidden="true">·</span>
+        {% endif %}
+
+        {% if source %}
+          <span>{{ source }}</span>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <h3 class="media-feature-title">
+      <a
+        href="{{ visual_url }}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {{ title }}
+      </a>
+    </h3>
+
+    {% if role %}
+      <div class="media-role-badge">{{ role }}</div>
+    {% endif %}
+
+    {% if description %}
+      <div class="media-feature-description">
+        {{ description | markdownify }}
+      </div>
+    {% endif %}
+
+    {% if item.episodes %}
+      <ul class="media-episode-list">
+        {% for episode in item.episodes %}
+          {% if lang == 'ko' %}
+            {% assign episode_title = episode.title_ko | default: episode.title_en %}
+          {% else %}
+            {% assign episode_title = episode.title_en | default: episode.title_ko %}
+          {% endif %}
+
+          <li>
+            <span class="media-episode-date">{{ episode.date }}</span>
+            <span class="media-episode-title">{{ episode_title }}</span>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if item.links %}
+      <div class="media-link-list">
+        {% for link in item.links %}
+          {% if lang == 'ko' %}
+            {% assign link_label = link.label_ko | default: link.label_en %}
+          {% else %}
+            {% assign link_label = link.label_en | default: link.label_ko %}
+          {% endif %}
+
+          <a
+            class="media-link-button{% if link.highlight %} media-link-button-highlight{% endif %}"
+            href="{{ link.url }}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {{ link_label }}
+          </a>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</article>
