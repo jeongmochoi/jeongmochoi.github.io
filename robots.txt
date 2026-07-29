@@ -1,4 +1,5 @@
 User-agent: *
-Disallow:
+Disallow: /*.pdf$
+Disallow: /assets/pdf/
 
 Sitemap: https://jeongmochoi.github.io/sitemap.xml
