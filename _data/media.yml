@@ -258,11 +258,11 @@ public_items:
       A written researcher profile and interview published by CRIC.
     visual_label_ko: "서면 인터뷰"
     visual_label_en: "Written interview"
-    visual_url: "https://cric.re.kr/interviews"
+    visual_url: "https://cric.re.kr/interviews?o=i8419"
     links:
       - label_ko: "CRIC 인터뷰 목록"
         label_en: "CRIC interview archive"
-        url: "https://cric.re.kr/interviews"
+        url: "https://cric.re.kr/interviews?o=i8419"
 
   - id: chemiey-interview
     source_ko: "케미은영(ChemiEY)"
