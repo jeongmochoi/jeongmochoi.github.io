@@ -49,4 +49,9 @@ I am an Associate Professor in the [Department of Chemistry](https://chem.pusan.
 - **2012–2013**, Smith Family Graduate Science and Engineering Fellowship, Harvard University
 - **2011–2016**, Overseas Fellowship for Graduate Study, Korea Foundation for Advanced Studies
 - **2003–2006**, National Undergraduate S&T Scholarship, Korea Research Foundation
+
+## Academic Societies
+- Korean Chemical Society
+- Korean Physical Society
+- Korean In silico bioDesign and Discovery Society (KIDDS)
 </div>
