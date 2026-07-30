@@ -145,6 +145,15 @@ textarea {
   margin-bottom: 1.15rem;
 }
 
+.jm-about p.society-name {
+  margin-bottom: 0.32rem;
+  line-height: 1.55;
+}
+
+.jm-about p.society-name + ul {
+  margin-top: 0;
+}
+
 .jm-about h2 {
   font-size: 1.55rem;
   font-weight: 500;
