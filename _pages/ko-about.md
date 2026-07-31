@@ -51,8 +51,6 @@ latest_posts:
 
 ## 학회 활동
 
-## 학회 활동
-
 **대한화학회(KCS)**
 {: .society-name}
 
