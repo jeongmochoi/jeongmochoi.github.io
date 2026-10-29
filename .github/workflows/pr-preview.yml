@@ -1,0 +1,102 @@
+name: Site screenshots for owner review
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/pr-preview.yml"
+      - "bin/create-site-preview.js"
+      - "_pages/**"
+      - "_data/**"
+      - "_bibliography/**"
+      - "_books/**"
+      - "_news/**"
+      - "_includes/**"
+      - "_layouts/**"
+      - "_config.yml"
+      - "Gemfile"
+      - "Gemfile.lock"
+      - "assets/**"
+      - "package.json"
+      - "package-lock.json"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  screenshots:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3.5"
+          bundler-cache: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+          python -m pip install --upgrade nbconvert
+
+      - name: Build production-like site (not deployed)
+        env:
+          JEKYLL_ENV: production
+        run: |
+          bundle exec jekyll build
+          npm install -g purgecss
+          purgecss -c purgecss.config.js
+
+      - name: Install Chromium for screenshots
+        run: npx playwright install --with-deps chromium
+
+      - name: Capture desktop and mobile page previews
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m http.server 4173 --bind 127.0.0.1 --directory _site > /tmp/pr-preview-server.log 2>&1 &
+          SERVER_PID=$!
+          trap 'kill "$SERVER_PID" >/dev/null 2>&1 || true' EXIT
+          READY=0
+          for _ in {1..30}; do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null; then
+              READY=1
+              break
+            fi
+            sleep 2
+          done
+          if [ "$READY" -ne 1 ]; then
+            cat /tmp/pr-preview-server.log
+            exit 1
+          fi
+          node bin/create-site-preview.js
+
+      - name: Upload screenshots for PR review
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: site-preview-screenshots
+          path: site-preview/
+          if-no-files-found: warn
+          retention-days: 14
