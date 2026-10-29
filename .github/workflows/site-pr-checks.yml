@@ -1,0 +1,63 @@
+name: Site build gate
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: site-build-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  site-build:
+    name: site-build
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3.5"
+          bundler-cache: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install site dependencies
+        run: |
+          npm ci
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
+          python -m pip install --upgrade nbconvert
+
+      - name: Build site
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build
+
+      - name: Purge unused CSS
+        run: |
+          npm install -g purgecss
+          purgecss -c purgecss.config.js
+
+      - name: Check key entry points exist
+        run: |
+          test -s _site/index.html
+          test -s _site/ko/index.html
+          test -s _site/publications/index.html
+          test -s _site/ko/publications/index.html
