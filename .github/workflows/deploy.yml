@@ -55,7 +55,6 @@ on:
       - "!docs/FAQ.md"
       - "!docs/INSTALL.md"
       - "!README.md"
-  workflow_dispatch:
 
 permissions:
   contents: write
@@ -102,7 +101,7 @@ jobs:
           npm install -g purgecss
           purgecss -c purgecss.config.js
       - name: Deploy 🚀
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: _site

@@ -2,6 +2,10 @@
 
 `al-folio` is the **starter repo** for the pluginized v1 architecture.
 
+## Site-specific release safety
+
+For this personal homepage, first read `docs/SITE_MAINTENANCE.md`. All website changes require a separate branch, owner review, and explicit approval before production publication.
+
 ## Read This First
 
 - Start with `.github/copilot-instructions.md` for architecture, ownership boundaries, and CI expectations.
