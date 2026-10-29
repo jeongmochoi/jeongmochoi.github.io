@@ -12,6 +12,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   build:
@@ -43,8 +44,16 @@ jobs:
           done
           rm gh-md-toc
 
-      - name: Commit changes
+      - name: Open draft PR for changed table of contents
         if: steps.changed-files.outputs.any_changed == 'true'
-        uses: stefanzweifel/git-auto-commit-action@v5.0.1
+        uses: peter-evans/create-pull-request@v8
         with:
-          commit_message: Auto update markdown TOC
+          branch: automation/update-tocs
+          delete-branch: true
+          add-paths: "*.md"
+          commit-message: "docs: refresh markdown table of contents"
+          title: "자동 갱신: Markdown 목차"
+          body: |
+            Markdown 목차 자동 생성 결과입니다.
+            공개 홈페이지에 자동 반영하지 않습니다. 내용과 빌드 검사를 확인한 후 별도로 승인해 주세요.
+          draft: true
