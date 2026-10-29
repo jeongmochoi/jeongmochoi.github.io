@@ -19,7 +19,7 @@ An instruction to prepare, revise, check, or show a result is not permission to 
 ## Preview and checks
 
 - `.github/workflows/deploy.yml` builds pull requests but does not publish them.
-- The workflow captures screenshots of the English and Korean homepages (desktop and mobile) for PR review, when screenshot generation succeeds. Find them in the PR's **Checks / Actions** run under **Artifacts**. These are downloadable screenshots, **not live preview URLs**.
+- PR builds check whether the Jekyll site compiles, but do **not** automatically provide a live preview URL or screenshots. For visual changes, produce page-specific screenshots or another reviewable preview when a suitable preview environment is available.
 - Homepage screenshots do not verify all changed pages. For changes to publications, books, or other subpages, provide page-specific inspection or screenshots as part of that task.
 - The PR must describe any failed build or missing preview honestly. An optional screenshot failure does not count as a successful visual test.
 - A public URL showing an unmerged PR requires separate preview hosting; do not publish an unapproved version at the production URL to simulate previewing.
