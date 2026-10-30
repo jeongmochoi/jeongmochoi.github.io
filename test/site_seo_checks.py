@@ -79,7 +79,8 @@ for route in ("/", "/ko/"):
                        ("ko", "https://jeongmochoi.github.io/ko/")):
         fail_unless(any(l.get("rel") == "alternate" and l.get("hreflang") == lang and l.get("href") == href
                         for l in page.links), f"{route}: missing {lang} hreflang")
-    fail_unless("400italic" in html, f"{route}: Roboto italic web font not requested")
+    fail_unless("Roboto+Flex:slnt,wght@-10..0,300..700" in html,
+                f"{route}: Roboto Flex eight-degree variable slant not requested")
     profile_nodes = []
     for payload in page.structured:
         try:
@@ -94,8 +95,10 @@ for route in ("/", "/ko/"):
                 f"{route}: person name metadata mismatches")
 
 css = (SITE / "assets/css/main.css").read_text(encoding="utf-8")
-fail_unless("font-style:italic" in css or "font-style: italic" in css,
-            "Compiled site CSS has no genuine italic style")
+fail_unless(bool(re.search(r"font-style:\\s*oblique\\s+8deg", css)),
+            "Compiled site CSS does not preserve the chosen oblique 8deg")
+fail_unless(bool(re.search(r"font-variation-settings:\\s*['\\\"]slnt['\\\"]\\s*-8", css)),
+            "Variable font slant axis must be -8 for real eight-degree leaning")
 
 sample = route_file("/blog/2015/formatting-and-links/")
 if sample.exists():
@@ -116,6 +119,22 @@ print("Additional sitemap URLs not in the curated public-page set:")
 for url in additional:
     print("  SITEMAP_EXTRA:", url)
 fail_unless(not additional, f"Unrelated or generated demo URLs remain in the sitemap: {len(additional)}")
+# PDF privacy/discovery audit: prevent direct crawling and never advertise document URLs.
+robots_text = (SITE / "robots.txt").read_text(encoding="utf-8")
+fail_unless("User-agent: *" in robots_text, "robots.txt has no global Googlebot rule")
+for rule in ("Disallow: /*.pdf", "Disallow: /*.PDF", "Disallow: /assets/pdf/"):
+    fail_unless(rule in robots_text, f"PDF crawler policy missing: {rule}")
+pdf_urls = [url for url in urls if re.search(r"\\.pdf(?:$|[?#])", url, re.IGNORECASE)]
+fail_unless(not pdf_urls, f"PDF documents found in the sitemap: {len(pdf_urls)}")
+for route in ("/teaching/2020-fall-general-chemistry-2-002/",):
+    if route_file(route).exists():
+        _, detail = parsed(route)
+        directives = [meta.get("content", "") for meta in detail.meta if meta.get("name") == "robots"]
+        fail_unless(len(directives) == 1 and "noindex" in directives[0] and "nofollow" in directives[0],
+                    f"{route}: course detail must not advertise PDFs to crawlers")
+print("PASS PDF policy: robots disallows PDF crawling, sitemap has zero PDFs, course pages nofollow")
+# Note: disallow alone cannot guarantee removal of URL-only results on Google.
+
 for route in (
     "/blog/2015/formatting-and-links/",
     "/projects/1_project/",
@@ -126,4 +145,4 @@ for route in (
     fail_unless("https://jeongmochoi.github.io" + route not in urls,
                 f"Demo URL still advertised in sitemap: {route}")
 
-print(f"PASS: {len(PUBLIC_ROUTES)} canonical/indexable public routes, reciprocal home languages, genuine italics, ProfilePage, curated sitemap ({len(urls)} URLs)")
+print(f"PASS: {len(PUBLIC_ROUTES)} canonical/indexable public routes, reciprocal home languages, 8-degree oblique emphasis, ProfilePage, PDF-safe sitemap ({len(urls)} URLs)")
