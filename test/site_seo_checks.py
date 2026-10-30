@@ -111,6 +111,10 @@ urls = {loc.text for loc in root.findall(".//sm:loc", namespace)}
 for route in PUBLIC_ROUTES:
     fail_unless("https://jeongmochoi.github.io" + route in urls,
                 f"Public URL missing from sitemap: {route}")
+additional = sorted(urls.difference({"https://jeongmochoi.github.io" + route for route in PUBLIC_ROUTES}))
+print("Additional sitemap URLs not in the curated public-page set:")
+for url in additional:
+    print("  SITEMAP_EXTRA:", url)
 for route in (
     "/blog/2015/formatting-and-links/",
     "/projects/1_project/",
