@@ -22,7 +22,7 @@ baseurl:
 last_updated: false # set to true if you want to display last updated in the footer
 impressum_path: # set to path to include impressum link in the footer, use the same path as permalink in a page, helps to conform with EU GDPR
 back_to_top: true # set to false to disable the back to top button
-search_indexing: home_only
+search_indexing: selected_pages # Only explicitly marked public pages may be indexed
 
 # -----------------------------------------------------------------------------
 # Theme
@@ -289,6 +289,36 @@ plugins:
 
 # Sitemap settings
 defaults:
+  # Avoid advertising upstream al-folio demo content and private course materials to search engines.
+  # Public pages are explicitly opted back in with 'sitemap: true' in their front matter.
+  - scope:
+      path: "_pages"
+    values:
+      sitemap: false
+  - scope:
+      path: "_posts"
+    values:
+      sitemap: false
+  - scope:
+      path: "_projects"
+    values:
+      sitemap: false
+  - scope:
+      path: "_news"
+    values:
+      sitemap: false
+  - scope:
+      path: "_teachings"
+    values:
+      sitemap: false
+  - scope:
+      path: "_books"
+    values:
+      sitemap: false
+  - scope:
+      path: "teaching"
+    values:
+      sitemap: false
   - scope:
       path: "assets"
     values:
@@ -531,7 +561,7 @@ third_party_libraries:
     version: "5.5.0"
   google_fonts:
     url:
-      fonts: "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&display=swap"
+      fonts: "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,300italic,400italic,500italic,700italic|Roboto+Slab:100,300,400,500,700|Material+Icons&display=swap"
   highlightjs:
     integrity:
       css:
