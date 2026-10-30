@@ -86,7 +86,17 @@ for name, url in flag_files.items():
 
 mixed_svg = ET.fromstring((SITE / flag_files["en-uk-us.svg"].lstrip("/")).read_text(encoding="utf-8"))
 clips = mixed_svg.findall(".//{http://www.w3.org/2000/svg}clipPath")
-fail_unless(len(clips) == 2, "English flag must contain two diagonally clipped halves")
+clip_ids = {clip.get("id") for clip in clips}
+fail_unless({"american-half", "british-half"}.issubset(clip_ids),
+            "English flag must contain two diagonally clipped halves")
+usa_half = mixed_svg.find(".//{http://www.w3.org/2000/svg}clipPath[@id='american-half']")
+uk_half = mixed_svg.find(".//{http://www.w3.org/2000/svg}clipPath[@id='british-half']")
+fail_unless(usa_half[0].get("points") == "0,0 0,24 36,24" and
+            uk_half[0].get("points") == "0,0 36,0 36,24",
+            "English icon must split the genuine US and UK flag vectors 50/50")
+kr_svg = ET.fromstring((SITE / flag_files["ko.svg"].lstrip("/")).read_text(encoding="utf-8"))
+fail_unless(kr_svg.get("viewBox") == "-36 -24 72 48",
+            "Korean flag must keep the official 3:2 proportions")
 
 for route, destination, icon_name in (
     ("/", "/ko/", "ko.svg"),
