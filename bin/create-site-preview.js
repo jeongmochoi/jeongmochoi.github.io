@@ -56,6 +56,7 @@ async function main() {
                 return {
                   computedStyle: style.fontStyle,
                   fontFamily: style.fontFamily,
+                  fontWeight: style.fontWeight,
                   fontVariationSettings: style.fontVariationSettings,
                   variableFaces: faces.length,
                   loadedVariableFaces: faces.filter((font) => font.status === "loaded").length,
@@ -64,10 +65,37 @@ async function main() {
               console.log(`OBLIQUE_FONT_PROBE ${name} ${JSON.stringify(slant)}`);
               if (
                 slant.computedStyle !== "oblique 8deg" ||
+                slant.fontWeight !== "350" ||
                 !slant.fontVariationSettings.includes('"slnt" -8') ||
                 slant.loadedVariableFaces === 0
               ) {
                 throw new Error(`8-degree variable font did not load/render: ${JSON.stringify(slant)}`);
+              }
+            } else if (name.startsWith("papers-")) {
+              await page.evaluate(async () => await document.fonts.ready);
+              const typography = await page.evaluate(() => {
+                const author = document.querySelector(".publications ol.bibliography li .author .jm-self-author");
+                const journal = document.querySelector(".publications ol.bibliography li .jm-periodical .journal-title");
+                if (!author || !journal) throw new Error("Missing publication author or journal");
+                const ownerStyle = getComputedStyle(author);
+                const journalStyle = getComputedStyle(journal);
+                return {
+                  ownerStyle: ownerStyle.fontStyle,
+                  ownerFont: ownerStyle.fontFamily,
+                  journalStyle: journalStyle.fontStyle,
+                  journalWeight: journalStyle.fontWeight,
+                  journalSlant: journalStyle.fontVariationSettings,
+                };
+              });
+              console.log(`PUBLICATION_TYPOGRAPHY ${name} ${JSON.stringify(typography)}`);
+              if (
+                typography.ownerStyle !== "normal" ||
+                typography.ownerFont.includes("Roboto Flex") ||
+                typography.journalStyle !== "oblique 8deg" ||
+                typography.journalWeight !== "350" ||
+                !typography.journalSlant.includes('"slnt" -8')
+              ) {
+                throw new Error(`Publication font mismatch: ${JSON.stringify(typography)}`);
               }
             } else {
               await page.waitForTimeout(600);
