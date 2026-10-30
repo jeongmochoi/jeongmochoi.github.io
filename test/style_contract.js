@@ -61,8 +61,12 @@ if (/gem 'al_math',\s*:git =>/.test(gemfile)) {
   failures.push("`Gemfile` must not use git-branch pin for `al_math`; use released gem version.");
 }
 
+// A personalized site may intentionally override specific theme includes and layouts.
+// Keep all other thin-starter ownership checks enabled.
+const allowSiteOverrides = process.env.ALLOW_SITE_OVERRIDES === "true";
+const permittedSiteOverrides = new Set(["_includes", "_layouts"]);
 for (const forbiddenPath of ["_includes", "_layouts", "_sass", "_scripts", "assets/tailwind", "tailwind.config.js", "assets/webfonts"]) {
-  if (exists(forbiddenPath)) {
+  if (exists(forbiddenPath) && !(allowSiteOverrides && permittedSiteOverrides.has(forbiddenPath))) {
     failures.push(`Starter must not own core component path \`${forbiddenPath}\`; move ownership to the corresponding gem.`);
   }
 }
