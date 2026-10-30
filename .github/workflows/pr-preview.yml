@@ -6,6 +6,7 @@ on:
     paths:
       - ".github/workflows/pr-preview.yml"
       - "bin/create-site-preview.js"
+      - "bin/audit-site-pages.js"
       - "_pages/**"
       - "_data/**"
       - "_bibliography/**"
@@ -91,6 +92,7 @@ jobs:
             exit 1
           fi
           node bin/create-site-preview.js
+          node bin/audit-site-pages.js
 
       - name: Upload screenshots for PR review
         if: always()
@@ -98,5 +100,14 @@ jobs:
         with:
           name: site-preview-screenshots
           path: site-preview/
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Upload full-site HTML and responsive audit
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: full-site-audit
+          path: site-audit/
           if-no-files-found: warn
           retention-days: 14
