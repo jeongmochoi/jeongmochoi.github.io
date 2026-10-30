@@ -106,6 +106,14 @@ if sample.exists():
     fail_unless(any(m.get("name") == "robots" and m.get("content", "").startswith("noindex")
                     for m in demo.meta), "Upstream demo blog must not be indexed")
 
+# Google Search Console ownership verification must be published byte-for-byte.
+verification_name = "googlea861a1c63cb92d6d.html"
+verification_file = SITE / verification_name
+fail_unless(verification_file.is_file(), "Missing Google Search Console verification file")
+fail_unless(verification_file.read_text(encoding="utf-8") ==
+            f"google-site-verification: {verification_name}",
+            "Google Search Console verification challenge was modified during build")
+
 sitemap = SITE / "sitemap.xml"
 fail_unless(sitemap.exists(), "jekyll-sitemap not generated")
 root = ET.fromstring(sitemap.read_text(encoding="utf-8"))
