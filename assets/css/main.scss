@@ -198,12 +198,14 @@ i:not([class*="fa-"]) {
   font-synthesis-style: auto;
 }
 
-/* The rest of the homepage remains in Roboto; only emphasized Latin text
-   uses the variable font. Keep the Korean fallback unchanged. */
+/* Use Roboto Flex for the true eight-degree slant, but at a lighter weight:
+   its regular (400) strokes look heavier than the site's normal Roboto.
+   Korean fallback and upright body typography remain unchanged. */
 em,
 .publications ol.bibliography li .jm-periodical .journal-title {
   font-family: "Roboto Flex", var(--jm-korean-gothic-font) !important;
   font-style: oblique 8deg;
+  font-weight: 350;
   font-variation-settings: "slnt" -8;
 }
 
@@ -216,10 +218,16 @@ em,
   font-variant-numeric: tabular-nums;
 }
 
-/* Publication author list */
+/* Publication author list: the site owner's name is upright, like coauthors. */
 .publications ol.bibliography li .author {
   font-size: 0.9em;
   line-height: 1.45;
+}
+
+.publications ol.bibliography li .author .jm-self-author {
+  font-style: normal;
+  font-weight: inherit;
+  font-variation-settings: normal;
 }
 
 /* Publication bibliographic line */
