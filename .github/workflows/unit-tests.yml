@@ -67,6 +67,8 @@ jobs:
         run: npm ci
 
       - name: Run style contract lint 🧷
+        env:
+          ALLOW_SITE_OVERRIDES: "true" # local layouts/includes are intentional on this personalized site
         run: npm run lint:style-contract
 
       - name: Install build prerequisites 🔧
