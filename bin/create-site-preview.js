@@ -42,7 +42,36 @@ async function main() {
             if (!response || !response.ok()) {
               throw new Error(`${route} returned ${response?.status() ?? "no response"}`);
             }
-            await page.waitForTimeout(800);
+            if (name.startsWith("home-")) {
+              // Verify *actual browser font loading* before taking a screenshot.
+              // Computed CSS alone can claim oblique without a visible slant.
+              await page.evaluate(async () => await document.fonts.ready);
+              const slant = await page.evaluate(() => {
+                const emphasis = [...document.querySelectorAll("em")].find((element) =>
+                  element.textContent.includes("summa cum laude"),
+                );
+                if (!emphasis) throw new Error("Cannot find summa cum laude");
+                const style = getComputedStyle(emphasis);
+                const faces = [...document.fonts].filter((font) => font.family.includes("Roboto Flex"));
+                return {
+                  computedStyle: style.fontStyle,
+                  fontFamily: style.fontFamily,
+                  fontVariationSettings: style.fontVariationSettings,
+                  variableFaces: faces.length,
+                  loadedVariableFaces: faces.filter((font) => font.status === "loaded").length,
+                };
+              });
+              console.log(`OBLIQUE_FONT_PROBE ${name} ${JSON.stringify(slant)}`);
+              if (
+                slant.computedStyle !== "oblique 8deg" ||
+                !slant.fontVariationSettings.includes('"slnt" -8') ||
+                slant.loadedVariableFaces === 0
+              ) {
+                throw new Error(`8-degree variable font did not load/render: ${JSON.stringify(slant)}`);
+              }
+            } else {
+              await page.waitForTimeout(600);
+            }
             const output = path.join("site-preview", `${name}-${device}.png`);
             await page.screenshot({
               path: output,
