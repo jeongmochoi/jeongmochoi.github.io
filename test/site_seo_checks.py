@@ -95,9 +95,9 @@ for route in ("/", "/ko/"):
                 f"{route}: person name metadata mismatches")
 
 css = (SITE / "assets/css/main.css").read_text(encoding="utf-8")
-fail_unless(bool(re.search(r"font-style:\\s*oblique\\s+8deg", css)),
+fail_unless(bool(re.search(r"font-style:\s*oblique\s+8deg", css)),
             "Compiled site CSS does not preserve the chosen oblique 8deg")
-fail_unless(bool(re.search(r"font-variation-settings:\\s*['\\\"]slnt['\\\"]\\s*-8", css)),
+fail_unless(bool(re.search(r"""font-variation-settings:\s*["']slnt["']\s*-8""", css)),
             "Variable font slant axis must be -8 for real eight-degree leaning")
 
 sample = route_file("/blog/2015/formatting-and-links/")
@@ -124,7 +124,7 @@ robots_text = (SITE / "robots.txt").read_text(encoding="utf-8")
 fail_unless("User-agent: *" in robots_text, "robots.txt has no global Googlebot rule")
 for rule in ("Disallow: /*.pdf", "Disallow: /*.PDF", "Disallow: /assets/pdf/"):
     fail_unless(rule in robots_text, f"PDF crawler policy missing: {rule}")
-pdf_urls = [url for url in urls if re.search(r"\\.pdf(?:$|[?#])", url, re.IGNORECASE)]
+pdf_urls = [url for url in urls if re.search(r"\.pdf(?:$|[?#])", url, re.IGNORECASE)]
 fail_unless(not pdf_urls, f"PDF documents found in the sitemap: {len(pdf_urls)}")
 for route in ("/teaching/2020-fall-general-chemistry-2-002/",):
     if route_file(route).exists():
