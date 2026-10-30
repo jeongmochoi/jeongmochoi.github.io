@@ -72,6 +72,37 @@ for route in PUBLIC_ROUTES:
                 f"{route}: wrong canonical")
     print(f"PASS public: {route}")
 
+# The language switch uses local SVG flag images, not OS-dependent emoji.
+# Its destination must continue to target the counterpart of the current page.
+flag_files = {
+    "ko.svg": "/assets/img/language-flags/ko.svg",
+    "en-uk-us.svg": "/assets/img/language-flags/en-uk-us.svg",
+}
+for name, url in flag_files.items():
+    source = SITE / url.lstrip("/")
+    fail_unless(source.is_file(), f"Missing local flag image: {url}")
+    svg_root = ET.fromstring(source.read_text(encoding="utf-8"))
+    fail_unless(svg_root.tag.endswith("svg"), f"Invalid flag SVG: {name}")
+
+mixed_svg = ET.fromstring((SITE / flag_files["en-uk-us.svg"].lstrip("/")).read_text(encoding="utf-8"))
+clips = mixed_svg.findall(".//{http://www.w3.org/2000/svg}clipPath")
+fail_unless(len(clips) == 2, "English flag must contain two diagonally clipped halves")
+
+for route, destination, icon_name in (
+    ("/", "/ko/", "ko.svg"),
+    ("/ko/", "/", "en-uk-us.svg"),
+    ("/publications/", "/ko/publications/", "ko.svg"),
+    ("/ko/publications/", "/publications/", "en-uk-us.svg"),
+):
+    html, _ = parsed(route)
+    fail_unless("<!-- Language switch -->" in html, f"{route}: language switch missing")
+    switch = html.split("<!-- Language switch -->", 1)[1][:900]
+    fail_unless(f'href="{destination}"' in switch, f"{route}: wrong language destination")
+    fail_unless('class="jm-language-flag"' in switch, f"{route}: expected SVG image markup")
+    fail_unless(f'src="{flag_files[icon_name]}"' in switch, f"{route}: wrong flag image")
+    fail_unless('aria-hidden="true"' in switch and 'alt=""' in switch,
+                f"{route}: missing accessible decorative SVG attributes")
+
 for route in ("/", "/ko/"):
     html, page = parsed(route)
     fail_unless(bool(re.search(r"<em>summa cum laude</em>", html)), f"{route}: actual italic tag missing")
