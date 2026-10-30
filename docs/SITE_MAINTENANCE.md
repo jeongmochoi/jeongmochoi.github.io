@@ -19,17 +19,19 @@ An instruction to prepare, revise, check, or show a result is not permission to 
 ## Preview and checks
 
 - `.github/workflows/deploy.yml` builds pull requests but does not publish them.
-- PR builds check whether the Jekyll site compiles, but do **not** automatically provide a live preview URL or screenshots. For visual changes, produce page-specific screenshots or another reviewable preview when a suitable preview environment is available.
+- `.github/workflows/site-pr-checks.yml` provides a consistent Jekyll build status for all PRs (after the CI PR is merged).
+- `.github/workflows/pr-preview.yml` provides screenshot artifacts for English/Korean page entry points when relevant site files change (after the screenshot PR is merged). These are not live preview URLs. For an edited subpage not included in those screenshots, add page-specific review evidence.
 - Homepage screenshots do not verify all changed pages. For changes to publications, books, or other subpages, provide page-specific inspection or screenshots as part of that task.
 - The PR must describe any failed build or missing preview honestly. An optional screenshot failure does not count as a successful visual test.
 - A public URL showing an unmerged PR requires separate preview hosting; do not publish an unapproved version at the production URL to simulate previewing.
 
 ## Publication boundary
 
-- A `push` to `main` triggers GitHub Pages publication. The deployment job must not publish pull requests, feature branches, or manually dispatched runs.
-- **Repository branch protection is still required for technical enforcement.** The owner should configure a GitHub rule for `main` requiring pull requests and preventing direct pushes / force pushes, with relevant reliable CI checks. A documented policy alone cannot prevent a direct push to an unprotected `main` branch.
+- A `push` to `main` triggers GitHub Pages publication. The deployment job must not publish pull requests, feature branches, or manually dispatched runs. After migration, `deploy.yml` uploads an artifact and publishes using `actions/deploy-pages`; it no longer writes to `gh-pages`.
+- The active `Review before publish` ruleset requires pull requests for `main` and blocks force pushes and deletion. After the `site-build` check is shown to pass, the owner should select it as a required ruleset status check. Because the owner has no independent reviewer, a 0-reviewer rule does not enforce chat approval; the assistant must separately require the owner's explicit approval before any merge.
 - This is a single-owner repository: do **not** require one other approving GitHub review unless an independent reviewer is available, since a PR author cannot approve their own PR. The owner's explicit approval in the working conversation governs whether the assistant may merge.
 - Do not modify deployment workflows, repository protections, or site-domain settings as part of ordinary content edits unless the request requires it.
+- Do not merge the official Pages migration workflow until the owner is ready to switch **Settings → Pages → Build and deployment → Source** to **GitHub Actions**. Follow `docs/PAGES_MIGRATION.md` and verify the first Pages deployment. Until the migration succeeds, leave the legacy `gh-pages` publishing configuration intact.
 
 ## 사용자 검토 요약
 
