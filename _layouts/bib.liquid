@@ -144,10 +144,9 @@
       {% if entry.annotation %}
         <i
           class="fa-solid fa-circle-info ml-1"
-          data-toggle="popover"
-          data-placement="top"
-          data-html="true"
-          data-content="{{ entry.annotation | escape }}"
+          role="img"
+          aria-label="{{ entry.annotation | strip_html | escape }}"
+          title="{{ entry.annotation | strip_html | escape }}"
         >
         </i>
       {% endif %}
