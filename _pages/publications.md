@@ -6,6 +6,9 @@ nav: true
 nav_order: 2
 lang: en
 ref: publications
+seo_index: true
+sitemap: true
+description: "Research publications by Jeong-Mo Choi (최정모), Pusan National University, in statistical mechanics, computational chemistry, and biomolecular science."
 ---
 
 <!-- _pages/publications.md -->
