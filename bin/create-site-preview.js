@@ -21,6 +21,14 @@ const viewports = [
   ["mobile", { width: 390, height: 844 }],
 ];
 
+// Computed CSS transforms are matrices with x-skew tan(-8 degrees).
+function isEightDegreeSkew(value) {
+  const matrix = /^matrix\(([^)]+)\)$/.exec(value);
+  if (!matrix) return false;
+  const values = matrix[1].split(",").map((number) => Number(number.trim()));
+  return values.length === 6 && Math.abs(values[2] - Math.tan((-8 * Math.PI) / 180)) < 0.001;
+}
+
 async function main() {
   fs.mkdirSync("site-preview", { recursive: true });
   const browser = await chromium.launch({ headless: true });
@@ -52,22 +60,58 @@ async function main() {
                 );
                 if (!emphasis) throw new Error("Cannot find summa cum laude");
                 const style = getComputedStyle(emphasis);
-                const faces = [...document.fonts].filter((font) => font.family.includes("Roboto Flex"));
+                const parent = getComputedStyle(emphasis.parentElement);
                 return {
                   computedStyle: style.fontStyle,
                   fontFamily: style.fontFamily,
-                  fontVariationSettings: style.fontVariationSettings,
-                  variableFaces: faces.length,
-                  loadedVariableFaces: faces.filter((font) => font.status === "loaded").length,
+                  fontWeight: style.fontWeight,
+                  parentWeight: parent.fontWeight,
+                  transform: style.transform,
+                  display: style.display,
                 };
               });
               console.log(`OBLIQUE_FONT_PROBE ${name} ${JSON.stringify(slant)}`);
               if (
-                slant.computedStyle !== "oblique 8deg" ||
-                !slant.fontVariationSettings.includes('"slnt" -8') ||
-                slant.loadedVariableFaces === 0
+                slant.computedStyle !== "normal" ||
+                !slant.fontFamily.includes("Roboto") ||
+                slant.fontFamily.includes("Roboto Flex") ||
+                slant.fontWeight !== slant.parentWeight ||
+                slant.display !== "inline-block" ||
+                !isEightDegreeSkew(slant.transform)
               ) {
-                throw new Error(`8-degree variable font did not load/render: ${JSON.stringify(slant)}`);
+                throw new Error(`Original Roboto eight-degree slant did not render: ${JSON.stringify(slant)}`);
+              }
+            } else if (name.startsWith("papers-")) {
+              await page.evaluate(async () => await document.fonts.ready);
+              const typography = await page.evaluate(() => {
+                const author = document.querySelector(".publications ol.bibliography li .author .jm-self-author");
+                const journal = document.querySelector(".publications ol.bibliography li .jm-periodical .journal-title");
+                if (!author || !journal) throw new Error("Missing publication author or journal");
+                const ownerStyle = getComputedStyle(author);
+                const journalStyle = getComputedStyle(journal);
+                const periodicalStyle = getComputedStyle(journal.parentElement);
+                return {
+                  ownerStyle: ownerStyle.fontStyle,
+                  ownerFont: ownerStyle.fontFamily,
+                  ownerUnderline: ownerStyle.textDecorationLine,
+                  journalStyle: journalStyle.fontStyle,
+                  journalFont: journalStyle.fontFamily,
+                  journalWeight: journalStyle.fontWeight,
+                  parentWeight: periodicalStyle.fontWeight,
+                  journalTransform: journalStyle.transform,
+                };
+              });
+              console.log(`PUBLICATION_TYPOGRAPHY ${name} ${JSON.stringify(typography)}`);
+              if (
+                typography.ownerStyle !== "normal" ||
+                !typography.ownerUnderline.includes("underline") ||
+                typography.ownerFont.includes("Roboto Flex") ||
+                typography.journalStyle !== "normal" ||
+                typography.journalFont.includes("Roboto Flex") ||
+                typography.journalWeight !== typography.parentWeight ||
+                !isEightDegreeSkew(typography.journalTransform)
+              ) {
+                throw new Error(`Publication font mismatch: ${JSON.stringify(typography)}`);
               }
             } else {
               await page.waitForTimeout(600);

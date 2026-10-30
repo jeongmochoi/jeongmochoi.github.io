@@ -79,8 +79,8 @@ for route in ("/", "/ko/"):
                        ("ko", "https://jeongmochoi.github.io/ko/")):
         fail_unless(any(l.get("rel") == "alternate" and l.get("hreflang") == lang and l.get("href") == href
                         for l in page.links), f"{route}: missing {lang} hreflang")
-    fail_unless("Roboto+Flex:slnt,wght@-10..0,300..700" in html,
-                f"{route}: Roboto Flex eight-degree variable slant not requested")
+    fail_unless("Roboto+Flex:" not in html,
+                f"{route}: previous separate italic font is still requested")
     profile_nodes = []
     for payload in page.structured:
         try:
@@ -95,10 +95,22 @@ for route in ("/", "/ko/"):
                 f"{route}: person name metadata mismatches")
 
 css = (SITE / "assets/css/main.css").read_text(encoding="utf-8")
-fail_unless(bool(re.search(r"font-style:\s*oblique\s+8deg", css)),
-            "Compiled site CSS does not preserve the chosen oblique 8deg")
-fail_unless(bool(re.search(r"""font-variation-settings:\s*["']slnt["']\s*-8""", css)),
-            "Variable font slant axis must be -8 for real eight-degree leaning")
+fail_unless(bool(re.search(r"transform:\s*skewX\(-8deg\)", css)),
+            "Actual eight-degree slant must be applied to original Roboto")
+fail_unless("Roboto Flex" not in css and "font-weight: 350" not in css,
+            "Original typeface and inherited font weight must be preserved")
+fail_unless(bool(re.search(r"\.jm-self-author\s*\{[^}]*text-decoration:\s*underline", css)),
+            "Author underline must be preserved")
+
+for route in ("/publications/", "/ko/publications/"):
+    html, _ = parsed(route)
+    author_blocks = re.findall(r'<div class="author">(.*?)</div>', html, re.DOTALL)
+    fail_unless(author_blocks, f"{route}: no publication authors found")
+    fail_unless(all("<em" not in block.lower() for block in author_blocks),
+                f"{route}: italic author names remain")
+    self_names = re.findall(r'<span class="jm-self-author">(.*?)</span>', html, re.DOTALL)
+    fail_unless(self_names and all("Choi" in text for text in self_names),
+                f"{route}: owner name missing from underlined, upright author spans")
 
 sample = route_file("/blog/2015/formatting-and-links/")
 if sample.exists():
