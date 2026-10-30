@@ -243,7 +243,7 @@ exclude:
   - _projects/
   - _teachings/
   - assets/html/relativity.html
-  - assets/jupyter/blog.ipynb.html
+  - assets/jupyter/ # demo notebook source and its generated HTML
   - assets/plotly/demo.html
   - purgecss.config.js
   - README.md
