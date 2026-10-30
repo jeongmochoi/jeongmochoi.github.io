@@ -95,8 +95,12 @@ for route, destination, icon_name in (
     ("/ko/publications/", "/publications/", "en-uk-us.svg"),
 ):
     html, _ = parsed(route)
-    fail_unless("<!-- Language switch -->" in html, f"{route}: language switch missing")
-    switch = html.split("<!-- Language switch -->", 1)[1][:900]
+    switch_match = re.search(
+        r'<li\s+class="nav-item navbar-language-toggle"[^>]*>(.*?)</li>',
+        html, re.DOTALL,
+    )
+    fail_unless(switch_match is not None, f"{route}: language switch missing")
+    switch = switch_match.group(1)
     fail_unless(f'href="{destination}"' in switch, f"{route}: wrong language destination")
     fail_unless('class="jm-language-flag"' in switch, f"{route}: expected SVG image markup")
     fail_unless(f'src="{flag_files[icon_name]}"' in switch, f"{route}: wrong flag image")
