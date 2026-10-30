@@ -190,7 +190,7 @@ textarea {
 }
 
 /* Use the original Roboto face and weight for all emphasized text.
-   Skew the existing upright glyphs by precisely 8 degrees: unlike Roboto Flex,
+   Skew the existing upright glyphs by precisely 8 degrees: unlike substituting a different font,
    this changes neither typeface nor stroke weight. Inline-block makes the
    transform apply to the actual glyphs, not just the declared font-style. */
 em,
