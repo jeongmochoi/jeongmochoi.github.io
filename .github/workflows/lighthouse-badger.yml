@@ -33,8 +33,13 @@ on:
 # THAT'S IT; YOU DON'T HAVE TO DEFINE ANYTHING IN THE FOLLOWING
 ########################################################################
 
+permissions:
+  contents: read
+
 jobs:
   lighthouse-badger-easy:
+    # Do not use the upstream theme's badge token/branch configuration for this personal site.
+    if: github.repository_owner == 'alshedivat'
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:

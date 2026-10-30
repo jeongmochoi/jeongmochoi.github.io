@@ -14,8 +14,13 @@ on:
       - "package.json"
       - "package-lock.json"
 
+permissions:
+  contents: read
+
 jobs:
   build:
+    # Upstream theme Docker publishing is not part of this personal website.
+    if: github.repository_owner == 'alshedivat'
     runs-on: ubuntu-latest
 
     steps:
