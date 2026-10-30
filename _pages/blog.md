@@ -4,8 +4,9 @@ permalink: /blog/
 title: blog
 nav: false
 nav_order: 1
+sitemap: false # Legacy starter demo blog, not an advertised part of this homepage
 pagination:
-  enabled: true
+  enabled: false # Stop generating demo archive pagination
   collection: posts
   permalink: /page/:num/
   per_page: 5
