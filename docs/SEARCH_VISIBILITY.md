@@ -6,6 +6,10 @@ The site is publicly hosted on GitHub Pages. Code improvements can make pages el
 
 - The site uses the `selected_pages` search-indexing policy. Only pages with explicit `seo_index: true` are tagged `index,follow`; pages still containing upstream al-folio demo material and non-public course-detail content remain `noindex`.
 - The eleven curated pages are included in `sitemap.xml` with `sitemap: true` front matter. The sample blog posts, projects, announcements, old theme books, and other demo collections are excluded by Jekyll default `sitemap: false` settings.
+- PDF study materials must **never** be put in the sitemap. The Jekyll build check verifies that there are zero PDF URLs in the generated `sitemap.xml`. As of the old public sitemap, 410 of 589 listed URLs were PDFs; those were unintentionally advertised even though `robots.txt` discouraged crawlers.
+- `robots.txt` blocks crawling of PDF URLs throughout the site, including teaching PDFs and query-string variants. HTML course detail pages are tagged `noindex,nofollow` to reduce PDF URL discovery.
+- **Important limitation:** `robots.txt` is only a crawler restriction, not an enforceable `noindex` directive or access control. Google may still show a URL-only PDF result if links exist elsewhere. On GitHub Pages, we cannot directly configure a per-PDF `X-Robots-Tag: noindex` response header. To guarantee exclusion under Google rules, move PDFs to a hosting service that adds `X-Robots-Tag: noindex` (and allow crawling so the header can be read), or restrict PDF access if the material must actually remain private. If a PDF is already indexed, use Google Search Console's removal process in parallel.
+- Teaching PDFs remain publicly downloadable with their existing URLs; none were moved or deleted by this change.
 - The English and Korean homepages have separate descriptions, matching canonicals, reciprocal `hreflang` alternatives, and `ProfilePage` / `Person` JSON-LD identifying both `Jeong-Mo Choi` and `최정모`.
 - `robots.txt` already allows public HTML crawlers and advertises `https://jeongmochoi.github.io/sitemap.xml`. No fake crawler or search-ranking claims are made.
 
@@ -35,4 +39,4 @@ The site is publicly hosted on GitHub Pages. Code improvements can make pages el
 
 ## Typography
 
-The Markdown source already renders `_summa cum laude_` into an HTML `<em>` tag. The old CSS applied an unusually subtle `oblique 8deg` style, while the requested Google Fonts URL only loaded roman Roboto. The updated CSS uses proper `font-style: italic`, and the Google Fonts request includes genuine italic Roboto faces.
+The Markdown source already renders `_summa cum laude_` into an HTML `<em>` tag. The old CSS applied an unusually subtle `oblique 8deg` style, while the requested Google Fonts URL only loaded roman Roboto. The original design intentionally requested a subtle `font-style: oblique 8deg`, **not** conventional italic. Simply loading Roboto italic glyphs changed the appearance without delivering an exact eight-degree slant. The revised stylesheet keeps `oblique 8deg` and uses Roboto Flex only for emphasized text with its genuine `slnt: -8` variable axis; ordinary text remains in Roboto. Homepage screenshot CI checks that a Roboto Flex face actually loaded before capturing the result.
