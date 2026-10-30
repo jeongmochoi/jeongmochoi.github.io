@@ -18,6 +18,9 @@ announcements:
   enabled: false
 latest_posts:
   enabled: false
+seo_index: true
+sitemap: true
+description: "Jeong-Mo Choi (최정모), Associate Professor of Chemistry at Pusan National University. Research in statistical mechanics, molecular modeling, and biomolecular science; books and public lectures."
 ---
 <div class="jm-about" markdown="1">
 I am an Associate Professor in the [Department of Chemistry](https://chem.pusan.ac.kr/) at [Pusan National University](https://www.pusan.ac.kr/eng/). [My research group](https://sites.google.com/view/pnummdl-eng/) studies the molecular principles of living systems using statistical mechanics, molecular modeling, and computational chemistry. I also write and translate books, give public lectures, and communicate ideas in chemistry and the history of science to broader audiences.
