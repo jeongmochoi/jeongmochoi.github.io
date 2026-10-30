@@ -19,8 +19,8 @@ An instruction to prepare, revise, check, or show a result is not permission to 
 ## Preview and checks
 
 - `.github/workflows/deploy.yml` builds pull requests but does not publish them.
-- `.github/workflows/site-pr-checks.yml` provides a consistent Jekyll build status for all PRs (after the CI PR is merged).
-- `.github/workflows/pr-preview.yml` provides screenshot artifacts for English/Korean page entry points when relevant site files change (after the screenshot PR is merged). These are not live preview URLs. For an edited subpage not included in those screenshots, add page-specific review evidence.
+- `.github/workflows/site-pr-checks.yml` provides a consistent `site-build` check for pull requests. Draft PRs opened by the repository's own `GITHUB_TOKEN` cannot automatically trigger PR checks: the owner can run **Actions → Site build gate → Run workflow**, choosing the automation PR's branch. Verify that the check passes on the PR head commit before merging.
+- `.github/workflows/pr-preview.yml` provides screenshot artifacts for English/Korean page entry points when relevant site files change. These are not live preview URLs. For an edited subpage not included in those screenshots, add page-specific review evidence.
 - Homepage screenshots do not verify all changed pages. For changes to publications, books, or other subpages, provide page-specific inspection or screenshots as part of that task.
 - The PR must describe any failed build or missing preview honestly. An optional screenshot failure does not count as a successful visual test.
 - A public URL showing an unmerged PR requires separate preview hosting; do not publish an unapproved version at the production URL to simulate previewing.
@@ -31,7 +31,7 @@ An instruction to prepare, revise, check, or show a result is not permission to 
 - The active `Review before publish` ruleset requires pull requests for `main` and blocks force pushes and deletion. After the `site-build` check is shown to pass, the owner should select it as a required ruleset status check. Because the owner has no independent reviewer, a 0-reviewer rule does not enforce chat approval; the assistant must separately require the owner's explicit approval before any merge.
 - This is a single-owner repository: do **not** require one other approving GitHub review unless an independent reviewer is available, since a PR author cannot approve their own PR. The owner's explicit approval in the working conversation governs whether the assistant may merge.
 - Do not modify deployment workflows, repository protections, or site-domain settings as part of ordinary content edits unless the request requires it.
-- Do not merge the official Pages migration workflow until the owner is ready to switch **Settings → Pages → Build and deployment → Source** to **GitHub Actions**. Follow `docs/PAGES_MIGRATION.md` and verify the first Pages deployment. Until the migration succeeds, leave the legacy `gh-pages` publishing configuration intact.
+- The Pages migration was merged on 2026-10-30 and the first `github-pages-deploy` job succeeded. Keep **Settings → Pages → Build and deployment → Source** set to **GitHub Actions**. The legacy `gh-pages` branch is retained solely for rollback and is no longer the publishing target.
 
 ## 사용자 검토 요약
 
