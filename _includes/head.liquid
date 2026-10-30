@@ -15,6 +15,14 @@
   {% assign jm_robots = 'index,follow' %}
 {% endif %}
 
+{% comment %}
+  Course-detail pages expose PDFs; stop crawlers following their document links.
+  PDF URL-level noindex cannot be guaranteed via robots.txt alone on GitHub Pages.
+{% endcomment %}
+{% if page.seo_index != true and page.url contains '/teaching/' %}
+  {% assign jm_robots = 'noindex,nofollow,noarchive,noimageindex' %}
+{% endif %}
+
 <meta name="robots" content="{{ jm_robots }}">
 
 {% comment %}
@@ -114,6 +122,11 @@
   rel="stylesheet"
   type="text/css"
   href="{{ site.third_party_libraries.google_fonts.url.fonts }}"
+>
+<!-- Load the Roboto Flex variable slant axis only for emphasized text (8 degrees). -->
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Roboto+Flex:slnt,wght@-10..0,300..700&amp;display=swap"
 >
 
 <!-- Code Syntax Highlighting -->
