@@ -67,6 +67,17 @@ textarea {
   height: auto;
 }
 
+/* Draw identical language-switch flags on Windows, macOS, and mobile.
+   The image is decorative: the link has its own accessible language label. */
+.navbar-language-toggle .jm-language-flag {
+  display: inline-block;
+  width: 27px;
+  height: 18px;
+  vertical-align: -0.2em;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.16);
+}
+
 /* Mobile layout: keep the photo smaller and centered */
 @media (max-width: 576px) {
   .profile.float-right,
