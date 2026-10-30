@@ -99,6 +99,18 @@ fail_unless(bool(re.search(r"font-style:\s*oblique\s+8deg", css)),
             "Compiled site CSS does not preserve the chosen oblique 8deg")
 fail_unless(bool(re.search(r"""font-variation-settings:\s*["']slnt["']\s*-8""", css)),
             "Variable font slant axis must be -8 for real eight-degree leaning")
+fail_unless(bool(re.search(r"font-weight:\s*350\s*;", css)),
+            "Italic text should use the lighter Roboto Flex 350 weight")
+
+for route in ("/publications/", "/ko/publications/"):
+    html, _ = parsed(route)
+    author_blocks = re.findall(r'<div class="author">(.*?)</div>', html, re.DOTALL)
+    fail_unless(author_blocks, f"{route}: no publication authors found")
+    fail_unless(all("<em" not in block.lower() for block in author_blocks),
+                f"{route}: italic author names remain")
+    self_names = re.findall(r'<span class="jm-self-author">(.*?)</span>', html, re.DOTALL)
+    fail_unless(self_names and all("Choi" in text for text in self_names),
+                f"{route}: owner name missing from upright author spans")
 
 sample = route_file("/blog/2015/formatting-and-links/")
 if sample.exists():
