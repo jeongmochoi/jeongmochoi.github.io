@@ -2,7 +2,10 @@
 permalink: /robots.txt
 ---
 User-agent: *
-Disallow: /*.pdf$
+# Block crawling of PDFs throughout the site, including URLs with query strings.
+# robots.txt alone cannot guarantee exclusion of linked PDF URLs from Google results.
+Disallow: /*.pdf
+Disallow: /*.PDF
 Disallow: /assets/pdf/
 
 Sitemap: {{ site.baseurl | prepend: site.url }}/sitemap.xml

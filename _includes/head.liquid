@@ -7,11 +7,68 @@
   {% if page.url == '/' or page.url == '/ko/' %}
     {% assign jm_robots = 'index,follow' %}
   {% endif %}
+{% elsif site.search_indexing == 'selected_pages' %}
+  {% if page.seo_index == true %}
+    {% assign jm_robots = 'index,follow' %}
+  {% endif %}
 {% elsif site.search_indexing == 'all' %}
   {% assign jm_robots = 'index,follow' %}
 {% endif %}
 
+{% comment %}
+  Course-detail pages expose PDFs; stop crawlers following their document links.
+  PDF URL-level noindex cannot be guaranteed via robots.txt alone on GitHub Pages.
+{% endcomment %}
+{% if page.seo_index != true and page.url contains '/teaching/' %}
+  {% assign jm_robots = 'noindex,nofollow,noarchive,noimageindex' %}
+{% endif %}
+
 <meta name="robots" content="{{ jm_robots }}">
+
+{% comment %}
+  Public pages with the same 'ref' provide reciprocal language annotations.
+  Exclude non-navigation book detail pages sharing a 'ref' with their book index.
+{% endcomment %}
+{% if page.seo_index == true and page.nav == true and page.ref and page.lang %}
+  {% assign jm_localizations = site.pages | where: 'ref', page.ref %}
+  {% for jm_localization in jm_localizations %}
+    {% if jm_localization.seo_index == true and jm_localization.nav == true and jm_localization.lang %}
+      <link rel="alternate" hreflang="{{ jm_localization.lang }}" href="{{ jm_localization.url | absolute_url }}">
+      {% if jm_localization.lang == 'en' %}
+        <link rel="alternate" hreflang="x-default" href="{{ jm_localization.url | absolute_url }}">
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endif %}
+
+{% if page.seo_index == true and page.ref == 'about' %}
+  <!-- This page identifies the owner; metadata does not imply Google indexing. -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfilePage",
+      "@id": {{ page.url | absolute_url | append: '#profile' | jsonify }},
+      "url": {{ page.url | absolute_url | jsonify }},
+      "mainEntity": {
+        "@type": "Person",
+        "@id": {{ '/' | absolute_url | append: '#person' | jsonify }},
+        "name": "Jeong-Mo Choi",
+        "alternateName": "최정모",
+        "url": {{ '/' | absolute_url | jsonify }},
+        "jobTitle": "Associate Professor of Chemistry",
+        "worksFor": {
+          "@type": "CollegeOrUniversity",
+          "name": "Pusan National University",
+          "url": "https://www.pusan.ac.kr/eng/"
+        },
+        "sameAs": [
+          "https://scholar.google.com/citations?user=xHzl8QQAAAAJ",
+          "https://github.com/jeongmochoi"
+        ]
+      }
+    }
+  </script>
+{% endif %}
 
 <!-- Security: Content Security Policy -->
 <!-- Permissive CSP suitable for academic websites. Allows external images, videos, and common embed services. -->
@@ -65,6 +122,11 @@
   rel="stylesheet"
   type="text/css"
   href="{{ site.third_party_libraries.google_fonts.url.fonts }}"
+>
+<!-- Load the Roboto Flex variable slant axis only for emphasized text (8 degrees). -->
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Roboto+Flex:slnt,wght@-10..0,300..700&amp;display=swap"
 >
 
 <!-- Code Syntax Highlighting -->

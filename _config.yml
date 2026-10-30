@@ -22,7 +22,7 @@ baseurl:
 last_updated: false # set to true if you want to display last updated in the footer
 impressum_path: # set to path to include impressum link in the footer, use the same path as permalink in a page, helps to conform with EU GDPR
 back_to_top: true # set to false to disable the back to top button
-search_indexing: home_only
+search_indexing: selected_pages # Only explicitly marked public pages may be indexed
 
 # -----------------------------------------------------------------------------
 # Theme
@@ -159,17 +159,8 @@ disqus_shortname: al-folio # put your disqus shortname
 # If you have blog posts published on medium.com or other external sources,
 # you can display them in your blog by adding a link to the RSS feed.
 # Optional: Set default categories and tags for posts from each source.
-external_sources:
-  - name: medium.com
-    rss_url: https://medium.com/@al-folio/feed
-    categories: [external-posts]
-    tags: [medium]
-  - name: Google Blog
-    posts:
-      - url: https://blog.google/technology/ai/google-gemini-update-flash-ai-assistant-io-2024/
-        published_date: 2024-05-14
-    categories: [external-posts]
-    tags: [google]
+# Disable sample feeds from the al-folio starter; they are unrelated to this academic homepage.
+external_sources: []
 
 # -----------------------------------------------------------------------------
 # Newsletter
@@ -184,17 +175,20 @@ newsletter:
 # Collections
 # -----------------------------------------------------------------------------
 
+# These sample collections belong to upstream al-folio; this personal
+# academic homepage uses _data/books.yml and teaching/ instead.
+# Keep source files for future reference but do not generate sample URLs.
 collections:
   books:
-    output: true
+    output: false
   news:
     defaults:
       layout: post
-    output: true
+    output: false
   projects:
-    output: true
+    output: false
   teachings:
-    output: true
+    output: false
 
 # -----------------------------------------------------------------------------
 # Jekyll settings
@@ -233,6 +227,24 @@ exclude:
   - package.json
   - package-lock.json
   - _pages/about_einstein.md
+  # Unused starter-kit pages, articles, and demo output; retain in Git only.
+  # Preserve the real bilingual pages, teaching/, and all teaching PDFs.
+  - _pages/blog.md
+  - _pages/cv.md
+  - _pages/dropdown.md
+  - _pages/news.md
+  - _pages/plugins.md
+  - _pages/profiles.md
+  - _pages/projects.md
+  - _pages/repositories.md
+  - _posts/
+  - _books/
+  - _news/
+  - _projects/
+  - _teachings/
+  - assets/html/relativity.html
+  - assets/jupyter/ # demo notebook source and its generated HTML
+  - assets/plotly/demo.html
   - purgecss.config.js
   - README.md
   - readme_preview/
@@ -289,6 +301,36 @@ plugins:
 
 # Sitemap settings
 defaults:
+  # Avoid advertising upstream al-folio demo content and private course materials to search engines.
+  # Public pages are explicitly opted back in with 'sitemap: true' in their front matter.
+  - scope:
+      path: "_pages"
+    values:
+      sitemap: false
+  - scope:
+      path: "_posts"
+    values:
+      sitemap: false
+  - scope:
+      path: "_projects"
+    values:
+      sitemap: false
+  - scope:
+      path: "_news"
+    values:
+      sitemap: false
+  - scope:
+      path: "_teachings"
+    values:
+      sitemap: false
+  - scope:
+      path: "_books"
+    values:
+      sitemap: false
+  - scope:
+      path: "teaching"
+    values:
+      sitemap: false
   - scope:
       path: "assets"
     values:
@@ -325,13 +367,13 @@ terser:
 
 jekyll-archives:
   posts:
-    enabled: [year, tags, categories] # enables year, tag and category archives (remove if you need to disable one of them).
+    enabled: [] # No demo post tag/year/category archive pages on the academic homepage
     permalinks:
       year: "/blog/:year/"
       tags: "/blog/:type/:name/"
       categories: "/blog/:type/:name/"
   books:
-    enabled: [year, tags, categories] # enables year, tag and category archives (remove if you need to disable one of them).
+    enabled: [] # No starter-book category/year archives
 
 display_tags: ["formatting", "images", "links", "math", "code", "blockquotes"] # these tags will be displayed on the front page of your blog
 display_categories: ["external-services"] # these categories will be displayed on the front page of your blog

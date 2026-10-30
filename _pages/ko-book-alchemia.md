@@ -5,6 +5,9 @@ permalink: /ko/books/alchemia/
 nav: false
 lang: ko
 ref: books
+seo_index: true
+sitemap: true
+description: "최정모의 저서 알케미아: 현자의 돌에서 주기율표까지 연금술과 화학의 역사. 책 소개 및 출판 정보."
 ---
 
 <div class="book-detail" markdown="1">

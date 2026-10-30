@@ -189,10 +189,22 @@ textarea {
   }
 }
 
-/* Softer italics only inside Publications/Papers pages */
+/* Subtle oblique text: keep the author's chosen eight-degree slant.
+   Regular Roboto cannot guarantee the requested angle across browsers;
+   Roboto Flex has a real 'slnt' axis (-10 to 0) for precise -8-degree slant. */
 em,
 i:not([class*="fa-"]) {
   font-style: oblique 8deg;
+  font-synthesis-style: auto;
+}
+
+/* The rest of the homepage remains in Roboto; only emphasized Latin text
+   uses the variable font. Keep the Korean fallback unchanged. */
+em,
+.publications ol.bibliography li .jm-periodical .journal-title {
+  font-family: "Roboto Flex", var(--jm-korean-gothic-font) !important;
+  font-style: oblique 8deg;
+  font-variation-settings: "slnt" -8;
 }
 
 /* Publication fixed numbering from BibTeX pubnum field */

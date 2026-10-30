@@ -76,14 +76,11 @@ jobs:
           sudo apt-get update && sudo apt-get install -y imagemagick
           pip3 install --upgrade nbconvert
 
-      - name: Run comments integration test 🧪
-        run: bash test/integration_comments.sh
-
+      # The two upstream demo-specific test scripts (comments and Distill)
+      # expect example blog posts that this personal site does not publish.
+      # They remain tracked for reference but are not part of site CI.
       - name: Run plugin toggle integration test 🔌
         run: bash test/integration_plugin_toggles.sh
-
-      - name: Run distill integration test 📄
-        run: bash test/integration_distill.sh
 
       - name: Run bootstrap compatibility integration test 🧩
         run: bash test/integration_bootstrap_compat.sh
