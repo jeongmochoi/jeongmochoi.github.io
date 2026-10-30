@@ -6,6 +6,9 @@ nav: true
 nav_order: 2
 lang: ko
 ref: publications
+seo_index: true
+sitemap: true
+description: "부산대학교 화학과 최정모 교수의 연구 논문 목록. 통계역학, 계산화학, 분자모델링, 생체분자의 집단적 거동 등 연구 성과를 소개합니다."
 ---
 
 <!-- _pages/publications.md -->
