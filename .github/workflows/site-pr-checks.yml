@@ -62,3 +62,6 @@ jobs:
           test -s _site/ko/index.html
           test -s _site/publications/index.html
           test -s _site/ko/publications/index.html
+
+      - name: Check search indexing, sitemap and real italic rendering
+        run: python3 test/site_seo_checks.py
