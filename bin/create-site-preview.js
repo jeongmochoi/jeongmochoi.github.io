@@ -50,6 +50,31 @@ async function main() {
             if (!response || !response.ok()) {
               throw new Error(`${route} returned ${response?.status() ?? "no response"}`);
             }
+            // Check that each page renders its actual SVG flag, not an OS emoji.
+            const expectedFlag = route.startsWith("/ko/") ? "en-uk-us.svg" : "ko.svg";
+            const flag = page.locator(".navbar-language-toggle img.jm-language-flag");
+            if ((await flag.count()) !== 1) throw new Error(`Missing flag image: ${route}`);
+            await flag.evaluate(async (image) => await image.decode());
+            const renderedFlag = await flag.evaluate((image) => {
+              const dimensions = getComputedStyle(image);
+              return {
+                path: new URL(image.src).pathname,
+                loaded: image.complete && image.naturalWidth > 0,
+                width: dimensions.width,
+                height: dimensions.height,
+                accessibleName: image.closest("a")?.getAttribute("aria-label") || "",
+              };
+            });
+            console.log(`LANGUAGE_FLAG_PROBE ${name} ${JSON.stringify(renderedFlag)}`);
+            if (
+              !renderedFlag.path.endsWith("/" + expectedFlag) ||
+              !renderedFlag.loaded ||
+              renderedFlag.width !== "27px" ||
+              renderedFlag.height !== "18px" ||
+              !renderedFlag.accessibleName.startsWith("Switch language to ")
+            ) {
+              throw new Error(`SVG language switch failed: ${JSON.stringify(renderedFlag)}`);
+            }
             if (name.startsWith("home-")) {
               // Verify *actual browser font loading* before taking a screenshot.
               // Computed CSS alone can claim oblique without a visible slant.
