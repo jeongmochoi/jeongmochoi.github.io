@@ -7,6 +7,10 @@ on:
     - cron: "0 0 * * 5" # Friday
   workflow_dispatch:
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   update-citations:
     runs-on: ubuntu-latest
@@ -51,6 +55,7 @@ jobs:
           start_time=$(date)
           timeout 90 python bin/update_scholar_citations.py
           status=$?
+          echo "status=$status" >> "$GITHUB_OUTPUT"
           end_time=$(date)
           if [ $status -eq 0 ]; then
             echo "✅ Citation update succeeded (started at $start_time, ended at $end_time)."
@@ -85,17 +90,16 @@ jobs:
             echo "ℹ️ _data/citations.yml was not changed." >> $GITHUB_STEP_SUMMARY
           fi
 
-      - name: Configure Git
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          echo "🔧 Git configured."
-
-      - name: Commit and push if changed
-        run: |
-          git add _data/citations.yml
-          git diff --staged --quiet || (
-            echo "📤 Committing and pushing changes..."
-            git commit -m "Update Google Scholar citations"
-            git push
-          )
+      - name: Open draft PR for citation-count changes
+        if: steps.run_citation_update.outputs.status == '0' && steps.before.outputs.sha_before != steps.after.outputs.sha_after
+        uses: peter-evans/create-pull-request@v8
+        with:
+          branch: automation/update-citations
+          delete-branch: true
+          add-paths: _data/citations.yml
+          commit-message: "data: update Google Scholar citation counts"
+          title: "자동 갱신: Google Scholar 인용 횟수"
+          body: |
+            정기적으로 갱신된 인용 횟수를 검토하기 위한 PR입니다.
+            자동 배포하지 않습니다. 숫자와 변경 내역을 확인한 뒤 승인해 주세요.
+          draft: true
