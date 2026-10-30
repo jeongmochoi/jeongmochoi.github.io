@@ -19,13 +19,13 @@
 
 {% assign opposite_lang = 'ko' %}
 {% assign language_switch_title = '한국어' %}
-{% assign language_switch_icon = '🇰🇷' %}
+{% assign language_switch_icon = '/assets/img/language-flags/ko.svg' %}
 {% assign language_switch_url = '/ko/' %}
 
 {% if current_lang == 'ko' %}
   {% assign opposite_lang = 'en' %}
   {% assign language_switch_title = 'English' %}
-  {% assign language_switch_icon = '🇺🇸' %}
+  {% assign language_switch_icon = '/assets/img/language-flags/en-uk-us.svg' %}
   {% assign language_switch_url = '/' %}
 {% endif %}
 
@@ -170,7 +170,14 @@
               title="{{ language_switch_title }}"
               aria-label="Switch language to {{ language_switch_title }}"
             >
-              <span aria-hidden="true" style="font-size: 1.05rem;">{{ language_switch_icon }}</span>
+              <img
+                class="jm-language-flag"
+                src="{{ language_switch_icon | relative_url }}"
+                alt=""
+                aria-hidden="true"
+                width="27"
+                height="18"
+              >
               <span class="sr-only">{{ language_switch_title }}</span>
             </a>
           </li>
