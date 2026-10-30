@@ -3,12 +3,13 @@ name: Site build gate
 on:
   pull_request:
     branches: [main]
+  workflow_dispatch: # Allows manual CI on automation PR branches created by GITHUB_TOKEN
 
 permissions:
   contents: read
 
 concurrency:
-  group: site-build-${{ github.event.pull_request.number }}
+  group: site-build-${{ github.event.pull_request.number || github.ref_name }}
   cancel-in-progress: true
 
 jobs:
@@ -18,7 +19,7 @@ jobs:
     timeout-minutes: 25
     steps:
       - name: Checkout source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -27,15 +28,15 @@ jobs:
           bundler-cache: true
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.13"
           cache: pip
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: "20"
+          node-version: "24"
           cache: npm
 
       - name: Install site dependencies
