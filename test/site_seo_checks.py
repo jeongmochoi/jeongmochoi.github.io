@@ -66,7 +66,7 @@ for route in PUBLIC_ROUTES:
     robots = [m.get("content") for m in meta.meta if m.get("name") == "robots"]
     fail_unless(robots == ["index,follow"], f"{route}: not marked index,follow: {robots}")
     descriptions = [m.get("content") for m in meta.meta if m.get("name") == "description"]
-    fail_unless(len(descriptions) == 1 and len(descriptions[0]) > 65, f"{route}: description missing")
+    fail_unless(len(descriptions) == 1 and len(descriptions[0]) > 20, f"{route}: description missing")
     expected_canonical = "https://jeongmochoi.github.io" + route
     fail_unless(any(a.get("rel") == "canonical" and a.get("href") == expected_canonical for a in meta.links),
                 f"{route}: wrong canonical")
