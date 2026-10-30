@@ -301,6 +301,11 @@ plugins:
 
 # Sitemap settings
 defaults:
+  # Keep the Google ownership challenge accessible without advertising it in search.
+  - scope:
+      path: "googlea861a1c63cb92d6d.html"
+    values:
+      sitemap: false
   # Avoid advertising upstream al-folio demo content and private course materials to search engines.
   # Public pages are explicitly opted back in with 'sitemap: true' in their front matter.
   - scope:
