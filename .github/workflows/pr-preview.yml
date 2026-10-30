@@ -61,6 +61,12 @@ jobs:
           sudo apt-get install -y imagemagick
           python -m pip install --upgrade nbconvert
 
+      - name: Print formatted audit script for review (temporary)
+        run: |
+          echo __AUDIT_FORMAT_START__
+          npx prettier bin/audit-site-pages.js
+          echo __AUDIT_FORMAT_END__
+
       - name: Build production-like site (not deployed)
         env:
           JEKYLL_ENV: production
