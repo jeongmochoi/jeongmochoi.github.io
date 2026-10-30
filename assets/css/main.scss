@@ -189,24 +189,22 @@ textarea {
   }
 }
 
-/* Subtle oblique text: keep the author's chosen eight-degree slant.
-   Regular Roboto cannot guarantee the requested angle across browsers;
-   Roboto Flex has a real 'slnt' axis (-10 to 0) for precise -8-degree slant. */
-em,
-i:not([class*="fa-"]) {
-  font-style: oblique 8deg;
-  font-synthesis-style: auto;
-}
-
-/* Use Roboto Flex for the true eight-degree slant, but at a lighter weight:
-   its regular (400) strokes look heavier than the site's normal Roboto.
-   Korean fallback and upright body typography remain unchanged. */
+/* Use the original Roboto face and weight for all emphasized text.
+   Skew the existing upright glyphs by precisely 8 degrees: unlike Roboto Flex,
+   this changes neither typeface nor stroke weight. Inline-block makes the
+   transform apply to the actual glyphs, not just the declared font-style. */
 em,
 .publications ol.bibliography li .jm-periodical .journal-title {
-  font-family: "Roboto Flex", var(--jm-korean-gothic-font) !important;
+  font-style: normal;
+  display: inline-block;
+  transform: skewX(-8deg);
+  transform-origin: center;
+}
+
+/* Preserve the gentle oblique for rare plain <i> text as well.
+   Do not transform icons marked with Font Awesome classes. */
+i:not([class*="fa-"]) {
   font-style: oblique 8deg;
-  font-weight: 350;
-  font-variation-settings: "slnt" -8;
 }
 
 /* Publication fixed numbering from BibTeX pubnum field */
@@ -218,7 +216,7 @@ em,
   font-variant-numeric: tabular-nums;
 }
 
-/* Publication author list: the site owner's name is upright, like coauthors. */
+/* Publication author list: underline the owner's name, without italicizing it. */
 .publications ol.bibliography li .author {
   font-size: 0.9em;
   line-height: 1.45;
@@ -227,7 +225,8 @@ em,
 .publications ol.bibliography li .author .jm-self-author {
   font-style: normal;
   font-weight: inherit;
-  font-variation-settings: normal;
+  text-decoration: underline;
+  text-underline-offset: 0.08em;
 }
 
 /* Publication bibliographic line */
@@ -236,7 +235,7 @@ em,
 }
 
 .publications ol.bibliography li .jm-periodical .journal-title {
-  font-style: oblique 8deg;
+  font-style: normal;
 }
 
 .publications ol.bibliography li .jm-periodical .journal-volume {
