@@ -145,4 +145,36 @@ for route in (
     fail_unless("https://jeongmochoi.github.io" + route not in urls,
                 f"Demo URL still advertised in sitemap: {route}")
 
+# Demo content must never be shipped by the Jekyll output, even as noindex.
+# All sources remain safely tracked in Git for restoration if genuinely needed.
+for prefix in ("blog", "projects", "news", "teachings"):
+    fail_unless(not (SITE / prefix).exists(),
+                f"Upstream al-folio demo folder was published: {prefix}")
+for demo in (
+    "_pages/dropdown/index.html",
+    "cv/index.html",
+    "people/index.html",
+    "plugins/index.html",
+    "repositories/index.html",
+    "books/the_godfather/index.html",
+    "assets/html/relativity.html",
+    "assets/jupyter/blog.ipynb.html",
+    "assets/plotly/demo.html",
+):
+    fail_unless(not (SITE / demo).exists(),
+                f"Unused al-folio demonstration page was published: {demo}")
+
+# Course files and both languages remain publicly usable; no PDF is deleted.
+from_course = list(Path("teaching").rglob("*.pdf"))
+fail_unless(len(from_course) >= 400, "Unexpected loss of existing teaching PDF source files")
+missing_pdfs = [str(p) for p in from_course if not (SITE / p).is_file()]
+fail_unless(not missing_pdfs,
+            f"Course PDF files missing from built website: {missing_pdfs[:8]}")
+for prefix in ("teaching", "ko/teaching"):
+    course_pages = list((SITE / prefix).glob("*/index.html"))
+    fail_unless(len(course_pages) >= 30,
+                f"Unexpectedly missing real course pages under {prefix}: {len(course_pages)}")
+print(f"PASS preserved teaching: {len(from_course)} PDFs and bilingual course detail pages")
+print("PASS excluded all upstream demo blog, project, news, book and layout routes")
+
 print(f"PASS: {len(PUBLIC_ROUTES)} canonical/indexable public routes, reciprocal home languages, 8-degree oblique emphasis, ProfilePage, PDF-safe sitemap ({len(urls)} URLs)")
