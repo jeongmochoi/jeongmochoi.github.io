@@ -189,10 +189,15 @@ textarea {
   }
 }
 
-/* Softer italics only inside Publications/Papers pages */
+/* Real italic faces for semantic emphasis, including 'summa cum laude'.
+   The Roboto italic font is explicitly requested in _config.yml. */
 em,
 i:not([class*="fa-"]) {
-  font-style: oblique 8deg;
+  font-style: italic;
+}
+
+.jm-about em {
+  font-style: italic;
 }
 
 /* Publication fixed numbering from BibTeX pubnum field */
