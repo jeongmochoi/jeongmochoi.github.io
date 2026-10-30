@@ -115,6 +115,7 @@ additional = sorted(urls.difference({"https://jeongmochoi.github.io" + route for
 print("Additional sitemap URLs not in the curated public-page set:")
 for url in additional:
     print("  SITEMAP_EXTRA:", url)
+fail_unless(not additional, f"Unrelated or generated demo URLs remain in the sitemap: {len(additional)}")
 for route in (
     "/blog/2015/formatting-and-links/",
     "/projects/1_project/",
