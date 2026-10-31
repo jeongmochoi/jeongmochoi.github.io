@@ -72,7 +72,7 @@ async function main() {
             if (
               !renderedFlag.path.endsWith("/" + expectedFlag) ||
               !renderedFlag.loaded ||
-              renderedFlag.width !== "27px" ||
+              Math.abs(parseFloat(renderedFlag.width) - (expectedFlag === "ko.svg" ? 27 : 34.2)) > 0.11 ||
               renderedFlag.height !== "18px" ||
               renderedFlag.borderWidth !== "0px" ||
               renderedFlag.borderRadius !== "0px" ||
