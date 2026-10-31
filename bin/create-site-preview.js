@@ -54,6 +54,14 @@ async function main() {
             const expectedFlag = route.startsWith("/ko/") ? "en-uk-us.svg" : "ko.svg";
             const flag = page.locator(".navbar-language-toggle img.jm-language-flag");
             if ((await flag.count()) !== 1) throw new Error(`Missing flag image: ${route}`);
+            // Mobile navigation starts collapsed. Expand it before measuring
+            // real layout geometry; hidden elements can report CSS width "auto".
+            const mobileToggle = device === "mobile" ? page.locator(".navbar-toggler-main") : null;
+            if (mobileToggle) {
+              if (!(await mobileToggle.isVisible())) throw new Error(`Mobile menu toggle missing: ${route}`);
+              await mobileToggle.click();
+              await flag.waitFor({ state: "visible", timeout: 5000 });
+            }
             await flag.evaluate(async (image) => await image.decode());
             const renderedFlag = await flag.evaluate((image) => {
               const dimensions = getComputedStyle(image);
@@ -80,6 +88,10 @@ async function main() {
               !renderedFlag.accessibleName.startsWith("Switch language to ")
             ) {
               throw new Error(`SVG language switch failed: ${JSON.stringify(renderedFlag)}`);
+            }
+            if (mobileToggle) {
+              await mobileToggle.click();
+              await flag.waitFor({ state: "hidden", timeout: 5000 });
             }
             if (name.startsWith("home-")) {
               // Verify *actual browser font loading* before taking a screenshot.
