@@ -121,7 +121,7 @@ fail_unless(kr_svg.get("viewBox") == "-36 -24 72 48" and
             kr_svg.get("width") == "72" and kr_svg.get("height") == "48",
             "Korean flag must keep its correct 3:2 proportions")
 source_css = Path("assets/css/main.scss").read_text(encoding="utf-8")
-fail_unless(bool(re.search(r"\\.navbar-language-toggle\\s+\\.jm-language-flag\\s*\\{[^}]*width:\\s*27px;[^}]*height:\\s*18px;", source_css)),
+fail_unless(bool(re.search(r"\.navbar-language-toggle\s+\.jm-language-flag\s*\{[^}]*width:\s*27px;[^}]*height:\s*18px;", source_css)),
             "Both language icons must have identical 27 by 18 CSS dimensions")
 
 for route, destination, icon_name in (
