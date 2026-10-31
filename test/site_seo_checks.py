@@ -113,8 +113,6 @@ kr_svg = ET.fromstring((SITE / flag_files["ko.svg"].lstrip("/")).read_text(encod
 fail_unless(kr_svg.get("viewBox") == "-36 -24 72 48" and
             kr_svg.get("width") == "72" and kr_svg.get("height") == "48",
             "Korean flag must keep the official 3:2 proportions")
-fail_unless("width: auto" in css and "height: 18px" in css,
-            "Menu icon width must follow intrinsic SVG ratios at a fixed 18px height")
 
 for route, destination, icon_name in (
     ("/", "/ko/", "ko.svg"),
@@ -158,6 +156,8 @@ for route in ("/", "/ko/"):
                 f"{route}: person name metadata mismatches")
 
 css = (SITE / "assets/css/main.css").read_text(encoding="utf-8")
+fail_unless("width: auto" in css and "height: 18px" in css,
+            "Menu icon width must follow its native SVG ratio at fixed 18px height")
 fail_unless(bool(re.search(r"transform:\s*skewX\(-8deg\)", css)),
             "Actual eight-degree slant must be applied to original Roboto")
 fail_unless("Roboto Flex" not in css and "font-weight: 350" not in css,
