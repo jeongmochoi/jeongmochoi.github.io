@@ -167,8 +167,8 @@ for route in ("/", "/ko/"):
 
 css = (SITE / "assets/css/main.css").read_text(encoding="utf-8")
 source_css = Path("assets/css/main.scss").read_text(encoding="utf-8")
-fail_unless(bool(re.search(r"\.navbar-language-toggle\s+\.jm-language-flag\s*\{[^}]*width:\s*auto;[^}]*height:\s*18px;", source_css)),
-            "Menu icon width must follow its native SVG ratio at fixed 18px height")
+fail_unless(bool(re.search(r"\.navbar-language-toggle\s+\.jm-language-flag\s*\{[^}]*width:\s*27px;[^}]*height:\s*18px;", source_css)),
+            "Both flags must display at exactly 27x18 px")
 fail_unless(bool(re.search(r"transform:\s*skewX\(-8deg\)", css)),
             "Actual eight-degree slant must be applied to original Roboto")
 fail_unless("Roboto Flex" not in css and "font-weight: 350" not in css,
