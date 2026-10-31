@@ -74,8 +74,9 @@ textarea {
   width: 27px;
   height: 18px;
   vertical-align: -0.2em;
-  border-radius: 2px;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.16);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 /* Mobile layout: keep the photo smaller and centered */
