@@ -91,9 +91,16 @@ fail_unless({"american-half", "british-half"}.issubset(clip_ids),
             "English flag must contain two diagonally clipped halves")
 usa_half = mixed_svg.find(".//{http://www.w3.org/2000/svg}clipPath[@id='american-half']")
 uk_half = mixed_svg.find(".//{http://www.w3.org/2000/svg}clipPath[@id='british-half']")
-fail_unless(usa_half[0].get("points") == "0,0 0,24 36,24" and
-            uk_half[0].get("points") == "0,0 36,0 36,24",
-            "English icon must split the genuine US and UK flag vectors 50/50")
+fail_unless(usa_half[0].get("points") == "0,0 60,0 0,40" and
+            uk_half[0].get("points") == "60,0 60,40 0,40",
+            "English icon must preserve US canton in upper-left 50% triangle")
+fail_unless("viewBox=\"0 0 7410 3900\"" in ET.tostring(mixed_svg, encoding="unicode"),
+            "Original US 50-star source must remain embedded without cropping")
+# The US canton occupies the normalized rectangle 0..0.4 by 0..0.5385:
+# 0.4 + 0.5385 < 1 ensures all fifty stars lie within the retained triangle.
+fail_unless(2964 / 7410 + 2100 / 3900 < 1,
+            "US blue canton must fit fully inside the diagonal half")
+
 kr_svg = ET.fromstring((SITE / flag_files["ko.svg"].lstrip("/")).read_text(encoding="utf-8"))
 fail_unless(kr_svg.get("viewBox") == "-36 -24 72 48",
             "Korean flag must keep the official 3:2 proportions")
