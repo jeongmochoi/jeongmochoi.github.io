@@ -62,6 +62,9 @@ async function main() {
                 loaded: image.complete && image.naturalWidth > 0,
                 width: dimensions.width,
                 height: dimensions.height,
+                borderWidth: dimensions.borderWidth,
+                borderRadius: dimensions.borderRadius,
+                boxShadow: dimensions.boxShadow,
                 accessibleName: image.closest("a")?.getAttribute("aria-label") || "",
               };
             });
@@ -71,6 +74,9 @@ async function main() {
               !renderedFlag.loaded ||
               renderedFlag.width !== "27px" ||
               renderedFlag.height !== "18px" ||
+              renderedFlag.borderWidth !== "0px" ||
+              renderedFlag.borderRadius !== "0px" ||
+              renderedFlag.boxShadow !== "none" ||
               !renderedFlag.accessibleName.startsWith("Switch language to ")
             ) {
               throw new Error(`SVG language switch failed: ${JSON.stringify(renderedFlag)}`);
