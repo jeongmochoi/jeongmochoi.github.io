@@ -72,6 +72,77 @@ for route in PUBLIC_ROUTES:
                 f"{route}: wrong canonical")
     print(f"PASS public: {route}")
 
+# The language switch uses local SVG flag images, not OS-dependent emoji.
+# Its destination must continue to target the counterpart of the current page.
+flag_files = {
+    "ko.svg": "/assets/img/language-flags/ko.svg",
+    "en-uk-us.svg": "/assets/img/language-flags/en-uk-us.svg",
+}
+for name, url in flag_files.items():
+    source = SITE / url.lstrip("/")
+    fail_unless(source.is_file(), f"Missing local flag image: {url}")
+    svg_root = ET.fromstring(source.read_text(encoding="utf-8"))
+    fail_unless(svg_root.tag.endswith("svg"), f"Invalid flag SVG: {name}")
+
+mixed_svg = ET.fromstring((SITE / flag_files["en-uk-us.svg"].lstrip("/")).read_text(encoding="utf-8"))
+S = "{http://www.w3.org/2000/svg}"
+fail_unless(mixed_svg.get("viewBox") == "0 0 60 40" and
+            mixed_svg.get("width") == "60" and mixed_svg.get("height") == "40",
+            "Both language icons must share the 3:2 display aspect ratio")
+usa_half = mixed_svg.find(f".//{S}clipPath[@id='american-half']")
+uk_half = mixed_svg.find(f".//{S}clipPath[@id='british-half']")
+fail_unless(usa_half is not None and uk_half is not None and
+            usa_half[0].get("points") == "0,0 60,0 0,40" and
+            uk_half[0].get("points") == "60,0 60,40 0,40",
+            "The original diagonal layout must split UK and US into equal-area halves")
+canton = mixed_svg.find(f".//{S}rect[@class='us-canton']")
+fail_unless(canton is not None and
+            float(canton.get("width", 0)) >= 28.5 and
+            float(canton.get("height", 0)) >= 19.5,
+            "US blue canton must remain large and recognizable")
+canton_width, canton_height = float(canton.get("width")), float(canton.get("height"))
+fail_unless(canton_width / 60 + canton_height / 40 < 1,
+            "US canton corner must lie inside the upper-left diagonal half")
+stars = mixed_svg.findall(f".//{S}polygon[@class='us-star']")
+fail_unless(len(stars) == 50, f"US flag should include 50 individual stars, got {len(stars)}")
+for star in stars:
+    vertices = [tuple(map(float, v.split(","))) for v in star.get("points", "").split()]
+    fail_unless(len(vertices) == 10, "Each US star should have five outer points")
+    fail_unless(all(0 < x < canton_width and 0 < y < canton_height and x / 60 + y / 40 < 1
+                    for x, y in vertices),
+                "US star is missing or clipped by the blue canton or diagonal")
+uk_source = mixed_svg.findall(f".//{S}svg")
+fail_unless(len(uk_source) == 1 and
+            uk_source[0].get("viewBox") == "0 0 60 30" and
+            uk_source[0].get("preserveAspectRatio") == "xMidYMid slice",
+            "Union Jack original geometry must stay undistorted")
+kr_svg = ET.fromstring((SITE / flag_files["ko.svg"].lstrip("/")).read_text(encoding="utf-8"))
+fail_unless(kr_svg.get("viewBox") == "-36 -24 72 48" and
+            kr_svg.get("width") == "72" and kr_svg.get("height") == "48",
+            "Korean flag must keep its correct 3:2 proportions")
+source_css = Path("assets/css/main.scss").read_text(encoding="utf-8")
+fail_unless(bool(re.search(r"\.navbar-language-toggle\s+\.jm-language-flag\s*\{[^}]*width:\s*27px;[^}]*height:\s*18px;", source_css)),
+            "Both language icons must have identical 27 by 18 CSS dimensions")
+
+for route, destination, icon_name in (
+    ("/", "/ko/", "ko.svg"),
+    ("/ko/", "/", "en-uk-us.svg"),
+    ("/publications/", "/ko/publications/", "ko.svg"),
+    ("/ko/publications/", "/publications/", "en-uk-us.svg"),
+):
+    html, _ = parsed(route)
+    switch_match = re.search(
+        r'<li\s+class="nav-item navbar-language-toggle"[^>]*>(.*?)</li>',
+        html, re.DOTALL,
+    )
+    fail_unless(switch_match is not None, f"{route}: language switch missing")
+    switch = switch_match.group(1)
+    fail_unless(f'href="{destination}"' in switch, f"{route}: wrong language destination")
+    fail_unless('class="jm-language-flag"' in switch, f"{route}: expected SVG image markup")
+    fail_unless(f'src="{flag_files[icon_name]}"' in switch, f"{route}: wrong flag image")
+    fail_unless('aria-hidden="true"' in switch and 'alt=""' in switch,
+                f"{route}: missing accessible decorative SVG attributes")
+
 for route in ("/", "/ko/"):
     html, page = parsed(route)
     fail_unless(bool(re.search(r"<em>summa cum laude</em>", html)), f"{route}: actual italic tag missing")
@@ -95,6 +166,9 @@ for route in ("/", "/ko/"):
                 f"{route}: person name metadata mismatches")
 
 css = (SITE / "assets/css/main.css").read_text(encoding="utf-8")
+source_css = Path("assets/css/main.scss").read_text(encoding="utf-8")
+fail_unless(bool(re.search(r"\.navbar-language-toggle\s+\.jm-language-flag\s*\{[^}]*width:\s*27px;[^}]*height:\s*18px;", source_css)),
+            "Both flags must display at exactly 27x18 px")
 fail_unless(bool(re.search(r"transform:\s*skewX\(-8deg\)", css)),
             "Actual eight-degree slant must be applied to original Roboto")
 fail_unless("Roboto Flex" not in css and "font-weight: 350" not in css,
