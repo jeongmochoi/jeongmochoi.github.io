@@ -91,9 +91,17 @@ fail_unless({"american-half", "british-half"}.issubset(clip_ids),
             "English flag must contain two diagonally clipped halves")
 usa_half = mixed_svg.find(".//{http://www.w3.org/2000/svg}clipPath[@id='american-half']")
 uk_half = mixed_svg.find(".//{http://www.w3.org/2000/svg}clipPath[@id='british-half']")
-fail_unless(usa_half[0].get("points") == "0,0 60,0 0,40" and
-            uk_half[0].get("points") == "60,0 60,40 0,40",
-            "English icon must preserve US canton in upper-left 50% triangle")
+fail_unless(mixed_svg.get("viewBox") == "0 0 190 100" and
+            mixed_svg.get("width") == "190" and mixed_svg.get("height") == "100",
+            "Mixed flag must preserve the USA 19:10 outside aspect ratio")
+fail_unless(usa_half[0].get("points") == "0,0 190,0 0,100" and
+            uk_half[0].get("points") == "190,0 190,100 0,100",
+            "Mixed flag must have equal-area diagonal halves")
+nested_svg = mixed_svg.findall(".//{http://www.w3.org/2000/svg}svg")
+fail_unless(len(nested_svg) == 2 and
+            nested_svg[0].get("preserveAspectRatio") == "xMidYMid meet" and
+            nested_svg[1].get("preserveAspectRatio") == "xMidYMid slice",
+            "USA and UK flags must never be stretched out of native proportions")
 fail_unless("viewBox=\"0 0 7410 3900\"" in ET.tostring(mixed_svg, encoding="unicode"),
             "Original US 50-star source must remain embedded without cropping")
 # The US canton occupies the normalized rectangle 0..0.4 by 0..0.5385:
@@ -102,8 +110,11 @@ fail_unless(2964 / 7410 + 2100 / 3900 < 1,
             "US blue canton must fit fully inside the diagonal half")
 
 kr_svg = ET.fromstring((SITE / flag_files["ko.svg"].lstrip("/")).read_text(encoding="utf-8"))
-fail_unless(kr_svg.get("viewBox") == "-36 -24 72 48",
+fail_unless(kr_svg.get("viewBox") == "-36 -24 72 48" and
+            kr_svg.get("width") == "72" and kr_svg.get("height") == "48",
             "Korean flag must keep the official 3:2 proportions")
+fail_unless("width: auto" in css and "height: 18px" in css,
+            "Menu icon width must follow intrinsic SVG ratios at a fixed 18px height")
 
 for route, destination, icon_name in (
     ("/", "/ko/", "ko.svg"),
