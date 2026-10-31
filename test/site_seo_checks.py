@@ -156,7 +156,8 @@ for route in ("/", "/ko/"):
                 f"{route}: person name metadata mismatches")
 
 css = (SITE / "assets/css/main.css").read_text(encoding="utf-8")
-fail_unless("width: auto" in css and "height: 18px" in css,
+source_css = Path("assets/css/main.scss").read_text(encoding="utf-8")
+fail_unless(bool(re.search(r"\.navbar-language-toggle\s+\.jm-language-flag\s*\{[^}]*width:\s*auto;[^}]*height:\s*18px;", source_css)),
             "Menu icon width must follow its native SVG ratio at fixed 18px height")
 fail_unless(bool(re.search(r"transform:\s*skewX\(-8deg\)", css)),
             "Actual eight-degree slant must be applied to original Roboto")
