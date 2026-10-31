@@ -1,15 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="36" height="24" viewBox="0 0 36 24" aria-label="United States and United Kingdom flags divided diagonally">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60" height="40" viewBox="0 0 60 40">
+  <!-- US and UK flag vectors from hampusborgos/country-flags; equal-area diagonal.
+       US canton ends at (0.4,0.5385) in normalized coordinates, entirely inside
+       the upper-left triangle x+y <= 1. No star or stripe source crop. -->
   <defs>
-    <clipPath id="american-half"><polygon points="0,0 0,24 36,24"/></clipPath>
-    <clipPath id="british-half"><polygon points="0,0 36,0 36,24"/></clipPath>
+    <clipPath id="american-half"><polygon points="0,0 60,0 0,40"/></clipPath>
+    <clipPath id="british-half"><polygon points="60,0 60,40 0,40"/></clipPath>
   </defs>
-  <!-- Unmodified national-flag vectors, clipped to equal triangles. -->
-  <g clip-path="url(#american-half)">
-    <svg x="0" y="0" width="36" height="24" preserveAspectRatio="xMinYMid slice" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 7410 3900"><path fill="#b22234" d="M0 0h7410v3900H0z"/><path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0" stroke="#fff" stroke-width="300"/><path fill="#3c3b6e" d="M0 0h2964v2100H0z"/><g fill="#fff"><g id="us-d"><g id="us-c"><g id="us-e"><g id="us-b"><path id="us-a" d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z"/><use xlink:href="#us-a" y="420"/><use xlink:href="#us-a" y="840"/><use xlink:href="#us-a" y="1260"/></g><use xlink:href="#us-a" y="1680"/></g><use xlink:href="#us-b" x="247" y="210"/></g><use xlink:href="#us-c" x="494"/></g><use xlink:href="#us-d" x="988"/><use xlink:href="#us-c" x="1976"/><use xlink:href="#us-e" x="2470"/></g></svg>
-  </g>
-  <g clip-path="url(#british-half)">
-    <svg x="0" y="0" width="36" height="24" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30"><clipPath id="gb-a"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="gb-b"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#gb-a)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#gb-b)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg>
-  </g>
-  <path d="M0 0L36 24" fill="none" stroke="#fff" stroke-width=".6"/>
-  <rect x=".35" y=".35" width="35.3" height="23.3" fill="none" stroke="#999" stroke-opacity=".48" stroke-width=".7" rx="1.1"/>
+  <g clip-path="url(#american-half)"><svg x="0" y="0" width="60" height="40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 7410 3900"><path fill="#b22234" d="M0 0h7410v3900H0z"/><path d="M0 450h7410m0 600H0m0 600h7410m0 600H0m0 600h7410m0 600H0" stroke="#fff" stroke-width="300"/><path fill="#3c3b6e" d="M0 0h2964v2100H0z"/><g fill="#fff"><g id="us-d"><g id="us-c"><g id="us-e"><g id="us-b"><path id="us-a" d="M247 90l70.534 217.082-184.66-134.164h228.253L176.466 307.082z"/><use xlink:href="#us-a" y="420"/><use xlink:href="#us-a" y="840"/><use xlink:href="#us-a" y="1260"/></g><use xlink:href="#us-a" y="1680"/></g><use xlink:href="#us-b" x="247" y="210"/></g><use xlink:href="#us-c" x="494"/></g><use xlink:href="#us-d" x="988"/><use xlink:href="#us-c" x="1976"/><use xlink:href="#us-e" x="2470"/></g></svg></g>
+  <g clip-path="url(#british-half)"><svg x="0" y="0" width="60" height="40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30"><clipPath id="gb-a"><path d="M0 0v30h60V0z"/></clipPath><clipPath id="gb-b"><path d="M30 15h30v15zv15H0zH0V0zV0h30z"/></clipPath><g clip-path="url(#gb-a)"><path d="M0 0v30h60V0z" fill="#012169"/><path d="M0 0l60 30m0-30L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l60 30m0-30L0 30" clip-path="url(#gb-b)" stroke="#C8102E" stroke-width="4"/><path d="M30 0v30M0 15h60" stroke="#fff" stroke-width="10"/><path d="M30 0v30M0 15h60" stroke="#C8102E" stroke-width="6"/></g></svg></g>
 </svg>
