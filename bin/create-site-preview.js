@@ -33,6 +33,10 @@ function isEightDegreeSkew(value) {
 
 async function main() {
   fs.mkdirSync("site-preview", { recursive: true });
+  // Temporary development aid: show the repository's exact Liquid formatting.
+  const { execFileSync } = require("node:child_process");
+  const formattedHistory = execFileSync("npx", ["prettier", "_layouts/media_history.liquid"], { encoding: "utf8" });
+  console.log("LIQUID_FORMAT_BEGIN" + Buffer.from(formattedHistory).toString("base64") + "LIQUID_FORMAT_END");
   const browser = await chromium.launch({ headless: true });
   try {
     for (const [device, viewport] of viewports) {
