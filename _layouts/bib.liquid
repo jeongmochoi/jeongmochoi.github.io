@@ -299,8 +299,14 @@
       {% endif %}
 
       {% assign entry_has_google_scholar_badge = false %}
-      {% if entry.google_scholar_id %}
-        {% assign entry_has_google_scholar_badge = true %}
+      {% assign citation_count = null %}
+      {% assign scholar_id_key = site.data.socials.scholar_userid | append: ':' | append: entry.google_scholar_id %}
+      {% assign scholar_paper = site.data.citations.papers[scholar_id_key] %}
+      {% if entry.google_scholar_id and site.data.citations.metadata.scholar_userid == site.data.socials.scholar_userid %}
+        {% if site.data.citations.metadata.last_updated and scholar_paper.citations != null %}
+          {% assign citation_count = scholar_paper.citations %}
+          {% assign entry_has_google_scholar_badge = true %}
+        {% endif %}
       {% endif %}
 
       {% assign entry_has_inspirehep_badge = false %}
@@ -350,24 +356,6 @@
               aria-label="Google Scholar link"
               role="button"
             >
-              {% assign citation_count = 0 %}
-              {% assign scholar_id_key = site.scholar_userid | append: ':' | append: entry.google_scholar_id %}
-              {% assign publication_key = entry.google_scholar_id %}
-
-              {% if site.data.citations.papers[scholar_id_key] %}
-                {% assign citation_count = site.data.citations.papers[scholar_id_key].citations %}
-              {% elsif site.data.citations.papers[publication_key] %}
-                {% assign citation_count = site.data.citations.papers[publication_key].citations %}
-              {% else %}
-                {% for paper in site.data.citations.papers %}
-                  {% assign paper_key = paper[0] %}
-                  {% if paper_key contains entry.google_scholar_id %}
-                    {% assign citation_count = paper[1].citations %}
-                    {% break %}
-                  {% endif %}
-                {% endfor %}
-              {% endif %}
-
               <img
                 src="https://img.shields.io/badge/scholar-{{ citation_count }}-4285F4?logo=googlescholar&labelColor=beige"
                 alt="{{ citation_count }} Google Scholar citations"

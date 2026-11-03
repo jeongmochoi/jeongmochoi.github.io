@@ -1,0 +1,51 @@
+name: Citation integrity checks
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - ".github/workflows/citation-checks.yml"
+      - ".github/workflows/update-citations.yml"
+      - "requirements*.txt"
+      - "bin/update_scholar_citations.py"
+      - "test/test_scholar_citations.py"
+      - "test/test_citation_badges.rb"
+      - "_data/citations.yml"
+      - "_data/socials.yml"
+      - "_pages/*publications.md"
+      - "_layouts/bib.liquid"
+      - "_config.yml"
+      - "_bibliography/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  citation-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: requirements-citations.txt
+      - name: Install and verify compatible dependencies
+        run: |
+          python -m pip install -r requirements-citations.txt
+          python -m pip check
+          python -c "from scholarly import scholarly; from bibtexparser.bibdatabase import BibDatabase"
+      - name: Test failure propagation and data integrity without network requests
+        run: |
+          python -m unittest discover -s test -p 'test_scholar_citations.py' -v
+          python bin/update_scholar_citations.py --validate-only
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3.5"
+          bundler-cache: true
+      - name: Render citation badges with synthetic fixtures
+        run: bundle exec ruby test/test_citation_badges.rb
+      - name: Audit the existing publication layout override
+        run: bundle exec al-folio upgrade overrides audit
