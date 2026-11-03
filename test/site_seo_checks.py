@@ -125,12 +125,12 @@ fail_unless(bool(re.search(r"\.navbar-language-toggle\s+\.jm-language-flag-frame
             "Both language icons must have identical 27 by 18 wrappers")
 fail_unless("border: 3px solid transparent;" in source_css and
             "border-radius: 7px;" in source_css and
-            "inset: -4px;" in source_css and
+            "inset: -3px;" in source_css and
             ".navbar-language-toggle > .nav-link:hover .jm-language-flag-frame::after" in source_css and
             ".navbar-language-toggle > .nav-link:focus-visible .jm-language-flag-frame::after" in source_css and
             "border-color: var(--global-hover-color);" in source_css and
             "top: 1px;" in source_css,
-            "Language hover must have a 3px round-corner theme-colored border")
+            "Language hover needs a gapless 3px round-corner theme-colored border")
 
 for route, destination, icon_name in (
     ("/", "/ko/", "ko.svg"),
