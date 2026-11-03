@@ -42,7 +42,9 @@
 
   <div class="media-video-body">
     {% if item.date %}
-      <div class="media-video-date"><time datetime="{{ item.date }}">{{ item.date }}</time></div>
+      <div class="media-video-date">
+        <time datetime="{{ item.date }}">{{ item.date }}</time>
+      </div>
     {% endif %}
     <h4 class="media-video-title">
       <a
