@@ -13,6 +13,7 @@ PUBLIC_ROUTES = (
     "/publications/", "/ko/publications/",
     "/books/", "/ko/books/", "/ko/books/alchemia/",
     "/media/", "/ko/media/",
+    "/media/history-of-science/", "/ko/media/history-of-science/",
     "/teaching/", "/ko/teaching/",
 )
 
@@ -87,6 +88,40 @@ for generated_html in SITE.rglob("*.html"):
                     f"{generated_html}: an unwanted generated subtitle remains")
 print("PASS titles-only: no generated subtitle in any page header")
 
+# Media index: the latest 3 science-history videos are previews only.
+# Both archive pages contain the 4 full episodes in publication order.
+new_ids = ("_WNy7BQ0gIw", "a_lwVYd8BP4", "ld0fBMB_IkM", "75FUhl4lr9A")
+recent_ids = tuple(reversed(new_ids))[:3]
+other_ids = ("AOaoELveR8s", "M7bTESbZi_U", "eg4plhiTFZU", "LrOIUwUxQfU")
+for media_route, history_route in (
+    ("/media/", "/media/history-of-science/"),
+    ("/ko/media/", "/ko/media/history-of-science/"),
+):
+    media_html, _ = parsed(media_route)
+    history_html, _ = parsed(history_route)
+    preview = re.search(
+        r'<section\\s+class="media-history-feature"[^>]*>(.*?)</section>',
+        media_html, re.DOTALL,
+    )
+    fail_unless(preview is not None, f"{media_route}: missing history-series preview")
+    preview_html = preview.group(1)
+    fail_unless(f'href="{history_route}"' in preview_html,
+                f"{media_route}: missing link to all history lectures")
+    fail_unless(preview_html.count('class="media-video-card"') == 3,
+                f"{media_route}: should preview exactly three history videos")
+    for video_id in recent_ids:
+        fail_unless(f"watch?v={video_id}" in preview_html,
+                    f"{media_route}: recent lecture {video_id} not shown")
+    for video_id in other_ids:
+        fail_unless(f"watch?v={video_id}" in media_html,
+                    f"{media_route}: other channel appearance {video_id} missing")
+    fail_unless(history_html.count('class="media-video-card"') == len(new_ids),
+                f"{history_route}: incomplete history archive")
+    positions = [history_html.find(f"watch?v={video_id}") for video_id in new_ids]
+    fail_unless(all(p >= 0 for p in positions) and positions == sorted(positions),
+                f"{history_route}: lectures not listed in publication order")
+print("PASS Media: 3-column-ready general groups, latest 3 history previews, 4 chronological archive videos")
+
 # The language switch uses local SVG flag images, not OS-dependent emoji.
 # Its destination must continue to target the counterpart of the current page.
 flag_files = {
@@ -152,6 +187,8 @@ for route, destination, icon_name in (
     ("/ko/", "/", "en-uk-us.svg"),
     ("/publications/", "/ko/publications/", "ko.svg"),
     ("/ko/publications/", "/publications/", "en-uk-us.svg"),
+    ("/media/history-of-science/", "/ko/media/history-of-science/", "ko.svg"),
+    ("/ko/media/history-of-science/", "/media/history-of-science/", "en-uk-us.svg"),
 ):
     html, _ = parsed(route)
     switch_match = re.search(
