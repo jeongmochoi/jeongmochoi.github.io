@@ -88,10 +88,10 @@ for generated_html in SITE.rglob("*.html"):
                     f"{generated_html}: an unwanted generated subtitle remains")
 print("PASS titles-only: no generated subtitle in any page header")
 
-# Media index: the latest 3 science-history videos are previews only.
-# Both archive pages contain the 4 full episodes in publication order.
+# Media index: only the latest history lecture is featured in a horizontal
+# (broadcast-style) card; all four lectures remain on the dedicated archive.
 new_ids = ("_WNy7BQ0gIw", "a_lwVYd8BP4", "ld0fBMB_IkM", "75FUhl4lr9A")
-recent_ids = tuple(reversed(new_ids))[:3]
+latest_id = new_ids[-1]
 other_ids = ("AOaoELveR8s", "M7bTESbZi_U", "eg4plhiTFZU", "LrOIUwUxQfU")
 for media_route, history_route in (
     ("/media/", "/media/history-of-science/"),
@@ -103,15 +103,22 @@ for media_route, history_route in (
         r'<section\s+class="media-history-feature"[^>]*>(.*?)</section>',
         media_html, re.DOTALL,
     )
-    fail_unless(preview is not None, f"{media_route}: missing history-series preview")
+    fail_unless(preview is not None, f"{media_route}: missing history-series feature")
     preview_html = preview.group(1)
     fail_unless(f'href="{history_route}"' in preview_html,
                 f"{media_route}: missing link to all history lectures")
-    fail_unless(preview_html.count('class="media-video-card"') == 3,
-                f"{media_route}: should preview exactly three history videos")
-    for video_id in recent_ids:
-        fail_unless(f"watch?v={video_id}" in preview_html,
-                    f"{media_route}: recent lecture {video_id} not shown")
+    fail_unless(preview_html.count('class="media-feature-card media-history-feature-card"') == 1,
+                f"{media_route}: require exactly one horizontal broadcast-style preview card")
+    fail_unless(preview_html.count('class="media-feature-visual-link"') == 1 and
+                preview_html.count('class="media-feature-body"') == 1,
+                f"{media_route}: feature image or detail column missing")
+    fail_unless('class="media-video-card"' not in preview_html,
+                f"{media_route}: obsolete three-card grid remains in history preview")
+    fail_unless(f"watch?v={latest_id}" in preview_html,
+                f"{media_route}: latest history video {latest_id} not featured")
+    for older_id in new_ids[:-1]:
+        fail_unless(f"watch?v={older_id}" not in preview_html,
+                    f"{media_route}: preview unexpectedly shows an older history video")
     for video_id in other_ids:
         fail_unless(f"watch?v={video_id}" in media_html,
                     f"{media_route}: other channel appearance {video_id} missing")
@@ -120,7 +127,7 @@ for media_route, history_route in (
     positions = [history_html.find(f"watch?v={video_id}") for video_id in new_ids]
     fail_unless(all(p >= 0 for p in positions) and positions == sorted(positions),
                 f"{history_route}: lectures not listed in publication order")
-print("PASS Media: 3-column-ready general groups, latest 3 history previews, 4 chronological archive videos")
+print("PASS Media: one horizontal history feature, latest video, full four-lecture archive")
 
 # The language switch uses local SVG flag images, not OS-dependent emoji.
 # Its destination must continue to target the counterpart of the current page.
