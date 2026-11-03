@@ -13,6 +13,7 @@ const pages = [
   ["books-ko", "/ko/books/"],
   ["media-en", "/media/"],
   ["media-ko", "/ko/media/"],
+  ["history-ko", "/ko/media/history-of-science/"],
   ["teaching-en", "/teaching/"],
   ["teaching-ko", "/ko/teaching/"],
 ];
@@ -168,13 +169,128 @@ async function main() {
             } else {
               await page.waitForTimeout(600);
             }
+            // For Media and the separate history archive, screenshots must
+            // include the ENTIRE document from header to footer (all cards).
+            const entireMediaPage = name.startsWith("media-") || name.startsWith("history-");
+            if (entireMediaPage) {
+              await page.evaluate(() => {
+                document.querySelectorAll("img[loading='lazy']").forEach((image) => {
+                  image.loading = "eager";
+                });
+              });
+              await page.waitForTimeout(800);
+            }
             const output = path.join("site-preview", `${name}-${device}.png`);
+            const documentHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+            // The actual website uses a fixed footer. Set the viewport height
+            // to the document height *for capture only* so that the footer
+            // appears at the bottom instead of obscuring the middle of a
+            // stitched full-page screenshot.
+            if (entireMediaPage) {
+              await page.setViewportSize({
+                width: viewport.width,
+                height: Math.max(viewport.height, documentHeight),
+              });
+            }
             await page.screenshot({
               path: output,
               animations: "disabled",
-              fullPage: false,
+              fullPage: entireMediaPage,
             });
+            if (entireMediaPage) {
+              await page.setViewportSize(viewport);
+            }
+            console.log(`SCREENSHOT_FULL_PAGE ${name} ${device} ${JSON.stringify({path: output, fullPage: entireMediaPage, documentHeight})}`);
             console.log(`Saved ${output} (${route})`);
+
+            // On the Media landing page, the image inside EVERY individual
+            // horizontal feature card must be exactly the same size as the
+            // images inside the compact three/two/one-column video cards.
+            const verifyMediaThumbnailParity = async (mode) => {
+              if (!name.startsWith("media-")) return;
+              const dimensions = await page.evaluate(() => {
+                const compact = document.querySelector(".media-video-grid .media-video-thumbnail");
+                const individual = [...document.querySelectorAll(".media-feature-visual-link")];
+                if (!compact || !individual.length) return null;
+                const base = compact.getBoundingClientRect();
+                const others = individual.map((element) => {
+                  const b = element.getBoundingClientRect();
+                  return { width: b.width, height: b.height };
+                });
+                return { compact: { width: base.width, height: base.height }, individual: others };
+              });
+              if (!dimensions) throw new Error(`Missing media video thumbnails: ${name} ${mode}`);
+              const equal = dimensions.individual.every(
+                (v) =>
+                  Math.abs(v.width - dimensions.compact.width) <= 0.06 &&
+                  Math.abs(v.height - dimensions.compact.height) <= 0.06,
+              );
+              console.log(`MEDIA_THUMBNAIL_PARITY ${name} ${mode} ${JSON.stringify({ ...dimensions, match: equal })}`);
+              if (!equal) {
+                throw new Error(`Media single-video and grid thumbnails have different sizes: ${name} ${mode}`);
+              }
+            };
+            await verifyMediaThumbnailParity(device);
+
+            // Check the adaptive three-, two-, and one-column video grid in
+            // Chromium, rather than relying on stylesheet declarations alone.
+            if (name.startsWith("media-") || name.startsWith("history-")) {
+              const countGridColumns = async () =>
+                page.locator(".media-video-grid").evaluateAll((grids) =>
+                  grids.map((grid) =>
+                    getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).length,
+                  ),
+                );
+              const widths = await countGridColumns();
+              const expected = device === "desktop" ? 3 : 1;
+              console.log(`MEDIA_GRID_PROBE ${name} ${device} ${JSON.stringify(widths)}`);
+              if (!widths.length || widths.some((count) => count !== expected)) {
+                throw new Error(`Media grid must be ${expected} columns: ${JSON.stringify(widths)}`);
+              }
+
+              if (device === "desktop") {
+                await page.setViewportSize({ width: 800, height: 900 });
+                const tabletColumns = await countGridColumns();
+                await verifyMediaThumbnailParity("tablet");
+                console.log(`MEDIA_GRID_PROBE ${name} tablet ${JSON.stringify(tabletColumns)}`);
+                if (tabletColumns.some((count) => count !== 2)) {
+                  throw new Error(`Media grid must be two columns on tablet: ${JSON.stringify(tabletColumns)}`);
+                }
+                const tabletHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+                await page.setViewportSize({
+                  width: 800,
+                  height: Math.max(900, tabletHeight),
+                });
+                await page.screenshot({
+                  path: path.join("site-preview", `${name}-tablet.png`),
+                  animations: "disabled",
+                  fullPage: true,
+                });
+                await page.setViewportSize(viewport);
+              }
+            }
+
+            // The Media landing page features only one history video, using
+            // the same horizontal image-left/details-right layout as broadcasts.
+            if (name.startsWith("media-")) {
+              const card = page.locator(".media-history-feature .media-history-feature-card");
+              const picture = card.locator(".media-feature-visual");
+              const description = card.locator(".media-feature-body");
+              const images = card.locator(".media-feature-visual-link");
+              if ((await card.count()) !== 1 || (await images.count()) !== 1) {
+                throw new Error(`History series must show just one featured video: ${name}`);
+              }
+              const pictureBox = await picture.boundingBox();
+              const detailsBox = await description.boundingBox();
+              if (!pictureBox || !detailsBox) throw new Error(`Missing history feature columns: ${name}`);
+              if (device === "desktop" && detailsBox.x < pictureBox.x + pictureBox.width - 1) {
+                throw new Error(`History preview is not image-left/detail-right: ${name}`);
+              }
+              if (device === "mobile" && detailsBox.y < pictureBox.y + pictureBox.height - 1) {
+                throw new Error(`History preview is not vertically stacked on mobile: ${name}`);
+              }
+              console.log(`MEDIA_HISTORY_FEATURE_PROBE ${name} ${device} ${JSON.stringify({pictureBox, detailsBox})}`);
+            }
 
             // Compare the language hover accent with the adjacent Change theme
             // icon, and capture screenshots of the actual hovered flag.
@@ -349,7 +465,7 @@ async function main() {
 
     fs.writeFileSync(
       path.join("site-preview", "README.txt"),
-      "Desktop (1440x900) and mobile-size (390x844) first-viewport screenshots of ten English/Korean homepage sections, with OS-light and OS-dark initial-theme previews. Theme checks also validate automatic OS changes, one-time legacy preference reset, binary user override and persistence. These are not live preview URLs. The actual website was not published by this job.\n",
+      "Desktop (1440x900) and mobile-size (390x844) screenshots of eleven English/Korean homepage sections; Media and History images are FULL-PAGE (desktop/mobile/800px tablet), not viewport crops, with OS-light and OS-dark initial-theme previews. Theme checks also validate automatic OS changes, one-time legacy preference reset, binary user override and persistence. These are not live preview URLs. The actual website was not published by this job.\n",
     );
   } finally {
     await browser.close();

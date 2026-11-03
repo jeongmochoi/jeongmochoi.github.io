@@ -1070,7 +1070,9 @@ html[data-theme="dark"] .course-detail {
 
 .media-feature-card {
   display: grid;
-  grid-template-columns: minmax(240px, 300px) minmax(0, 1fr);
+  /* Match the visible thumbnail width of the three-column video cards.
+     Video cards have 1px borders on each side, so subtract those 2px. */
+  grid-template-columns: calc((100% - 2rem) / 3 - 2px) minmax(0, 1fr);
   column-gap: 1.5rem;
   align-items: start;
   padding: 1.4rem 0;
@@ -1244,6 +1246,25 @@ html[data-theme="dark"] .course-detail {
   margin-top: 0.9rem;
 }
 
+/* The history series preview reuses the same horizontal feature-card
+   structure as broadcasts. The full archive keeps the video grid. */
+.media-history-breadcrumb {
+  margin: 0.3rem 0 1.3rem;
+  font-size: 0.9rem;
+}
+
+.media-history-intro {
+  max-width: 73ch;
+  margin: 0 0 0.5rem;
+  color: var(--global-text-color-light);
+}
+
+.media-history-count {
+  margin-bottom: 1.2rem;
+  font-size: 0.82rem;
+  color: var(--global-text-color-light);
+}
+
 .media-video-group {
   margin-bottom: 2rem;
 }
@@ -1256,7 +1277,7 @@ html[data-theme="dark"] .course-detail {
 
 .media-video-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
 }
 
@@ -1271,6 +1292,12 @@ html[data-theme="dark"] .course-detail {
 .media-video-body {
   flex: 1;
   padding: 0.75rem 0.85rem 0.85rem 0.85rem;
+}
+
+.media-video-date {
+  margin-bottom: 0.25rem;
+  color: var(--global-text-color-light);
+  font-size: 0.77rem;
 }
 
 .media-video-title {
@@ -1306,19 +1333,27 @@ html[data-theme="dark"] .media-video-card {
   background-color: rgba(255, 255, 255, 0.035);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 860px) {
+  .media-video-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .media-feature-card {
+    grid-template-columns: calc((100% - 1rem) / 2 - 2px) minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
   .media-feature-card {
     grid-template-columns: 1fr;
     row-gap: 1rem;
   }
 
   .media-feature-visual {
-    width: 100%;
-    max-width: 520px;
+    width: calc(100% - 2px);
+    max-width: none;
   }
-}
 
-@media (max-width: 576px) {
   .media-index .media-section-heading {
     font-size: 1.38rem;
     margin-top: 2.3rem;

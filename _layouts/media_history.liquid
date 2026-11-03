@@ -1,0 +1,19 @@
+---
+layout: page
+---
+{% assign series = site.data.history_of_science %}
+
+<div class="media-history-page">
+  <nav class="media-history-breadcrumb" aria-label="Breadcrumb">
+    <a href="{{ page.back_url | relative_url }}">{{ page.back_label }}</a>
+  </nav>
+
+  <p class="media-history-intro">{{ page.history_intro }}</p>
+  <p class="media-history-count">{{ page.video_count_label }}: {{ series.items.size }}</p>
+
+  <div class="media-video-grid media-history-archive-grid">
+    {% for item in series.items %}
+      {% include media_video_item.liquid item=item lang=page.lang %}
+    {% endfor %}
+  </div>
+</div>

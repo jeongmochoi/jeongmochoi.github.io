@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Regression checks for search indexing and actual italic markup after a Jekyll build."""
 
+from datetime import date
 from html.parser import HTMLParser
 from pathlib import Path
 import json
@@ -13,6 +14,7 @@ PUBLIC_ROUTES = (
     "/publications/", "/ko/publications/",
     "/books/", "/ko/books/", "/ko/books/alchemia/",
     "/media/", "/ko/media/",
+    "/ko/media/history-of-science/",
     "/teaching/", "/ko/teaching/",
 )
 
@@ -87,6 +89,105 @@ for generated_html in SITE.rglob("*.html"):
                     f"{generated_html}: an unwanted generated subtitle remains")
 print("PASS titles-only: no generated subtitle in any page header")
 
+# Every YouTube video must display a valid publication date, not just new uploads.
+# Check all YAML video records as well as every rendered card in both languages.
+youtube_data = Path("_data/media.yml").read_text(encoding="utf-8")
+youtube_section = youtube_data.split("youtube_groups:", 1)[1].split("public_items:", 1)[0]
+general_items = re.split(r"(?m)^      - id: ", youtube_section)[1:]
+for entry in general_items:
+    item_name = entry.split("\n", 1)[0]
+    match = re.search(r'date: "([0-9]{4}-[0-9]{2}-[0-9]{2})"', entry)
+    fail_unless(match is not None, f"Missing YouTube publication date: {item_name}")
+    date.fromisoformat(match.group(1))
+fail_unless(len(general_items) == 12, "Unexpected number of general YouTube videos")
+for route in ("/media/", "/ko/media/", "/ko/media/history-of-science/"):
+    html, _ = parsed(route)
+    cards = re.findall(r'<article class="media-video-card">(.*?)</article>', html, re.DOTALL)
+    fail_unless(bool(cards), f"{route}: no video cards rendered")
+    for card in cards:
+        match = re.search(r'<time datetime="([0-9]{4}-[0-9]{2}-[0-9]{2})">\1</time>', card)
+        fail_unless(match is not None,
+                    f"{route}: video card missing visible publication date")
+        date.fromisoformat(match.group(1))
+print("PASS date consistency: all media video cards have publication dates")
+
+# Exact visible section/group order matters. A generic history-of-science
+# entry belongs first within the Unrealscience YouTube group, before the
+# existing three-column videos. No latest-episode copy on the landing page.
+history_ids = ("_WNy7BQ0gIw", "a_lwVYd8BP4", "ld0fBMB_IkM", "75FUhl4lr9A")
+general_ids = ("tq9BirqS12c", "hPnVfGZk86U", "S0iTk9liUKQ", "AwHJryy_0vo",
+               "1g6xOq3Hf2M", "AOaoELveR8s", "M7bTESbZi_U", "eg4plhiTFZU",
+               "LrOIUwUxQfU", "4B9ke8WJ2s0", "Ryubz9AwsHc", "2c0y2yyhF8c")
+for media_route, history_route in (
+    ("/media/", "/ko/media/history-of-science/"),
+    ("/ko/media/", "/ko/media/history-of-science/"),
+):
+    media_html, _ = parsed(media_route)
+    history_html, _ = parsed(history_route)
+    ko = media_route.startswith("/ko/")
+    section_names = ("YouTube 출연", "방송 및 다큐멘터리", "공개 강연 및 인터뷰") if ko else (
+        "YouTube Appearances", "Broadcasts and Documentaries", "Public Talks and Interviews"
+    )
+    section_headings = re.findall(r'<h2 class="media-section-heading"[^>]*>(.*?)</h2>',
+                                  media_html, re.DOTALL)
+    fail_unless([name.strip() for name in section_headings] == list(section_names),
+                f"{media_route}: wrong section order: {section_headings}")
+    channel_pos = media_html.find('class="media-channel-banner"')
+    youtube_pos = media_html.find(">" + section_names[0] + "</h2>")
+    fail_unless(channel_pos >= 0 and youtube_pos > channel_pos,
+                f"{media_route}: own YouTube channel must be at the top")
+
+    group_titles = re.findall(r'<h3 class="media-video-group-title"[^>]*>(.*?)</h3>',
+                              media_html, re.DOTALL)
+    expected_groups = ("안될과학", "보다", "사이언스프렌즈", "제로에너지바") if ko else (
+        "Unrealscience", "BODA", "Science Friends", "Zero Energy Bar"
+    )
+    fail_unless([g.strip() for g in group_titles] == list(expected_groups),
+                f"{media_route}: wrong YouTube group order: {group_titles}")
+    preview = re.search(
+        r'<div\s+class="media-feature-list media-history-feature"[^>]*>(.*?)</article>',
+        media_html, re.DOTALL,
+    )
+    fail_unless(preview is not None, f"{media_route}: missing first history lecture feature")
+    feature_html = preview.group(1)
+    title = "과학사 시리즈" if ko else "History of Science Series"
+    fail_unless(f'href="{history_route}"' in feature_html,
+                f"{media_route}: archive link missing from featured lecture")
+    fail_unless(f">{title}</a>" in feature_html,
+                f"{media_route}: generic history lecture title missing")
+    fail_unless("최신 공개 영상" not in feature_html and "Latest video" not in feature_html and
+                "Watch latest video" not in feature_html and "안될과학 | 과학사 강의" not in feature_html,
+                f"{media_route}: latest-episode or redundant series title still visible")
+    fail_unless(feature_html.count('class="media-feature-card media-history-feature-card"') == 1,
+                f"{media_route}: history should have exactly one broadcast-style feature")
+    fail_unless(feature_html.count('class="media-feature-visual-link"') == 1 and
+                feature_html.count('class="media-feature-body"') == 1,
+                f"{media_route}: missing image-left/detail-right horizontal card")
+    fail_unless('class="media-video-card"' not in feature_html,
+                f"{media_route}: history must not have a landing-page thumbnail grid")
+    fail_unless("watch?v=" + history_ids[0] in feature_html,
+                f"{media_route}: fixed representative history cover missing")
+    fail_unless(media_html.find(">" + expected_groups[0] + "</h3>") <
+                media_html.find('class="media-feature-card media-history-feature-card"') <
+                media_html.find('class="media-video-grid"'),
+                f"{media_route}: history lecture must precede three-column Unrealscience cards")
+    for video_id in general_ids:
+        fail_unless("watch?v=" + video_id in media_html,
+                    f"{media_route}: a general YouTube appearance is missing: {video_id}")
+    fail_unless(media_html.count('class="media-video-card"') == len(general_ids),
+                f"{media_route}: unexpected number of general YouTube cards")
+    fail_unless(history_html.count('class="media-video-card"') == len(history_ids),
+                f"{history_route}: incomplete history lecture archive")
+    positions = [history_html.find("watch?v=" + video_id) for video_id in history_ids]
+    fail_unless(all(pos >= 0 for pos in positions) and positions == sorted(positions),
+                f"{history_route}: history episodes are not in publication order")
+fail_unless(not route_file("/media/history-of-science/").exists(),
+            "English history archive must not be generated")
+history_markup, history_meta = parsed("/ko/media/history-of-science/")
+fail_unless('<h1 class="post-title">안될과학 과학사 시리즈</h1>' in history_markup,
+            "Korean history archive must have the requested title")
+print("PASS Media: Korean-only history archive, renamed series card, grouped videos and requested section order")
+
 # The language switch uses local SVG flag images, not OS-dependent emoji.
 # Its destination must continue to target the counterpart of the current page.
 flag_files = {
@@ -152,6 +253,7 @@ for route, destination, icon_name in (
     ("/ko/", "/", "en-uk-us.svg"),
     ("/publications/", "/ko/publications/", "ko.svg"),
     ("/ko/publications/", "/publications/", "en-uk-us.svg"),
+    ("/ko/media/history-of-science/", "/media/", "en-uk-us.svg"),
 ):
     html, _ = parsed(route)
     switch_match = re.search(
@@ -241,6 +343,8 @@ print("Additional sitemap URLs not in the curated public-page set:")
 for url in additional:
     print("  SITEMAP_EXTRA:", url)
 fail_unless(not additional, f"Unrelated or generated demo URLs remain in the sitemap: {len(additional)}")
+fail_unless("https://jeongmochoi.github.io/media/history-of-science/" not in urls,
+            "Removed English history archive is still listed in sitemap")
 # PDF privacy/discovery audit: prevent direct crawling and never advertise document URLs.
 robots_text = (SITE / "robots.txt").read_text(encoding="utf-8")
 fail_unless("User-agent: *" in robots_text, "robots.txt has no global Googlebot rule")
