@@ -34,8 +34,6 @@ npm run lint:prettier
 npm run lint:style-contract
 JEKYLL_ENV=production bundle exec jekyll build
 python3 test/site_seo_checks.py
-python3 -m unittest discover -s test -p 'test_scholar_citations.py' -v
-bundle exec ruby test/test_citation_badges.rb
 bash test/integration_plugin_toggles.sh
 bash test/integration_bootstrap_compat.sh
 bash test/integration_upgrade_cli.sh

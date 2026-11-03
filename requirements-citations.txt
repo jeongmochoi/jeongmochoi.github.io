@@ -1,4 +1,0 @@
-# scholarly 1.7.11 imports bibtexparser.bibdatabase, removed in bibtexparser 2.x.
-scholarly==1.7.11
-bibtexparser==1.4.3
-PyYAML==6.0.3
