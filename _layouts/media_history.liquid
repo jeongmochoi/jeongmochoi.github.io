@@ -8,11 +8,7 @@ layout: page
     <a href="{{ page.back_url | relative_url }}">{{ page.back_label }}</a>
   </nav>
 
-  <p class="media-history-intro">
-    {{ page.history_intro_first -}}
-    <br>
-    {{ page.history_intro_second }}
-  </p>
+  <p class="media-history-intro">{{ page.history_intro }}</p>
   <p class="media-history-count">{{ page.video_count_label }}: {{ series.items.size }}</p>
 
   <div class="media-history-archive-list">
@@ -40,11 +36,14 @@ layout: page
           </span>
         </a>
 
-        <h3 class="media-history-row-title">
-          <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ video_title }}</a>
-        </h3>
-
-        <time class="media-history-row-date" datetime="{{ item.date }}">{{ item.date }}</time>
+        <div class="media-history-row-body">
+          <div class="media-video-date media-history-row-date">
+            <time datetime="{{ item.date }}">{{ item.date }}</time>
+          </div>
+          <h3 class="media-video-title media-history-row-title">
+            <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ video_title }}</a>
+          </h3>
+        </div>
       </article>
     {% endfor %}
   </div>
