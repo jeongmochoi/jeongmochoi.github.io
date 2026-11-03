@@ -7,8 +7,6 @@ source_ko: "안될과학"
 source_en: "Unrealscience"
 summary_ko: "안될과학과 함께 살펴보는 과학의 역사. 최근 공개 영상부터 확인하거나 전체 강의를 공개 순서대로 볼 수 있습니다."
 summary_en: "A continuing series on the history of science with Unrealscience. Explore recent episodes or browse the complete series in publication order."
-intro_ko: "고대부터 근대까지 과학을 둘러싼 생각과 실천이 어떻게 달라졌는지 살펴보는 연속 강의입니다. 아래 영상은 공개일 순으로 정리했으며, 공식 회차 번호를 임의로 부여하지 않았습니다."
-intro_en: "An ongoing lecture series exploring how scientific ideas and practices have changed through history. Videos are listed by publication date, without invented official episode numbers."
 items:
   - id: history-greek-science-aristotle
     date: "2026-10-04"
