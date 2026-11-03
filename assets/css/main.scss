@@ -1247,13 +1247,15 @@ html[data-theme="dark"] .course-detail {
 }
 
 /* The history series preview reuses the same horizontal feature-card
-   structure as broadcasts. The full archive keeps the video grid. */
+   structure as broadcasts. The full archive uses one row per video. */
 .media-history-breadcrumb {
   margin: 0.3rem 0 1.3rem;
   font-size: 0.9rem;
 }
 
+/* Introductions should occupy the full page content width, not 73ch. */
 .media-history-intro {
+  width: 100%;
   max-width: none;
   margin: 0 0 0.5rem;
   color: var(--global-text-color-light);
