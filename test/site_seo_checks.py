@@ -123,10 +123,12 @@ fail_unless(kr_svg.get("viewBox") == "-36 -24 72 48" and
 source_css = Path("assets/css/main.scss").read_text(encoding="utf-8")
 fail_unless(bool(re.search(r"\.navbar-language-toggle\s+\.jm-language-flag\s*\{[^}]*width:\s*27px;[^}]*height:\s*18px;", source_css)),
             "Both language icons must have identical 27 by 18 CSS dimensions")
-fail_unless("background-color: var(--global-hover-color);" in source_css and
-            ".navbar-language-toggle > .nav-link:hover::after" in source_css and
-            ".navbar-language-toggle > .nav-link:focus-visible::after" in source_css,
-            "Language hover and keyboard focus must share the theme highlight")
+fail_unless("outline: 3px solid transparent;" in source_css and
+            "outline-color: var(--global-hover-color);" in source_css and
+            ".navbar-language-toggle > .nav-link:hover .jm-language-flag" in source_css and
+            ".navbar-language-toggle > .nav-link:focus-visible .jm-language-flag" in source_css and
+            "top: 1px;" in source_css,
+            "Language hover must use 3px theme-color outline with desktop alignment")
 
 for route, destination, icon_name in (
     ("/", "/ko/", "ko.svg"),
