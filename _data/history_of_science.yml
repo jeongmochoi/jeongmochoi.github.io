@@ -1,12 +1,12 @@
 # Single source of truth for the ongoing Unrealscience history-of-science series.
 # Keep in chronological PUBLICATION order. Add future episodes to the end.
 # Card titles are concise editorial labels, not claims about official episode numbers.
-title_ko: "안될과학 | 과학사 강의"
-title_en: "Unrealscience | History of Science"
+title_ko: "과학사 강의"
+title_en: "History of Science Lectures"
 source_ko: "안될과학"
 source_en: "Unrealscience"
-summary_ko: "안될과학과 함께 살펴보는 과학의 역사. 최근 공개 영상부터 확인하거나 전체 강의를 공개 순서대로 볼 수 있습니다."
-summary_en: "A continuing series on the history of science with Unrealscience. Explore recent episodes or browse the complete series in publication order."
+summary_ko: "안될과학에서 진행하는 과학사 연속 강의입니다. 전체 영상은 공개일 순서대로 정리했습니다."
+summary_en: "A continuing history-of-science lecture series with Unrealscience. Browse all episodes in their publication order."
 items:
   - id: history-greek-science-aristotle
     date: "2026-10-04"
