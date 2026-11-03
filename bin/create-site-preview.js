@@ -13,7 +13,6 @@ const pages = [
   ["books-ko", "/ko/books/"],
   ["media-en", "/media/"],
   ["media-ko", "/ko/media/"],
-  ["history-en", "/media/history-of-science/"],
   ["history-ko", "/ko/media/history-of-science/"],
   ["teaching-en", "/teaching/"],
   ["teaching-ko", "/ko/teaching/"],
@@ -204,6 +203,35 @@ async function main() {
             console.log(`SCREENSHOT_FULL_PAGE ${name} ${device} ${JSON.stringify({path: output, fullPage: entireMediaPage, documentHeight})}`);
             console.log(`Saved ${output} (${route})`);
 
+            // On the Media landing page, the image inside EVERY individual
+            // horizontal feature card must be exactly the same size as the
+            // images inside the compact three/two/one-column video cards.
+            const verifyMediaThumbnailParity = async (mode) => {
+              if (!name.startsWith("media-")) return;
+              const dimensions = await page.evaluate(() => {
+                const compact = document.querySelector(".media-video-grid .media-video-thumbnail");
+                const individual = [...document.querySelectorAll(".media-feature-visual-link")];
+                if (!compact || !individual.length) return null;
+                const base = compact.getBoundingClientRect();
+                const others = individual.map((element) => {
+                  const b = element.getBoundingClientRect();
+                  return { width: b.width, height: b.height };
+                });
+                return { compact: { width: base.width, height: base.height }, individual: others };
+              });
+              if (!dimensions) throw new Error(`Missing media video thumbnails: ${name} ${mode}`);
+              const equal = dimensions.individual.every(
+                (v) =>
+                  Math.abs(v.width - dimensions.compact.width) <= 0.06 &&
+                  Math.abs(v.height - dimensions.compact.height) <= 0.06,
+              );
+              console.log(`MEDIA_THUMBNAIL_PARITY ${name} ${mode} ${JSON.stringify({ ...dimensions, match: equal })}`);
+              if (!equal) {
+                throw new Error(`Media single-video and grid thumbnails have different sizes: ${name} ${mode}`);
+              }
+            };
+            await verifyMediaThumbnailParity(device);
+
             // Check the adaptive three-, two-, and one-column video grid in
             // Chromium, rather than relying on stylesheet declarations alone.
             if (name.startsWith("media-") || name.startsWith("history-")) {
@@ -223,6 +251,7 @@ async function main() {
               if (device === "desktop") {
                 await page.setViewportSize({ width: 800, height: 900 });
                 const tabletColumns = await countGridColumns();
+                await verifyMediaThumbnailParity("tablet");
                 console.log(`MEDIA_GRID_PROBE ${name} tablet ${JSON.stringify(tabletColumns)}`);
                 if (tabletColumns.some((count) => count !== 2)) {
                   throw new Error(`Media grid must be two columns on tablet: ${JSON.stringify(tabletColumns)}`);
@@ -436,7 +465,7 @@ async function main() {
 
     fs.writeFileSync(
       path.join("site-preview", "README.txt"),
-      "Desktop (1440x900) and mobile-size (390x844) screenshots of twelve English/Korean homepage sections; Media and History images are FULL-PAGE (desktop/mobile/800px tablet), not viewport crops, with OS-light and OS-dark initial-theme previews. Theme checks also validate automatic OS changes, one-time legacy preference reset, binary user override and persistence. These are not live preview URLs. The actual website was not published by this job.\n",
+      "Desktop (1440x900) and mobile-size (390x844) screenshots of eleven English/Korean homepage sections; Media and History images are FULL-PAGE (desktop/mobile/800px tablet), not viewport crops, with OS-light and OS-dark initial-theme previews. Theme checks also validate automatic OS changes, one-time legacy preference reset, binary user override and persistence. These are not live preview URLs. The actual website was not published by this job.\n",
     );
   } finally {
     await browser.close();
