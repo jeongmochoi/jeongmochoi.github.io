@@ -88,46 +88,77 @@ for generated_html in SITE.rglob("*.html"):
                     f"{generated_html}: an unwanted generated subtitle remains")
 print("PASS titles-only: no generated subtitle in any page header")
 
-# Media index: only the latest history lecture is featured in a horizontal
-# (broadcast-style) card; all four lectures remain on the dedicated archive.
-new_ids = ("_WNy7BQ0gIw", "a_lwVYd8BP4", "ld0fBMB_IkM", "75FUhl4lr9A")
-latest_id = new_ids[-1]
-other_ids = ("AOaoELveR8s", "M7bTESbZi_U", "eg4plhiTFZU", "LrOIUwUxQfU")
+# Exact visible section/group order matters. A generic history-of-science
+# entry belongs first within the Unrealscience YouTube group, before the
+# existing three-column videos. No latest-episode copy on the landing page.
+history_ids = ("_WNy7BQ0gIw", "a_lwVYd8BP4", "ld0fBMB_IkM", "75FUhl4lr9A")
+general_ids = ("tq9BirqS12c", "hPnVfGZk86U", "S0iTk9liUKQ", "AwHJryy_0vo",
+               "1g6xOq3Hf2M", "AOaoELveR8s", "M7bTESbZi_U", "eg4plhiTFZU",
+               "LrOIUwUxQfU", "4B9ke8WJ2s0", "Ryubz9AwsHc", "2c0y2yyhF8c")
 for media_route, history_route in (
     ("/media/", "/media/history-of-science/"),
     ("/ko/media/", "/ko/media/history-of-science/"),
 ):
     media_html, _ = parsed(media_route)
     history_html, _ = parsed(history_route)
+    ko = media_route.startswith("/ko/")
+    section_names = ("YouTube 출연", "방송 및 다큐멘터리", "공개 강연 및 인터뷰") if ko else (
+        "YouTube Appearances", "Broadcasts and Documentaries", "Public Talks and Interviews"
+    )
+    section_headings = re.findall(r'<h2 class="media-section-heading"[^>]*>(.*?)</h2>',
+                                  media_html, re.DOTALL)
+    fail_unless([name.strip() for name in section_headings] == list(section_names),
+                f"{media_route}: wrong section order: {section_headings}")
+    channel_pos = media_html.find('class="media-channel-banner"')
+    youtube_pos = media_html.find(">" + section_names[0] + "</h2>")
+    fail_unless(channel_pos >= 0 and youtube_pos > channel_pos,
+                f"{media_route}: own YouTube channel must be at the top")
+
+    group_titles = re.findall(r'<h3 class="media-video-group-title"[^>]*>(.*?)</h3>',
+                              media_html, re.DOTALL)
+    expected_groups = ("안될과학", "보다", "사이언스프렌즈", "제로에너지바") if ko else (
+        "Unrealscience", "BODA", "Science Friends", "Zero Energy Bar"
+    )
+    fail_unless([g.strip() for g in group_titles] == list(expected_groups),
+                f"{media_route}: wrong YouTube group order: {group_titles}")
     preview = re.search(
-        r'<section\s+class="media-history-feature"[^>]*>(.*?)</section>',
+        r'<div\s+class="media-feature-list media-history-feature"[^>]*>(.*?)</article>',
         media_html, re.DOTALL,
     )
-    fail_unless(preview is not None, f"{media_route}: missing history-series feature")
-    preview_html = preview.group(1)
-    fail_unless(f'href="{history_route}"' in preview_html,
-                f"{media_route}: missing link to all history lectures")
-    fail_unless(preview_html.count('class="media-feature-card media-history-feature-card"') == 1,
-                f"{media_route}: require exactly one horizontal broadcast-style preview card")
-    fail_unless(preview_html.count('class="media-feature-visual-link"') == 1 and
-                preview_html.count('class="media-feature-body"') == 1,
-                f"{media_route}: feature image or detail column missing")
-    fail_unless('class="media-video-card"' not in preview_html,
-                f"{media_route}: obsolete three-card grid remains in history preview")
-    fail_unless(f"watch?v={latest_id}" in preview_html,
-                f"{media_route}: latest history video {latest_id} not featured")
-    for older_id in new_ids[:-1]:
-        fail_unless(f"watch?v={older_id}" not in preview_html,
-                    f"{media_route}: preview unexpectedly shows an older history video")
-    for video_id in other_ids:
-        fail_unless(f"watch?v={video_id}" in media_html,
-                    f"{media_route}: other channel appearance {video_id} missing")
-    fail_unless(history_html.count('class="media-video-card"') == len(new_ids),
-                f"{history_route}: incomplete history archive")
-    positions = [history_html.find(f"watch?v={video_id}") for video_id in new_ids]
-    fail_unless(all(p >= 0 for p in positions) and positions == sorted(positions),
-                f"{history_route}: lectures not listed in publication order")
-print("PASS Media: one horizontal history feature, latest video, full four-lecture archive")
+    fail_unless(preview is not None, f"{media_route}: missing first history lecture feature")
+    feature_html = preview.group(1)
+    title = "과학사 강의" if ko else "History of Science Lectures"
+    fail_unless(f'href="{history_route}"' in feature_html,
+                f"{media_route}: archive link missing from featured lecture")
+    fail_unless(f">{title}</a>" in feature_html,
+                f"{media_route}: generic history lecture title missing")
+    fail_unless("최신 공개 영상" not in feature_html and "Latest video" not in feature_html and
+                "Watch latest video" not in feature_html and "안될과학 | 과학사 강의" not in feature_html,
+                f"{media_route}: latest-episode or redundant series title still visible")
+    fail_unless(feature_html.count('class="media-feature-card media-history-feature-card"') == 1,
+                f"{media_route}: history should have exactly one broadcast-style feature")
+    fail_unless(feature_html.count('class="media-feature-visual-link"') == 1 and
+                feature_html.count('class="media-feature-body"') == 1,
+                f"{media_route}: missing image-left/detail-right horizontal card")
+    fail_unless('class="media-video-card"' not in feature_html,
+                f"{media_route}: history must not have a landing-page thumbnail grid")
+    fail_unless("watch?v=" + history_ids[0] in feature_html,
+                f"{media_route}: fixed representative history cover missing")
+    fail_unless(media_html.find(">" + expected_groups[0] + "</h3>") <
+                media_html.find('class="media-history-feature-card"') <
+                media_html.find('class="media-video-grid"'),
+                f"{media_route}: history lecture must precede three-column Unrealscience cards")
+    for video_id in general_ids:
+        fail_unless("watch?v=" + video_id in media_html,
+                    f"{media_route}: a general YouTube appearance is missing: {video_id}")
+    fail_unless(media_html.count('class="media-video-card"') == len(general_ids),
+                f"{media_route}: unexpected number of general YouTube cards")
+    fail_unless(history_html.count('class="media-video-card"') == len(history_ids),
+                f"{history_route}: incomplete history lecture archive")
+    positions = [history_html.find("watch?v=" + video_id) for video_id in history_ids]
+    fail_unless(all(pos >= 0 for pos in positions) and positions == sorted(positions),
+                f"{history_route}: history episodes are not in publication order")
+print("PASS Media: channel first, grouped YouTube in requested order, 1 generic history feature, general 3-column videos, then broadcast/public")
 
 # The language switch uses local SVG flag images, not OS-dependent emoji.
 # Its destination must continue to target the counterpart of the current page.
