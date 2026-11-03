@@ -121,8 +121,16 @@ fail_unless(kr_svg.get("viewBox") == "-36 -24 72 48" and
             kr_svg.get("width") == "72" and kr_svg.get("height") == "48",
             "Korean flag must keep its correct 3:2 proportions")
 source_css = Path("assets/css/main.scss").read_text(encoding="utf-8")
-fail_unless(bool(re.search(r"\.navbar-language-toggle\s+\.jm-language-flag\s*\{[^}]*width:\s*27px;[^}]*height:\s*18px;", source_css)),
-            "Both language icons must have identical 27 by 18 CSS dimensions")
+fail_unless(bool(re.search(r"\.navbar-language-toggle\s+\.jm-language-flag-frame\s*\{[^}]*width:\s*27px;[^}]*height:\s*18px;", source_css)),
+            "Both language icons must have identical 27 by 18 wrappers")
+fail_unless("border: 3px solid transparent;" in source_css and
+            "border-radius: 7px;" in source_css and
+            "inset: -3px;" in source_css and
+            ".navbar-language-toggle > .nav-link:hover .jm-language-flag-frame::after" in source_css and
+            ".navbar-language-toggle > .nav-link:focus-visible .jm-language-flag-frame::after" in source_css and
+            "border-color: var(--global-hover-color);" in source_css and
+            "top: 1px;" in source_css,
+            "Language hover needs a gapless 3px round-corner theme-colored border")
 
 for route, destination, icon_name in (
     ("/", "/ko/", "ko.svg"),
@@ -138,8 +146,13 @@ for route, destination, icon_name in (
     fail_unless(switch_match is not None, f"{route}: language switch missing")
     switch = switch_match.group(1)
     fail_unless(f'href="{destination}"' in switch, f"{route}: wrong language destination")
-    fail_unless('class="jm-language-flag"' in switch, f"{route}: expected SVG image markup")
+    fail_unless('class="jm-language-flag"' in switch and
+                'class="jm-language-flag-frame"' in switch,
+                f"{route}: expected separate SVG and rounded border wrapper")
     fail_unless(f'src="{flag_files[icon_name]}"' in switch, f"{route}: wrong flag image")
+    expected_tooltip = "영어로 전환" if route.startswith("/ko/") else "Change language to Korean"
+    fail_unless(f'title="{expected_tooltip}"' in switch,
+                f"{route}: language-change hover tooltip missing")
     fail_unless('aria-hidden="true"' in switch and 'alt=""' in switch,
                 f"{route}: missing accessible decorative SVG attributes")
 

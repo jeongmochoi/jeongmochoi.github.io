@@ -63,6 +63,15 @@ async function main() {
               await flag.waitFor({ state: "visible", timeout: 5000 });
             }
             await flag.evaluate(async (image) => await image.decode());
+            if (mobileToggle && name.startsWith("home-")) {
+              const expandedImage = path.join("site-preview", `${name}-mobile-menu-expanded.png`);
+              await page.screenshot({
+                path: expandedImage,
+                animations: "disabled",
+                fullPage: false,
+              });
+              console.log(`Saved ${expandedImage} (expanded mobile menu)`);
+            }
             const renderedFlag = await flag.evaluate((image) => {
               const dimensions = getComputedStyle(image);
               return {
@@ -166,6 +175,81 @@ async function main() {
               fullPage: false,
             });
             console.log(`Saved ${output} (${route})`);
+
+            // Compare the language hover accent with the adjacent Change theme
+            // icon, and capture screenshots of the actual hovered flag.
+            if (device === "desktop" && name.startsWith("home-")) {
+              const themeToggle = page.locator("#light-toggle");
+              const languageLink = page.locator(".navbar-language-toggle > .nav-link");
+              const flagFrame = languageLink.locator(".jm-language-flag-frame");
+              await themeToggle.hover();
+              // The site transitions inherited colors; sample only after the
+              // theme icon's CSS hover transition has completed.
+              await page.waitForTimeout(300);
+              const themeHoverColor = await themeToggle.evaluate(
+                (button) => getComputedStyle(button).color,
+              );
+              const restRing = await flagFrame.evaluate((wrapper) => {
+                const ring = getComputedStyle(wrapper, "::after");
+                return { opacity: ring.opacity, borderColor: ring.borderTopColor };
+              });
+              const themeIconBounds = await page.evaluate(() => {
+                const icon = [...document.querySelectorAll("#light-toggle i")].find((element) => {
+                  const style = getComputedStyle(element);
+                  return style.display !== "none" && style.visibility !== "hidden";
+                });
+                const rect = icon?.getBoundingClientRect();
+                return rect ? { x: rect.x, y: rect.y, width: rect.width, height: rect.height } : null;
+              });
+              const beforeBounds = await flag.boundingBox();
+              await languageLink.hover();
+              await page.waitForTimeout(250);
+              const accent = await flagFrame.evaluate((wrapper) => {
+                const border = getComputedStyle(wrapper, "::after");
+                return {
+                  borderColor: border.borderTopColor,
+                  borderStyle: border.borderTopStyle,
+                  borderWidth: border.borderTopWidth,
+                  borderRadius: border.borderTopLeftRadius,
+                  insetTop: border.top,
+                  insetRight: border.right,
+                  insetBottom: border.bottom,
+                  insetLeft: border.left,
+                  opacity: border.opacity,
+                  tooltip: wrapper.closest("a")?.getAttribute("title"),
+                };
+              });
+              const afterBounds = await flag.boundingBox();
+              console.log(`LANGUAGE_HOVER_PROBE ${name} ${JSON.stringify({themeHoverColor, restRing, accent, beforeBounds, afterBounds, themeIconBounds})}`);
+              if (
+                restRing.opacity !== "0" ||
+                accent.borderColor !== themeHoverColor ||
+                accent.borderStyle !== "solid" ||
+                accent.borderWidth !== "3px" ||
+                accent.borderRadius !== "7px" ||
+                accent.insetTop !== "-3px" ||
+                accent.insetRight !== "-3px" ||
+                accent.insetBottom !== "-3px" ||
+                accent.insetLeft !== "-3px" ||
+                accent.opacity !== "1" ||
+                !accent.tooltip ||
+                !beforeBounds ||
+                !afterBounds ||
+                Math.abs(beforeBounds.width - afterBounds.width) > 0.01 ||
+                Math.abs(beforeBounds.height - afterBounds.height) > 0.01 ||
+                Math.abs(beforeBounds.x - afterBounds.x) > 0.01 ||
+                Math.abs(beforeBounds.y - afterBounds.y) > 0.01
+              ) {
+                throw new Error(`Language hover rounded border does not match theme button: ${JSON.stringify(accent)}`);
+              }
+              const hoverImage = path.join("site-preview", `${name}-desktop-language-hover.png`);
+              await page.screenshot({
+                path: hoverImage,
+                animations: "disabled",
+                fullPage: false,
+              });
+              console.log(`Saved ${hoverImage} (hovered ${route})`);
+            }
           } finally {
             await page.close();
           }
