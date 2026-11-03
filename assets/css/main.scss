@@ -1244,6 +1244,87 @@ html[data-theme="dark"] .course-detail {
   margin-top: 0.9rem;
 }
 
+/* Long-running science-history series: a restrained preview on the Media
+   index, with a separate chronological archive for all future episodes. */
+.media-history-feature {
+  margin: 2.2rem 0 2.5rem;
+  padding: 1.4rem 0 1.6rem;
+  border-top: 2px solid var(--global-theme-color);
+  border-bottom: 1px solid var(--global-divider-color);
+}
+
+.media-history-feature-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.2rem;
+}
+
+.media-history-feature-kicker {
+  margin: 0 0 0.25rem;
+  color: var(--global-theme-color);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.media-history-feature-title {
+  margin: 0 0 0.3rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.media-history-feature-summary {
+  max-width: 68ch;
+  margin: 0;
+  color: var(--global-text-color-light);
+  font-size: 0.94rem;
+}
+
+.media-history-feature-link,
+.media-history-breadcrumb a {
+  color: var(--global-theme-color);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.media-history-feature-link {
+  flex: 0 0 auto;
+  padding-bottom: 0.15rem;
+  border-bottom: 1px solid currentColor;
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+.media-history-feature-link:hover,
+.media-history-breadcrumb a:hover {
+  color: var(--global-hover-color);
+  text-decoration: none;
+}
+
+.media-history-preview-grid {
+  margin-top: 1.2rem;
+}
+
+.media-history-breadcrumb {
+  margin: 0.3rem 0 1.3rem;
+  font-size: 0.9rem;
+}
+
+.media-history-intro {
+  max-width: 73ch;
+  margin: 0 0 0.5rem;
+  color: var(--global-text-color-light);
+}
+
+.media-history-count {
+  margin-bottom: 1.2rem;
+  font-size: 0.82rem;
+  color: var(--global-text-color-light);
+}
+
 .media-video-group {
   margin-bottom: 2rem;
 }
@@ -1256,7 +1337,7 @@ html[data-theme="dark"] .course-detail {
 
 .media-video-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
 }
 
@@ -1271,6 +1352,12 @@ html[data-theme="dark"] .course-detail {
 .media-video-body {
   flex: 1;
   padding: 0.75rem 0.85rem 0.85rem 0.85rem;
+}
+
+.media-video-date {
+  margin-bottom: 0.25rem;
+  color: var(--global-text-color-light);
+  font-size: 0.77rem;
 }
 
 .media-video-title {
@@ -1306,6 +1393,12 @@ html[data-theme="dark"] .media-video-card {
   background-color: rgba(255, 255, 255, 0.035);
 }
 
+@media (max-width: 860px) {
+  .media-video-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
   .media-feature-card {
     grid-template-columns: 1fr;
@@ -1331,6 +1424,16 @@ html[data-theme="dark"] .media-video-card {
 
   .media-channel-button {
     justify-self: start;
+  }
+
+  .media-history-feature-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .media-history-feature-title {
+    font-size: 1.38rem;
   }
 
   .media-video-grid {
