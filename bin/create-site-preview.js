@@ -351,7 +351,7 @@ async function main() {
                   const correctLayout = stacked
                     ? row.title.y >= row.thumbnail.bottom - 2 && row.date.y >= row.title.bottom - 2
                     : row.title.x >= row.thumbnail.right - 1 && row.date.x >= row.title.right - 1;
-                  return ordered && withinPage && correctLayout && /^\\d{4}-\\d{2}-\\d{2}$/.test(row.dateText);
+                  return ordered && withinPage && correctLayout && /^\d{4}-\d{2}-\d{2}$/.test(row.dateText);
                 });
                 console.log(`HISTORY_ROW_PROBE ${name} ${mode} ${JSON.stringify({boxes, aligned})}`);
                 if (!aligned) throw new Error(`History video cards must remain one per full-width row: ${name} ${mode}`);
