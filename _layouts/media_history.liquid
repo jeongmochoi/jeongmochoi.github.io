@@ -1,0 +1,35 @@
+---
+layout: page
+---
+
+{% assign current_lang = page.lang | default: site.lang | default: 'en' %}
+{% assign series = site.data.history_of_science %}
+
+<div class="media-history-page">
+  <nav class="media-history-breadcrumb" aria-label="{% if current_lang == 'ko' %}상위 페이지{% else %}Breadcrumb{% endif %}">
+    {% if current_lang == 'ko' %}
+      <a href="{{ '/ko/media/' | relative_url }}">← 미디어로 돌아가기</a>
+    {% else %}
+      <a href="{{ '/media/' | relative_url }}">← Back to Media</a>
+    {% endif %}
+  </nav>
+
+  {% if current_lang == 'ko' %}
+    {% assign series_intro = series.intro_ko %}
+    {% assign video_count_label = '공개된 영상' %}
+    {% assign video_count_suffix = '편' %}
+  {% else %}
+    {% assign series_intro = series.intro_en %}
+    {% assign video_count_label = 'Published videos' %}
+    {% assign video_count_suffix = '' %}
+  {% endif %}
+
+  <p class="media-history-intro">{{ series_intro }}</p>
+  <p class="media-history-count">{{ video_count_label }}: {{ series.items.size }}{{ video_count_suffix }}</p>
+
+  <div class="media-video-grid media-history-archive-grid">
+    {% for item in series.items %}
+      {% include media_video_item.liquid item=item lang=current_lang %}
+    {% endfor %}
+  </div>
+</div>
