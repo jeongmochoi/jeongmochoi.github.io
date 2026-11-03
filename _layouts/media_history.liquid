@@ -8,7 +8,10 @@ layout: page
     <a href="{{ page.back_url | relative_url }}">{{ page.back_label }}</a>
   </nav>
 
-  <p class="media-history-intro">{{ page.history_intro }}</p>
+  <p class="media-history-intro">
+    {{ page.history_intro_first }}<br>
+    {{ page.history_intro_second }}
+  </p>
   <p class="media-history-count">{{ page.video_count_label }}: {{ series.items.size }}</p>
 
   <div class="media-video-grid media-history-archive-grid">
