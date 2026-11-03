@@ -1259,7 +1259,7 @@ html[data-theme="dark"] .course-detail {
   max-width: none;
   margin: 0 0 0.5rem;
   color: var(--global-text-color-light);
-  /* Keep the complete first sentence on one desktop line, then the explicit BR. */
+  /* Wrap naturally only when the viewport requires it; no forced line break. */
   word-break: keep-all;
   overflow-wrap: break-word;
 }
@@ -1280,39 +1280,28 @@ html[data-theme="dark"] .course-detail {
 
 .media-history-row {
   display: grid;
-  grid-template-columns: 240px minmax(0, 1fr) 100px;
+  grid-template-columns: 240px minmax(0, 1fr);
   column-gap: 1rem;
-  align-items: center;
+  align-items: start;
   padding: 0.7rem;
   border: 1px solid var(--global-divider-color);
   background-color: rgba(0, 0, 0, 0.015);
 }
 
-.media-history-row-title {
-  margin: 0;
+/* The date and title share the right-hand column, in the same order and
+   typography as ordinary Media video cards. */
+.media-history-row-body {
   min-width: 0;
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.48;
-  word-break: keep-all;
-  overflow-wrap: break-word;
-}
-
-.media-history-row-title a {
-  color: var(--global-text-color);
-  text-decoration: none;
-}
-
-.media-history-row-title a:hover {
-  color: var(--global-theme-color);
-  text-decoration: none;
 }
 
 .media-history-row-date {
-  justify-self: end;
-  color: var(--global-text-color-light);
-  font-size: 0.83rem;
   white-space: nowrap;
+}
+
+.media-history-row-title {
+  min-width: 0;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 html[data-theme="dark"] .media-history-row {
@@ -1321,7 +1310,7 @@ html[data-theme="dark"] .media-history-row {
 
 @media (max-width: 860px) {
   .media-history-row {
-    grid-template-columns: 185px minmax(0, 1fr) 96px;
+    grid-template-columns: 185px minmax(0, 1fr);
     column-gap: 0.75rem;
   }
 }
@@ -1330,10 +1319,6 @@ html[data-theme="dark"] .media-history-row {
   .media-history-row {
     grid-template-columns: minmax(0, 1fr);
     row-gap: 0.65rem;
-  }
-
-  .media-history-row-date {
-    justify-self: start;
   }
 }
 
