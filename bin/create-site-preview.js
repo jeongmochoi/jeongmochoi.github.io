@@ -13,6 +13,8 @@ const pages = [
   ["books-ko", "/ko/books/"],
   ["media-en", "/media/"],
   ["media-ko", "/ko/media/"],
+  ["history-en", "/media/history-of-science/"],
+  ["history-ko", "/ko/media/history-of-science/"],
   ["teaching-en", "/teaching/"],
   ["teaching-ko", "/ko/teaching/"],
 ];
@@ -175,6 +177,38 @@ async function main() {
               fullPage: false,
             });
             console.log(`Saved ${output} (${route})`);
+
+            // Check the adaptive three-, two-, and one-column video grid in
+            // Chromium, rather than relying on stylesheet declarations alone.
+            if (name.startsWith("media-") || name.startsWith("history-")) {
+              const countGridColumns = async () =>
+                page.locator(".media-video-grid").evaluateAll((grids) =>
+                  grids.map((grid) =>
+                    getComputedStyle(grid).gridTemplateColumns.trim().split(/\s+/).length,
+                  ),
+                );
+              const widths = await countGridColumns();
+              const expected = device === "desktop" ? 3 : 1;
+              console.log(`MEDIA_GRID_PROBE ${name} ${device} ${JSON.stringify(widths)}`);
+              if (!widths.length || widths.some((count) => count !== expected)) {
+                throw new Error(`Media grid must be ${expected} columns: ${JSON.stringify(widths)}`);
+              }
+
+              if (device === "desktop") {
+                await page.setViewportSize({ width: 800, height: 900 });
+                const tabletColumns = await countGridColumns();
+                console.log(`MEDIA_GRID_PROBE ${name} tablet ${JSON.stringify(tabletColumns)}`);
+                if (tabletColumns.some((count) => count !== 2)) {
+                  throw new Error(`Media grid must be two columns on tablet: ${JSON.stringify(tabletColumns)}`);
+                }
+                await page.screenshot({
+                  path: path.join("site-preview", `${name}-tablet.png`),
+                  animations: "disabled",
+                  fullPage: false,
+                });
+                await page.setViewportSize(viewport);
+              }
+            }
 
             // Compare the language hover accent with the adjacent Change theme
             // icon, and capture screenshots of the actual hovered flag.
@@ -349,7 +383,7 @@ async function main() {
 
     fs.writeFileSync(
       path.join("site-preview", "README.txt"),
-      "Desktop (1440x900) and mobile-size (390x844) first-viewport screenshots of ten English/Korean homepage sections, with OS-light and OS-dark initial-theme previews. Theme checks also validate automatic OS changes, one-time legacy preference reset, binary user override and persistence. These are not live preview URLs. The actual website was not published by this job.\n",
+      "Desktop (1440x900) and mobile-size (390x844) first-viewport screenshots of twelve English/Korean homepage sections, plus 800px-wide tablet media pages, with OS-light and OS-dark initial-theme previews. Theme checks also validate automatic OS changes, one-time legacy preference reset, binary user override and persistence. These are not live preview URLs. The actual website was not published by this job.\n",
     );
   } finally {
     await browser.close();
