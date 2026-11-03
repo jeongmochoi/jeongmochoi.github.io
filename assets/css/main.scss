@@ -1254,10 +1254,16 @@ html[data-theme="dark"] .course-detail {
 }
 
 .media-history-intro {
-  max-width: 73ch;
+  max-width: none;
   margin: 0 0 0.5rem;
   color: var(--global-text-color-light);
-  /* Do not break Korean words in half; the sentence boundary uses an explicit BR. */
+  /* Keep the complete first sentence on one desktop line, then the explicit BR. */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.media-history-archive-grid .media-video-title {
+  /* The original YouTube headlines are long. Never split Korean words in half. */
   word-break: keep-all;
   overflow-wrap: break-word;
 }
