@@ -13,7 +13,7 @@ PUBLIC_ROUTES = (
     "/publications/", "/ko/publications/",
     "/books/", "/ko/books/", "/ko/books/alchemia/",
     "/media/", "/ko/media/",
-    "/media/history-of-science/", "/ko/media/history-of-science/",
+    "/ko/media/history-of-science/",
     "/teaching/", "/ko/teaching/",
 )
 
@@ -96,7 +96,7 @@ general_ids = ("tq9BirqS12c", "hPnVfGZk86U", "S0iTk9liUKQ", "AwHJryy_0vo",
                "1g6xOq3Hf2M", "AOaoELveR8s", "M7bTESbZi_U", "eg4plhiTFZU",
                "LrOIUwUxQfU", "4B9ke8WJ2s0", "Ryubz9AwsHc", "2c0y2yyhF8c")
 for media_route, history_route in (
-    ("/media/", "/media/history-of-science/"),
+    ("/media/", "/ko/media/history-of-science/"),
     ("/ko/media/", "/ko/media/history-of-science/"),
 ):
     media_html, _ = parsed(media_route)
@@ -127,7 +127,7 @@ for media_route, history_route in (
     )
     fail_unless(preview is not None, f"{media_route}: missing first history lecture feature")
     feature_html = preview.group(1)
-    title = "과학사 강의" if ko else "History of Science Lectures"
+    title = "과학사 시리즈" if ko else "History of Science Series"
     fail_unless(f'href="{history_route}"' in feature_html,
                 f"{media_route}: archive link missing from featured lecture")
     fail_unless(f">{title}</a>" in feature_html,
@@ -158,7 +158,12 @@ for media_route, history_route in (
     positions = [history_html.find("watch?v=" + video_id) for video_id in history_ids]
     fail_unless(all(pos >= 0 for pos in positions) and positions == sorted(positions),
                 f"{history_route}: history episodes are not in publication order")
-print("PASS Media: channel first, grouped YouTube in requested order, 1 generic history feature, general 3-column videos, then broadcast/public")
+fail_unless(not route_file("/media/history-of-science/").exists(),
+            "English history archive must not be generated")
+history_markup, history_meta = parsed("/ko/media/history-of-science/")
+fail_unless('<h1 class="post-title">안될과학 과학사 시리즈</h1>' in history_markup,
+            "Korean history archive must have the requested title")
+print("PASS Media: Korean-only history archive, renamed series card, grouped videos and requested section order")
 
 # The language switch uses local SVG flag images, not OS-dependent emoji.
 # Its destination must continue to target the counterpart of the current page.
@@ -225,8 +230,7 @@ for route, destination, icon_name in (
     ("/ko/", "/", "en-uk-us.svg"),
     ("/publications/", "/ko/publications/", "ko.svg"),
     ("/ko/publications/", "/publications/", "en-uk-us.svg"),
-    ("/media/history-of-science/", "/ko/media/history-of-science/", "ko.svg"),
-    ("/ko/media/history-of-science/", "/media/history-of-science/", "en-uk-us.svg"),
+    ("/ko/media/history-of-science/", "/media/", "en-uk-us.svg"),
 ):
     html, _ = parsed(route)
     switch_match = re.search(
@@ -316,6 +320,8 @@ print("Additional sitemap URLs not in the curated public-page set:")
 for url in additional:
     print("  SITEMAP_EXTRA:", url)
 fail_unless(not additional, f"Unrelated or generated demo URLs remain in the sitemap: {len(additional)}")
+fail_unless("https://jeongmochoi.github.io/media/history-of-science/" not in urls,
+            "Removed English history archive is still listed in sitemap")
 # PDF privacy/discovery audit: prevent direct crawling and never advertise document URLs.
 robots_text = (SITE / "robots.txt").read_text(encoding="utf-8")
 fail_unless("User-agent: *" in robots_text, "robots.txt has no global Googlebot rule")
