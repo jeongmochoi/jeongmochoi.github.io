@@ -1262,16 +1262,77 @@ html[data-theme="dark"] .course-detail {
   overflow-wrap: break-word;
 }
 
-.media-history-archive-grid .media-video-title {
-  /* The original YouTube headlines are long. Never split Korean words in half. */
-  word-break: keep-all;
-  overflow-wrap: break-word;
-}
-
 .media-history-count {
   margin-bottom: 1.2rem;
   font-size: 0.82rem;
   color: var(--global-text-color-light);
+}
+
+/* The history archive intentionally uses one full-width row per video,
+   not the three-column grid of other YouTube appearances. */
+.media-history-archive-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.85rem;
+}
+
+.media-history-row {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr) 100px;
+  column-gap: 1rem;
+  align-items: center;
+  padding: 0.7rem;
+  border: 1px solid var(--global-divider-color);
+  background-color: rgba(0, 0, 0, 0.015);
+}
+
+.media-history-row-title {
+  margin: 0;
+  min-width: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.48;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.media-history-row-title a {
+  color: var(--global-text-color);
+  text-decoration: none;
+}
+
+.media-history-row-title a:hover {
+  color: var(--global-theme-color);
+  text-decoration: none;
+}
+
+.media-history-row-date {
+  justify-self: end;
+  color: var(--global-text-color-light);
+  font-size: 0.83rem;
+  white-space: nowrap;
+}
+
+html[data-theme="dark"] .media-history-row {
+  background-color: rgba(255, 255, 255, 0.035);
+}
+
+@media (max-width: 860px) {
+  .media-history-row {
+    grid-template-columns: 185px minmax(0, 1fr) 96px;
+    column-gap: 0.75rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .media-history-row {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0.65rem;
+  }
+
+  .media-history-row-date {
+    justify-self: start;
+  }
 }
 
 .media-video-group {
