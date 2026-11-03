@@ -173,6 +173,9 @@ async function main() {
               const themeToggle = page.locator("#light-toggle");
               const languageLink = page.locator(".navbar-language-toggle > .nav-link");
               await themeToggle.hover();
+              // The site transitions inherited colors; sample only after the
+              // theme icon's CSS hover transition has completed.
+              await page.waitForTimeout(300);
               const themeHoverColor = await themeToggle.evaluate(
                 (button) => getComputedStyle(button).color,
               );
