@@ -39,6 +39,9 @@
     {% endif %}
   {% endfor %}
 {% endif %}
+{% if current_lang == 'ko' and page.ref == 'media-history-of-science' %}
+  {% assign language_switch_url = '/media/' %}
+{% endif %}
 
 <header>
   <!-- Nav Bar -->
