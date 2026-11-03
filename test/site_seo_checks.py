@@ -14,7 +14,7 @@ PUBLIC_ROUTES = (
     "/publications/", "/ko/publications/",
     "/books/", "/ko/books/", "/ko/books/alchemia/",
     "/media/", "/ko/media/",
-    "/ko/media/history-of-science/",
+    "/media/history-of-science/", "/ko/media/history-of-science/",
     "/teaching/", "/ko/teaching/",
 )
 
@@ -100,7 +100,7 @@ for entry in general_items:
     fail_unless(match is not None, f"Missing YouTube publication date: {item_name}")
     date.fromisoformat(match.group(1))
 fail_unless(len(general_items) == 12, "Unexpected number of general YouTube videos")
-for route in ("/media/", "/ko/media/", "/ko/media/history-of-science/"):
+for route in ("/media/", "/ko/media/", "/media/history-of-science/", "/ko/media/history-of-science/"):
     html, _ = parsed(route)
     cards = re.findall(r'<article class="media-video-card">(.*?)</article>', html, re.DOTALL)
     fail_unless(bool(cards), f"{route}: no video cards rendered")
@@ -119,7 +119,7 @@ general_ids = ("tq9BirqS12c", "hPnVfGZk86U", "S0iTk9liUKQ", "AwHJryy_0vo",
                "1g6xOq3Hf2M", "AOaoELveR8s", "M7bTESbZi_U", "eg4plhiTFZU",
                "LrOIUwUxQfU", "4B9ke8WJ2s0", "Ryubz9AwsHc", "2c0y2yyhF8c")
 for media_route, history_route in (
-    ("/media/", "/ko/media/history-of-science/"),
+    ("/media/", "/media/history-of-science/"),
     ("/ko/media/", "/ko/media/history-of-science/"),
 ):
     media_html, _ = parsed(media_route)
@@ -181,12 +181,30 @@ for media_route, history_route in (
     positions = [history_html.find("watch?v=" + video_id) for video_id in history_ids]
     fail_unless(all(pos >= 0 for pos in positions) and positions == sorted(positions),
                 f"{history_route}: history episodes are not in publication order")
-fail_unless(not route_file("/media/history-of-science/").exists(),
-            "English history archive must not be generated")
-history_markup, history_meta = parsed("/ko/media/history-of-science/")
-fail_unless('<h1 class="post-title">안될과학 과학사 시리즈</h1>' in history_markup,
+korean_history, _ = parsed("/ko/media/history-of-science/")
+english_history, _ = parsed("/media/history-of-science/")
+fail_unless('<h1 class="post-title">안될과학 과학사 시리즈</h1>' in korean_history,
             "Korean history archive must have the requested title")
-print("PASS Media: Korean-only history archive, renamed series card, grouped videos and requested section order")
+fail_unless('<h1 class="post-title">Unrealscience History of Science Series</h1>' in english_history,
+            "English science-history page must exist and have its own title")
+fail_unless(re.search(
+                r'연속 강의입니다\.\s*<br\s*/?>\s*아래 영상은',
+                korean_history,
+            ) is not None,
+            "Korean history introduction must break exactly after '연속 강의입니다.'")
+fail_unless("word-break: keep-all;" in Path("assets/css/main.scss").read_text(encoding="utf-8"),
+            "Korean introduction must not break words midway")
+for raw_title in (
+    "아리스토텔레스의 물리학, 고대 그리스의 과학은 왜 다 틀렸던 것일까?! 우리가 몰랐던 과학사 이야기!",
+    "피타고라스는 수학자가 아니었다! 피타고라스 어떻게 위대한 수학자로 만들어졌나?",
+    "의학의 아버지라는 히포크라테스, 진짜 정체는 무엇일까?",
+    "철학자가 왕이 되려면 수학 10년? 과학사의 두 거장 플라톤과 아리스토텔레스",
+):
+    for route, markup in (("/ko/media/history-of-science/", korean_history),
+                           ("/media/history-of-science/", english_history)):
+        fail_unless(raw_title in markup,
+                    f"{route}: original YouTube headline missing: {raw_title}")
+print("PASS Media: bilingual history archives, exact YouTube headlines, section order and Korean sentence break")
 
 # The language switch uses local SVG flag images, not OS-dependent emoji.
 # Its destination must continue to target the counterpart of the current page.
@@ -253,7 +271,8 @@ for route, destination, icon_name in (
     ("/ko/", "/", "en-uk-us.svg"),
     ("/publications/", "/ko/publications/", "ko.svg"),
     ("/ko/publications/", "/publications/", "en-uk-us.svg"),
-    ("/ko/media/history-of-science/", "/media/", "en-uk-us.svg"),
+    ("/media/history-of-science/", "/ko/media/history-of-science/", "ko.svg"),
+    ("/ko/media/history-of-science/", "/media/history-of-science/", "en-uk-us.svg"),
 ):
     html, _ = parsed(route)
     switch_match = re.search(
@@ -343,8 +362,8 @@ print("Additional sitemap URLs not in the curated public-page set:")
 for url in additional:
     print("  SITEMAP_EXTRA:", url)
 fail_unless(not additional, f"Unrelated or generated demo URLs remain in the sitemap: {len(additional)}")
-fail_unless("https://jeongmochoi.github.io/media/history-of-science/" not in urls,
-            "Removed English history archive is still listed in sitemap")
+fail_unless("https://jeongmochoi.github.io/media/history-of-science/" in urls,
+            "English history archive must be indexed and listed in sitemap")
 # PDF privacy/discovery audit: prevent direct crawling and never advertise document URLs.
 robots_text = (SITE / "robots.txt").read_text(encoding="utf-8")
 fail_unless("User-agent: *" in robots_text, "robots.txt has no global Googlebot rule")
