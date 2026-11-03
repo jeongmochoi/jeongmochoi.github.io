@@ -294,16 +294,28 @@ async function main() {
             }
 
             if (name.startsWith("history-")) {
-              const intro = await page.locator(".media-history-intro").evaluate((element) => ({
-                words: element.textContent.replace(/\s+/g, " ").trim(),
-                breaks: element.querySelectorAll("br").length,
-                wordBreak: getComputedStyle(element).wordBreak,
-              }));
+              const intro = await page.locator(".media-history-intro").evaluate((element) => {
+                const style = getComputedStyle(element);
+                return {
+                  words: element.textContent.replace(/\s+/g, " ").trim(),
+                  breaks: element.querySelectorAll("br").length,
+                  wordBreak: style.wordBreak,
+                  maxWidth: style.maxWidth,
+                  width: element.getBoundingClientRect().width,
+                  containerWidth: element.parentElement.getBoundingClientRect().width,
+                };
+              });
               const desiredUrl = name === "history-en" ? "/ko/media/history-of-science/" : "/media/history-of-science/";
               const languageHref = await page.locator(".navbar-language-toggle a").getAttribute("href");
               console.log(`HISTORY_BILINGUAL_PROBE ${name} ${JSON.stringify({intro,languageHref})}`);
-              if (intro.breaks !== 1 || intro.wordBreak !== "keep-all" || languageHref !== desiredUrl) {
-                throw new Error(`Science-history locale, sentence break or typography is wrong: ${name}`);
+              if (
+                intro.breaks !== 1 ||
+                intro.wordBreak !== "keep-all" ||
+                intro.maxWidth !== "none" ||
+                Math.abs(intro.width - intro.containerWidth) > 2 ||
+                languageHref !== desiredUrl
+              ) {
+                throw new Error(`Science-history locale, sentence break, or full-width introduction is wrong: ${name}`);
               }
               if (name === "history-ko" && device === "desktop") {
                 const lines = await page.locator(".media-history-intro").evaluate((element) => {
