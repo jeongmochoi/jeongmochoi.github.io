@@ -2,7 +2,9 @@
 
 ## Repository Role
 
-`al-folio` is a **thin starter** for the pluginized architecture.
+This repository is Jeong-Mo Choi's personal academic homepage, using the pluginized al-folio theme.
+
+Read `docs/SITE_MAINTENANCE.md` first. Prepare changes on a separate branch and submit a draft PR. Publish only after the owner approves the final changes. Demo content and upstream publishing automation were removed; do not reintroduce them.
 
 This repo owns starter configuration, docs, sample content, integration tests, and visual parity checks.
 
@@ -12,10 +14,10 @@ Follow `docs/BOUNDARIES.md`.
 
 - Starter (`al-folio`) owns:
   - `Gemfile`, `_config.yml`
-  - starter content (`_pages`, `_posts`, `_projects`, `_news`, `_data`)
+  - bilingual personal content (`_pages`, `_data`, `_bibliography`, `teaching`)
   - docs
   - integration tests (`test/integration_*.sh`)
-  - visual tests (`test/visual/*`)
+  - browser audits (`bin/create-site-preview.js`, `bin/audit-site-pages.js`)
 - Plugin repos own:
   - runtime/component logic
   - component correctness/unit tests
@@ -27,8 +29,7 @@ Do not reintroduce plugin-owned runtime assets into starter paths unless intenti
 
 - Theme-coupled plugins: repo `al-folio-<feature>`, gem/plugin id `al_folio_<feature>`.
 - Reusable plugins: repo `al-<feature>` (or neutral), gem/plugin id aligned to namespace.
-- Featured plugin metadata lives in `_data/featured_plugins.yml`.
-- Featuring and bundling are separate decisions.
+- Plugin catalog demos are not part of this personal site.
 
 ## Core Stack
 
@@ -39,10 +40,9 @@ Do not reintroduce plugin-owned runtime assets into starter paths unless intenti
 ## High-Signal Paths
 
 - `_config.yml` - starter plugin wiring and feature flags
-- `_data/featured_plugins.yml` - plugin catalog metadata
 - `test/style_contract.js` - starter contract checks
 - `test/integration_*.sh` - cross-plugin integration checks
-- `test/visual/` - visual parity checks
+- `test/site_seo_checks.py` - public routes, search policy, typography and teaching preservation
 - `.github/workflows/` - CI workflows
 - `docs/` - user, maintainer, upgrade, and plugin-system documentation
 - `.agents/skills/al-folio-bootstrap/SKILL.md` - canonical agent workflow for new site setup
@@ -55,21 +55,14 @@ Do not reintroduce plugin-owned runtime assets into starter paths unless intenti
 npm ci
 npm run lint:prettier
 npm run lint:style-contract
-bundle exec jekyll build --baseurl /al-folio
-bash test/integration_comments.sh
+JEKYLL_ENV=production bundle exec jekyll build
+python3 test/site_seo_checks.py
 bash test/integration_plugin_toggles.sh
-bash test/integration_distill.sh
 bash test/integration_bootstrap_compat.sh
 bash test/integration_upgrade_cli.sh
-npx playwright install chromium webkit
-npm run test:visual
+bash test/integration_css_minify.sh
 bundle exec al-folio upgrade audit
 bundle exec al-folio upgrade overrides audit
-bundle exec al-folio upgrade report
-docker compose up -d
-curl -fsS http://127.0.0.1:8080/al-folio/ >/dev/null
-docker compose logs --tail=80
-docker compose down
 ```
 
 ## CI Expectations
@@ -77,8 +70,8 @@ docker compose down
 Keep these workflows aligned when changing starter behavior:
 
 - `unit-tests.yml`
-- `visual-regression.yml`
-- `upgrade-check.yml`
+- `site-pr-checks.yml` (build, SEO, local links and upgrade audit)
+- `pr-preview.yml` (personal-site screenshots and full-site audit)
 - `deploy.yml`
 
 ## Editing Guidance

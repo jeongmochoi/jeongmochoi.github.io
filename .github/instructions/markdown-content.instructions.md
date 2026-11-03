@@ -1,10 +1,10 @@
 # Markdown Content Instructions (v1.x)
 
-Scope: `_pages/**`, `_posts/**`, `_projects/**`, `_news/**`, `_teachings/**`, `_books/**`
+Scope: `_pages/**`, `teaching/**`, `docs/**`
 
 ## Guidance
 
-- Keep starter content examples aligned with pluginized v1 behavior.
+- Preserve the personal site's bilingual content and established URLs. Do not restore deleted starter examples.
 - Do not document runtime implementation details as starter-owned unless they truly are.
 - When content depends on a plugin feature, ensure plugin wiring exists in `_config.yml` and `Gemfile`.
 

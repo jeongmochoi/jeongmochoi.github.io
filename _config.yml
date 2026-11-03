@@ -60,9 +60,9 @@ al_folio:
     allow_remote_loader: true
   features:
     cv:
-      enabled: true
+      enabled: false
     distill:
-      enabled: true
+      enabled: false
   compat:
     bootstrap:
       enabled: false
@@ -177,7 +177,7 @@ newsletter:
 
 # These sample collections belong to upstream al-folio; this personal
 # academic homepage uses _data/books.yml and teaching/ instead.
-# Keep source files for future reference but do not generate sample URLs.
+# Demo sources were removed; keep these outputs disabled if a theme update adds samples.
 collections:
   books:
     output: false
@@ -212,6 +212,11 @@ include: ["_pages"]
 exclude:
   - al-folio-upgrade-report.md
   - bin/
+  - test/
+  - AGENTS.md
+  - CLAUDE.md
+  - requirements.txt
+  - requirements-citations.txt
   - CONTRIBUTING.md
   - CUSTOMIZE.md
   - Dockerfile
@@ -227,7 +232,7 @@ exclude:
   - package.json
   - package-lock.json
   - _pages/about_einstein.md
-  # Unused starter-kit pages, articles, and demo output; retain in Git only.
+  # Defense in depth against starter-kit samples reintroduced by a theme update.
   # Preserve the real bilingual pages, teaching/, and all teaching PDFs.
   - _pages/blog.md
   - _pages/cv.md
@@ -730,20 +735,5 @@ third_party_libraries:
 # Get external JSON data
 # -----------------------------------------------------------------------------
 
-jekyll_get_json:
-  - data: resume
-    json: assets/json/resume.json # it can also be an url
-
-jsonresume:
-  - basics
-  - work
-  - education
-  - publications
-  - projects
-  - volunteer
-  - awards
-  - certificates
-  - skills
-  - languages
-  - interests
-  - references
+# The unused Einstein resume import was removed with the CV demo.
+jekyll_get_json: []

@@ -240,7 +240,7 @@ for route in (
                 f"Demo URL still advertised in sitemap: {route}")
 
 # Demo content must never be shipped by the Jekyll output, even as noindex.
-# All sources remain safely tracked in Git for restoration if genuinely needed.
+# Removed demo sources remain recoverable from Git history.
 for prefix in ("blog", "projects", "news", "teachings"):
     fail_unless(not (SITE / prefix).exists(),
                 f"Upstream al-folio demo folder was published: {prefix}")
@@ -254,6 +254,9 @@ for demo in (
     "assets/html/relativity.html",
     "assets/jupyter/blog.ipynb.html",
     "assets/plotly/demo.html",
+    "assets/pdf/example_pdf.pdf",
+    "assets/rendercv/rendercv_output/Albert_Einstein_CV.pdf",
+    "assets/json/resume.json",
 ):
     fail_unless(not (SITE / demo).exists(),
                 f"Unused al-folio demonstration page was published: {demo}")

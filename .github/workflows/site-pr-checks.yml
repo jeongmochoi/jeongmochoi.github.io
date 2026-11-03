@@ -65,3 +65,15 @@ jobs:
 
       - name: Check search indexing, sitemap and real italic rendering
         run: python3 test/site_seo_checks.py
+
+      - name: Check theme contracts and intentional overrides
+        run: |
+          npm run lint:style-contract
+          bundle exec al-folio upgrade audit
+          bundle exec al-folio upgrade overrides audit
+
+      - name: Check local links in the built site
+        uses: lycheeverse/lychee-action@v2.0.2
+        with:
+          fail: true
+          args: --offline --remap '_site(/?.*)/assets/(.*) _site/assets/$2' --verbose --no-progress '_site/**/*.html'

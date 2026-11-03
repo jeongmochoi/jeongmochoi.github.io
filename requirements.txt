@@ -1,3 +1,2 @@
 nbconvert
-rendercv[full]
 -r requirements-citations.txt
