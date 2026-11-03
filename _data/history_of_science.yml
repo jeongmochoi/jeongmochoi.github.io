@@ -1,0 +1,39 @@
+# Single source of truth for the ongoing Unrealscience history-of-science series.
+# Keep in chronological PUBLICATION order. Add future episodes to the end.
+# Card titles are concise editorial labels, not claims about official episode numbers.
+title_ko: "안될과학 | 과학사 강의"
+title_en: "Unrealscience | History of Science"
+source_ko: "안될과학"
+source_en: "Unrealscience"
+summary_ko: "안될과학과 함께 살펴보는 과학의 역사. 최근 공개 영상부터 확인하거나 전체 강의를 공개 순서대로 볼 수 있습니다."
+summary_en: "A continuing series on the history of science with Unrealscience. Explore recent episodes or browse the complete series in publication order."
+intro_ko: "고대부터 근대까지 과학을 둘러싼 생각과 실천이 어떻게 달라졌는지 살펴보는 연속 강의입니다. 아래 영상은 공개일 순으로 정리했으며, 공식 회차 번호를 임의로 부여하지 않았습니다."
+intro_en: "An ongoing lecture series exploring how scientific ideas and practices have changed through history. Videos are listed by publication date, without invented official episode numbers."
+items:
+  - id: history-greek-science-aristotle
+    date: "2026-10-04"
+    title_ko: "아리스토텔레스와 고대 그리스 과학"
+    title_en: "Aristotle and Ancient Greek Science"
+    youtube_id: "_WNy7BQ0gIw"
+    url: "https://www.youtube.com/watch?v=_WNy7BQ0gIw"
+
+  - id: history-pythagoras
+    date: "2026-10-10"
+    title_ko: "피타고라스는 정말 수학자였을까?"
+    title_en: "Was Pythagoras Really a Mathematician?"
+    youtube_id: "a_lwVYd8BP4"
+    url: "https://www.youtube.com/watch?v=a_lwVYd8BP4"
+
+  - id: history-hippocrates
+    date: "2026-10-17"
+    title_ko: "히포크라테스의 진짜 정체"
+    title_en: "Who Was Hippocrates?"
+    youtube_id: "ld0fBMB_IkM"
+    url: "https://www.youtube.com/watch?v=ld0fBMB_IkM"
+
+  - id: history-plato-aristotle
+    date: "2026-11-01"
+    title_ko: "플라톤과 아리스토텔레스"
+    title_en: "Plato and Aristotle"
+    youtube_id: "75FUhl4lr9A"
+    url: "https://www.youtube.com/watch?v=75FUhl4lr9A"
