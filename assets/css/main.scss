@@ -79,6 +79,42 @@ textarea {
   box-shadow: none;
 }
 
+/* The theme button highlights with --global-hover-color. Use the
+   same accent underneath the flag, without recoloring or resizing it. */
+.navbar-language-toggle > .nav-link {
+  position: relative;
+}
+
+.navbar-language-toggle > .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0.15rem;
+  width: 27px;
+  height: 2px;
+  transform: translateX(-50%);
+  background-color: var(--global-hover-color);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease-in-out;
+}
+
+@media (hover: hover) {
+  .navbar-language-toggle > .nav-link:hover::after {
+    opacity: 1;
+  }
+}
+
+.navbar-language-toggle > .nav-link:focus-visible::after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar-language-toggle > .nav-link::after {
+    transition: none;
+  }
+}
+
 /* Mobile layout: keep the photo smaller and centered */
 @media (max-width: 576px) {
   .profile.float-right,
