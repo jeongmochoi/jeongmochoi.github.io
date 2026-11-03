@@ -145,7 +145,7 @@ for media_route, history_route in (
     fail_unless("watch?v=" + history_ids[0] in feature_html,
                 f"{media_route}: fixed representative history cover missing")
     fail_unless(media_html.find(">" + expected_groups[0] + "</h3>") <
-                media_html.find('class="media-history-feature-card"') <
+                media_html.find('class="media-feature-card media-history-feature-card"') <
                 media_html.find('class="media-video-grid"'),
                 f"{media_route}: history lecture must precede three-column Unrealscience cards")
     for video_id in general_ids:
