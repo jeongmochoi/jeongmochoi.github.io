@@ -148,42 +148,6 @@ broadcasts:
         url: "https://www.youtube.com/watch?v=HrSQgKcLdYg"
 
 youtube_groups:
-  - id: boda
-    title_ko: "보다 · 과학을 보다"
-    title_en: "BODA · Science in View"
-    items:
-      - id: boda-science-216
-        date: "2026-08-28"
-        title_ko: "초고층 건물은 얼마나 높아질 수 있을까? (216회)"
-        title_en: "How Tall Can Skyscrapers Get? (Ep. 216)"
-        youtube_id: "AOaoELveR8s"
-        url: "https://www.youtube.com/watch?v=AOaoELveR8s"
-
-      - id: boda-science-217
-        date: "2026-09-04"
-        title_ko: "파도치는 바다에 교각을 세우는 방법 (217회)"
-        title_en: "Building Bridge Piers in Deep Water (Ep. 217)"
-        youtube_id: "M7bTESbZi_U"
-        url: "https://www.youtube.com/watch?v=M7bTESbZi_U"
-
-      - id: boda-science-220
-        date: "2026-09-21"
-        title_ko: "움직이는 차 안에서 벌어지는 기묘한 현상 (220회)"
-        title_en: "Puzzling Physics in a Moving Car (Ep. 220)"
-        youtube_id: "eg4plhiTFZU"
-        url: "https://www.youtube.com/watch?v=eg4plhiTFZU"
-
-  - id: sciencefriends
-    title_ko: "사이언스프렌즈 · 오늘과학"
-    title_en: "Science Friends · Today's Science"
-    items:
-      - id: sciencefriends-gold-rarity
-        date: "2026-10-29"
-        title_ko: "금은 정말 우리가 생각하는 만큼 희귀할까? (시즌 2, 9화)"
-        title_en: "Is Gold Really as Rare as We Think? (Season 2, Ep. 9)"
-        youtube_id: "LrOIUwUxQfU"
-        url: "https://www.youtube.com/watch?v=LrOIUwUxQfU"
-
   - id: unrealscience
     title_ko: "안될과학"
     title_en: "Unrealscience"
@@ -217,6 +181,49 @@ youtube_groups:
         title_en: "2025 Nobel Prize in Chemistry: COF-999"
         youtube_id: "1g6xOq3Hf2M"
         url: "https://www.youtube.com/watch?v=1g6xOq3Hf2M"
+
+  - id: boda
+    title_ko: "보다"
+    title_en: "BODA"
+    items:
+      - id: boda-science-216
+        date: "2026-08-28"
+        title_ko: "초고층 건물은 얼마나 높아질 수 있을까? (216회)"
+        title_en: "How Tall Can Skyscrapers Get? (Ep. 216)"
+        youtube_id: "AOaoELveR8s"
+        url: "https://www.youtube.com/watch?v=AOaoELveR8s"
+
+      - id: boda-science-217
+        date: "2026-09-04"
+        title_ko: "파도치는 바다에 교각을 세우는 방법 (217회)"
+        title_en: "Building Bridge Piers in Deep Water (Ep. 217)"
+        youtube_id: "M7bTESbZi_U"
+        url: "https://www.youtube.com/watch?v=M7bTESbZi_U"
+
+      - id: boda-science-220
+        date: "2026-09-21"
+        title_ko: "움직이는 차 안에서 벌어지는 기묘한 현상 (220회)"
+        title_en: "Puzzling Physics in a Moving Car (Ep. 220)"
+        youtube_id: "eg4plhiTFZU"
+        url: "https://www.youtube.com/watch?v=eg4plhiTFZU"
+
+  - id: sciencefriends
+    title_ko: "사이언스프렌즈"
+    title_en: "Science Friends"
+    items:
+      - id: sciencefriends-gold-rarity
+        date: "2026-10-29"
+        title_ko: "금은 정말 우리가 생각하는 만큼 희귀할까? (시즌 2, 9화)"
+        title_en: "Is Gold Really as Rare as We Think? (Season 2, Ep. 9)"
+        youtube_id: "LrOIUwUxQfU"
+        url: "https://www.youtube.com/watch?v=LrOIUwUxQfU"
+
+      - id: sciencefriends-poisonous-plants
+        date: "2026-11-03"
+        title_ko: "외국에서는 금지된 독초를 한국인은 왜 즐겨 먹을까? (시즌 2, 10화)"
+        title_en: "Why Koreans Eat Plants Considered Poisonous Abroad (Season 2, Ep. 10)"
+        youtube_id: "4B9ke8WJ2s0"
+        url: "https://www.youtube.com/watch?v=4B9ke8WJ2s0"
 
   - id: zero-energy-bar
     title_ko: "제로에너지바"
