@@ -1257,6 +1257,9 @@ html[data-theme="dark"] .course-detail {
   max-width: 73ch;
   margin: 0 0 0.5rem;
   color: var(--global-text-color-light);
+  /* Do not break Korean words in half; the sentence boundary uses an explicit BR. */
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 .media-history-count {
