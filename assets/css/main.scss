@@ -67,48 +67,60 @@ textarea {
   height: auto;
 }
 
-/* Draw identical language-switch flags on Windows, macOS, and mobile.
-   The image is decorative: the link has its own accessible language label. */
-.navbar-language-toggle .jm-language-flag {
+/* The actual flags remain square-cornered, identical 27x18px images.
+   A separate wrapper paints the rounded hover ring without clipping flags. */
+.navbar-language-toggle .jm-language-flag-frame {
   display: inline-block;
+  position: relative;
   width: 27px;
   height: 18px;
   vertical-align: -0.2em;
+}
+
+.navbar-language-toggle .jm-language-flag {
+  display: block;
+  width: 27px;
+  height: 18px;
   border: 0;
   border-radius: 0;
   box-shadow: none;
 }
 
-/* Echo the theme button's hover accent with a substantial rectangular
-   outline. Outlines do not participate in layout: flag, menu and spacing stay
-   exactly the same 27 x 18 px. Flag pigments are never recolored. */
-.navbar-language-toggle .jm-language-flag {
-  outline: 3px solid transparent;
-  outline-offset: 0;
-  transition: outline-color 150ms ease-in-out;
+/* 3px theme accent ring, 1px clear space around the flag, rounded corners.
+   The absolute pseudo-element does not change navbar geometry on hover. */
+.navbar-language-toggle .jm-language-flag-frame::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 3px solid transparent;
+  border-radius: 7px;
+  box-sizing: border-box;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 150ms ease-in-out;
 }
 
-/* The adjacent theme button is offset slightly on desktop. Align the
-   visual centers without changing the size or the surrounding layout. */
+/* Align the flag with the neighboring Change theme icon on desktop. */
 @media (min-width: 576px) {
-  .navbar-language-toggle .jm-language-flag {
-    position: relative;
+  .navbar-language-toggle .jm-language-flag-frame {
     top: 1px;
   }
 }
 
 @media (hover: hover) {
-  .navbar-language-toggle > .nav-link:hover .jm-language-flag {
-    outline-color: var(--global-hover-color);
+  .navbar-language-toggle > .nav-link:hover .jm-language-flag-frame::after {
+    border-color: var(--global-hover-color);
+    opacity: 1;
   }
 }
 
-.navbar-language-toggle > .nav-link:focus-visible .jm-language-flag {
-  outline-color: var(--global-hover-color);
+.navbar-language-toggle > .nav-link:focus-visible .jm-language-flag-frame::after {
+  border-color: var(--global-hover-color);
+  opacity: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .navbar-language-toggle .jm-language-flag {
+  .navbar-language-toggle .jm-language-flag-frame::after {
     transition: none;
   }
 }
