@@ -305,6 +305,20 @@ async function main() {
               if (intro.breaks !== 1 || intro.wordBreak !== "keep-all" || languageHref !== desiredUrl) {
                 throw new Error(`Science-history locale, sentence break or typography is wrong: ${name}`);
               }
+              if (name === "history-ko" && device === "desktop") {
+                const lines = await page.locator(".media-history-intro").evaluate((element) => {
+                  const firstSentence = [...element.childNodes].find((node) =>
+                    node.nodeType === Node.TEXT_NODE && node.textContent.includes("연속 강의입니다."),
+                  );
+                  if (!firstSentence) return -1;
+                  const range = document.createRange();
+                  range.selectNodeContents(firstSentence);
+                  return range.getClientRects().length;
+                });
+                console.log(`KOREAN_INTRO_FIRST_SENTENCE_LINES ${lines}`);
+                if (lines !== 1) throw new Error("Korean first sentence still wraps on desktop");
+              }
+
               const originalTitles = await page.locator(".media-history-archive-grid .media-video-title").allTextContents();
               if (originalTitles.length !== 4 || originalTitles.some((title) => !/[가-힣]/.test(title))) {
                 throw new Error(`Original Korean YouTube titles not shown: ${name}`);
