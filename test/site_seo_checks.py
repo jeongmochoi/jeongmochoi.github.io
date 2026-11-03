@@ -102,10 +102,15 @@ for entry in general_items:
 fail_unless(len(general_items) == 12, "Unexpected number of general YouTube videos")
 for route in ("/media/", "/ko/media/", "/media/history-of-science/", "/ko/media/history-of-science/"):
     html, _ = parsed(route)
-    cards = re.findall(r'<article class="media-video-card">(.*?)</article>', html, re.DOTALL)
+    if "history-of-science" in route:
+        cards = re.findall(r'<article class="media-history-row">(.*?)</article>', html, re.DOTALL)
+        date_tag = r'<time class="media-history-row-date" datetime="([0-9]{4}-[0-9]{2}-[0-9]{2})">\1</time>'
+    else:
+        cards = re.findall(r'<article class="media-video-card">(.*?)</article>', html, re.DOTALL)
+        date_tag = r'<time datetime="([0-9]{4}-[0-9]{2}-[0-9]{2})">\1</time>'
     fail_unless(bool(cards), f"{route}: no video cards rendered")
     for card in cards:
-        match = re.search(r'<time datetime="([0-9]{4}-[0-9]{2}-[0-9]{2})">\1</time>', card)
+        match = re.search(date_tag, card)
         fail_unless(match is not None,
                     f"{route}: video card missing visible publication date")
         date.fromisoformat(match.group(1))
@@ -176,8 +181,11 @@ for media_route, history_route in (
                     f"{media_route}: a general YouTube appearance is missing: {video_id}")
     fail_unless(media_html.count('class="media-video-card"') == len(general_ids),
                 f"{media_route}: unexpected number of general YouTube cards")
-    fail_unless(history_html.count('class="media-video-card"') == len(history_ids),
-                f"{history_route}: incomplete history lecture archive")
+    fail_unless(history_html.count('class="media-history-row"') == len(history_ids),
+                f"{history_route}: expected one horizontal card for each history lecture")
+    fail_unless('class="media-history-archive-list"' in history_html and
+                history_html.count('class="media-video-card"') == 0,
+                f"{history_route}: old three-column video grid still present")
     positions = [history_html.find("watch?v=" + video_id) for video_id in history_ids]
     fail_unless(all(pos >= 0 for pos in positions) and positions == sorted(positions),
                 f"{history_route}: history episodes are not in publication order")
@@ -194,17 +202,27 @@ fail_unless(re.search(
             "Korean history introduction must break exactly after '연속 강의입니다.'")
 fail_unless("word-break: keep-all;" in Path("assets/css/main.scss").read_text(encoding="utf-8"),
             "Korean introduction must not break words midway")
-for raw_title in (
-    "아리스토텔레스의 물리학, 고대 그리스의 과학은 왜 다 틀렸던 것일까?! 우리가 몰랐던 과학사 이야기!",
-    "피타고라스는 수학자가 아니었다! 피타고라스 어떻게 위대한 수학자로 만들어졌나?",
-    "의학의 아버지라는 히포크라테스, 진짜 정체는 무엇일까?",
-    "철학자가 왕이 되려면 수학 10년? 과학사의 두 거장 플라톤과 아리스토텔레스",
-):
-    for route, markup in (("/ko/media/history-of-science/", korean_history),
-                           ("/media/history-of-science/", english_history)):
-        fail_unless(raw_title in markup,
-                    f"{route}: original YouTube headline missing: {raw_title}")
-print("PASS Media: bilingual history archives, exact YouTube headlines, section order and Korean sentence break")
+expected_history_titles = (
+    ("아리스토텔레스의 물리학, 고대 그리스의 과학은 왜 다 틀렸던 것일까?! 우리가 몰랐던 과학사 이야기!",
+     "Aristotle's Physics: Why Was Ancient Greek Science So Wrong? The History of Science We Never Knew!"),
+    ("피타고라스는 수학자가 아니었다! 피타고라스 어떻게 위대한 수학자로 만들어졌나?",
+     "Pythagoras Was Not a Mathematician! How Did He Come to Be Seen as a Great Mathematician?"),
+    ("의학의 아버지라는 히포크라테스, 진짜 정체는 무엇일까?",
+     "Hippocrates, the So-Called Father of Medicine: Who Was He Really?"),
+    ("철학자가 왕이 되려면 수학 10년? 과학사의 두 거장 플라톤과 아리스토텔레스",
+     "Ten Years of Mathematics to Become a Philosopher-King? Two Giants in the History of Science: Plato and Aristotle"),
+)
+for original_title, translated_title in expected_history_titles:
+    fail_unless(original_title in korean_history,
+                f"Korean archive is missing original YouTube title: {original_title}")
+    fail_unless(translated_title in english_history,
+                f"English archive is missing translated YouTube title: {translated_title}")
+    fail_unless(original_title not in english_history,
+                f"English archive still contains untranslated Korean title: {original_title}")
+fail_unless(korean_history.count('<article class="media-history-row">') == 4 and
+            english_history.count('<article class="media-history-row">') == 4,
+            "Each history archive must display precisely four one-video-per-row cards")
+print("PASS Media: bilingual history archives, four single-row cards, translated English titles, section order and Korean sentence break")
 
 # The language switch uses local SVG flag images, not OS-dependent emoji.
 # Its destination must continue to target the counterpart of the current page.
