@@ -235,7 +235,7 @@ async function main() {
 
             // Check the adaptive three-, two-, and one-column video grid in
             // Chromium, rather than relying on stylesheet declarations alone.
-            if (name.startsWith("media-") || name.startsWith("history-")) {
+            if (name.startsWith("media-")) {
               const countGridColumns = async () =>
                 page.locator(".media-video-grid").evaluateAll((grids) =>
                   grids.map((grid) =>
@@ -319,9 +319,55 @@ async function main() {
                 if (lines !== 1) throw new Error("Korean first sentence still wraps on desktop");
               }
 
-              const originalTitles = await page.locator(".media-history-archive-grid .media-video-title").allTextContents();
-              if (originalTitles.length !== 4 || originalTitles.some((title) => !/[가-힣]/.test(title))) {
-                throw new Error(`Original Korean YouTube titles not shown: ${name}`);
+              const archiveRows = page.locator(".media-history-row");
+              const titles = await archiveRows.locator(".media-history-row-title").allTextContents();
+              if (
+                (await archiveRows.count()) !== 4 ||
+                titles.length !== 4 ||
+                titles.some((title) => (name === "history-ko" ? !/[가-힣]/.test(title) : /[가-힣]/.test(title)))
+              ) {
+                throw new Error(`History archive requires 4 individually translated, one-per-row cards: ${name}`);
+              }
+              const verifyHistoryRows = async (mode) => {
+                const boxes = await archiveRows.evaluateAll((rows) =>
+                  rows.map((row) => {
+                    const position = (element) => {
+                      const r = element.getBoundingClientRect();
+                      return { x: r.x, y: r.y, width: r.width, height: r.height, bottom: r.bottom, right: r.right };
+                    };
+                    return {
+                      row: position(row),
+                      thumbnail: position(row.querySelector(".media-history-row-thumbnail")),
+                      title: position(row.querySelector(".media-history-row-title")),
+                      date: position(row.querySelector(".media-history-row-date")),
+                      dateText: row.querySelector(".media-history-row-date")?.textContent.trim(),
+                    };
+                  }),
+                );
+                const stacked = mode === "mobile";
+                const aligned = boxes.length === 4 && boxes.every((row, i) => {
+                  const ordered = !i || row.row.y > boxes[i - 1].row.bottom - 2;
+                  const withinPage = row.row.width > 0 && row.row.right <= page.viewportSize().width + 1;
+                  const correctLayout = stacked
+                    ? row.title.y >= row.thumbnail.bottom - 2 && row.date.y >= row.title.bottom - 2
+                    : row.title.x >= row.thumbnail.right - 1 && row.date.x >= row.title.right - 1;
+                  return ordered && withinPage && correctLayout && /^\\d{4}-\\d{2}-\\d{2}$/.test(row.dateText);
+                });
+                console.log(`HISTORY_ROW_PROBE ${name} ${mode} ${JSON.stringify({boxes, aligned})}`);
+                if (!aligned) throw new Error(`History video cards must remain one per full-width row: ${name} ${mode}`);
+              };
+              await verifyHistoryRows(device);
+              if (device === "desktop") {
+                await page.setViewportSize({ width: 800, height: 900 });
+                await verifyHistoryRows("tablet");
+                const height = await page.evaluate(() => document.documentElement.scrollHeight);
+                await page.setViewportSize({ width: 800, height: Math.max(900, height) });
+                await page.screenshot({
+                  path: path.join("site-preview", `${name}-tablet.png`),
+                  animations: "disabled",
+                  fullPage: true,
+                });
+                await page.setViewportSize(viewport);
               }
             }
 
