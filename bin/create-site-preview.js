@@ -183,11 +183,24 @@ async function main() {
             }
             const output = path.join("site-preview", `${name}-${device}.png`);
             const documentHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+            // The actual website uses a fixed footer. Set the viewport height
+            // to the document height *for capture only* so that the footer
+            // appears at the bottom instead of obscuring the middle of a
+            // stitched full-page screenshot.
+            if (entireMediaPage) {
+              await page.setViewportSize({
+                width: viewport.width,
+                height: Math.max(viewport.height, documentHeight),
+              });
+            }
             await page.screenshot({
               path: output,
               animations: "disabled",
               fullPage: entireMediaPage,
             });
+            if (entireMediaPage) {
+              await page.setViewportSize(viewport);
+            }
             console.log(`SCREENSHOT_FULL_PAGE ${name} ${device} ${JSON.stringify({path: output, fullPage: entireMediaPage, documentHeight})}`);
             console.log(`Saved ${output} (${route})`);
 
@@ -214,6 +227,11 @@ async function main() {
                 if (tabletColumns.some((count) => count !== 2)) {
                   throw new Error(`Media grid must be two columns on tablet: ${JSON.stringify(tabletColumns)}`);
                 }
+                const tabletHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+                await page.setViewportSize({
+                  width: 800,
+                  height: Math.max(900, tabletHeight),
+                });
                 await page.screenshot({
                   path: path.join("site-preview", `${name}-tablet.png`),
                   animations: "disabled",
