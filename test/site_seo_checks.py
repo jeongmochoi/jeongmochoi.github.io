@@ -123,6 +123,10 @@ fail_unless(kr_svg.get("viewBox") == "-36 -24 72 48" and
 source_css = Path("assets/css/main.scss").read_text(encoding="utf-8")
 fail_unless(bool(re.search(r"\.navbar-language-toggle\s+\.jm-language-flag\s*\{[^}]*width:\s*27px;[^}]*height:\s*18px;", source_css)),
             "Both language icons must have identical 27 by 18 CSS dimensions")
+fail_unless("background-color: var(--global-hover-color);" in source_css and
+            ".navbar-language-toggle > .nav-link:hover::after" in source_css and
+            ".navbar-language-toggle > .nav-link:focus-visible::after" in source_css,
+            "Language hover and keyboard focus must share the theme highlight")
 
 for route, destination, icon_name in (
     ("/", "/ko/", "ko.svg"),
@@ -140,6 +144,9 @@ for route, destination, icon_name in (
     fail_unless(f'href="{destination}"' in switch, f"{route}: wrong language destination")
     fail_unless('class="jm-language-flag"' in switch, f"{route}: expected SVG image markup")
     fail_unless(f'src="{flag_files[icon_name]}"' in switch, f"{route}: wrong flag image")
+    expected_tooltip = "영어로 전환" if route.startswith("/ko/") else "Change language to Korean"
+    fail_unless(f'title="{expected_tooltip}"' in switch,
+                f"{route}: language-change hover tooltip missing")
     fail_unless('aria-hidden="true"' in switch and 'alt=""' in switch,
                 f"{route}: missing accessible decorative SVG attributes")
 
