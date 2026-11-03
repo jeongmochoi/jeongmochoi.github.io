@@ -150,9 +150,11 @@ for route, destination, icon_name in (
                 'class="jm-language-flag-frame"' in switch,
                 f"{route}: expected separate SVG and rounded border wrapper")
     fail_unless(f'src="{flag_files[icon_name]}"' in switch, f"{route}: wrong flag image")
-    expected_tooltip = "영어로 전환" if route.startswith("/ko/") else "Change language to Korean"
+    expected_tooltip = "Change language to English" if route.startswith("/ko/") else "한국어로 변경"
     fail_unless(f'title="{expected_tooltip}"' in switch,
-                f"{route}: language-change hover tooltip missing")
+                f"{route}: destination-language hover tooltip missing")
+    fail_unless(f'aria-label="{expected_tooltip}"' in switch,
+                f"{route}: destination-language accessible label missing")
     fail_unless('aria-hidden="true"' in switch and 'alt=""' in switch,
                 f"{route}: missing accessible decorative SVG attributes")
 
