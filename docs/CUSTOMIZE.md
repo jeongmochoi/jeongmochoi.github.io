@@ -90,9 +90,6 @@ Here we will give you some tips on how to customize the website. One important t
     - [Supported analytics providers](#supported-analytics-providers)
     - [How it integrates with analytics](#how-it-integrates-with-analytics)
     - [For developers](#for-developers)
-  - [Setting up a Personal Access Token (PAT) for Google Scholar Citation Updates](#setting-up-a-personal-access-token-pat-for-google-scholar-citation-updates)
-    - [Why is a PAT required?](#why-is-a-pat-required)
-    - [How to set up the PAT](#how-to-set-up-the-pat)
 
 <!--te-->
 
@@ -300,7 +297,7 @@ Understanding al-folio's technology stack will help you better customize and ext
   - `jemoji`: Converts emoji shortcodes to emoji images
   - Other utilities: `jekyll-link-attributes`, `jekyll-imagemagick`, `jekyll-twitter-plugin`, `jekyll-get-json`, and more
 
-- **Python**: Used for utility scripts like citation updates via Google Scholar (located in `bin/`)
+- **Python**: Used for site validation and utility scripts in `bin/` and `test/`
 
 ### Build and Deployment
 
@@ -310,7 +307,6 @@ Understanding al-folio's technology stack will help you better customize and ext
   - **Code formatting**: Ensures code follows the Prettier code style
   - **Accessibility testing**: Checks for accessibility issues using Axe
   - **Lighthouse**: Measures site performance and best practices
-  - **Citation updates**: Automatically fetches citation counts from Google Scholar
 
 - **GitHub Pages**: Free hosting for your static website built by Jekyll
 - **Docker**: Optional containerization for local development (provides a consistent environment across different machines)
@@ -1482,45 +1478,3 @@ window.CookieConsent.onChange(function (consentData) {
 For more API details, see [Vanilla Cookie Consent documentation](https://cookieconsent.orestbida.com/).
 
 ---
-
-## Setting up a Personal Access Token (PAT) for Google Scholar Citation Updates
-
-> [!TIP]
-> After setting up al-folio you may want to run `python3 bin/update_citations.py` to fill the `_data/citations.yml` file with your Google Scholar citation counts.
-
-This project includes an automated workflow to update the citation counts for your publications using Google Scholar.
-The workflow commits changes to `_data/citations.yml` directly to the `main` branch.
-By default, the `GITHUB_TOKEN` will be used to commit the changes.
-However, this token does not have permission to trigger subsequent workflows, such as the site rebuild workflow.
-In order to deploy the changes from `main`, you can manually trigger the `deploy` workflow.
-
-> [!TIP]
-> To ensure that these commits can trigger further GitHub Actions workflows (such as site rebuilds), you can use a Personal Access Token (PAT) instead of the default GitHub Actions token.
-> If you have set up a PAT, citation updates will trigger further workflows (such as site rebuilds) after committing changes. In order to run the action with a PAT, you need to uncomment the following lines from the workflow file (`update-citations.yml`):
->
-> ```yaml
-> with:
->   token: ${{ secrets.PAT }}
-> ```
-
-### Why is a PAT required?
-
-GitHub restricts the default `GITHUB_TOKEN` from triggering other workflows when a commit is made from within a workflow. Using a PAT overcomes this limitation and allows for full automation.
-
-### How to set up the PAT
-
-1. **Create a Personal Access Token**
-   - Go to [GitHub Settings > Developer settings > Personal access tokens](https://github.com/settings/tokens).
-   - Click "Generate new token" (classic or fine-grained).
-   - Grant at least the following permissions:
-     - `repo` (for classic tokens if repo is private), `public_repo` (for classic tokens if repo is public) or `contents: read/write` (for fine-grained tokens)
-   - Save the token somewhere safe.
-
-2. **Add the PAT as a repository secret**
-   - Go to your repository on GitHub.
-   - Navigate to `Settings` > `Secrets and variables` > `Actions` > `New repository secret`.
-   - Name the secret `PAT` (must match the name used in the workflow).
-   - Paste your PAT and save.
-
-3. **Workflow usage**
-   The workflow `.github/workflows/update-citations.yml` uses this PAT to commit updates to `_data/citations.yml`.
