@@ -1247,22 +1247,79 @@ html[data-theme="dark"] .course-detail {
 }
 
 /* The history series preview reuses the same horizontal feature-card
-   structure as broadcasts. The full archive keeps the video grid. */
+   structure as broadcasts. The full archive uses one row per video. */
 .media-history-breadcrumb {
   margin: 0.3rem 0 1.3rem;
   font-size: 0.9rem;
 }
 
+/* Introductions should occupy the full page content width, not 73ch. */
 .media-history-intro {
-  max-width: 73ch;
+  width: 100%;
+  max-width: none;
   margin: 0 0 0.5rem;
   color: var(--global-text-color-light);
+  /* Wrap naturally only when the viewport requires it; no forced line break. */
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 .media-history-count {
   margin-bottom: 1.2rem;
   font-size: 0.82rem;
   color: var(--global-text-color-light);
+}
+
+/* The history archive intentionally uses one full-width row per video,
+   not the three-column grid of other YouTube appearances. */
+.media-history-archive-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.85rem;
+}
+
+.media-history-row {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  column-gap: 1rem;
+  align-items: start;
+  padding: 0.7rem;
+  border: 1px solid var(--global-divider-color);
+  background-color: rgba(0, 0, 0, 0.015);
+}
+
+/* The date and title share the right-hand column, in the same order and
+   typography as ordinary Media video cards. */
+.media-history-row-body {
+  min-width: 0;
+}
+
+.media-history-row-date {
+  white-space: nowrap;
+}
+
+.media-history-row-title {
+  min-width: 0;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+html[data-theme="dark"] .media-history-row {
+  background-color: rgba(255, 255, 255, 0.035);
+}
+
+@media (max-width: 860px) {
+  .media-history-row {
+    grid-template-columns: 185px minmax(0, 1fr);
+    column-gap: 0.75rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .media-history-row {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0.65rem;
+  }
 }
 
 .media-video-group {

@@ -1,6 +1,9 @@
 # Single source of truth for the ongoing Unrealscience history-of-science series.
 # Keep in chronological PUBLICATION order. Add future episodes to the end.
-# Card titles are concise editorial labels, not claims about official episode numbers.
+# Korean titles follow the official YouTube oEmbed headlines, except for the
+# optional professor affiliation credit removed at the owner's request.
+# English titles translate the same text without the removed credit.
+# Do not invent short editorial labels or change video dates/URLs.
 title_ko: "과학사 시리즈"
 title_en: "History of Science Series"
 source_ko: "안될과학"
@@ -10,28 +13,28 @@ summary_en: "A continuing history-of-science lecture series with Unrealscience. 
 items:
   - id: history-greek-science-aristotle
     date: "2026-10-04"
-    title_ko: "아리스토텔레스와 고대 그리스 과학"
-    title_en: "Aristotle and Ancient Greek Science"
+    title_ko: "아리스토텔레스의 물리학, 고대 그리스의 과학은 왜 다 틀렸던 것일까?! 우리가 몰랐던 과학사 이야기!"
+    title_en: "Aristotle's Physics: Why Was Ancient Greek Science So Wrong? The History of Science We Never Knew!"
     youtube_id: "_WNy7BQ0gIw"
     url: "https://www.youtube.com/watch?v=_WNy7BQ0gIw"
 
   - id: history-pythagoras
     date: "2026-10-10"
-    title_ko: "피타고라스는 정말 수학자였을까?"
-    title_en: "Was Pythagoras Really a Mathematician?"
+    title_ko: "피타고라스는 수학자가 아니었다! 피타고라스 어떻게 위대한 수학자로 만들어졌나?"
+    title_en: "Pythagoras Was Not a Mathematician! How Did He Come to Be Seen as a Great Mathematician?"
     youtube_id: "a_lwVYd8BP4"
     url: "https://www.youtube.com/watch?v=a_lwVYd8BP4"
 
   - id: history-hippocrates
     date: "2026-10-17"
-    title_ko: "히포크라테스의 진짜 정체"
-    title_en: "Who Was Hippocrates?"
+    title_ko: "의학의 아버지라는 히포크라테스, 진짜 정체는 무엇일까?"
+    title_en: "Hippocrates, the So-Called Father of Medicine: Who Was He Really?"
     youtube_id: "ld0fBMB_IkM"
     url: "https://www.youtube.com/watch?v=ld0fBMB_IkM"
 
   - id: history-plato-aristotle
     date: "2026-11-01"
-    title_ko: "플라톤과 아리스토텔레스"
-    title_en: "Plato and Aristotle"
+    title_ko: "철학자가 왕이 되려면 수학 10년? 과학사의 두 거장 플라톤과 아리스토텔레스"
+    title_en: "Ten Years of Mathematics to Become a Philosopher-King? Two Giants in the History of Science: Plato and Aristotle"
     youtube_id: "75FUhl4lr9A"
     url: "https://www.youtube.com/watch?v=75FUhl4lr9A"

@@ -13,6 +13,7 @@ const pages = [
   ["books-ko", "/ko/books/"],
   ["media-en", "/media/"],
   ["media-ko", "/ko/media/"],
+  ["history-en", "/media/history-of-science/"],
   ["history-ko", "/ko/media/history-of-science/"],
   ["teaching-en", "/teaching/"],
   ["teaching-ko", "/ko/teaching/"],
@@ -234,7 +235,7 @@ async function main() {
 
             // Check the adaptive three-, two-, and one-column video grid in
             // Chromium, rather than relying on stylesheet declarations alone.
-            if (name.startsWith("media-") || name.startsWith("history-")) {
+            if (name.startsWith("media-")) {
               const countGridColumns = async () =>
                 page.locator(".media-video-grid").evaluateAll((grids) =>
                   grids.map((grid) =>
@@ -290,6 +291,105 @@ async function main() {
                 throw new Error(`History preview is not vertically stacked on mobile: ${name}`);
               }
               console.log(`MEDIA_HISTORY_FEATURE_PROBE ${name} ${device} ${JSON.stringify({pictureBox, detailsBox})}`);
+            }
+
+            if (name.startsWith("history-")) {
+              const intro = await page.locator(".media-history-intro").evaluate((element) => {
+                const style = getComputedStyle(element);
+                return {
+                  words: element.textContent.replace(/\s+/g, " ").trim(),
+                  breaks: element.querySelectorAll("br").length,
+                  wordBreak: style.wordBreak,
+                  maxWidth: style.maxWidth,
+                  width: element.getBoundingClientRect().width,
+                  containerWidth: element.parentElement.getBoundingClientRect().width,
+                };
+              });
+              const desiredUrl = name === "history-en" ? "/ko/media/history-of-science/" : "/media/history-of-science/";
+              const languageHref = await page.locator(".navbar-language-toggle a").getAttribute("href");
+              console.log(`HISTORY_BILINGUAL_PROBE ${name} ${JSON.stringify({intro,languageHref})}`);
+              if (
+                intro.breaks !== 0 ||
+                intro.wordBreak !== "keep-all" ||
+                intro.maxWidth !== "none" ||
+                Math.abs(intro.width - intro.containerWidth) > 2 ||
+                languageHref !== desiredUrl
+              ) {
+                throw new Error(`Science-history locale, sentence break, or full-width introduction is wrong: ${name}`);
+              }
+              if (name === "history-ko" && device === "desktop") {
+                const lines = await page.locator(".media-history-intro").evaluate((element) => {
+                  const firstSentence = [...element.childNodes].find((node) =>
+                    node.nodeType === Node.TEXT_NODE && node.textContent.includes("연속 강의입니다."),
+                  );
+                  if (!firstSentence) return -1;
+                  const range = document.createRange();
+                  range.selectNodeContents(firstSentence);
+                  return range.getClientRects().length;
+                });
+                console.log(`KOREAN_INTRO_FIRST_SENTENCE_LINES ${lines}`);
+                if (lines !== 1) throw new Error("Korean first sentence still wraps on desktop");
+              }
+
+              const archiveRows = page.locator(".media-history-row");
+              const titles = await archiveRows.locator(".media-history-row-title").allTextContents();
+              if (
+                (await archiveRows.count()) !== 4 ||
+                titles.length !== 4 ||
+                titles.some((title) => (name === "history-ko" ? !/[가-힣]/.test(title) : /[가-힣]/.test(title)))
+              ) {
+                throw new Error(`History archive requires 4 individually translated, one-per-row cards: ${name}`);
+              }
+              const verifyHistoryRows = async (mode) => {
+                const boxes = await archiveRows.evaluateAll((rows) =>
+                  rows.map((row) => {
+                    const position = (element) => {
+                      const r = element.getBoundingClientRect();
+                      return { x: r.x, y: r.y, width: r.width, height: r.height, bottom: r.bottom, right: r.right };
+                    };
+                    return {
+                      row: position(row),
+                      thumbnail: position(row.querySelector(".media-history-row-thumbnail")),
+                      title: position(row.querySelector(".media-history-row-title")),
+                      date: position(row.querySelector(".media-history-row-date")),
+                      dateText: row.querySelector(".media-history-row-date")?.textContent.trim(),
+                    };
+                  }),
+                );
+                const stacked = mode === "mobile";
+                const aligned = boxes.length === 4 && boxes.every((row, i) => {
+                  const ordered = !i || row.row.y > boxes[i - 1].row.bottom - 2;
+                  const withinPage = row.row.width > 0 && row.row.right <= page.viewportSize().width + 1;
+                  const correctLayout = stacked
+                    ? row.date.y >= row.thumbnail.bottom - 2 && row.title.y >= row.date.bottom - 2
+                    : row.date.x >= row.thumbnail.right - 1 && row.title.y >= row.date.bottom - 2;
+                  const sameColumn = Math.abs(row.title.x - row.date.x) <= 2;
+                  const topAligned = stacked || Math.abs(row.date.y - row.thumbnail.y) <= 4;
+                  return (
+                    ordered &&
+                    withinPage &&
+                    correctLayout &&
+                    sameColumn &&
+                    topAligned &&
+                    /^\d{4}-\d{2}-\d{2}$/.test(row.dateText)
+                  );
+                });
+                console.log(`HISTORY_ROW_PROBE ${name} ${mode} ${JSON.stringify({boxes, aligned})}`);
+                if (!aligned) throw new Error(`History rows must show a gray date above the title to the right of the thumbnail: ${name} ${mode}`);
+              };
+              await verifyHistoryRows(device);
+              if (device === "desktop") {
+                await page.setViewportSize({ width: 800, height: 900 });
+                await verifyHistoryRows("tablet");
+                const height = await page.evaluate(() => document.documentElement.scrollHeight);
+                await page.setViewportSize({ width: 800, height: Math.max(900, height) });
+                await page.screenshot({
+                  path: path.join("site-preview", `${name}-tablet.png`),
+                  animations: "disabled",
+                  fullPage: true,
+                });
+                await page.setViewportSize(viewport);
+              }
             }
 
             // Compare the language hover accent with the adjacent Change theme
@@ -465,7 +565,7 @@ async function main() {
 
     fs.writeFileSync(
       path.join("site-preview", "README.txt"),
-      "Desktop (1440x900) and mobile-size (390x844) screenshots of eleven English/Korean homepage sections; Media and History images are FULL-PAGE (desktop/mobile/800px tablet), not viewport crops, with OS-light and OS-dark initial-theme previews. Theme checks also validate automatic OS changes, one-time legacy preference reset, binary user override and persistence. These are not live preview URLs. The actual website was not published by this job.\n",
+      "Desktop (1440x900) and mobile-size (390x844) screenshots of twelve English/Korean homepage sections; Media and History images are FULL-PAGE (desktop/mobile/800px tablet), not viewport crops, with OS-light and OS-dark initial-theme previews. Theme checks also validate automatic OS changes, one-time legacy preference reset, binary user override and persistence. These are not live preview URLs. The actual website was not published by this job.\n",
     );
   } finally {
     await browser.close();

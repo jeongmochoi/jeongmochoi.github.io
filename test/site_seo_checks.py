@@ -14,7 +14,7 @@ PUBLIC_ROUTES = (
     "/publications/", "/ko/publications/",
     "/books/", "/ko/books/", "/ko/books/alchemia/",
     "/media/", "/ko/media/",
-    "/ko/media/history-of-science/",
+    "/media/history-of-science/", "/ko/media/history-of-science/",
     "/teaching/", "/ko/teaching/",
 )
 
@@ -100,15 +100,26 @@ for entry in general_items:
     fail_unless(match is not None, f"Missing YouTube publication date: {item_name}")
     date.fromisoformat(match.group(1))
 fail_unless(len(general_items) == 12, "Unexpected number of general YouTube videos")
-for route in ("/media/", "/ko/media/", "/ko/media/history-of-science/"):
+for route in ("/media/", "/ko/media/", "/media/history-of-science/", "/ko/media/history-of-science/"):
     html, _ = parsed(route)
-    cards = re.findall(r'<article class="media-video-card">(.*?)</article>', html, re.DOTALL)
+    history_archive = "history-of-science" in route
+    if history_archive:
+        cards = re.findall(r'<article class="media-history-row">(.*?)</article>', html, re.DOTALL)
+    else:
+        cards = re.findall(r'<article class="media-video-card">(.*?)</article>', html, re.DOTALL)
+    date_tag = r'<time datetime="([0-9]{4}-[0-9]{2}-[0-9]{2})">\1</time>'
     fail_unless(bool(cards), f"{route}: no video cards rendered")
     for card in cards:
-        match = re.search(r'<time datetime="([0-9]{4}-[0-9]{2}-[0-9]{2})">\1</time>', card)
+        match = re.search(date_tag, card)
         fail_unless(match is not None,
                     f"{route}: video card missing visible publication date")
         date.fromisoformat(match.group(1))
+        if history_archive:
+            date_pos = card.find('class="media-video-date media-history-row-date"')
+            title_pos = card.find('class="media-video-title media-history-row-title"')
+            fail_unless('class="media-history-row-body"' in card and
+                        0 <= date_pos < title_pos,
+                        f"{route}: date must be above the title, beside its video thumbnail")
 print("PASS date consistency: all media video cards have publication dates")
 
 # Exact visible section/group order matters. A generic history-of-science
@@ -119,7 +130,7 @@ general_ids = ("tq9BirqS12c", "hPnVfGZk86U", "S0iTk9liUKQ", "AwHJryy_0vo",
                "1g6xOq3Hf2M", "AOaoELveR8s", "M7bTESbZi_U", "eg4plhiTFZU",
                "LrOIUwUxQfU", "4B9ke8WJ2s0", "Ryubz9AwsHc", "2c0y2yyhF8c")
 for media_route, history_route in (
-    ("/media/", "/ko/media/history-of-science/"),
+    ("/media/", "/media/history-of-science/"),
     ("/ko/media/", "/ko/media/history-of-science/"),
 ):
     media_html, _ = parsed(media_route)
@@ -176,17 +187,53 @@ for media_route, history_route in (
                     f"{media_route}: a general YouTube appearance is missing: {video_id}")
     fail_unless(media_html.count('class="media-video-card"') == len(general_ids),
                 f"{media_route}: unexpected number of general YouTube cards")
-    fail_unless(history_html.count('class="media-video-card"') == len(history_ids),
-                f"{history_route}: incomplete history lecture archive")
+    fail_unless(history_html.count('class="media-history-row"') == len(history_ids),
+                f"{history_route}: expected one horizontal card for each history lecture")
+    fail_unless('class="media-history-archive-list"' in history_html and
+                history_html.count('class="media-video-card"') == 0,
+                f"{history_route}: old three-column video grid still present")
     positions = [history_html.find("watch?v=" + video_id) for video_id in history_ids]
     fail_unless(all(pos >= 0 for pos in positions) and positions == sorted(positions),
                 f"{history_route}: history episodes are not in publication order")
-fail_unless(not route_file("/media/history-of-science/").exists(),
-            "English history archive must not be generated")
-history_markup, history_meta = parsed("/ko/media/history-of-science/")
-fail_unless('<h1 class="post-title">안될과학 과학사 시리즈</h1>' in history_markup,
+korean_history, _ = parsed("/ko/media/history-of-science/")
+english_history, _ = parsed("/media/history-of-science/")
+fail_unless('<h1 class="post-title">안될과학 과학사 시리즈</h1>' in korean_history,
             "Korean history archive must have the requested title")
-print("PASS Media: Korean-only history archive, renamed series card, grouped videos and requested section order")
+fail_unless('<h1 class="post-title">Unrealscience History of Science Series</h1>' in english_history,
+            "English science-history page must exist and have its own title")
+for lang, markup in (("Korean", korean_history), ("English", english_history)):
+    intro_match = re.search(r'<p class="media-history-intro">(.*?)</p>', markup, re.DOTALL)
+    fail_unless(intro_match is not None and "<br" not in intro_match.group(1),
+                f"{lang}: history introduction must be one sentence without forced breaks")
+fail_unless("아래 영상은" not in korean_history and
+            "Videos appear in publication order" not in english_history,
+            "Remove the redundant second history-introduction sentence")
+fail_unless("word-break: keep-all;" in Path("assets/css/main.scss").read_text(encoding="utf-8"),
+            "Korean introduction must not break words midway")
+expected_history_titles = (
+    ("아리스토텔레스의 물리학, 고대 그리스의 과학은 왜 다 틀렸던 것일까?! 우리가 몰랐던 과학사 이야기!",
+     "Aristotle's Physics: Why Was Ancient Greek Science So Wrong? The History of Science We Never Knew!"),
+    ("피타고라스는 수학자가 아니었다! 피타고라스 어떻게 위대한 수학자로 만들어졌나?",
+     "Pythagoras Was Not a Mathematician! How Did He Come to Be Seen as a Great Mathematician?"),
+    ("의학의 아버지라는 히포크라테스, 진짜 정체는 무엇일까?",
+     "Hippocrates, the So-Called Father of Medicine: Who Was He Really?"),
+    ("철학자가 왕이 되려면 수학 10년? 과학사의 두 거장 플라톤과 아리스토텔레스",
+     "Ten Years of Mathematics to Become a Philosopher-King? Two Giants in the History of Science: Plato and Aristotle"),
+)
+for original_title, translated_title in expected_history_titles:
+    fail_unless(original_title in korean_history,
+                f"Korean archive is missing original YouTube title: {original_title}")
+    fail_unless(translated_title in english_history,
+                f"English archive is missing translated YouTube title: {translated_title}")
+    fail_unless(original_title not in english_history,
+                f"English archive still contains untranslated Korean title: {original_title}")
+fail_unless("(부산대 최정모 교수)" not in korean_history and
+            "(Prof. Jeong-Mo Choi, Pusan National University)" not in english_history,
+            "Do not show affiliation credits in history video titles")
+fail_unless(korean_history.count('<article class="media-history-row">') == 4 and
+            english_history.count('<article class="media-history-row">') == 4,
+            "Each history archive must display precisely four one-video-per-row cards")
+print("PASS Media: bilingual history archives, video date before title, clean titles, single-sentence introductions")
 
 # The language switch uses local SVG flag images, not OS-dependent emoji.
 # Its destination must continue to target the counterpart of the current page.
@@ -253,7 +300,8 @@ for route, destination, icon_name in (
     ("/ko/", "/", "en-uk-us.svg"),
     ("/publications/", "/ko/publications/", "ko.svg"),
     ("/ko/publications/", "/publications/", "en-uk-us.svg"),
-    ("/ko/media/history-of-science/", "/media/", "en-uk-us.svg"),
+    ("/media/history-of-science/", "/ko/media/history-of-science/", "ko.svg"),
+    ("/ko/media/history-of-science/", "/media/history-of-science/", "en-uk-us.svg"),
 ):
     html, _ = parsed(route)
     switch_match = re.search(
@@ -343,8 +391,8 @@ print("Additional sitemap URLs not in the curated public-page set:")
 for url in additional:
     print("  SITEMAP_EXTRA:", url)
 fail_unless(not additional, f"Unrelated or generated demo URLs remain in the sitemap: {len(additional)}")
-fail_unless("https://jeongmochoi.github.io/media/history-of-science/" not in urls,
-            "Removed English history archive is still listed in sitemap")
+fail_unless("https://jeongmochoi.github.io/media/history-of-science/" in urls,
+            "English history archive must be indexed and listed in sitemap")
 # PDF privacy/discovery audit: prevent direct crawling and never advertise document URLs.
 robots_text = (SITE / "robots.txt").read_text(encoding="utf-8")
 fail_unless("User-agent: *" in robots_text, "robots.txt has no global Googlebot rule")
