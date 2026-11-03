@@ -166,6 +166,58 @@ async function main() {
               fullPage: false,
             });
             console.log(`Saved ${output} (${route})`);
+
+            // Compare the language hover accent with the adjacent Change theme
+            // icon, and capture screenshots of the actual hovered flag.
+            if (device === "desktop" && name.startsWith("home-")) {
+              const themeToggle = page.locator("#light-toggle");
+              const languageLink = page.locator(".navbar-language-toggle > .nav-link");
+              await themeToggle.hover();
+              const themeHoverColor = await themeToggle.evaluate(
+                (button) => getComputedStyle(button).color,
+              );
+              const restOpacity = await languageLink.evaluate(
+                (link) => getComputedStyle(link, "::after").opacity,
+              );
+              const beforeBounds = await flag.boundingBox();
+              await languageLink.hover();
+              await page.waitForTimeout(250);
+              const accent = await languageLink.evaluate((link) => {
+                const underline = getComputedStyle(link, "::after");
+                return {
+                  backgroundColor: underline.backgroundColor,
+                  opacity: underline.opacity,
+                  width: underline.width,
+                  height: underline.height,
+                  tooltip: link.getAttribute("title"),
+                };
+              });
+              const afterBounds = await flag.boundingBox();
+              console.log(`LANGUAGE_HOVER_PROBE ${name} ${JSON.stringify({themeHoverColor, restOpacity, accent, beforeBounds, afterBounds})}`);
+              if (
+                restOpacity !== "0" ||
+                accent.opacity !== "1" ||
+                accent.backgroundColor !== themeHoverColor ||
+                accent.width !== "27px" ||
+                accent.height !== "2px" ||
+                !accent.tooltip ||
+                !beforeBounds ||
+                !afterBounds ||
+                Math.abs(beforeBounds.width - afterBounds.width) > 0.01 ||
+                Math.abs(beforeBounds.height - afterBounds.height) > 0.01 ||
+                Math.abs(beforeBounds.x - afterBounds.x) > 0.01 ||
+                Math.abs(beforeBounds.y - afterBounds.y) > 0.01
+              ) {
+                throw new Error(`Language hover does not match theme button: ${JSON.stringify(accent)}`);
+              }
+              const hoverImage = path.join("site-preview", `${name}-desktop-language-hover.png`);
+              await page.screenshot({
+                path: hoverImage,
+                animations: "disabled",
+                fullPage: false,
+              });
+              console.log(`Saved ${hoverImage} (hovered ${route})`);
+            }
           } finally {
             await page.close();
           }
