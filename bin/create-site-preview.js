@@ -211,6 +211,10 @@ async function main() {
                   borderStyle: border.borderTopStyle,
                   borderWidth: border.borderTopWidth,
                   borderRadius: border.borderTopLeftRadius,
+                  insetTop: border.top,
+                  insetRight: border.right,
+                  insetBottom: border.bottom,
+                  insetLeft: border.left,
                   opacity: border.opacity,
                   tooltip: wrapper.closest("a")?.getAttribute("title"),
                 };
@@ -223,6 +227,10 @@ async function main() {
                 accent.borderStyle !== "solid" ||
                 accent.borderWidth !== "3px" ||
                 accent.borderRadius !== "7px" ||
+                accent.insetTop !== "-3px" ||
+                accent.insetRight !== "-3px" ||
+                accent.insetBottom !== "-3px" ||
+                accent.insetLeft !== "-3px" ||
                 accent.opacity !== "1" ||
                 !accent.tooltip ||
                 !beforeBounds ||
