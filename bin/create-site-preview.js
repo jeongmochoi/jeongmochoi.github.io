@@ -309,7 +309,7 @@ async function main() {
               const languageHref = await page.locator(".navbar-language-toggle a").getAttribute("href");
               console.log(`HISTORY_BILINGUAL_PROBE ${name} ${JSON.stringify({intro,languageHref})}`);
               if (
-                intro.breaks !== 1 ||
+                intro.breaks !== 0 ||
                 intro.wordBreak !== "keep-all" ||
                 intro.maxWidth !== "none" ||
                 Math.abs(intro.width - intro.containerWidth) > 2 ||
@@ -361,12 +361,21 @@ async function main() {
                   const ordered = !i || row.row.y > boxes[i - 1].row.bottom - 2;
                   const withinPage = row.row.width > 0 && row.row.right <= page.viewportSize().width + 1;
                   const correctLayout = stacked
-                    ? row.title.y >= row.thumbnail.bottom - 2 && row.date.y >= row.title.bottom - 2
-                    : row.title.x >= row.thumbnail.right - 1 && row.date.x >= row.title.right - 1;
-                  return ordered && withinPage && correctLayout && /^\d{4}-\d{2}-\d{2}$/.test(row.dateText);
+                    ? row.date.y >= row.thumbnail.bottom - 2 && row.title.y >= row.date.bottom - 2
+                    : row.date.x >= row.thumbnail.right - 1 && row.title.y >= row.date.bottom - 2;
+                  const sameColumn = Math.abs(row.title.x - row.date.x) <= 2;
+                  const topAligned = stacked || Math.abs(row.date.y - row.thumbnail.y) <= 4;
+                  return (
+                    ordered &&
+                    withinPage &&
+                    correctLayout &&
+                    sameColumn &&
+                    topAligned &&
+                    /^\d{4}-\d{2}-\d{2}$/.test(row.dateText)
+                  );
                 });
                 console.log(`HISTORY_ROW_PROBE ${name} ${mode} ${JSON.stringify({boxes, aligned})}`);
-                if (!aligned) throw new Error(`History video cards must remain one per full-width row: ${name} ${mode}`);
+                if (!aligned) throw new Error(`History rows must show a gray date above the title to the right of the thumbnail: ${name} ${mode}`);
               };
               await verifyHistoryRows(device);
               if (device === "desktop") {
