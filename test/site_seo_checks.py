@@ -100,7 +100,7 @@ for media_route, history_route in (
     media_html, _ = parsed(media_route)
     history_html, _ = parsed(history_route)
     preview = re.search(
-        r'<section\\s+class="media-history-feature"[^>]*>(.*?)</section>',
+        r'<section\s+class="media-history-feature"[^>]*>(.*?)</section>',
         media_html, re.DOTALL,
     )
     fail_unless(preview is not None, f"{media_route}: missing history-series preview")
