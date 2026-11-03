@@ -63,6 +63,15 @@ async function main() {
               await flag.waitFor({ state: "visible", timeout: 5000 });
             }
             await flag.evaluate(async (image) => await image.decode());
+            if (mobileToggle && name.startsWith("home-")) {
+              const expandedImage = path.join("site-preview", `${name}-mobile-menu-expanded.png`);
+              await page.screenshot({
+                path: expandedImage,
+                animations: "disabled",
+                fullPage: false,
+              });
+              console.log(`Saved ${expandedImage} (expanded mobile menu)`);
+            }
             const renderedFlag = await flag.evaluate((image) => {
               const dimensions = getComputedStyle(image);
               return {
@@ -179,30 +188,38 @@ async function main() {
               const themeHoverColor = await themeToggle.evaluate(
                 (button) => getComputedStyle(button).color,
               );
-              const restOpacity = await languageLink.evaluate(
-                (link) => getComputedStyle(link, "::after").opacity,
+              const restOutlineColor = await flag.evaluate(
+                (image) => getComputedStyle(image).outlineColor,
               );
+              const themeIconBounds = await page.evaluate(() => {
+                const icon = [...document.querySelectorAll("#light-toggle i")].find((element) => {
+                  const style = getComputedStyle(element);
+                  return style.display !== "none" && style.visibility !== "hidden";
+                });
+                const rect = icon?.getBoundingClientRect();
+                return rect ? { x: rect.x, y: rect.y, width: rect.width, height: rect.height } : null;
+              });
               const beforeBounds = await flag.boundingBox();
               await languageLink.hover();
               await page.waitForTimeout(250);
-              const accent = await languageLink.evaluate((link) => {
-                const underline = getComputedStyle(link, "::after");
+              const accent = await flag.evaluate((image) => {
+                const border = getComputedStyle(image);
                 return {
-                  backgroundColor: underline.backgroundColor,
-                  opacity: underline.opacity,
-                  width: underline.width,
-                  height: underline.height,
-                  tooltip: link.getAttribute("title"),
+                  outlineColor: border.outlineColor,
+                  outlineStyle: border.outlineStyle,
+                  outlineWidth: border.outlineWidth,
+                  outlineOffset: border.outlineOffset,
+                  tooltip: image.closest("a")?.getAttribute("title"),
                 };
               });
               const afterBounds = await flag.boundingBox();
-              console.log(`LANGUAGE_HOVER_PROBE ${name} ${JSON.stringify({themeHoverColor, restOpacity, accent, beforeBounds, afterBounds})}`);
+              console.log(`LANGUAGE_HOVER_PROBE ${name} ${JSON.stringify({themeHoverColor, restOutlineColor, accent, beforeBounds, afterBounds, themeIconBounds})}`);
               if (
-                restOpacity !== "0" ||
-                accent.opacity !== "1" ||
-                accent.backgroundColor !== themeHoverColor ||
-                accent.width !== "27px" ||
-                accent.height !== "2px" ||
+                restOutlineColor !== "rgba(0, 0, 0, 0)" ||
+                accent.outlineColor !== themeHoverColor ||
+                accent.outlineStyle !== "solid" ||
+                accent.outlineWidth !== "3px" ||
+                accent.outlineOffset !== "0px" ||
                 !accent.tooltip ||
                 !beforeBounds ||
                 !afterBounds ||
@@ -211,7 +228,7 @@ async function main() {
                 Math.abs(beforeBounds.x - afterBounds.x) > 0.01 ||
                 Math.abs(beforeBounds.y - afterBounds.y) > 0.01
               ) {
-                throw new Error(`Language hover does not match theme button: ${JSON.stringify(accent)}`);
+                throw new Error(`Language hover outline does not match theme button: ${JSON.stringify(accent)}`);
               }
               const hoverImage = path.join("site-preview", `${name}-desktop-language-hover.png`);
               await page.screenshot({
