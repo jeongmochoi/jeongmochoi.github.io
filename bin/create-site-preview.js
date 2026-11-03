@@ -210,6 +210,28 @@ async function main() {
               }
             }
 
+            // The Media landing page features only one history video, using
+            // the same horizontal image-left/details-right layout as broadcasts.
+            if (name.startsWith("media-")) {
+              const card = page.locator(".media-history-feature .media-history-feature-card");
+              const picture = card.locator(".media-feature-visual");
+              const description = card.locator(".media-feature-body");
+              const images = card.locator(".media-feature-visual-link");
+              if ((await card.count()) !== 1 || (await images.count()) !== 1) {
+                throw new Error(`History series must show just one featured video: ${name}`);
+              }
+              const pictureBox = await picture.boundingBox();
+              const detailsBox = await description.boundingBox();
+              if (!pictureBox || !detailsBox) throw new Error(`Missing history feature columns: ${name}`);
+              if (device === "desktop" && detailsBox.x < pictureBox.x + pictureBox.width - 1) {
+                throw new Error(`History preview is not image-left/detail-right: ${name}`);
+              }
+              if (device === "mobile" && detailsBox.y < pictureBox.y + pictureBox.height - 1) {
+                throw new Error(`History preview is not vertically stacked on mobile: ${name}`);
+              }
+              console.log(`MEDIA_HISTORY_FEATURE_PROBE ${name} ${device} ${JSON.stringify({pictureBox, detailsBox})}`);
+            }
+
             // Compare the language hover accent with the adjacent Change theme
             // icon, and capture screenshots of the actual hovered flag.
             if (device === "desktop" && name.startsWith("home-")) {
