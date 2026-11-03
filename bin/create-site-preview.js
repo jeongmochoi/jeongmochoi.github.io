@@ -258,9 +258,98 @@ async function main() {
         await context.close();
       }
     }
+    // Test real OS color schemes in isolated browsers, including the one-time
+    // migration of legacy saved "light"/"dark" values that were never tagged as
+    // user choices. Subsequent explicit choices remain binary and persistent.
+    for (const osTheme of ["light", "dark"]) {
+      const oldSavedTheme = osTheme === "dark" ? "light" : "dark";
+      const systemContext = await browser.newContext({
+        viewport: { width: 1440, height: 900 },
+        colorScheme: osTheme,
+        storageState: {
+          cookies: [],
+          origins: [{ origin: siteRoot, localStorage: [{ name: "theme", value: oldSavedTheme }] }],
+        },
+      });
+      const page = await systemContext.newPage();
+      try {
+        const response = await page.goto(siteRoot + "/", { waitUntil: "domcontentloaded", timeout: 45000 });
+        if (!response || !response.ok()) throw new Error(`OS theme page did not load for ${osTheme}`);
+
+        const getTheme = async () => page.evaluate(() => ({
+          theme: document.documentElement.getAttribute("data-theme"),
+          iconMode: document.documentElement.getAttribute("data-theme-setting"),
+          stored: localStorage.getItem("theme"),
+          manuallySelected: localStorage.getItem("jm-theme-manual-v1"),
+        }));
+
+        const initial = await getTheme();
+        if (initial.theme !== osTheme || initial.iconMode !== osTheme ||
+            initial.stored !== "system" || initial.manuallySelected === "1") {
+          throw new Error(`First visit ignored OS preference or legacy migration: ${JSON.stringify({ osTheme, initial })}`);
+        }
+        console.log(`SYSTEM_THEME_PROBE initial ${osTheme} ${JSON.stringify(initial)}`);
+        await page.screenshot({
+          path: path.join("site-preview", `theme-os-${osTheme}-initial.png`),
+          animations: "disabled",
+          fullPage: false,
+        });
+
+        // Until the visitor clicks, subsequent OS preference changes apply.
+        await page.emulateMedia({ colorScheme: oldSavedTheme });
+        await page.waitForFunction((expected) =>
+          document.documentElement.getAttribute("data-theme") === expected &&
+          document.documentElement.getAttribute("data-theme-setting") === expected,
+          oldSavedTheme);
+        const autoChanged = await getTheme();
+        if (autoChanged.stored !== "system" || autoChanged.manuallySelected === "1") {
+          throw new Error(`Automatic OS tracking unexpectedly persisted a choice: ${JSON.stringify(autoChanged)}`);
+        }
+        console.log(`SYSTEM_THEME_PROBE changed ${osTheme} ${JSON.stringify(autoChanged)}`);
+
+        // A button click now becomes the only source of a saved manual override.
+        await page.locator("#light-toggle").click();
+        await page.waitForFunction((expected) =>
+          document.documentElement.getAttribute("data-theme") === expected,
+          osTheme);
+        let manuallyChosen = await getTheme();
+        if (manuallyChosen.theme !== osTheme || manuallyChosen.iconMode !== osTheme ||
+            manuallyChosen.stored !== osTheme || manuallyChosen.manuallySelected !== "1") {
+          throw new Error(`Binary toggle did not save the manual override: ${JSON.stringify(manuallyChosen)}`);
+        }
+
+        // The saved choice survives both navigation and an OS scheme change.
+        await page.reload({ waitUntil: "domcontentloaded" });
+        const afterReload = await getTheme();
+        if (afterReload.theme !== osTheme || afterReload.iconMode !== osTheme ||
+            afterReload.stored !== osTheme || afterReload.manuallySelected !== "1") {
+          throw new Error(`Manual theme did not survive reload: ${JSON.stringify(afterReload)}`);
+        }
+        await page.emulateMedia({ colorScheme: osTheme });
+        await page.emulateMedia({ colorScheme: oldSavedTheme });
+        manuallyChosen = await getTheme();
+        if (manuallyChosen.theme !== osTheme) {
+          throw new Error(`OS scheme overrode the saved manual choice: ${JSON.stringify(manuallyChosen)}`);
+        }
+
+        await page.locator("#light-toggle").click();
+        await page.waitForFunction((expected) =>
+          document.documentElement.getAttribute("data-theme") === expected,
+          oldSavedTheme);
+        const binaryAgain = await getTheme();
+        if (binaryAgain.stored !== oldSavedTheme || binaryAgain.manuallySelected !== "1" ||
+            binaryAgain.iconMode !== oldSavedTheme) {
+          throw new Error(`Third mode appeared after a second click: ${JSON.stringify(binaryAgain)}`);
+        }
+        console.log(`SYSTEM_THEME_PROBE manual ${osTheme} ${JSON.stringify(binaryAgain)}`);
+      } finally {
+        await systemContext.close();
+      }
+    }
+
     fs.writeFileSync(
       path.join("site-preview", "README.txt"),
-      "Desktop (1440x900) and mobile-size (390x844) first-viewport screenshots of ten English/Korean homepage sections. These are not live preview URLs and do not cover every scroll position or interactive behavior. The actual website was not published by this job.\n",
+      "Desktop (1440x900) and mobile-size (390x844) first-viewport screenshots of ten English/Korean homepage sections, with OS-light and OS-dark initial-theme previews. Theme checks also validate automatic OS changes, one-time legacy preference reset, binary user override and persistence. These are not live preview URLs. The actual website was not published by this job.\n",
     );
   } finally {
     await browser.close();

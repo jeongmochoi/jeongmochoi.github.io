@@ -220,41 +220,79 @@
 
 {% if site.enable_darkmode %}
 <script>
-  // Override al-folio's default three-state theme cycle.
-  // New behavior: light <-> dark only. No system mode.
-
+  // The UI has only two buttons states, light and dark. Before a visitor
+  // explicitly chooses one, follow the OS preference rather than persisting
+  // the initial system-derived color as if it were a manual selection.
   (function () {
-    if (typeof determineThemeSetting !== "function" || typeof setThemeSetting !== "function") {
+    if (
+      typeof determineThemeSetting !== "function" ||
+      typeof determineComputedTheme !== "function" ||
+      typeof setThemeSetting !== "function" ||
+      typeof applyTheme !== "function"
+    ) {
       return;
     }
 
-    const storedTheme = localStorage.getItem("theme");
-    let initialTheme = storedTheme;
+    const manualPreferenceKey = "jm-theme-manual-v1";
+    const osDark = typeof window.matchMedia === "function" ? window.matchMedia("(prefers-color-scheme: dark)") : null;
 
-    // If the old value is "system" or invalid, collapse it into the currently computed theme.
-    if (initialTheme !== "dark" && initialTheme !== "light") {
-      if (typeof determineComputedTheme === "function") {
-        initialTheme = determineComputedTheme();
-      } else {
-        initialTheme = "light";
+    // One-time migration of older visits: the previous binary toggle saved
+    // even an automatic initial color as a permanent "light"/"dark" choice,
+    // so no reliable distinction from a manual choice survives in storage.
+    // This resets that ambiguous legacy state to system-following ONCE.
+    if (localStorage.getItem(manualPreferenceKey) !== "1") {
+      localStorage.setItem("theme", "system");
+    }
+
+    function systemTheme() {
+      return osDark && osDark.matches ? "dark" : "light";
+    }
+
+    // The core theme library uses this function to compute its current color,
+    // including for its built-in OS-preference change listener.
+    determineThemeSetting = function () {
+      const stored = localStorage.getItem("theme");
+      if (
+        localStorage.getItem(manualPreferenceKey) === "1" &&
+        (stored === "dark" || stored === "light")
+      ) {
+        return stored;
+      }
+      return systemTheme();
+    };
+
+    // A click, unlike the initial OS-derived state, is an explicit choice.
+    // Keep the familiar two-state toggle and persist subsequent user choices.
+    toggleThemeSetting = function () {
+      const next = determineComputedTheme() === "dark" ? "light" : "dark";
+      localStorage.setItem(manualPreferenceKey, "1");
+      setThemeSetting(next);
+    };
+
+    function synchronizeAutomaticTheme() {
+      if (localStorage.getItem(manualPreferenceKey) === "1") {
+        return;
+      }
+
+      const current = systemTheme();
+      const html = document.documentElement;
+
+      // Theme icons have light/dark states only, even while the stored
+      // preference remains "system" until a visitor clicks the button.
+      html.setAttribute("data-theme-setting", current);
+
+      // initTheme() ran in <head>. Reapply only if legacy storage made that
+      // first pass render a color different from the OS preference.
+      if (html.getAttribute("data-theme") !== current) {
+        applyTheme();
       }
     }
 
-    if (initialTheme !== "dark" && initialTheme !== "light") {
-      initialTheme = "light";
+    synchronizeAutomaticTheme();
+
+    if (osDark && typeof osDark.addEventListener === "function") {
+      osDark.addEventListener("change", synchronizeAutomaticTheme);
     }
-
-    determineThemeSetting = function () {
-      const themeSetting = localStorage.getItem("theme");
-      return themeSetting === "dark" ? "dark" : "light";
-    };
-
-    toggleThemeSetting = function () {
-      const currentTheme = determineThemeSetting();
-      setThemeSetting(currentTheme === "dark" ? "light" : "dark");
-    };
-
-    setThemeSetting(initialTheme);
   })();
 </script>
 {% endif %}
