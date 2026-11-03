@@ -105,8 +105,8 @@ for route in ("/media/", "/ko/media/", "/ko/media/history-of-science/"):
     cards = re.findall(r'<article class="media-video-card">(.*?)</article>', html, re.DOTALL)
     fail_unless(bool(cards), f"{route}: no video cards rendered")
     for card in cards:
-        match = re.search(r'<time datetime="([0-9]{4}-[0-9]{2}-[0-9]{2})">', card)
-        fail_unless(match is not None and match.group(1) in card,
+        match = re.search(r'<time datetime="([0-9]{4}-[0-9]{2}-[0-9]{2})">\1</time>', card)
+        fail_unless(match is not None,
                     f"{route}: video card missing visible publication date")
         date.fromisoformat(match.group(1))
 print("PASS date consistency: all media video cards have publication dates")
