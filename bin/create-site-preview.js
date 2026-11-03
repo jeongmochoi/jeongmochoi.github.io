@@ -170,12 +170,25 @@ async function main() {
             } else {
               await page.waitForTimeout(600);
             }
+            // For Media and the separate history archive, screenshots must
+            // include the ENTIRE document from header to footer (all cards).
+            const entireMediaPage = name.startsWith("media-") || name.startsWith("history-");
+            if (entireMediaPage) {
+              await page.evaluate(() => {
+                document.querySelectorAll("img[loading='lazy']").forEach((image) => {
+                  image.loading = "eager";
+                });
+              });
+              await page.waitForTimeout(800);
+            }
             const output = path.join("site-preview", `${name}-${device}.png`);
+            const documentHeight = await page.evaluate(() => document.documentElement.scrollHeight);
             await page.screenshot({
               path: output,
               animations: "disabled",
-              fullPage: false,
+              fullPage: entireMediaPage,
             });
+            console.log(`SCREENSHOT_FULL_PAGE ${name} ${device} ${JSON.stringify({path: output, fullPage: entireMediaPage, documentHeight})}`);
             console.log(`Saved ${output} (${route})`);
 
             // Check the adaptive three-, two-, and one-column video grid in
@@ -204,7 +217,7 @@ async function main() {
                 await page.screenshot({
                   path: path.join("site-preview", `${name}-tablet.png`),
                   animations: "disabled",
-                  fullPage: false,
+                  fullPage: true,
                 });
                 await page.setViewportSize(viewport);
               }
@@ -405,7 +418,7 @@ async function main() {
 
     fs.writeFileSync(
       path.join("site-preview", "README.txt"),
-      "Desktop (1440x900) and mobile-size (390x844) first-viewport screenshots of twelve English/Korean homepage sections, plus 800px-wide tablet media pages, with OS-light and OS-dark initial-theme previews. Theme checks also validate automatic OS changes, one-time legacy preference reset, binary user override and persistence. These are not live preview URLs. The actual website was not published by this job.\n",
+      "Desktop (1440x900) and mobile-size (390x844) screenshots of twelve English/Korean homepage sections; Media and History images are FULL-PAGE (desktop/mobile/800px tablet), not viewport crops, with OS-light and OS-dark initial-theme previews. Theme checks also validate automatic OS changes, one-time legacy preference reset, binary user override and persistence. These are not live preview URLs. The actual website was not published by this job.\n",
     );
   } finally {
     await browser.close();
