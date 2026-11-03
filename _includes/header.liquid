@@ -172,14 +172,15 @@
               title="{{ language_switch_tooltip }}"
               aria-label="Switch language to {{ language_switch_title }}"
             >
-              <img
-                class="jm-language-flag"
-                src="{{ language_switch_icon | relative_url }}"
-                alt=""
-                aria-hidden="true"
-                width="27"
-                height="18"
-              >
+              <span class="jm-language-flag-frame" aria-hidden="true">
+                <img
+                  class="jm-language-flag"
+                  src="{{ language_switch_icon | relative_url }}"
+                  alt=""
+                  width="27"
+                  height="18"
+                >
+              </span>
               <span class="sr-only">{{ language_switch_title }}</span>
             </a>
           </li>
