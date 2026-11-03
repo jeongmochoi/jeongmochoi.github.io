@@ -3,9 +3,6 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { chromium } = require("@playwright/test");
 
-const { execFileSync } = require("node:child_process");
-const historyLayoutPrettier = execFileSync("npx", ["prettier", "_layouts/media_history.liquid"], { encoding: "utf8" });
-console.log("MEDIA_HISTORY_FORMAT_JSON " + JSON.stringify(historyLayoutPrettier));
 const siteRoot = "http://127.0.0.1:4173";
 const pages = [
   ["home-en", "/"],
