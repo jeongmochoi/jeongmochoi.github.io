@@ -52,87 +52,6 @@ layout: page
     </section>
   {% endif %}
 
-  {% assign history_series = site.data.history_of_science %}
-  {% if history_series and history_series.items.size > 0 %}
-    {% assign history_latest = history_series.items | last %}
-    {% if current_lang == 'ko' %}
-      {% assign history_title = history_series.title_ko %}
-      {% assign history_summary = history_series.summary_ko %}
-      {% assign history_latest_title = history_latest.title_ko %}
-      {% assign history_url = '/ko/media/history-of-science/' %}
-      {% assign history_more = '전체 강의 보기' %}
-      {% assign history_watch = '최신 영상 보기' %}
-      {% assign history_latest_label = '최신 공개 영상' %}
-    {% else %}
-      {% assign history_title = history_series.title_en %}
-      {% assign history_summary = history_series.summary_en %}
-      {% assign history_latest_title = history_latest.title_en %}
-      {% assign history_url = '/media/history-of-science/' %}
-      {% assign history_more = 'View all lectures' %}
-      {% assign history_watch = 'Watch latest video' %}
-      {% assign history_latest_label = 'Latest video' %}
-    {% endif %}
-
-    <section class="media-history-feature" aria-labelledby="media-history-feature-title">
-      <h2 class="media-section-heading" id="media-history-feature-title">{{ history_title }}</h2>
-
-      <div class="media-feature-list">
-        <article class="media-feature-card media-history-feature-card">
-          <div class="media-feature-visual">
-            <a
-              class="media-feature-visual-link"
-              href="{{ history_latest.url }}"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="{{ history_latest_title }}"
-            >
-              <img
-                src="https://i.ytimg.com/vi/{{ history_latest.youtube_id }}/hqdefault.jpg"
-                alt="{{ history_latest_title }}"
-                loading="lazy"
-              >
-              <span class="media-play-icon" aria-hidden="true">
-                <i class="fa-solid fa-play"></i>
-              </span>
-            </a>
-          </div>
-
-          <div class="media-feature-body">
-            <div class="media-feature-meta">
-              <span>{{ history_latest_label }}</span>
-              <span aria-hidden="true">·</span>
-              <time datetime="{{ history_latest.date }}">{{ history_latest.date }}</time>
-            </div>
-            <h3 class="media-feature-title">
-              <a href="{{ history_latest.url }}" target="_blank" rel="noopener noreferrer">{{ history_latest_title }}</a>
-            </h3>
-            <div class="media-feature-description">
-              <p>{{ history_summary }}</p>
-            </div>
-            <div class="media-link-list">
-              <a class="media-link-button" href="{{ history_latest.url }}" target="_blank" rel="noopener noreferrer">
-                {{ history_watch }}
-              </a>
-              <a class="media-link-button" href="{{ history_url | relative_url }}">
-                {{ history_more }} ({{ history_series.items.size }})
-              </a>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
-  {% endif %}
-
-  {% if media.broadcasts %}
-    <h2 class="media-section-heading">{{ broadcast_heading }}</h2>
-
-    <div class="media-feature-list">
-      {% for item in media.broadcasts %}
-        {% include media_feature_item.liquid item=item lang=current_lang %}
-      {% endfor %}
-    </div>
-  {% endif %}
-
   {% if media.youtube_groups %}
     <h2 class="media-section-heading">{{ youtube_heading }}</h2>
 
@@ -146,6 +65,61 @@ layout: page
       <section class="media-video-group">
         <h3 class="media-video-group-title">{{ group_title }}</h3>
 
+        {% if group.id == 'unrealscience' %}
+          {% assign history_series = site.data.history_of_science %}
+          {% if history_series and history_series.items.size > 0 %}
+            {% if current_lang == 'ko' %}
+              {% assign history_title = history_series.title_ko %}
+              {% assign history_summary = history_series.summary_ko %}
+              {% assign history_url = '/ko/media/history-of-science/' %}
+              {% assign history_more = '전체 강의 보기' %}
+            {% else %}
+              {% assign history_title = history_series.title_en %}
+              {% assign history_summary = history_series.summary_en %}
+              {% assign history_url = '/media/history-of-science/' %}
+              {% assign history_more = 'View all lectures' %}
+            {% endif %}
+            {% assign history_cover = history_series.items | first %}
+
+            <div class="media-feature-list media-history-feature">
+              <article class="media-feature-card media-history-feature-card">
+                <div class="media-feature-visual">
+                  <a
+                    class="media-feature-visual-link"
+                    href="{{ history_cover.url }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="{{ history_cover.title_ko }}"
+                  >
+                    <img
+                      src="https://i.ytimg.com/vi/{{ history_cover.youtube_id }}/hqdefault.jpg"
+                      alt="{{ history_title }}"
+                      loading="lazy"
+                    >
+                    <span class="media-play-icon" aria-hidden="true">
+                      <i class="fa-solid fa-play"></i>
+                    </span>
+                  </a>
+                </div>
+
+                <div class="media-feature-body">
+                  <h4 class="media-feature-title">
+                    <a href="{{ history_url | relative_url }}">{{ history_title }}</a>
+                  </h4>
+                  <div class="media-feature-description">
+                    <p>{{ history_summary }}</p>
+                  </div>
+                  <div class="media-link-list">
+                    <a class="media-link-button" href="{{ history_url | relative_url }}">
+                      {{ history_more }} ({{ history_series.items.size }})
+                    </a>
+                  </div>
+                </div>
+              </article>
+            </div>
+          {% endif %}
+        {% endif %}
+
         <div class="media-video-grid">
           {% for item in group.items %}
             {% include media_video_item.liquid item=item lang=current_lang %}
@@ -153,6 +127,16 @@ layout: page
         </div>
       </section>
     {% endfor %}
+  {% endif %}
+
+  {% if media.broadcasts %}
+    <h2 class="media-section-heading">{{ broadcast_heading }}</h2>
+
+    <div class="media-feature-list">
+      {% for item in media.broadcasts %}
+        {% include media_feature_item.liquid item=item lang=current_lang %}
+      {% endfor %}
+    </div>
   {% endif %}
 
   {% if media.public_items %}
