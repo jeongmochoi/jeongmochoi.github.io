@@ -52,6 +52,7 @@ async function main() {
             }
             // Check that each page renders its actual SVG flag, not an OS emoji.
             const expectedFlag = route.startsWith("/ko/") ? "en-uk-us.svg" : "ko.svg";
+            const expectedLanguageTooltip = route.startsWith("/ko/") ? "Change language to English" : "한국어로 변경";
             const flag = page.locator(".navbar-language-toggle img.jm-language-flag");
             if ((await flag.count()) !== 1) throw new Error(`Missing flag image: ${route}`);
             // Mobile navigation starts collapsed. Expand it before measuring
@@ -83,6 +84,7 @@ async function main() {
                 borderRadius: dimensions.borderRadius,
                 boxShadow: dimensions.boxShadow,
                 accessibleName: image.closest("a")?.getAttribute("aria-label") || "",
+                tooltip: image.closest("a")?.getAttribute("title") || "",
               };
             });
             console.log(`LANGUAGE_FLAG_PROBE ${name} ${JSON.stringify(renderedFlag)}`);
@@ -94,7 +96,8 @@ async function main() {
               renderedFlag.borderWidth !== "0px" ||
               renderedFlag.borderRadius !== "0px" ||
               renderedFlag.boxShadow !== "none" ||
-              !renderedFlag.accessibleName.startsWith("Switch language to ")
+              renderedFlag.accessibleName !== expectedLanguageTooltip ||
+              renderedFlag.tooltip !== expectedLanguageTooltip
             ) {
               throw new Error(`SVG language switch failed: ${JSON.stringify(renderedFlag)}`);
             }
@@ -232,7 +235,7 @@ async function main() {
                 accent.insetBottom !== "-3px" ||
                 accent.insetLeft !== "-3px" ||
                 accent.opacity !== "1" ||
-                !accent.tooltip ||
+                accent.tooltip !== expectedLanguageTooltip ||
                 !beforeBounds ||
                 !afterBounds ||
                 Math.abs(beforeBounds.width - afterBounds.width) > 0.01 ||
