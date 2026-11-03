@@ -13,6 +13,7 @@ const pages = [
   ["books-ko", "/ko/books/"],
   ["media-en", "/media/"],
   ["media-ko", "/ko/media/"],
+  ["history-en", "/media/history-of-science/"],
   ["history-ko", "/ko/media/history-of-science/"],
   ["teaching-en", "/teaching/"],
   ["teaching-ko", "/ko/teaching/"],
@@ -292,6 +293,24 @@ async function main() {
               console.log(`MEDIA_HISTORY_FEATURE_PROBE ${name} ${device} ${JSON.stringify({pictureBox, detailsBox})}`);
             }
 
+            if (name.startsWith("history-")) {
+              const intro = await page.locator(".media-history-intro").evaluate((element) => ({
+                words: element.textContent.replace(/\s+/g, " ").trim(),
+                breaks: element.querySelectorAll("br").length,
+                wordBreak: getComputedStyle(element).wordBreak,
+              }));
+              const desiredUrl = name === "history-en" ? "/ko/media/history-of-science/" : "/media/history-of-science/";
+              const languageHref = await page.locator(".navbar-language-toggle a").getAttribute("href");
+              console.log(`HISTORY_BILINGUAL_PROBE ${name} ${JSON.stringify({intro,languageHref})}`);
+              if (intro.breaks !== 1 || intro.wordBreak !== "keep-all" || languageHref !== desiredUrl) {
+                throw new Error(`Science-history locale, sentence break or typography is wrong: ${name}`);
+              }
+              const originalTitles = await page.locator(".media-history-archive-grid .media-video-title").allTextContents();
+              if (originalTitles.length !== 4 || originalTitles.some((title) => !/[가-힣]/.test(title))) {
+                throw new Error(`Original Korean YouTube titles not shown: ${name}`);
+              }
+            }
+
             // Compare the language hover accent with the adjacent Change theme
             // icon, and capture screenshots of the actual hovered flag.
             if (device === "desktop" && name.startsWith("home-")) {
@@ -465,7 +484,7 @@ async function main() {
 
     fs.writeFileSync(
       path.join("site-preview", "README.txt"),
-      "Desktop (1440x900) and mobile-size (390x844) screenshots of eleven English/Korean homepage sections; Media and History images are FULL-PAGE (desktop/mobile/800px tablet), not viewport crops, with OS-light and OS-dark initial-theme previews. Theme checks also validate automatic OS changes, one-time legacy preference reset, binary user override and persistence. These are not live preview URLs. The actual website was not published by this job.\n",
+      "Desktop (1440x900) and mobile-size (390x844) screenshots of twelve English/Korean homepage sections; Media and History images are FULL-PAGE (desktop/mobile/800px tablet), not viewport crops, with OS-light and OS-dark initial-theme previews. Theme checks also validate automatic OS changes, one-time legacy preference reset, binary user override and persistence. These are not live preview URLs. The actual website was not published by this job.\n",
     );
   } finally {
     await browser.close();
