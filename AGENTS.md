@@ -1,6 +1,6 @@
-# Agent Guidelines for al-folio (v1.x)
+# Agent Guidelines for Jeong-Mo Choi's homepage
 
-`al-folio` is the **starter repo** for the pluginized v1 architecture.
+This is a personal academic homepage built on the al-folio v1 theme. Unused upstream demo content and theme-publishing automation have been removed.
 
 ## Site-specific release safety
 
@@ -32,24 +32,19 @@ Run from repo root:
 npm ci
 npm run lint:prettier
 npm run lint:style-contract
-bundle exec jekyll build --baseurl /al-folio
-bash test/integration_comments.sh
+JEKYLL_ENV=production bundle exec jekyll build
+python3 test/site_seo_checks.py
+python3 -m unittest discover -s test -p 'test_scholar_citations.py' -v
+bundle exec ruby test/test_citation_badges.rb
 bash test/integration_plugin_toggles.sh
-bash test/integration_distill.sh
 bash test/integration_bootstrap_compat.sh
 bash test/integration_upgrade_cli.sh
-npx playwright install chromium webkit
-npm run test:visual
+bash test/integration_css_minify.sh
 bundle exec al-folio upgrade audit
 bundle exec al-folio upgrade overrides audit
-bundle exec al-folio upgrade report
-docker compose up -d
-curl -fsS http://127.0.0.1:8080/al-folio/ >/dev/null
-docker compose logs --tail=80
-docker compose down
 ```
 
-Docker note: v1 uses `/srv/jekyll/bin/entry_point.sh` and serves from container-local `/tmp/_site` to avoid host bind-mount write deadlocks.
+For rendered browser checks, follow `.github/workflows/pr-preview.yml`: serve `_site` on port 4173, then run `node bin/create-site-preview.js` and `node bin/audit-site-pages.js`. This site has an empty base URL, not `/al-folio`. Docker files are retained for optional local development, not image publication.
 
 ## Agent Routing Rules
 

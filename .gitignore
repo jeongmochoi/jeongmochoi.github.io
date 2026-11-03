@@ -9,9 +9,11 @@ _site
 .tweet-cache
 .venv
 assets/libs/
-assets/rendercv/rendercv_output/*.typ
 al-folio-upgrade-report.md
 node_modules/
 output/playwright/
 test-results/
 vendor
+__pycache__/
+site-preview/
+site-audit/

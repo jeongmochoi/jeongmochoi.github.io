@@ -10,7 +10,7 @@ Scope: `_config.yml`, `_data/**/*.yml`
 ## Guidance
 
 - Keep plugin list and config keys aligned with v1 boundaries.
-- When adding featured plugins, update `_data/featured_plugins.yml`.
+- Keep only verified personal data; the upstream plugin catalog and Einstein samples were removed.
 - Validate YAML syntax and avoid stale monolith keys.
 
 ## Validation

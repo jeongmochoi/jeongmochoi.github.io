@@ -1,42 +1,25 @@
 name: Integration tests
 
 on:
-  push:
-    branches:
-      - master
-      - main
-      - v1.0-dev
-    paths:
-      - "Gemfile"
-      - "Gemfile.lock"
-      - "_config.yml"
-      - "_data/**"
-      - "_pages/**"
-      - "_posts/**"
-      - "_projects/**"
-      - "assets/**"
-      - "test/**"
-      - "package.json"
-      - "package-lock.json"
-      - ".github/workflows/unit-tests.yml"
+  workflow_dispatch:
   pull_request:
-    branches:
-      - master
-      - main
-      - v1.0-dev
+    branches: [main]
     paths:
       - "Gemfile"
       - "Gemfile.lock"
       - "_config.yml"
-      - "_data/**"
-      - "_pages/**"
-      - "_posts/**"
-      - "_projects/**"
-      - "assets/**"
-      - "test/**"
-      - "package.json"
-      - "package-lock.json"
+      - "assets/css/**"
+      - "test/integration_*.sh"
+      - "test/style_contract.js"
+      - "package*.json"
       - ".github/workflows/unit-tests.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: integration-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   comments-integration-tests:
@@ -76,9 +59,7 @@ jobs:
           sudo apt-get update && sudo apt-get install -y imagemagick
           pip3 install --upgrade nbconvert
 
-      # The two upstream demo-specific test scripts (comments and Distill)
-      # expect example blog posts that this personal site does not publish.
-      # They remain tracked for reference but are not part of site CI.
+      # Demo-only comments/Distill tests were removed with the unpublished samples.
       - name: Run plugin toggle integration test 🔌
         run: bash test/integration_plugin_toggles.sh
 
