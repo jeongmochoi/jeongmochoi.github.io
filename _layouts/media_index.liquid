@@ -76,7 +76,7 @@ layout: page
             {% else %}
               {% assign history_title = history_series.title_en %}
               {% assign history_summary = history_series.summary_en %}
-              {% assign history_url = '/ko/media/history-of-science/' %}
+              {% assign history_url = '/media/history-of-science/' %}
               {% assign history_more = 'View all lectures' %}
             {% endif %}
             {% assign history_cover = history_series.items | first %}
@@ -110,7 +110,7 @@ layout: page
                     <p>{{ history_summary }}</p>
                   </div>
                   <div class="media-link-list">
-                    <a class="media-link-button" href="{{ history_url | relative_url }}" hreflang="ko">
+                    <a class="media-link-button" href="{{ history_url | relative_url }}" hreflang="{{ current_lang }}">
                       {{ history_more }} ({{ history_series.items.size }})
                     </a>
                   </div>
