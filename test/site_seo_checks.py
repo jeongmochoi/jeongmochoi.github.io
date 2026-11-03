@@ -72,6 +72,21 @@ for route in PUBLIC_ROUTES:
                 f"{route}: wrong canonical")
     print(f"PASS public: {route}")
 
+# In every generated page header keep just the <h1>. Metadata descriptions
+# still exist in <head> for search indexing and social previews.
+for generated_html in SITE.rglob("*.html"):
+    page_html = generated_html.read_text(encoding="utf-8")
+    headings = re.findall(
+        r'<header\s+class="post-header"[^>]*>(.*?)</header>',
+        page_html, re.DOTALL | re.IGNORECASE,
+    )
+    for heading in headings:
+        fail_unless("<h1" in heading,
+                    f"{generated_html}: expected a visible page title")
+        fail_unless("post-description" not in heading and 'class="desc"' not in heading,
+                    f"{generated_html}: an unwanted generated subtitle remains")
+print("PASS titles-only: no generated subtitle in any page header")
+
 # The language switch uses local SVG flag images, not OS-dependent emoji.
 # Its destination must continue to target the counterpart of the current page.
 flag_files = {
