@@ -102,18 +102,24 @@ for entry in general_items:
 fail_unless(len(general_items) == 12, "Unexpected number of general YouTube videos")
 for route in ("/media/", "/ko/media/", "/media/history-of-science/", "/ko/media/history-of-science/"):
     html, _ = parsed(route)
-    if "history-of-science" in route:
+    history_archive = "history-of-science" in route
+    if history_archive:
         cards = re.findall(r'<article class="media-history-row">(.*?)</article>', html, re.DOTALL)
-        date_tag = r'<time class="media-history-row-date" datetime="([0-9]{4}-[0-9]{2}-[0-9]{2})">\1</time>'
     else:
         cards = re.findall(r'<article class="media-video-card">(.*?)</article>', html, re.DOTALL)
-        date_tag = r'<time datetime="([0-9]{4}-[0-9]{2}-[0-9]{2})">\1</time>'
+    date_tag = r'<time datetime="([0-9]{4}-[0-9]{2}-[0-9]{2})">\1</time>'
     fail_unless(bool(cards), f"{route}: no video cards rendered")
     for card in cards:
         match = re.search(date_tag, card)
         fail_unless(match is not None,
                     f"{route}: video card missing visible publication date")
         date.fromisoformat(match.group(1))
+        if history_archive:
+            date_pos = card.find('class="media-video-date media-history-row-date"')
+            title_pos = card.find('class="media-video-title media-history-row-title"')
+            fail_unless('class="media-history-row-body"' in card and
+                        0 <= date_pos < title_pos,
+                        f"{route}: date must be above the title, beside its video thumbnail")
 print("PASS date consistency: all media video cards have publication dates")
 
 # Exact visible section/group order matters. A generic history-of-science
@@ -195,11 +201,13 @@ fail_unless('<h1 class="post-title">안될과학 과학사 시리즈</h1>' in ko
             "Korean history archive must have the requested title")
 fail_unless('<h1 class="post-title">Unrealscience History of Science Series</h1>' in english_history,
             "English science-history page must exist and have its own title")
-fail_unless(re.search(
-                r'연속 강의입니다\.\s*<br\s*/?>\s*아래 영상은',
-                korean_history,
-            ) is not None,
-            "Korean history introduction must break exactly after '연속 강의입니다.'")
+for lang, markup in (("Korean", korean_history), ("English", english_history)):
+    intro_match = re.search(r'<p class="media-history-intro">(.*?)</p>', markup, re.DOTALL)
+    fail_unless(intro_match is not None and "<br" not in intro_match.group(1),
+                f"{lang}: history introduction must be one sentence without forced breaks")
+fail_unless("아래 영상은" not in korean_history and
+            "Videos appear in publication order" not in english_history,
+            "Remove the redundant second history-introduction sentence")
 fail_unless("word-break: keep-all;" in Path("assets/css/main.scss").read_text(encoding="utf-8"),
             "Korean introduction must not break words midway")
 expected_history_titles = (
@@ -219,10 +227,13 @@ for original_title, translated_title in expected_history_titles:
                 f"English archive is missing translated YouTube title: {translated_title}")
     fail_unless(original_title not in english_history,
                 f"English archive still contains untranslated Korean title: {original_title}")
+fail_unless("(부산대 최정모 교수)" not in korean_history and
+            "(Prof. Jeong-Mo Choi, Pusan National University)" not in english_history,
+            "Do not show affiliation credits in history video titles")
 fail_unless(korean_history.count('<article class="media-history-row">') == 4 and
             english_history.count('<article class="media-history-row">') == 4,
             "Each history archive must display precisely four one-video-per-row cards")
-print("PASS Media: bilingual history archives, four single-row cards, translated English titles, section order and Korean sentence break")
+print("PASS Media: bilingual history archives, video date before title, clean titles, single-sentence introductions")
 
 # The language switch uses local SVG flag images, not OS-dependent emoji.
 # Its destination must continue to target the counterpart of the current page.
