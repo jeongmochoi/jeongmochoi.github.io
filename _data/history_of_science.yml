@@ -1,7 +1,8 @@
 # Single source of truth for the ongoing Unrealscience history-of-science series.
 # Keep in chronological PUBLICATION order. Add future episodes to the end.
-# The Korean titles reproduce the official YouTube oEmbed headlines, while
-# English titles are faithful translations of the same headlines.
+# Korean titles follow the official YouTube oEmbed headlines, except for the
+# optional professor affiliation credit removed at the owner's request.
+# English titles translate the same text without the removed credit.
 # Do not invent short editorial labels or change video dates/URLs.
 title_ko: "과학사 시리즈"
 title_en: "History of Science Series"
@@ -19,8 +20,8 @@ items:
 
   - id: history-pythagoras
     date: "2026-10-10"
-    title_ko: "피타고라스는 수학자가 아니었다! 피타고라스 어떻게 위대한 수학자로 만들어졌나? (부산대 최정모 교수)"
-    title_en: "Pythagoras Was Not a Mathematician! How Did He Come to Be Seen as a Great Mathematician? (Prof. Jeong-Mo Choi, Pusan National University)"
+    title_ko: "피타고라스는 수학자가 아니었다! 피타고라스 어떻게 위대한 수학자로 만들어졌나?"
+    title_en: "Pythagoras Was Not a Mathematician! How Did He Come to Be Seen as a Great Mathematician?"
     youtube_id: "a_lwVYd8BP4"
     url: "https://www.youtube.com/watch?v=a_lwVYd8BP4"
 
@@ -33,7 +34,7 @@ items:
 
   - id: history-plato-aristotle
     date: "2026-11-01"
-    title_ko: "철학자가 왕이 되려면 수학 10년? 과학사의 두 거장 플라톤과 아리스토텔레스  (부산대 최정모 교수)"
-    title_en: "Ten Years of Mathematics to Become a Philosopher-King? Two Giants in the History of Science: Plato and Aristotle (Prof. Jeong-Mo Choi, Pusan National University)"
+    title_ko: "철학자가 왕이 되려면 수학 10년? 과학사의 두 거장 플라톤과 아리스토텔레스"
+    title_en: "Ten Years of Mathematics to Become a Philosopher-King? Two Giants in the History of Science: Plato and Aristotle"
     youtube_id: "75FUhl4lr9A"
     url: "https://www.youtube.com/watch?v=75FUhl4lr9A"
