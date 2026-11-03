@@ -1,6 +1,6 @@
 ---
 layout: media_history
-title: "과학사 강의"
+title: "안될과학 과학사 시리즈"
 permalink: /ko/media/history-of-science/
 nav: false
 lang: ko
