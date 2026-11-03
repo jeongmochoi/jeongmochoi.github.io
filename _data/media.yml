@@ -153,30 +153,35 @@ youtube_groups:
     title_en: "Unrealscience"
     items:
       - id: nobel-chemistry-2024-part-1
+        date: "2024-10-21"
         title_ko: "2024 노벨 화학상 해설 1부"
         title_en: "2024 Nobel Prize in Chemistry, Part 1"
         youtube_id: "tq9BirqS12c"
         url: "https://www.youtube.com/watch?v=tq9BirqS12c"
 
       - id: nobel-chemistry-2024-part-2
+        date: "2024-10-21"
         title_ko: "2024 노벨 화학상 해설 2부"
         title_en: "2024 Nobel Prize in Chemistry, Part 2"
         youtube_id: "hPnVfGZk86U"
         url: "https://www.youtube.com/watch?v=hPnVfGZk86U"
 
       - id: cof-999-background
+        date: "2024-11-10"
         title_ko: "COF-999의 탄생 배경"
         title_en: "COF-999: A Material for Carbon Dioxide Capture"
         youtube_id: "S0iTk9liUKQ"
         url: "https://www.youtube.com/watch?v=S0iTk9liUKQ"
 
       - id: cof-999-mechanism
+        date: "2024-11-11"
         title_ko: "COF-999의 능력과 원리"
         title_en: "How COF-999 Captures Carbon Dioxide"
         youtube_id: "AwHJryy_0vo"
         url: "https://www.youtube.com/watch?v=AwHJryy_0vo"
 
       - id: nobel-chemistry-2025-mof-cof
+        date: "2025-10-10"
         title_ko: "2025 노벨 화학상 특집: COF-999"
         title_en: "2025 Nobel Prize in Chemistry: COF-999"
         youtube_id: "1g6xOq3Hf2M"
@@ -230,12 +235,14 @@ youtube_groups:
     title_en: "Zero Energy Bar"
     items:
       - id: zero-energy-cof-999-1
+        date: "2025-04-01"
         title_ko: "이산화탄소를 흡착하는 COF-999"
         title_en: "COF-999 and Carbon Dioxide Capture"
         youtube_id: "Ryubz9AwsHc"
         url: "https://www.youtube.com/watch?v=Ryubz9AwsHc"
 
       - id: zero-energy-cof-999-2
+        date: "2025-04-08"
         title_ko: "COF-999로 이산화탄소를 제거하려면?"
         title_en: "What Would It Take to Remove Carbon Dioxide with COF-999?"
         youtube_id: "2c0y2yyhF8c"
