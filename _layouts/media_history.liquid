@@ -2,34 +2,19 @@
 layout: page
 ---
 
-{% assign current_lang = page.lang | default: site.lang | default: 'en' %}
 {% assign series = site.data.history_of_science %}
-
-{% if current_lang == 'ko' %}
-  {% assign back_url = '/ko/media/' %}
-  {% assign back_label = '← 미디어로 돌아가기' %}
-  {% assign intro = series.intro_ko %}
-  {% assign count_label = '공개된 영상' %}
-  {% assign count_suffix = '편' %}
-{% else %}
-  {% assign back_url = '/media/' %}
-  {% assign back_label = '← Back to Media' %}
-  {% assign intro = series.intro_en %}
-  {% assign count_label = 'Published videos' %}
-  {% assign count_suffix = '' %}
-{% endif %}
 
 <div class="media-history-page">
   <nav class="media-history-breadcrumb" aria-label="Breadcrumb">
-    <a href="{{ back_url | relative_url }}">{{ back_label }}</a>
+    <a href="{{ page.back_url | relative_url }}">{{ page.back_label }}</a>
   </nav>
 
-  <p class="media-history-intro">{{ intro }}</p>
-  <p class="media-history-count">{{ count_label }}: {{ series.items.size }}{{ count_suffix }}</p>
+  <p class="media-history-intro">{{ page.history_intro }}</p>
+  <p class="media-history-count">{{ page.video_count_label }}: {{ series.items.size }}</p>
 
   <div class="media-video-grid media-history-archive-grid">
     {% for item in series.items %}
-      {% include media_video_item.liquid item=item lang=current_lang %}
+      {% include media_video_item.liquid item=item lang=page.lang %}
     {% endfor %}
   </div>
 </div>
