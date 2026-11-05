@@ -298,22 +298,11 @@
         {% assign entry_has_dimensions_badge = true %}
       {% endif %}
 
-      {% assign entry_has_google_scholar_badge = false %}
-      {% assign citation_count = null %}
-      {% assign scholar_id_key = site.data.socials.scholar_userid | append: ':' | append: entry.google_scholar_id %}
-      {% assign scholar_paper = site.data.citations.papers[scholar_id_key] %}
-      {% if entry.google_scholar_id and site.data.citations.metadata.scholar_userid == site.data.socials.scholar_userid %}
-        {% if site.data.citations.metadata.last_updated and scholar_paper.citations != null %}
-          {% assign citation_count = scholar_paper.citations %}
-          {% assign entry_has_google_scholar_badge = true %}
-        {% endif %}
-      {% endif %}
-
       {% assign entry_has_inspirehep_badge = false %}
       {% if entry.inspirehep_id %}
         {% assign entry_has_inspirehep_badge = true %}
       {% endif %}
-      {% if entry_has_altmetric_badge or entry_has_dimensions_badge or entry_has_google_scholar_badge or entry_has_inspirehep_badge %}
+      {% if entry_has_altmetric_badge or entry_has_dimensions_badge or entry_has_inspirehep_badge %}
         <div class="badges">
           {% if site.enable_publication_badges.altmetric and entry_has_altmetric_badge %}
             <span
@@ -349,18 +338,6 @@
               data-legend="hover-right"
               style="margin-bottom: 3px;"
             ></span>
-          {% endif %}
-          {% if site.enable_publication_badges.google_scholar and entry_has_google_scholar_badge %}
-            <a
-              href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user={{ site.data.socials.scholar_userid }}&citation_for_view={{ site.data.socials.scholar_userid }}:{{ entry.google_scholar_id }}"
-              aria-label="Google Scholar link"
-              role="button"
-            >
-              <img
-                src="https://img.shields.io/badge/scholar-{{ citation_count }}-4285F4?logo=googlescholar&labelColor=beige"
-                alt="{{ citation_count }} Google Scholar citations"
-              >
-            </a>
           {% endif %}
           {% if site.enable_publication_badges.inspirehep and entry_has_inspirehep_badge %}
             <a

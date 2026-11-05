@@ -1,0 +1,50 @@
+---
+layout: page
+---
+{% assign series = site.data.history_of_science %}
+
+<div class="media-history-page">
+  <nav class="media-history-breadcrumb" aria-label="Breadcrumb">
+    <a href="{{ page.back_url | relative_url }}">{{ page.back_label }}</a>
+  </nav>
+
+  <p class="media-history-intro">{{ page.history_intro }}</p>
+  <p class="media-history-count">{{ page.video_count_label }}: {{ series.items.size }}</p>
+
+  <div class="media-history-archive-list">
+    {% for item in series.items %}
+      {% assign video_title = item.title_ko %}
+      {% if page.lang == 'en' %}
+        {% assign video_title = item.title_en %}
+      {% endif %}
+
+      <article class="media-history-row">
+        <a
+          class="media-video-thumbnail media-history-row-thumbnail"
+          href="{{ item.url }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="{{ video_title }}"
+        >
+          <img
+            src="https://i.ytimg.com/vi/{{ item.youtube_id }}/hqdefault.jpg"
+            alt=""
+            loading="lazy"
+          >
+          <span class="media-play-icon" aria-hidden="true">
+            <i class="fa-solid fa-play"></i>
+          </span>
+        </a>
+
+        <div class="media-history-row-body">
+          <div class="media-video-date media-history-row-date">
+            <time datetime="{{ item.date }}">{{ item.date }}</time>
+          </div>
+          <h3 class="media-video-title media-history-row-title">
+            <a href="{{ item.url }}" target="_blank" rel="noopener noreferrer">{{ video_title }}</a>
+          </h3>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+</div>
