@@ -19,14 +19,14 @@
 
 {% assign opposite_lang = 'ko' %}
 {% assign language_switch_title = '한국어' %}
-{% assign language_switch_tooltip = 'Change language to Korean' %}
+{% assign language_switch_tooltip = '한국어로 변경' %}
 {% assign language_switch_icon = '/assets/img/language-flags/ko.svg' %}
 {% assign language_switch_url = '/ko/' %}
 
 {% if current_lang == 'ko' %}
   {% assign opposite_lang = 'en' %}
   {% assign language_switch_title = 'English' %}
-  {% assign language_switch_tooltip = '영어로 전환' %}
+  {% assign language_switch_tooltip = 'Change language to English' %}
   {% assign language_switch_icon = '/assets/img/language-flags/en-uk-us.svg' %}
   {% assign language_switch_url = '/' %}
 {% endif %}
@@ -170,7 +170,7 @@
               class="nav-link"
               href="{{ language_switch_url | relative_url }}"
               title="{{ language_switch_tooltip }}"
-              aria-label="Switch language to {{ language_switch_title }}"
+              aria-label="{{ language_switch_tooltip }}"
             >
               <span class="jm-language-flag-frame" aria-hidden="true">
                 <img
