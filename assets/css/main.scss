@@ -1070,19 +1070,17 @@ html[data-theme="dark"] .course-detail {
 
 .media-feature-card {
   display: grid;
-  /* The card itself provides the 1px frame, as in the compact video cards.
-     Size its image column to the compact card's INNER 16:9 image width. */
-  grid-template-columns: calc((100% + 2px - 2rem) / 3 - 2px) minmax(0, 1fr);
+  /* Match the visible thumbnail width of the three-column video cards.
+     Video cards have 1px borders on each side, so subtract those 2px. */
+  grid-template-columns: calc((100% - 2rem) / 3 - 2px) minmax(0, 1fr);
   column-gap: 1.5rem;
   align-items: start;
   padding: 1.4rem 0;
-  border: 1px solid var(--global-divider-color);
-  background-color: rgba(0, 0, 0, 0.015);
+  border-top: 1px solid var(--global-divider-color);
 }
 
-/* Adjacent full-width cards share one separator rather than a double line. */
-.media-feature-list .media-feature-card + .media-feature-card {
-  border-top: 0;
+.media-feature-list .media-feature-card:last-child {
+  border-bottom: 1px solid var(--global-divider-color);
 }
 
 .media-feature-visual {
@@ -1106,6 +1104,22 @@ html[data-theme="dark"] .course-detail {
   object-fit: cover;
   object-position: center;
   transition: transform 160ms ease;
+}
+
+/* The 1px gray frame belongs ONLY to the thumbnail, not the horizontal
+   feature card. Keep the original column widths and text positions unchanged.
+   The 2px overhang matches the outer width of an existing bordered video card. */
+.media-index .media-feature-visual-link {
+  box-sizing: border-box;
+  width: calc(100% + 2px);
+  border: 1px solid var(--global-divider-color);
+  border-radius: 0;
+  aspect-ratio: auto;
+}
+
+.media-index .media-feature-visual-link img {
+  aspect-ratio: 16 / 9;
+  height: auto;
 }
 
 .media-feature-visual-link:hover img,
@@ -1387,7 +1401,6 @@ html[data-theme="dark"] .media-history-row {
 }
 
 html[data-theme="dark"] .media-channel-banner,
-html[data-theme="dark"] .media-feature-card,
 html[data-theme="dark"] .media-feature-placeholder,
 html[data-theme="dark"] .media-video-card {
   background-color: rgba(255, 255, 255, 0.035);
@@ -1399,7 +1412,7 @@ html[data-theme="dark"] .media-video-card {
   }
 
   .media-feature-card {
-    grid-template-columns: calc((100% + 2px - 1rem) / 2 - 2px) minmax(0, 1fr);
+    grid-template-columns: calc((100% - 1rem) / 2 - 2px) minmax(0, 1fr);
   }
 }
 
@@ -1410,7 +1423,7 @@ html[data-theme="dark"] .media-video-card {
   }
 
   .media-feature-visual {
-    width: 100%;
+    width: calc(100% - 2px);
     max-width: none;
   }
 

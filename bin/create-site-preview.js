@@ -207,10 +207,10 @@ async function main() {
             console.log(`SCREENSHOT_FULL_PAGE ${name} ${device} ${JSON.stringify({path: output, fullPage: entireMediaPage, documentHeight})}`);
             console.log(`Saved ${output} (${route})`);
 
-            // Horizontal Media features now use the same 1px border around
-            // the entire card as compact three-column videos, not around the
-            // thumbnail alone. Their internal image must also have matching
-            // 16:9 dimensions and left alignment at every viewport width.
+            // Frame only the nine horizontal feature thumbnails on the Media
+            // landing page. All other card layouts and their text must retain
+            // their previous position; the thumbnail frame matches the compact
+            // video-card outer border and its inner 16:9 image geometry.
             const verifyMediaThumbnailParity = async (mode) => {
               if (!name.startsWith("media-")) return;
               const dimensions = await page.evaluate(() => {
@@ -222,70 +222,71 @@ async function main() {
                 const cardBox = compactCard.getBoundingClientRect();
                 const compactStyle = getComputedStyle(compactCard);
                 const others = individuals.map((element) => {
-                  const article = element.closest(".media-feature-card");
-                  const card = article?.getBoundingClientRect();
-                  const imgBox = element.getBoundingClientRect();
-                  const cardStyle = article ? getComputedStyle(article) : null;
-                  const imageStyle = getComputedStyle(element);
+                  const parent = element.closest(".media-feature-card");
+                  const frame = element.getBoundingClientRect();
+                  const image = element.querySelector("img")?.getBoundingClientRect();
+                  const style = getComputedStyle(element);
+                  const parentStyle = parent ? getComputedStyle(parent) : null;
                   return {
-                    cardX: card?.x ?? null,
-                    imageX: imgBox.x,
-                    imageWidth: imgBox.width,
-                    imageHeight: imgBox.height,
-                    borderLeft: cardStyle?.borderLeftWidth,
-                    borderRight: cardStyle?.borderRightWidth,
-                    borderTop: cardStyle?.borderTopWidth,
-                    borderBottom: cardStyle?.borderBottomWidth,
-                    borderStyle: cardStyle?.borderLeftStyle,
-                    borderColor: cardStyle?.borderLeftColor,
-                    borderRadius: cardStyle?.borderTopLeftRadius,
-                    backgroundColor: cardStyle?.backgroundColor,
-                    imageBorder: imageStyle.borderLeftWidth,
+                    frameX: frame.x,
+                    frameWidth: frame.width,
+                    frameHeight: frame.height,
+                    imageX: image?.x ?? null,
+                    imageWidth: image?.width ?? 0,
+                    imageHeight: image?.height ?? 0,
+                    borderLeft: style.borderLeftWidth,
+                    borderRight: style.borderRightWidth,
+                    borderTop: style.borderTopWidth,
+                    borderBottom: style.borderBottomWidth,
+                    borderColor: style.borderLeftColor,
+                    borderRadius: style.borderTopLeftRadius,
+                    parentBorderLeft: parentStyle?.borderLeftWidth,
+                    parentBorderRight: parentStyle?.borderRightWidth,
                   };
                 });
                 return {
                   compact: {
-                    x: imageBox.x,
-                    width: imageBox.width,
-                    height: imageBox.height,
                     frameX: cardBox.x,
+                    frameWidth: cardBox.width,
+                    imageX: imageBox.x,
+                    imageWidth: imageBox.width,
+                    imageHeight: imageBox.height,
                     borderColor: compactStyle.borderLeftColor,
                     borderRadius: compactStyle.borderTopLeftRadius,
-                    backgroundColor: compactStyle.backgroundColor,
                   },
-                  counts: {
-                    history: document.querySelectorAll(".media-history-feature .media-feature-visual-link").length,
-                    broadcasts: document.querySelectorAll(".media-broadcast-list .media-feature-visual-link").length,
-                    public: document.querySelectorAll(".media-public-list .media-feature-visual-link").length,
-                  },
+                  historyCount: document.querySelectorAll(".media-history-feature .media-feature-visual-link").length,
+                  otherListCounts: [...document.querySelectorAll(".media-index > .media-feature-list:not(.media-history-feature)")].map(
+                    (list) => list.querySelectorAll(".media-feature-visual-link").length,
+                  ),
                   individual: others,
                 };
               });
-              if (!dimensions) throw new Error(`Missing Media thumbnail samples: ${name} ${mode}`);
+              if (!dimensions) throw new Error(`Missing horizontal media thumbnails: ${name} ${mode}`);
               const b = dimensions.compact;
               const aligned =
-                dimensions.counts.history === 1 &&
-                dimensions.counts.broadcasts === 4 &&
-                dimensions.counts.public === 4 &&
+                dimensions.historyCount === 1 &&
+                dimensions.otherListCounts.length === 2 &&
+                dimensions.otherListCounts.every((count) => count === 4) &&
                 dimensions.individual.length === 9 &&
                 dimensions.individual.every((v) =>
                   v.borderLeft === "1px" &&
                   v.borderRight === "1px" &&
-                  (v.borderTop === "1px" || v.borderTop === "0px") &&
+                  v.borderTop === "1px" &&
                   v.borderBottom === "1px" &&
-                  v.borderStyle === "solid" &&
                   v.borderColor === b.borderColor &&
                   v.borderRadius === b.borderRadius &&
-                  v.backgroundColor === b.backgroundColor &&
-                  v.imageBorder === "0px" &&
-                  Math.abs(v.cardX - b.frameX) <= 0.06 &&
-                  Math.abs(v.imageX - b.x) <= 0.06 &&
-                  Math.abs(v.imageWidth - b.width) <= 0.06 &&
-                  Math.abs(v.imageHeight - b.height) <= 0.06,
+                  v.parentBorderLeft === "0px" &&
+                  v.parentBorderRight === "0px" &&
+                  Math.abs(v.frameX - b.frameX) <= 0.06 &&
+                  Math.abs(v.frameWidth - b.frameWidth) <= 0.06 &&
+                  Math.abs(v.frameHeight - (b.imageHeight + 2)) <= 0.06 &&
+                  Math.abs(v.imageX - b.imageX) <= 0.06 &&
+                  Math.abs(v.imageWidth - b.imageWidth) <= 0.06 &&
+                  Math.abs(v.imageHeight - b.imageHeight) <= 0.06,
                 );
               console.log(`MEDIA_THUMBNAIL_PARITY ${name} ${mode} ${JSON.stringify({ ...dimensions, match: aligned })}`);
               if (!aligned) {
-                throw new Error(`Horizontal cards must match compact video-card border and inner image alignment: ${name} ${mode}`);
+                throw new Error(`Only thumbnail frames should match video-card borders; horizontal cards remain unframed: ${name} ${mode}`);
               }
             };
             await verifyMediaThumbnailParity(device);

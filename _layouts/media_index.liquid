@@ -132,7 +132,7 @@ layout: page
   {% if media.broadcasts %}
     <h2 class="media-section-heading">{{ broadcast_heading }}</h2>
 
-    <div class="media-feature-list media-broadcast-list">
+    <div class="media-feature-list">
       {% for item in media.broadcasts %}
         {% include media_feature_item.liquid item=item lang=current_lang %}
       {% endfor %}
@@ -142,7 +142,7 @@ layout: page
   {% if media.public_items %}
     <h2 class="media-section-heading">{{ public_heading }}</h2>
 
-    <div class="media-feature-list media-public-list">
+    <div class="media-feature-list">
       {% for item in media.public_items %}
         {% include media_feature_item.liquid item=item lang=current_lang %}
       {% endfor %}
