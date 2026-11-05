@@ -240,6 +240,7 @@ async function main() {
                     borderBottom: style.borderBottomWidth,
                     borderColor: style.borderLeftColor,
                     borderRadius: style.borderTopLeftRadius,
+                    backgroundColor: style.backgroundColor,
                     parentBorderLeft: parentStyle?.borderLeftWidth,
                     parentBorderRight: parentStyle?.borderRightWidth,
                   };
@@ -253,6 +254,7 @@ async function main() {
                     imageHeight: imageBox.height,
                     borderColor: compactStyle.borderLeftColor,
                     borderRadius: compactStyle.borderTopLeftRadius,
+                    backgroundColor: compactStyle.backgroundColor,
                   },
                   historyCount: document.querySelectorAll(".media-history-feature .media-feature-visual-link").length,
                   otherListCounts: [...document.querySelectorAll(".media-index > .media-feature-list:not(.media-history-feature)")].map(
@@ -275,6 +277,7 @@ async function main() {
                   v.borderBottom === "1px" &&
                   v.borderColor === b.borderColor &&
                   v.borderRadius === b.borderRadius &&
+                  v.backgroundColor === b.backgroundColor &&
                   v.parentBorderLeft === "0px" &&
                   v.parentBorderRight === "0px" &&
                   Math.abs(v.frameX - b.frameX) <= 0.06 &&
@@ -284,7 +287,43 @@ async function main() {
                   Math.abs(v.imageWidth - b.imageWidth) <= 0.06 &&
                   Math.abs(v.imageHeight - b.imageHeight) <= 0.06,
                 );
+              // Probe both color themes; the alpha-blended border only looks
+              // identical when the underlying fill also matches.
+              const palette = await page.evaluate(() => {
+                const root = document.documentElement;
+                const originalTheme = root.getAttribute("data-theme");
+                const card = document.querySelector(".media-video-grid .media-video-card");
+                const thumbnails = [...document.querySelectorAll(".media-index .media-feature-visual-link")];
+                const results = [];
+                try {
+                  for (const theme of ["light", "dark"]) {
+                    root.setAttribute("data-theme", theme);
+                    const cardStyle = getComputedStyle(card);
+                    results.push({
+                      theme,
+                      cardBackground: cardStyle.backgroundColor,
+                      cardBorder: cardStyle.borderLeftColor,
+                      thumbnails: thumbnails.map((node) => {
+                        const style = getComputedStyle(node);
+                        return { background: style.backgroundColor, border: style.borderLeftColor };
+                      }),
+                    });
+                  }
+                } finally {
+                  if (originalTheme === null) root.removeAttribute("data-theme");
+                  else root.setAttribute("data-theme", originalTheme);
+                }
+                return results;
+              });
+              const samePalette = palette.every(
+                (p) => p.thumbnails.length === 9 &&
+                  p.thumbnails.every((v) => v.background === p.cardBackground && v.border === p.cardBorder),
+              );
+              console.log(`MEDIA_BORDER_PALETTE ${name} ${mode} ${JSON.stringify({ palette, match: samePalette })}`);
               console.log(`MEDIA_THUMBNAIL_PARITY ${name} ${mode} ${JSON.stringify({ ...dimensions, match: aligned })}`);
+              if (!samePalette) {
+                throw new Error(`Thumbnail borders do not match video card borders in light and dark themes: ${name} ${mode}`);
+              }
               if (!aligned) {
                 throw new Error(`Only thumbnail frames should match video-card borders; horizontal cards remain unframed: ${name} ${mode}`);
               }

@@ -1115,6 +1115,9 @@ html[data-theme="dark"] .course-detail {
   border: 1px solid var(--global-divider-color);
   border-radius: 0;
   aspect-ratio: auto;
+  /* Match the underlying card fill so translucent borders resolve to
+     the same visible gray, not the thumbnail's darker placeholder fill. */
+  background-color: rgba(0, 0, 0, 0.015);
 }
 
 .media-index .media-feature-visual-link img {
@@ -1402,7 +1405,8 @@ html[data-theme="dark"] .media-history-row {
 
 html[data-theme="dark"] .media-channel-banner,
 html[data-theme="dark"] .media-feature-placeholder,
-html[data-theme="dark"] .media-video-card {
+html[data-theme="dark"] .media-video-card,
+html[data-theme="dark"] .media-index .media-feature-visual-link {
   background-color: rgba(255, 255, 255, 0.035);
 }
 

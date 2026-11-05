@@ -137,6 +137,11 @@ fail_unless(".media-index .media-feature-visual-link {\n  box-sizing: border-box
             "Only horizontal feature thumbnails should have the 1px gray frame")
 fail_unless(".media-index .media-feature-visual-link img {\n  aspect-ratio: 16 / 9;\n  height: auto;" in source_css,
             "Framed thumbnails must preserve the original 16:9 visible image")
+fail_unless("background-color: rgba(0, 0, 0, 0.015);" in
+            source_css.split(".media-index .media-feature-visual-link {", 1)[1].split("}", 1)[0],
+            "Thumbnail backdrop must match video card so translucent border looks equally gray")
+fail_unless('html[data-theme="dark"] .media-index .media-feature-visual-link {' in source_css,
+            "Dark-theme thumbnail border backing must also match video-card background")
 fail_unless("border: 1px solid var(--global-divider-color);" in source_css.split(".media-history-row {", 1)[1].split("}", 1)[0],
             "History archive full-row borders must remain unchanged")
 
