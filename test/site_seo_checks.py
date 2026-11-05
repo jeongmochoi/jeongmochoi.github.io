@@ -122,8 +122,8 @@ for route in ("/media/", "/ko/media/", "/media/history-of-science/", "/ko/media/
                         f"{route}: date must be above the title, beside its video thumbnail")
 print("PASS date consistency: all media video cards have publication dates")
 
-# All horizontal feature thumbnails on the Media landing pages share one frame.
-# Science-history archive rows already have their own card-level border.
+# All nine horizontal features use the SAME outer card frame as compact videos.
+# Science-history archive rows were already framed and remain unchanged.
 for media_route in ("/media/", "/ko/media/"):
     media_html, _ = parsed(media_route)
     fail_unless(media_html.count('class="media-feature-list media-broadcast-list"') == 1,
@@ -132,15 +132,16 @@ for media_route in ("/media/", "/ko/media/"):
                 f"{media_route}: missing history series feature")
     fail_unless(media_html.count('class="media-feature-list media-public-list"') == 1,
                 f"{media_route}: missing public talks feature list")
-    fail_unless(media_html.count('class="media-feature-visual-link"') == 9,
-                f"{media_route}: expected exactly nine horizontal feature thumbnails")
+    fail_unless(media_html.count('class="media-feature-card') == 9,
+                f"{media_route}: expected nine horizontal cards to receive full outer frames")
 source_css = Path("assets/css/main.scss").read_text(encoding="utf-8")
-fail_unless(".media-index .media-feature-visual-link {\n  border: 1px solid var(--global-divider-color);" in source_css,
-            "All horizontal feature thumbnails must use the same 1px gray frame")
-fail_unless(".media-index .media-feature-visual-link img {\n  aspect-ratio: 16 / 9;\n  height: auto;" in source_css,
-            "Framed feature thumbnails must preserve the inner 16:9 image")
+feature_css = source_css.split(".media-feature-card {", 1)[1].split("}", 1)[0]
+fail_unless("border: 1px solid var(--global-divider-color);" in feature_css,
+            "Horizontal feature CARDS must have the same 1px gray border as video cards")
+fail_unless(".media-index .media-feature-visual-link {\n  border:" not in source_css,
+            "Do not add a duplicate 1px border around individual featured thumbnails")
 fail_unless("border: 1px solid var(--global-divider-color);" in source_css.split(".media-history-row {", 1)[1].split("}", 1)[0],
-            "Science history archive rows must retain their existing outer border")
+            "Science history archive rows must retain their existing borders")
 
 # Exact visible section/group order matters. A generic history-of-science
 # entry belongs first within the Unrealscience YouTube group, before the

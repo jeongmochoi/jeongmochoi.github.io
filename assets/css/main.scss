@@ -1070,16 +1070,19 @@ html[data-theme="dark"] .course-detail {
 
 .media-feature-card {
   display: grid;
-  /* Match the outer frame of the three-column video cards. */
-  grid-template-columns: calc((100% - 2rem) / 3) minmax(0, 1fr);
+  /* The card itself provides the 1px frame, as in the compact video cards.
+     Size its image column to the compact card's INNER 16:9 image width. */
+  grid-template-columns: calc((100% + 2px - 2rem) / 3 - 2px) minmax(0, 1fr);
   column-gap: 1.5rem;
   align-items: start;
   padding: 1.4rem 0;
-  border-top: 1px solid var(--global-divider-color);
+  border: 1px solid var(--global-divider-color);
+  background-color: rgba(0, 0, 0, 0.015);
 }
 
-.media-feature-list .media-feature-card:last-child {
-  border-bottom: 1px solid var(--global-divider-color);
+/* Adjacent full-width cards share one separator rather than a double line. */
+.media-feature-list .media-feature-card + .media-feature-card {
+  border-top: 0;
 }
 
 .media-feature-visual {
@@ -1103,18 +1106,6 @@ html[data-theme="dark"] .course-detail {
   object-fit: cover;
   object-position: center;
   transition: transform 160ms ease;
-}
-
-/* Compact video cards frame the entire card; horizontal features frame the
-   thumbnail only. Match border color and inner 16:9 image geometry. */
-.media-index .media-feature-visual-link {
-  border: 1px solid var(--global-divider-color);
-  aspect-ratio: auto;
-}
-
-.media-index .media-feature-visual-link img {
-  aspect-ratio: 16 / 9;
-  height: auto;
 }
 
 .media-feature-visual-link:hover img,
@@ -1396,6 +1387,7 @@ html[data-theme="dark"] .media-history-row {
 }
 
 html[data-theme="dark"] .media-channel-banner,
+html[data-theme="dark"] .media-feature-card,
 html[data-theme="dark"] .media-feature-placeholder,
 html[data-theme="dark"] .media-video-card {
   background-color: rgba(255, 255, 255, 0.035);
@@ -1407,7 +1399,7 @@ html[data-theme="dark"] .media-video-card {
   }
 
   .media-feature-card {
-    grid-template-columns: calc((100% - 1rem) / 2) minmax(0, 1fr);
+    grid-template-columns: calc((100% + 2px - 1rem) / 2 - 2px) minmax(0, 1fr);
   }
 }
 
