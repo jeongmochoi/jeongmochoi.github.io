@@ -1079,6 +1079,16 @@ html[data-theme="dark"] .course-detail {
   border-top: 1px solid var(--global-divider-color);
 }
 
+/* Only Broadcasts and Documentaries get a 1px gray thumbnail frame.
+   Match the outer width of the bordered three-column video cards. */
+.media-broadcast-list .media-feature-card {
+  grid-template-columns: calc((100% - 2rem) / 3) minmax(0, 1fr);
+}
+
+.media-broadcast-list .media-feature-visual-link {
+  border: 1px solid var(--global-divider-color);
+}
+
 .media-feature-list .media-feature-card:last-child {
   border-bottom: 1px solid var(--global-divider-color);
 }
@@ -1398,6 +1408,10 @@ html[data-theme="dark"] .media-video-card {
   .media-feature-card {
     grid-template-columns: calc((100% - 1rem) / 2 - 2px) minmax(0, 1fr);
   }
+
+  .media-broadcast-list .media-feature-card {
+    grid-template-columns: calc((100% - 1rem) / 2) minmax(0, 1fr);
+  }
 }
 
 @media (max-width: 576px) {
@@ -1409,6 +1423,14 @@ html[data-theme="dark"] .media-video-card {
   .media-feature-visual {
     width: calc(100% - 2px);
     max-width: none;
+  }
+
+  .media-broadcast-list .media-feature-card {
+    grid-template-columns: 1fr;
+  }
+
+  .media-broadcast-list .media-feature-visual {
+    width: 100%;
   }
 
   .media-index .media-section-heading {

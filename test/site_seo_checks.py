@@ -122,6 +122,19 @@ for route in ("/media/", "/ko/media/", "/media/history-of-science/", "/ko/media/
                         f"{route}: date must be above the title, beside its video thumbnail")
 print("PASS date consistency: all media video cards have publication dates")
 
+# Only Broadcasts and Documentaries receives the gray thumbnail frame.
+for media_route in ("/media/", "/ko/media/"):
+    media_html, _ = parsed(media_route)
+    fail_unless(media_html.count('class="media-feature-list media-broadcast-list"') == 1,
+                f"{media_route}: missing dedicated broadcast thumbnail scope")
+    broadcast_section = media_html.split('class="media-feature-list media-broadcast-list"', 1)[1]
+    broadcast_section = broadcast_section.split('class="media-feature-list"', 1)[0]
+    fail_unless(broadcast_section.count('class="media-feature-visual-link"') == 4,
+                f"{media_route}: broadcast scope must contain the four documentary thumbnails")
+source_css = Path("assets/css/main.scss").read_text(encoding="utf-8")
+fail_unless(".media-broadcast-list .media-feature-visual-link {\n  border: 1px solid var(--global-divider-color);" in source_css,
+            "Broadcast thumbnails must use the same gray 1px border as video cards")
+
 # Exact visible section/group order matters. A generic history-of-science
 # entry belongs first within the Unrealscience YouTube group, before the
 # existing three-column videos. No latest-episode copy on the landing page.

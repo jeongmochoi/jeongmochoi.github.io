@@ -207,31 +207,65 @@ async function main() {
             console.log(`SCREENSHOT_FULL_PAGE ${name} ${device} ${JSON.stringify({path: output, fullPage: entireMediaPage, documentHeight})}`);
             console.log(`Saved ${output} (${route})`);
 
-            // On the Media landing page, the image inside EVERY individual
-            // horizontal feature card must be exactly the same size as the
-            // images inside the compact three/two/one-column video cards.
+            // Broadcast thumbnails have a 1px frame, matching the outer
+            // dimensions and left edge of the adjacent bordered video cards.
+            // Other horizontal features remain unframed and match the inner image.
             const verifyMediaThumbnailParity = async (mode) => {
               if (!name.startsWith("media-")) return;
               const dimensions = await page.evaluate(() => {
                 const compact = document.querySelector(".media-video-grid .media-video-thumbnail");
+                const compactCard = document.querySelector(".media-video-grid .media-video-card");
                 const individual = [...document.querySelectorAll(".media-feature-visual-link")];
-                if (!compact || !individual.length) return null;
+                if (!compact || !compactCard || !individual.length) return null;
                 const base = compact.getBoundingClientRect();
+                const card = compactCard.getBoundingClientRect();
                 const others = individual.map((element) => {
-                  const b = element.getBoundingClientRect();
-                  return { width: b.width, height: b.height };
+                  const bounds = element.getBoundingClientRect();
+                  const image = element.querySelector("img")?.getBoundingClientRect();
+                  const style = getComputedStyle(element);
+                  return {
+                    broadcast: Boolean(element.closest(".media-broadcast-list")),
+                    x: bounds.x,
+                    width: bounds.width,
+                    height: bounds.height,
+                    imageWidth: image?.width ?? 0,
+                    borderLeft: style.borderLeftWidth,
+                    borderRight: style.borderRightWidth,
+                    borderColor: style.borderLeftColor,
+                  };
                 });
-                return { compact: { width: base.width, height: base.height }, individual: others };
+                return {
+                  compact: {
+                    x: base.x,
+                    width: base.width,
+                    height: base.height,
+                    frameX: card.x,
+                    frameWidth: card.width,
+                    borderColor: getComputedStyle(compactCard).borderLeftColor,
+                  },
+                  individual: others,
+                };
               });
               if (!dimensions) throw new Error(`Missing media video thumbnails: ${name} ${mode}`);
-              const equal = dimensions.individual.every(
-                (v) =>
-                  Math.abs(v.width - dimensions.compact.width) <= 0.06 &&
-                  Math.abs(v.height - dimensions.compact.height) <= 0.06,
-              );
+              const broadcasts = dimensions.individual.filter((v) => v.broadcast);
+              const equal =
+                broadcasts.length === 4 &&
+                dimensions.individual.every((v) =>
+                  v.broadcast
+                    ? v.borderLeft === "1px" &&
+                      v.borderRight === "1px" &&
+                      v.borderColor === dimensions.compact.borderColor &&
+                      Math.abs(v.x - dimensions.compact.frameX) <= 0.06 &&
+                      Math.abs(v.width - dimensions.compact.frameWidth) <= 0.06 &&
+                      Math.abs(v.imageWidth - dimensions.compact.width) <= 0.06
+                    : v.borderLeft === "0px" &&
+                      v.borderRight === "0px" &&
+                      Math.abs(v.width - dimensions.compact.width) <= 0.06 &&
+                      Math.abs(v.height - dimensions.compact.height) <= 0.06,
+                );
               console.log(`MEDIA_THUMBNAIL_PARITY ${name} ${mode} ${JSON.stringify({ ...dimensions, match: equal })}`);
               if (!equal) {
-                throw new Error(`Media single-video and grid thumbnails have different sizes: ${name} ${mode}`);
+                throw new Error(`Broadcast frames must align with video cards; other feature thumbnails stay unchanged: ${name} ${mode}`);
               }
             };
             await verifyMediaThumbnailParity(device);
