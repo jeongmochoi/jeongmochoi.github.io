@@ -1070,23 +1070,12 @@ html[data-theme="dark"] .course-detail {
 
 .media-feature-card {
   display: grid;
-  /* Match the visible thumbnail width of the three-column video cards.
-     Video cards have 1px borders on each side, so subtract those 2px. */
-  grid-template-columns: calc((100% - 2rem) / 3 - 2px) minmax(0, 1fr);
+  /* Match the outer frame of the three-column video cards. */
+  grid-template-columns: calc((100% - 2rem) / 3) minmax(0, 1fr);
   column-gap: 1.5rem;
   align-items: start;
   padding: 1.4rem 0;
   border-top: 1px solid var(--global-divider-color);
-}
-
-/* Only Broadcasts and Documentaries get a 1px gray thumbnail frame.
-   Match the outer width of the bordered three-column video cards. */
-.media-broadcast-list .media-feature-card {
-  grid-template-columns: calc((100% - 2rem) / 3) minmax(0, 1fr);
-}
-
-.media-broadcast-list .media-feature-visual-link {
-  border: 1px solid var(--global-divider-color);
 }
 
 .media-feature-list .media-feature-card:last-child {
@@ -1114,6 +1103,18 @@ html[data-theme="dark"] .course-detail {
   object-fit: cover;
   object-position: center;
   transition: transform 160ms ease;
+}
+
+/* Compact video cards frame the entire card; horizontal features frame the
+   thumbnail only. Match border color and inner 16:9 image geometry. */
+.media-index .media-feature-visual-link {
+  border: 1px solid var(--global-divider-color);
+  aspect-ratio: auto;
+}
+
+.media-index .media-feature-visual-link img {
+  aspect-ratio: 16 / 9;
+  height: auto;
 }
 
 .media-feature-visual-link:hover img,
@@ -1406,10 +1407,6 @@ html[data-theme="dark"] .media-video-card {
   }
 
   .media-feature-card {
-    grid-template-columns: calc((100% - 1rem) / 2 - 2px) minmax(0, 1fr);
-  }
-
-  .media-broadcast-list .media-feature-card {
     grid-template-columns: calc((100% - 1rem) / 2) minmax(0, 1fr);
   }
 }
@@ -1421,16 +1418,8 @@ html[data-theme="dark"] .media-video-card {
   }
 
   .media-feature-visual {
-    width: calc(100% - 2px);
-    max-width: none;
-  }
-
-  .media-broadcast-list .media-feature-card {
-    grid-template-columns: 1fr;
-  }
-
-  .media-broadcast-list .media-feature-visual {
     width: 100%;
+    max-width: none;
   }
 
   .media-index .media-section-heading {

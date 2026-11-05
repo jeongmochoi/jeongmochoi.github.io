@@ -207,31 +207,37 @@ async function main() {
             console.log(`SCREENSHOT_FULL_PAGE ${name} ${device} ${JSON.stringify({path: output, fullPage: entireMediaPage, documentHeight})}`);
             console.log(`Saved ${output} (${route})`);
 
-            // Broadcast thumbnails have a 1px frame, matching the outer
-            // dimensions and left edge of the adjacent bordered video cards.
-            // Other horizontal features remain unframed and match the inner image.
+            // All main Media horizontal feature thumbnails (history preview,
+            // broadcasts, public talks) must share the compact-card border and
+            // inner 16:9 geometry. Archive rows already have card-level borders.
             const verifyMediaThumbnailParity = async (mode) => {
               if (!name.startsWith("media-")) return;
               const dimensions = await page.evaluate(() => {
                 const compact = document.querySelector(".media-video-grid .media-video-thumbnail");
                 const compactCard = document.querySelector(".media-video-grid .media-video-card");
-                const individual = [...document.querySelectorAll(".media-feature-visual-link")];
+                const individual = [...document.querySelectorAll(".media-index .media-feature-visual-link")];
                 if (!compact || !compactCard || !individual.length) return null;
                 const base = compact.getBoundingClientRect();
                 const card = compactCard.getBoundingClientRect();
+                const cardStyle = getComputedStyle(compactCard);
                 const others = individual.map((element) => {
-                  const bounds = element.getBoundingClientRect();
+                  const frame = element.getBoundingClientRect();
                   const image = element.querySelector("img")?.getBoundingClientRect();
                   const style = getComputedStyle(element);
                   return {
-                    broadcast: Boolean(element.closest(".media-broadcast-list")),
-                    x: bounds.x,
-                    width: bounds.width,
-                    height: bounds.height,
+                    x: frame.x,
+                    width: frame.width,
+                    height: frame.height,
+                    imageX: image?.x ?? null,
                     imageWidth: image?.width ?? 0,
+                    imageHeight: image?.height ?? 0,
                     borderLeft: style.borderLeftWidth,
                     borderRight: style.borderRightWidth,
+                    borderTop: style.borderTopWidth,
+                    borderBottom: style.borderBottomWidth,
+                    borderStyle: style.borderLeftStyle,
                     borderColor: style.borderLeftColor,
+                    borderRadius: style.borderTopLeftRadius,
                   };
                 });
                 return {
@@ -241,31 +247,42 @@ async function main() {
                     height: base.height,
                     frameX: card.x,
                     frameWidth: card.width,
-                    borderColor: getComputedStyle(compactCard).borderLeftColor,
+                    borderColor: cardStyle.borderLeftColor,
+                    borderRadius: cardStyle.borderTopLeftRadius,
+                  },
+                  counts: {
+                    history: document.querySelectorAll(".media-history-feature .media-feature-visual-link").length,
+                    broadcasts: document.querySelectorAll(".media-broadcast-list .media-feature-visual-link").length,
+                    public: document.querySelectorAll(".media-public-list .media-feature-visual-link").length,
                   },
                   individual: others,
                 };
               });
               if (!dimensions) throw new Error(`Missing media video thumbnails: ${name} ${mode}`);
-              const broadcasts = dimensions.individual.filter((v) => v.broadcast);
+              const b = dimensions.compact;
               const equal =
-                broadcasts.length === 4 &&
+                dimensions.counts.history === 1 &&
+                dimensions.counts.broadcasts === 4 &&
+                dimensions.counts.public === 4 &&
+                dimensions.individual.length === 9 &&
                 dimensions.individual.every((v) =>
-                  v.broadcast
-                    ? v.borderLeft === "1px" &&
-                      v.borderRight === "1px" &&
-                      v.borderColor === dimensions.compact.borderColor &&
-                      Math.abs(v.x - dimensions.compact.frameX) <= 0.06 &&
-                      Math.abs(v.width - dimensions.compact.frameWidth) <= 0.06 &&
-                      Math.abs(v.imageWidth - dimensions.compact.width) <= 0.06
-                    : v.borderLeft === "0px" &&
-                      v.borderRight === "0px" &&
-                      Math.abs(v.width - dimensions.compact.width) <= 0.06 &&
-                      Math.abs(v.height - dimensions.compact.height) <= 0.06,
+                  v.borderLeft === "1px" &&
+                  v.borderRight === "1px" &&
+                  v.borderTop === "1px" &&
+                  v.borderBottom === "1px" &&
+                  v.borderStyle === "solid" &&
+                  v.borderColor === b.borderColor &&
+                  v.borderRadius === b.borderRadius &&
+                  Math.abs(v.x - b.frameX) <= 0.06 &&
+                  Math.abs(v.width - b.frameWidth) <= 0.06 &&
+                  Math.abs(v.imageX - b.x) <= 0.06 &&
+                  Math.abs(v.imageWidth - b.width) <= 0.06 &&
+                  Math.abs(v.imageHeight - b.height) <= 0.06 &&
+                  Math.abs(v.height - (b.height + 2)) <= 0.06,
                 );
               console.log(`MEDIA_THUMBNAIL_PARITY ${name} ${mode} ${JSON.stringify({ ...dimensions, match: equal })}`);
               if (!equal) {
-                throw new Error(`Broadcast frames must align with video cards; other feature thumbnails stay unchanged: ${name} ${mode}`);
+                throw new Error(`All horizontal thumbnails must match compact-card borders and inner image geometry: ${name} ${mode}`);
               }
             };
             await verifyMediaThumbnailParity(device);

@@ -122,18 +122,25 @@ for route in ("/media/", "/ko/media/", "/media/history-of-science/", "/ko/media/
                         f"{route}: date must be above the title, beside its video thumbnail")
 print("PASS date consistency: all media video cards have publication dates")
 
-# Only Broadcasts and Documentaries receives the gray thumbnail frame.
+# All horizontal feature thumbnails on the Media landing pages share one frame.
+# Science-history archive rows already have their own card-level border.
 for media_route in ("/media/", "/ko/media/"):
     media_html, _ = parsed(media_route)
     fail_unless(media_html.count('class="media-feature-list media-broadcast-list"') == 1,
-                f"{media_route}: missing dedicated broadcast thumbnail scope")
-    broadcast_section = media_html.split('class="media-feature-list media-broadcast-list"', 1)[1]
-    broadcast_section = broadcast_section.split('class="media-feature-list"', 1)[0]
-    fail_unless(broadcast_section.count('class="media-feature-visual-link"') == 4,
-                f"{media_route}: broadcast scope must contain the four documentary thumbnails")
+                f"{media_route}: missing broadcast feature list")
+    fail_unless(media_html.count('class="media-feature-list media-history-feature"') == 1,
+                f"{media_route}: missing history series feature")
+    fail_unless(media_html.count('class="media-feature-list media-public-list"') == 1,
+                f"{media_route}: missing public talks feature list")
+    fail_unless(media_html.count('class="media-feature-visual-link"') == 9,
+                f"{media_route}: expected exactly nine horizontal feature thumbnails")
 source_css = Path("assets/css/main.scss").read_text(encoding="utf-8")
-fail_unless(".media-broadcast-list .media-feature-visual-link {\n  border: 1px solid var(--global-divider-color);" in source_css,
-            "Broadcast thumbnails must use the same gray 1px border as video cards")
+fail_unless(".media-index .media-feature-visual-link {\n  border: 1px solid var(--global-divider-color);" in source_css,
+            "All horizontal feature thumbnails must use the same 1px gray frame")
+fail_unless(".media-index .media-feature-visual-link img {\n  aspect-ratio: 16 / 9;\n  height: auto;" in source_css,
+            "Framed feature thumbnails must preserve the inner 16:9 image")
+fail_unless("border: 1px solid var(--global-divider-color);" in source_css.split(".media-history-row {", 1)[1].split("}", 1)[0],
+            "Science history archive rows must retain their existing outer border")
 
 # Exact visible section/group order matters. A generic history-of-science
 # entry belongs first within the Unrealscience YouTube group, before the
