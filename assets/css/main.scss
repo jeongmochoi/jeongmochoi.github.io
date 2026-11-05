@@ -1106,6 +1106,22 @@ html[data-theme="dark"] .course-detail {
   transition: transform 160ms ease;
 }
 
+/* The 1px gray frame belongs ONLY to the thumbnail, not the horizontal
+   feature card. Keep the original column widths and text positions unchanged.
+   The 2px overhang matches the outer width of an existing bordered video card. */
+.media-index .media-feature-visual-link {
+  box-sizing: border-box;
+  width: calc(100% + 2px);
+  border: 1px solid var(--global-divider-color);
+  border-radius: 0;
+  aspect-ratio: auto;
+}
+
+.media-index .media-feature-visual-link img {
+  aspect-ratio: 16 / 9;
+  height: auto;
+}
+
 .media-feature-visual-link:hover img,
 .media-video-thumbnail:hover img {
   transform: scale(1.02);

@@ -207,31 +207,86 @@ async function main() {
             console.log(`SCREENSHOT_FULL_PAGE ${name} ${device} ${JSON.stringify({path: output, fullPage: entireMediaPage, documentHeight})}`);
             console.log(`Saved ${output} (${route})`);
 
-            // On the Media landing page, the image inside EVERY individual
-            // horizontal feature card must be exactly the same size as the
-            // images inside the compact three/two/one-column video cards.
+            // Frame only the nine horizontal feature thumbnails on the Media
+            // landing page. All other card layouts and their text must retain
+            // their previous position; the thumbnail frame matches the compact
+            // video-card outer border and its inner 16:9 image geometry.
             const verifyMediaThumbnailParity = async (mode) => {
               if (!name.startsWith("media-")) return;
               const dimensions = await page.evaluate(() => {
                 const compact = document.querySelector(".media-video-grid .media-video-thumbnail");
-                const individual = [...document.querySelectorAll(".media-feature-visual-link")];
-                if (!compact || !individual.length) return null;
-                const base = compact.getBoundingClientRect();
-                const others = individual.map((element) => {
-                  const b = element.getBoundingClientRect();
-                  return { width: b.width, height: b.height };
+                const compactCard = document.querySelector(".media-video-grid .media-video-card");
+                const individuals = [...document.querySelectorAll(".media-index .media-feature-visual-link")];
+                if (!compact || !compactCard || !individuals.length) return null;
+                const imageBox = compact.getBoundingClientRect();
+                const cardBox = compactCard.getBoundingClientRect();
+                const compactStyle = getComputedStyle(compactCard);
+                const others = individuals.map((element) => {
+                  const parent = element.closest(".media-feature-card");
+                  const frame = element.getBoundingClientRect();
+                  const image = element.querySelector("img")?.getBoundingClientRect();
+                  const style = getComputedStyle(element);
+                  const parentStyle = parent ? getComputedStyle(parent) : null;
+                  return {
+                    frameX: frame.x,
+                    frameWidth: frame.width,
+                    frameHeight: frame.height,
+                    imageX: image?.x ?? null,
+                    imageWidth: image?.width ?? 0,
+                    imageHeight: image?.height ?? 0,
+                    borderLeft: style.borderLeftWidth,
+                    borderRight: style.borderRightWidth,
+                    borderTop: style.borderTopWidth,
+                    borderBottom: style.borderBottomWidth,
+                    borderColor: style.borderLeftColor,
+                    borderRadius: style.borderTopLeftRadius,
+                    parentBorderLeft: parentStyle?.borderLeftWidth,
+                    parentBorderRight: parentStyle?.borderRightWidth,
+                  };
                 });
-                return { compact: { width: base.width, height: base.height }, individual: others };
+                return {
+                  compact: {
+                    frameX: cardBox.x,
+                    frameWidth: cardBox.width,
+                    imageX: imageBox.x,
+                    imageWidth: imageBox.width,
+                    imageHeight: imageBox.height,
+                    borderColor: compactStyle.borderLeftColor,
+                    borderRadius: compactStyle.borderTopLeftRadius,
+                  },
+                  historyCount: document.querySelectorAll(".media-history-feature .media-feature-visual-link").length,
+                  otherListCounts: [...document.querySelectorAll(".media-index > .media-feature-list:not(.media-history-feature)")].map(
+                    (list) => list.querySelectorAll(".media-feature-visual-link").length,
+                  ),
+                  individual: others,
+                };
               });
-              if (!dimensions) throw new Error(`Missing media video thumbnails: ${name} ${mode}`);
-              const equal = dimensions.individual.every(
-                (v) =>
-                  Math.abs(v.width - dimensions.compact.width) <= 0.06 &&
-                  Math.abs(v.height - dimensions.compact.height) <= 0.06,
-              );
-              console.log(`MEDIA_THUMBNAIL_PARITY ${name} ${mode} ${JSON.stringify({ ...dimensions, match: equal })}`);
-              if (!equal) {
-                throw new Error(`Media single-video and grid thumbnails have different sizes: ${name} ${mode}`);
+              if (!dimensions) throw new Error(`Missing horizontal media thumbnails: ${name} ${mode}`);
+              const b = dimensions.compact;
+              const aligned =
+                dimensions.historyCount === 1 &&
+                dimensions.otherListCounts.length === 2 &&
+                dimensions.otherListCounts.every((count) => count === 4) &&
+                dimensions.individual.length === 9 &&
+                dimensions.individual.every((v) =>
+                  v.borderLeft === "1px" &&
+                  v.borderRight === "1px" &&
+                  v.borderTop === "1px" &&
+                  v.borderBottom === "1px" &&
+                  v.borderColor === b.borderColor &&
+                  v.borderRadius === b.borderRadius &&
+                  v.parentBorderLeft === "0px" &&
+                  v.parentBorderRight === "0px" &&
+                  Math.abs(v.frameX - b.frameX) <= 0.06 &&
+                  Math.abs(v.frameWidth - b.frameWidth) <= 0.06 &&
+                  Math.abs(v.frameHeight - (b.imageHeight + 2)) <= 0.06 &&
+                  Math.abs(v.imageX - b.imageX) <= 0.06 &&
+                  Math.abs(v.imageWidth - b.imageWidth) <= 0.06 &&
+                  Math.abs(v.imageHeight - b.imageHeight) <= 0.06,
+                );
+              console.log(`MEDIA_THUMBNAIL_PARITY ${name} ${mode} ${JSON.stringify({ ...dimensions, match: aligned })}`);
+              if (!aligned) {
+                throw new Error(`Only thumbnail frames should match video-card borders; horizontal cards remain unframed: ${name} ${mode}`);
               }
             };
             await verifyMediaThumbnailParity(device);
