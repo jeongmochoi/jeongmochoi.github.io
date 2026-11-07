@@ -17,6 +17,10 @@ const pages = [
   ["history-ko", "/ko/media/history-of-science/"],
   ["teaching-en", "/teaching/"],
   ["teaching-ko", "/ko/teaching/"],
+  ["materials-26f-en", "/teaching/2026-fall-physical-chemistry-of-materials/"],
+  ["materials-26f-ko", "/ko/teaching/2026-fall-physical-chemistry-of-materials/"],
+  ["research-trends-26f-en", "/teaching/2026-fall-recent-trends-in-chemical-research/"],
+  ["research-trends-26f-ko", "/ko/teaching/2026-fall-recent-trends-in-chemical-research/"],
 ];
 const viewports = [
   ["desktop", { width: 1440, height: 900 }],
@@ -173,10 +177,10 @@ async function main() {
             } else {
               await page.waitForTimeout(600);
             }
-            // For Media and the separate history archive, screenshots must
-            // include the ENTIRE document from header to footer (all cards).
-            const entireMediaPage = name.startsWith("media-") || name.startsWith("history-");
-            if (entireMediaPage) {
+            // Capture complete media archives, teaching lists, and new course schedules.
+            const entireReviewPage = name.startsWith("media-") || name.startsWith("history-") ||
+              name.startsWith("teaching-") || name.includes("-26f-");
+            if (entireReviewPage) {
               await page.evaluate(() => {
                 document.querySelectorAll("img[loading='lazy']").forEach((image) => {
                   image.loading = "eager";
@@ -190,7 +194,7 @@ async function main() {
             // to the document height *for capture only* so that the footer
             // appears at the bottom instead of obscuring the middle of a
             // stitched full-page screenshot.
-            if (entireMediaPage) {
+            if (entireReviewPage) {
               await page.setViewportSize({
                 width: viewport.width,
                 height: Math.max(viewport.height, documentHeight),
@@ -199,12 +203,12 @@ async function main() {
             await page.screenshot({
               path: output,
               animations: "disabled",
-              fullPage: entireMediaPage,
+              fullPage: entireReviewPage,
             });
-            if (entireMediaPage) {
+            if (entireReviewPage) {
               await page.setViewportSize(viewport);
             }
-            console.log(`SCREENSHOT_FULL_PAGE ${name} ${device} ${JSON.stringify({path: output, fullPage: entireMediaPage, documentHeight})}`);
+            console.log(`SCREENSHOT_FULL_PAGE ${name} ${device} ${JSON.stringify({path: output, fullPage: entireReviewPage, documentHeight})}`);
             console.log(`Saved ${output} (${route})`);
 
             // Frame only the nine horizontal feature thumbnails on the Media
@@ -662,7 +666,7 @@ async function main() {
 
     fs.writeFileSync(
       path.join("site-preview", "README.txt"),
-      "Desktop (1440x900) and mobile-size (390x844) screenshots of twelve English/Korean homepage sections; Media and History images are FULL-PAGE (desktop/mobile/800px tablet), not viewport crops, with OS-light and OS-dark initial-theme previews. Theme checks also validate automatic OS changes, one-time legacy preference reset, binary user override and persistence. These are not live preview URLs. The actual website was not published by this job.\n",
+      "Desktop (1440x900) and mobile-size (390x844) screenshots of twelve English/Korean homepage sections and four 26F course pages; Media, History, Teaching, and 26F course images are FULL-PAGE (desktop/mobile/800px tablet), not viewport crops, with OS-light and OS-dark initial-theme previews. Theme checks also validate automatic OS changes, one-time legacy preference reset, binary user override and persistence. These are not live preview URLs. The actual website was not published by this job.\n",
     );
   } finally {
     await browser.close();
