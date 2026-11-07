@@ -22,6 +22,7 @@
 <div class="course-table-wrap" markdown="1">
 
 <!-- prettier-ignore -->
+
 | 주차 | 날짜 | 강의 | 주제 | 자료 |
 | ---: | ----- | ---: | ----------------------------------------------------------------------------- | -------------------------------------------------------------- |
 | 1 | 9/1 | 1강 | 오리엔테이션 | [슬라이드]({{ page.course_asset_base | append: 'lec01.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=T7cdwLiGZHQ) |
