@@ -265,22 +265,8 @@
       url: "/teaching/2025-spring-molecular-modeling-ai-chemistry/"
       url_ko: "/ko/teaching/2025-spring-molecular-modeling-ai-chemistry/"
 
-- id: recent-trends-in-chemical-research
-  order: 10
-  title_en: "Recent Trends in Chemical Research"
-  title_ko: "최신화학연구동향"
-  codes:
-    - "CH6001559"
-  offerings:
-    - term: "2026F"
-      label: "26F"
-      language: "en"
-      course_code: "CH6001559"
-      url: "/teaching/2026-fall-recent-trends-in-chemical-research/"
-      url_ko: "/ko/teaching/2026-fall-recent-trends-in-chemical-research/"
-
 - id: chemical-physics
-  order: 11
+  order: 10
   title_en: "Chemical Physics"
   title_ko: "화학물리"
   codes:
@@ -293,6 +279,20 @@
       course_code: "CH70445"
       url: "/teaching/2020-fall-chemical-physics/"
       url_ko: "/ko/teaching/2020-fall-chemical-physics/"
+
+- id: recent-trends-in-chemical-research
+  order: 11
+  title_en: "Recent Trends in Chemical Research"
+  title_ko: "최신화학연구동향"
+  codes:
+    - "CH6001559"
+  offerings:
+    - term: "2026F"
+      label: "26F"
+      language: "en"
+      course_code: "CH6001559"
+      url: "/teaching/2026-fall-recent-trends-in-chemical-research/"
+      url_ko: "/ko/teaching/2026-fall-recent-trends-in-chemical-research/"
 
 - id: scientific-writing-for-chemists
   order: 12
