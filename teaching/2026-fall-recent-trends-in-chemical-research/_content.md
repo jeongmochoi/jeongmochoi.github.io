@@ -11,30 +11,30 @@
   <dd>Wed 1:30–4:30 pm, Room 409</dd>
 
   <dt>Evaluation</dt>
-  <dd>Presentation and exam</dd>
+  <dd>Presentation</dd>
 </dl>
 
 ## Schedule
 
 <div class="course-table-wrap" markdown="1">
 
-| Week | Date  | Topic                                                                                                |
-| :--: | ----- | ---------------------------------------------------------------------------------------------------- |
-|  1   | 9/2   | TBD                                                                                                  |
-|  2   | 9/9   | TBD                                                                                                  |
-|  3   | 9/16  | TBD                                                                                                  |
-|  4   | 9/23  | TBD                                                                                                  |
-|  5   | 9/30  | TBD                                                                                                  |
-|  6   | 10/7  | TBD                                                                                                  |
-|  7   | 10/14 | TBD                                                                                                  |
-|  8   | 10/21 | TBD                                                                                                  |
-|  9   | 10/28 | TBD                                                                                                  |
-|  10  | 11/4  | TBD                                                                                                  |
-|  11  | 11/11 | TBD                                                                                                  |
-|  12  | 11/18 | TBD                                                                                                  |
-|  13  | 11/25 | TBD                                                                                                  |
-|  14  | 12/2  | TBD                                                                                                  |
-|  15  | 12/9  | <span class="course-row-muted">No regular class (designated make-up day for Saturday classes)</span> |
-|  16  | 12/16 | TBD                                                                                                  |
+| Week | Date  | Topic                                                       |
+| :--: | ----- | ----------------------------------------------------------- |
+|  1   | 9/2   | Course overview / Ideal chains                              |
+|  2   | 9/9   | Real chains                                                 |
+|  3   | 9/16  | <span class="course-row-muted">No class</span>              |
+|  4   | 9/23  | Polymer solutions and melts                                 |
+|  5   | 9/30  | Gels and crystalline polymers                               |
+|  6   | 10/7  | Viscoelasticity of polymers                                 |
+|  7   | 10/14 | DNA and RNA                                                 |
+|  8   | 10/21 | Secondary structures of polypeptides                        |
+|  9   | 10/28 | <span class="course-row-muted">No class</span>              |
+|  10  | 11/4  | <span class="course-row-muted">No class</span>              |
+|  11  | 11/11 | Classification of proteins / Protein folds                  |
+|  12  | 11/18 | Cooperative transitions / Protein folding                   |
+|  13  | 11/25 | <span class="course-row-muted">No class</span>              |
+|  14  | 12/2  | <span class="course-row-muted">No class</span>              |
+|  15  | 12/9  | Protein-protein Interactions / Protein-polymer interactions |
+|  16  | 12/16 | <span class="course-row-muted">No class</span>              |
 
 </div>

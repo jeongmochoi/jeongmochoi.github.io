@@ -32,7 +32,7 @@
 | 3 | 9/15 |  | <span class="course-row-muted">휴강</span> |  |
 |  | 9/17 | 5강 | 정준 앙상블의 적용 | [슬라이드]({{ page.course_asset_base | append: 'lec05.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=MgnnfJpPYME) |
 | 4 | 9/22 | 6강 | 이상 기체 / 화학 평형 | [슬라이드]({{ page.course_asset_base | append: 'lec06.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=XiSV9iOWVE4) |
-|  | 9/24 | - | <span class="course-row-holiday">추석 연휴 (휴강)</span> | 슬라이드 · 영상 |
+|  | 9/24 |  | <span class="course-row-holiday">추석 연휴</span> |  |
 | 5 | 9/29 | 7강 | 상호작용하는 계 | [슬라이드]({{ page.course_asset_base | append: 'lec07.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=KgMHddR-oeY) |
 |  | 10/1 |  | <span class="course-row-muted">휴강</span> |  |
 | 6 | 10/6 | 8강 | 대정준 앙상블 | [슬라이드]({{ page.course_asset_base | append: 'lec08.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=Hhy10jFQHjs) |
@@ -45,18 +45,18 @@
 |  | 10/29 |  | <span class="course-row-muted">휴강</span> |  |
 | 10 | 11/3 | 14강 | 자성 | [슬라이드]({{ page.course_asset_base | append: 'lec14.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=jVyQJPQQe0I) |
 |  | 11/5 | 15강 | 고체화학의 응용 | [슬라이드]({{ page.course_asset_base | append: 'lec15.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=CGgtTkidTuY) |
-| 11 | 11/10 | - | 추후 입력 | 슬라이드 · 영상 |
-|  | 11/12 | - | 추후 입력 | 슬라이드 · 영상 |
-| 12 | 11/17 | - | 추후 입력 | 슬라이드 · 영상 |
-|  | 11/19 | - | 추후 입력 | 슬라이드 · 영상 |
-| 13 | 11/24 | - | 추후 입력 | 슬라이드 · 영상 |
-|  | 11/26 | - | 추후 입력 | 슬라이드 · 영상 |
-| 14 | 12/1 | - | 추후 입력 | 슬라이드 · 영상 |
-|  | 12/3 | - | 추후 입력 | 슬라이드 · 영상 |
-| 15 | 12/8 | - | <span class="course-row-muted">정규 수업 없음 (금요일 수업 지정보강일)</span> | 슬라이드 · 영상 |
-|  | 12/10 | - | 추후 입력 (9/24 지정보강) | 슬라이드 · 영상 |
-| 16 | 12/15 | - | 추후 입력 | 슬라이드 · 영상 |
-|  | 12/17 | - | 추후 입력 | 슬라이드 · 영상 |
+| 11 | 11/10 | 16강 | 시험 안내 및 복습 | 슬라이드 · 영상 |
+|  | 11/12 |  | <span class="course-row-muted">**2차 중간고사**</span> |  |
+| 12 | 11/17 | - | TBA | 슬라이드 · 영상 |
+|  | 11/19 | - | TBA | 슬라이드 · 영상 |
+| 13 | 11/24 | - | TBA | 슬라이드 · 영상 |
+|  | 11/26 | - | TBA | 슬라이드 · 영상 |
+| 14 | 12/1 | - | TBA | 슬라이드 · 영상 |
+|  | 12/3 | - | TBA | 슬라이드 · 영상 |
+| 15 | 12/8 | - | TBA | 슬라이드 · 영상 |
+|  | 12/10 | - | TBA | 슬라이드 · 영상 |
+| 16 | 12/15 | - | TBA | 슬라이드 · 영상 |
+|  | 12/17 | - | TBA | 슬라이드 · 영상 |
 
 <!-- prettier-ignore-end -->
 
