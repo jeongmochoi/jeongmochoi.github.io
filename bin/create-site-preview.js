@@ -203,10 +203,12 @@ async function main() {
                 }
                 for (const id of ["kim2024anthracene", "kim2026rhodamine"]) {
                   const italicN = document.querySelector(`#${id} .title em`);
+                  const matrix = italicN && /^matrix\\(([^)]+)\\)$/.exec(getComputedStyle(italicN).transform);
+                  const skew = matrix ? Number(matrix[1].split(",")[2]) : NaN;
                   if (
                     italicN?.textContent !== "n" ||
-                    !italicN ||
-                    Math.abs(parseFloat(getComputedStyle(italicN).transform.split(",")[2]) - Math.tan((-8 * Math.PI) / 180)) > 0.001
+                    !Number.isFinite(skew) ||
+                    Math.abs(skew - Math.tan((-8 * Math.PI) / 180)) > 0.001
                   ) {
                     errors.push(`Missing eight-degree italic n for ${id}`);
                   }
