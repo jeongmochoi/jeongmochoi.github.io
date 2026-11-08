@@ -203,7 +203,7 @@ async function main() {
                 }
                 for (const id of ["kim2024anthracene", "kim2026rhodamine"]) {
                   const italicN = document.querySelector(`#${id} .title em`);
-                  const matrix = italicN && /^matrix\\(([^)]+)\\)$/.exec(getComputedStyle(italicN).transform);
+                  const matrix = italicN && /^matrix\(([^)]+)\)$/.exec(getComputedStyle(italicN).transform);
                   const skew = matrix ? Number(matrix[1].split(",")[2]) : NaN;
                   if (
                     italicN?.textContent !== "n" ||
