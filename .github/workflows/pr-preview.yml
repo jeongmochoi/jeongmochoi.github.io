@@ -8,6 +8,7 @@ on:
       - "bin/create-site-preview.js"
       - "bin/audit-site-pages.js"
       - "_pages/**"
+      - "teaching/**"
       - "_data/**"
       - "_bibliography/**"
       - "_books/**"
