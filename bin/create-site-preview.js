@@ -174,6 +174,61 @@ async function main() {
               ) {
                 throw new Error(`Publication font mismatch: ${JSON.stringify(typography)}`);
               }
+
+              // Regression checks for scientific-title notation and the
+              // distinction between an underlined name and its author markers.
+              const publicationDetails = await page.evaluate(() => {
+                const errors = [];
+                const entries = document.querySelectorAll(".publications ol.bibliography li");
+                const owners = [...entries].flatMap((entry) => [...entry.querySelectorAll(".jm-self-author")]);
+                if (owners.length !== entries.length) errors.push("Expected one owner name per publication");
+                for (const owner of owners) {
+                  if (owner.querySelector("sup") || /[*∗†‡§¶‖&^]/.test(owner.textContent)) {
+                    errors.push("Author marker is inside an underlined name");
+                    break;
+                  }
+                }
+                for (const [id, expected] of [
+                  ["koo2024nucleation", "†"],
+                  ["dar2024condensates", "*†"],
+                  ["yang2023mendeleev", "*†"],
+                ]) {
+                  const marker = document.querySelector(`#${id} .jm-self-author`)?.nextElementSibling;
+                  if (marker?.tagName !== "SUP" || marker.textContent.trim() !== expected) {
+                    errors.push(`Incorrect separate author marker for ${id}`);
+                  }
+                  if (marker && getComputedStyle(marker).textDecorationLine !== "none") {
+                    errors.push(`Underlined author marker for ${id}`);
+                  }
+                }
+                for (const id of ["kim2024anthracene", "kim2026rhodamine"]) {
+                  const italicN = document.querySelector(`#${id} .title em`);
+                  const matrix = italicN && /^matrix\(([^)]+)\)$/.exec(getComputedStyle(italicN).transform);
+                  const skew = matrix ? Number(matrix[1].split(",")[2]) : NaN;
+                  if (
+                    italicN?.textContent !== "n" ||
+                    !Number.isFinite(skew) ||
+                    Math.abs(skew - Math.tan((-8 * Math.PI) / 180)) > 0.001
+                  ) {
+                    errors.push(`Missing eight-degree italic n for ${id}`);
+                  }
+                }
+                for (const [id, phrase] of [
+                  ["jo2021liesegang", "Microscopic Analyses"],
+                  ["choi2019absinth", "ABSINTH Force Field"],
+                  ["choi2019absinth", "Amino Acid Specific"],
+                  ["im2023amyloid", "(1–42)"],
+                ]) {
+                  if (!document.querySelector(`#${id} .title`)?.textContent.includes(phrase)) {
+                    errors.push(`Published title mismatch: ${id}, ${phrase}`);
+                  }
+                }
+                return { publicationCount: entries.length, authorCount: owners.length, errors };
+              });
+              console.log(`PUBLICATION_DETAIL_PROBE ${name} ${JSON.stringify(publicationDetails)}`);
+              if (publicationDetails.errors.length) {
+                throw new Error(`Publication details mismatch: ${JSON.stringify(publicationDetails)}`);
+              }
             } else {
               await page.waitForTimeout(600);
             }

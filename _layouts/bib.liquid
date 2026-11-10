@@ -90,10 +90,14 @@
           {%- if forloop.last and author_array_limit == author_array_size %}and {% endif -%}
         {% endif %}
         {%- if author_is_self -%}
+          {%- assign author_last_markers = author.last | regex_replace: '[^*∗†‡§¶‖&^]', '' -%}
           <span class="jm-self-author">
             {{- author.first }}
-            {{ author_last_html -}}
+            {{ author_last_name -}}
           </span>
+          {%- if author_last_markers != blank -%}
+            <sup>{{- author_last_markers -}}</sup>
+          {%- endif -%}
         {%- else -%}
           {%- if coauthor_url -%}
             <a href="{{ coauthor_url }}">
