@@ -55,8 +55,8 @@
 |  | 12/3 |  | <span class="course-row-muted">휴강</span> |  |
 | 15 | 12/8 | 22강 | 시험 안내 및 복습 | 슬라이드 · 영상 |
 |  | 12/10 |  | <span class="course-row-muted">**기말고사**</span> |  |
-| 16 | 12/15 |  |  |  |
-|  | 12/17 |  |  |  |
+| 16 | 12/15 |  | <span class="course-row-muted" aria-hidden="true"></span> |  |
+|  | 12/17 |  | <span class="course-row-muted" aria-hidden="true"></span> |  |
 
 <!-- prettier-ignore-end -->
 
