@@ -67,13 +67,14 @@ textarea {
   height: auto;
 }
 
-/* The actual flags remain square-cornered, identical 27x18px images.
-   A separate wrapper paints the rounded hover ring without clipping flags. */
+/* Keep each flag square-cornered at 27x18px. The rounded accent ring
+   sits immediately OUTSIDE that exact footprint, never on padded link space. */
 .navbar-language-toggle .jm-language-flag-frame {
   display: inline-block;
   position: relative;
   width: 27px;
   height: 18px;
+  line-height: 0;
   vertical-align: -0.2em;
 }
 
@@ -86,15 +87,16 @@ textarea {
   box-shadow: none;
 }
 
-/* 3px round theme accent border directly against the flag (0px gap).
-   The absolute pseudo-element does not change navbar geometry on hover. */
+/* Paint the 3px rounded ring OUTSIDE the flag with a zero-offset shadow.
+   Unlike an inset rounded border, this leaves no white corner slivers or
+   gap along the 27x18px flag edge, and never changes navbar geometry. */
 .navbar-language-toggle .jm-language-flag-frame::after {
   content: "";
   position: absolute;
-  inset: -3px;
-  border: 3px solid transparent;
-  border-radius: 7px;
-  box-sizing: border-box;
+  inset: 0;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 0 0 3px var(--global-hover-color);
   pointer-events: none;
   opacity: 0;
   transition: opacity 150ms ease-in-out;
@@ -109,13 +111,11 @@ textarea {
 
 @media (hover: hover) {
   .navbar-language-toggle > .nav-link:hover .jm-language-flag-frame::after {
-    border-color: var(--global-hover-color);
     opacity: 1;
   }
 }
 
 .navbar-language-toggle > .nav-link:focus-visible .jm-language-flag-frame::after {
-  border-color: var(--global-hover-color);
   opacity: 1;
 }
 
