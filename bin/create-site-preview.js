@@ -641,7 +641,7 @@ async function main() {
                 Math.abs(beforeBounds.x - afterBounds.x) > 0.01 ||
                 Math.abs(beforeBounds.y - afterBounds.y) > 0.01
               ) {
-                throw new Error(`Language hover rounded border does not match theme button: ${JSON.stringify(accent)}`);
+                throw new Error(`Language hover ring must be flush with the flag and match the theme accent: ${JSON.stringify(accent)}`);
               }
               const hoverImage = path.join("site-preview", `${name}-desktop-language-hover.png`);
               await page.screenshot({
