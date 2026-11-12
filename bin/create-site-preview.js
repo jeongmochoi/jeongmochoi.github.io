@@ -232,6 +232,40 @@ async function main() {
             } else {
               await page.waitForTimeout(600);
             }
+            // Empty post-exam dates should retain the no-class shading, but
+            // display no lecture number, topic, or materials in either locale.
+            if (name.startsWith("materials-26f-")) {
+              const emptyWeekProbe = await page.evaluate(() => {
+                const rows = [...document.querySelectorAll(".course-table-wrap table tbody tr")];
+                const findDate = (date) =>
+                  rows.find((row) => row.querySelectorAll("td")[1]?.textContent.trim() === date);
+                const noClass = findDate("12/3");
+                const background = (row) => row && getComputedStyle(row.querySelectorAll("td")[3]).backgroundColor;
+                const blanks = ["12/15", "12/17"].map((date) => {
+                  const row = findDate(date);
+                  const cells = row ? [...row.querySelectorAll("td")] : [];
+                  return {
+                    date,
+                    found: Boolean(row),
+                    blank: cells.length === 5 && cells.slice(2).every((cell) => cell.textContent.trim() === ""),
+                    muted: Boolean(row?.querySelector(".course-row-muted")),
+                    background: background(row),
+                  };
+                });
+                return { noClassBackground: background(noClass), blanks };
+              });
+              console.log(`MATERIALS_EMPTY_WEEK_PROBE ${name} ${JSON.stringify(emptyWeekProbe)}`);
+              if (
+                !emptyWeekProbe.noClassBackground ||
+                emptyWeekProbe.noClassBackground === "rgba(0, 0, 0, 0)" ||
+                emptyWeekProbe.blanks.some((row) =>
+                  !row.found || !row.blank || !row.muted || row.background !== emptyWeekProbe.noClassBackground
+                )
+              ) {
+                throw new Error(`Blank final rows must be shaded exactly like No class, without labels: ${name}`);
+              }
+            }
+
             // Capture complete media archives, teaching lists, and new course schedules.
             const entireReviewPage = name.startsWith("media-") || name.startsWith("history-") ||
               name.startsWith("teaching-") || name.includes("-26f-");
@@ -434,6 +468,10 @@ async function main() {
               const picture = card.locator(".media-feature-visual");
               const description = card.locator(".media-feature-body");
               const images = card.locator(".media-feature-visual-link");
+              const countLabel = await page.locator(".media-history-feature .media-link-button").innerText();
+              if (!countLabel.includes("(5)")) {
+                throw new Error(`Media history count is not 5: ${name} ${countLabel}`);
+              }
               if ((await card.count()) !== 1 || (await images.count()) !== 1) {
                 throw new Error(`History series must show just one featured video: ${name}`);
               }
@@ -490,11 +528,27 @@ async function main() {
               const archiveRows = page.locator(".media-history-row");
               const titles = await archiveRows.locator(".media-history-row-title").allTextContents();
               if (
-                (await archiveRows.count()) !== 4 ||
-                titles.length !== 4 ||
+                (await archiveRows.count()) !== 5 ||
+                titles.length !== 5 ||
                 titles.some((title) => (name === "history-ko" ? !/[가-힣]/.test(title) : /[가-힣]/.test(title)))
               ) {
-                throw new Error(`History archive requires 4 individually translated, one-per-row cards: ${name}`);
+                throw new Error(`History archive requires 5 individually translated, one-per-row cards: ${name}`);
+              }
+              const latest = await archiveRows.last().evaluate((row) => ({
+                date: row.querySelector("time")?.getAttribute("datetime"),
+                title: row.querySelector(".media-history-row-title")?.textContent.trim(),
+                url: row.querySelector(".media-history-row-title a")?.getAttribute("href"),
+              }));
+              const expectedLatestTitle = name === "history-ko"
+                ? "돌은 왜 가라앉고 불은 왜 올라갈까? 아리스토텔레스가 세상을 설명한 방법"
+                : "Why Do Stones Sink and Fire Rise? How Aristotle Explained the World";
+              console.log(`HISTORY_LATEST_EPISODE ${name} ${JSON.stringify(latest)}`);
+              if (
+                latest.date !== "2026-11-12" ||
+                latest.title !== expectedLatestTitle ||
+                latest.url !== "https://www.youtube.com/watch?v=b-EpfOwah1k"
+              ) {
+                throw new Error(`Latest history episode/date/translation is wrong: ${name}`);
               }
               const verifyHistoryRows = async (mode) => {
                 const boxes = await archiveRows.evaluateAll((rows) =>
@@ -513,7 +567,7 @@ async function main() {
                   }),
                 );
                 const stacked = mode === "mobile";
-                const aligned = boxes.length === 4 && boxes.every((row, i) => {
+                const aligned = boxes.length === 5 && boxes.every((row, i) => {
                   const ordered = !i || row.row.y > boxes[i - 1].row.bottom - 2;
                   const withinPage = row.row.width > 0 && row.row.right <= page.viewportSize().width + 1;
                   const correctLayout = stacked
@@ -563,7 +617,7 @@ async function main() {
               );
               const restRing = await flagFrame.evaluate((wrapper) => {
                 const ring = getComputedStyle(wrapper, "::after");
-                return { opacity: ring.opacity, borderColor: ring.borderTopColor };
+                return { opacity: ring.opacity, shadow: ring.boxShadow };
               });
               const themeIconBounds = await page.evaluate(() => {
                 const icon = [...document.querySelectorAll("#light-toggle i")].find((element) => {
@@ -577,17 +631,22 @@ async function main() {
               await languageLink.hover();
               await page.waitForTimeout(250);
               const accent = await flagFrame.evaluate((wrapper) => {
-                const border = getComputedStyle(wrapper, "::after");
+                const ring = getComputedStyle(wrapper, "::after");
+                const flagBounds = wrapper.querySelector(".jm-language-flag").getBoundingClientRect();
+                const frameBounds = wrapper.getBoundingClientRect();
                 return {
-                  borderColor: border.borderTopColor,
-                  borderStyle: border.borderTopStyle,
-                  borderWidth: border.borderTopWidth,
-                  borderRadius: border.borderTopLeftRadius,
-                  insetTop: border.top,
-                  insetRight: border.right,
-                  insetBottom: border.bottom,
-                  insetLeft: border.left,
-                  opacity: border.opacity,
+                  shadow: ring.boxShadow,
+                  borderWidth: ring.borderTopWidth,
+                  borderRadius: ring.borderTopLeftRadius,
+                  insetTop: ring.top,
+                  insetRight: ring.right,
+                  insetBottom: ring.bottom,
+                  insetLeft: ring.left,
+                  opacity: ring.opacity,
+                  frameOffsetX: frameBounds.x - flagBounds.x,
+                  frameOffsetY: frameBounds.y - flagBounds.y,
+                  frameWidth: frameBounds.width,
+                  frameHeight: frameBounds.height,
                   tooltip: wrapper.closest("a")?.getAttribute("title"),
                 };
               });
@@ -595,14 +654,18 @@ async function main() {
               console.log(`LANGUAGE_HOVER_PROBE ${name} ${JSON.stringify({themeHoverColor, restRing, accent, beforeBounds, afterBounds, themeIconBounds})}`);
               if (
                 restRing.opacity !== "0" ||
-                accent.borderColor !== themeHoverColor ||
-                accent.borderStyle !== "solid" ||
-                accent.borderWidth !== "3px" ||
-                accent.borderRadius !== "7px" ||
-                accent.insetTop !== "-3px" ||
-                accent.insetRight !== "-3px" ||
-                accent.insetBottom !== "-3px" ||
-                accent.insetLeft !== "-3px" ||
+                !accent.shadow.includes(themeHoverColor) ||
+                !accent.shadow.trim().endsWith("0px 0px 0px 3px") ||
+                accent.borderWidth !== "0px" ||
+                accent.borderRadius !== "2px" ||
+                accent.insetTop !== "0px" ||
+                accent.insetRight !== "0px" ||
+                accent.insetBottom !== "0px" ||
+                accent.insetLeft !== "0px" ||
+                Math.abs(accent.frameOffsetX) > 0.01 ||
+                Math.abs(accent.frameOffsetY) > 0.01 ||
+                Math.abs(accent.frameWidth - 27) > 0.01 ||
+                Math.abs(accent.frameHeight - 18) > 0.01 ||
                 accent.opacity !== "1" ||
                 accent.tooltip !== expectedLanguageTooltip ||
                 !beforeBounds ||
@@ -612,7 +675,7 @@ async function main() {
                 Math.abs(beforeBounds.x - afterBounds.x) > 0.01 ||
                 Math.abs(beforeBounds.y - afterBounds.y) > 0.01
               ) {
-                throw new Error(`Language hover rounded border does not match theme button: ${JSON.stringify(accent)}`);
+                throw new Error(`Language hover ring must be flush with the flag and match the theme accent: ${JSON.stringify(accent)}`);
               }
               const hoverImage = path.join("site-preview", `${name}-desktop-language-hover.png`);
               await page.screenshot({
@@ -621,6 +684,19 @@ async function main() {
                 fullPage: false,
               });
               console.log(`Saved ${hoverImage} (hovered ${route})`);
+              // Tight crop makes the flag-to-ring edge visible at pixel level.
+              const closeup = path.join("site-preview", `${name}-desktop-language-hover-closeup.png`);
+              await page.screenshot({
+                path: closeup,
+                animations: "disabled",
+                clip: {
+                  x: Math.max(0, afterBounds.x - 14),
+                  y: Math.max(0, afterBounds.y - 14),
+                  width: afterBounds.width + 28,
+                  height: afterBounds.height + 28,
+                },
+              });
+              console.log(`Saved ${closeup} (flag hover closeup)`);
             }
           } finally {
             await page.close();

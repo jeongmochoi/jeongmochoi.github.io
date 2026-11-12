@@ -148,7 +148,7 @@ fail_unless("border: 1px solid var(--global-divider-color);" in source_css.split
 # Exact visible section/group order matters. A generic history-of-science
 # entry belongs first within the Unrealscience YouTube group, before the
 # existing three-column videos. No latest-episode copy on the landing page.
-history_ids = ("_WNy7BQ0gIw", "a_lwVYd8BP4", "ld0fBMB_IkM", "75FUhl4lr9A")
+history_ids = ("_WNy7BQ0gIw", "a_lwVYd8BP4", "ld0fBMB_IkM", "75FUhl4lr9A", "b-EpfOwah1k")
 general_ids = ("tq9BirqS12c", "hPnVfGZk86U", "S0iTk9liUKQ", "AwHJryy_0vo",
                "1g6xOq3Hf2M", "AOaoELveR8s", "M7bTESbZi_U", "eg4plhiTFZU",
                "LrOIUwUxQfU", "4B9ke8WJ2s0", "Ryubz9AwsHc", "2c0y2yyhF8c")
@@ -242,6 +242,8 @@ expected_history_titles = (
      "Hippocrates, the So-Called Father of Medicine: Who Was He Really?"),
     ("철학자가 왕이 되려면 수학 10년? 과학사의 두 거장 플라톤과 아리스토텔레스",
      "Ten Years of Mathematics to Become a Philosopher-King? Two Giants in the History of Science: Plato and Aristotle"),
+    ("돌은 왜 가라앉고 불은 왜 올라갈까? 아리스토텔레스가 세상을 설명한 방법",
+     "Why Do Stones Sink and Fire Rise? How Aristotle Explained the World"),
 )
 for original_title, translated_title in expected_history_titles:
     fail_unless(original_title in korean_history,
@@ -253,9 +255,9 @@ for original_title, translated_title in expected_history_titles:
 fail_unless("(부산대 최정모 교수)" not in korean_history and
             "(Prof. Jeong-Mo Choi, Pusan National University)" not in english_history,
             "Do not show affiliation credits in history video titles")
-fail_unless(korean_history.count('<article class="media-history-row">') == 4 and
-            english_history.count('<article class="media-history-row">') == 4,
-            "Each history archive must display precisely four one-video-per-row cards")
+fail_unless(korean_history.count('<article class="media-history-row">') == len(history_ids) and
+            english_history.count('<article class="media-history-row">') == len(history_ids),
+            "Each history archive must display one card per listed episode")
 print("PASS Media: bilingual history archives, video date before title, clean titles, single-sentence introductions")
 
 # The language switch uses local SVG flag images, not OS-dependent emoji.
@@ -309,14 +311,15 @@ fail_unless(kr_svg.get("viewBox") == "-36 -24 72 48" and
 source_css = Path("assets/css/main.scss").read_text(encoding="utf-8")
 fail_unless(bool(re.search(r"\.navbar-language-toggle\s+\.jm-language-flag-frame\s*\{[^}]*width:\s*27px;[^}]*height:\s*18px;", source_css)),
             "Both language icons must have identical 27 by 18 wrappers")
-fail_unless("border: 3px solid transparent;" in source_css and
-            "border-radius: 7px;" in source_css and
-            "inset: -3px;" in source_css and
+flag_ring = source_css.split(".navbar-language-toggle .jm-language-flag-frame::after {", 1)[1].split("}", 1)[0]
+fail_unless("inset: 0;" in flag_ring and
+            "border: 0;" in flag_ring and
+            "border-radius: 2px;" in flag_ring and
+            "box-shadow: 0 0 0 3px var(--global-hover-color);" in flag_ring and
             ".navbar-language-toggle > .nav-link:hover .jm-language-flag-frame::after" in source_css and
             ".navbar-language-toggle > .nav-link:focus-visible .jm-language-flag-frame::after" in source_css and
-            "border-color: var(--global-hover-color);" in source_css and
             "top: 1px;" in source_css,
-            "Language hover needs a gapless 3px round-corner theme-colored border")
+            "Language hover ring must touch the flag edge with a 3px outward rounded shadow")
 
 for route, destination, icon_name in (
     ("/", "/ko/", "ko.svg"),
