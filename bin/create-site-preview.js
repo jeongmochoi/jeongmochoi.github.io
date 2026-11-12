@@ -232,6 +232,40 @@ async function main() {
             } else {
               await page.waitForTimeout(600);
             }
+            // Empty post-exam dates should retain the no-class shading, but
+            // display no lecture number, topic, or materials in either locale.
+            if (name.startsWith("materials-26f-")) {
+              const emptyWeekProbe = await page.evaluate(() => {
+                const rows = [...document.querySelectorAll(".course-table-wrap table tbody tr")];
+                const findDate = (date) =>
+                  rows.find((row) => row.querySelectorAll("td")[1]?.textContent.trim() === date);
+                const noClass = findDate("12/3");
+                const background = (row) => row && getComputedStyle(row.querySelectorAll("td")[3]).backgroundColor;
+                const blanks = ["12/15", "12/17"].map((date) => {
+                  const row = findDate(date);
+                  const cells = row ? [...row.querySelectorAll("td")] : [];
+                  return {
+                    date,
+                    found: Boolean(row),
+                    blank: cells.length === 5 && cells.slice(2).every((cell) => cell.textContent.trim() === ""),
+                    muted: Boolean(row?.querySelector(".course-row-muted")),
+                    background: background(row),
+                  };
+                });
+                return { noClassBackground: background(noClass), blanks };
+              });
+              console.log(`MATERIALS_EMPTY_WEEK_PROBE ${name} ${JSON.stringify(emptyWeekProbe)}`);
+              if (
+                !emptyWeekProbe.noClassBackground ||
+                emptyWeekProbe.noClassBackground === "rgba(0, 0, 0, 0)" ||
+                emptyWeekProbe.blanks.some((row) =>
+                  !row.found || !row.blank || !row.muted || row.background !== emptyWeekProbe.noClassBackground
+                )
+              ) {
+                throw new Error(`Blank final rows must be shaded exactly like No class, without labels: ${name}`);
+              }
+            }
+
             // Capture complete media archives, teaching lists, and new course schedules.
             const entireReviewPage = name.startsWith("media-") || name.startsWith("history-") ||
               name.startsWith("teaching-") || name.includes("-26f-");
