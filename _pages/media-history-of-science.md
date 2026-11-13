@@ -10,6 +10,5 @@ sitemap: true
 back_url: /media/
 back_label: "← Back to Media"
 history_intro: "A continuing lecture series exploring how ideas and practices in science changed from antiquity to the modern era."
-video_count_label: "Published videos"
 description: "The complete history-of-science video series with Jeong-Mo Choi on Unrealscience, featuring English translations of the official YouTube titles in chronological order."
 ---

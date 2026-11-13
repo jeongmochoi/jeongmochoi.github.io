@@ -468,9 +468,15 @@ async function main() {
               const picture = card.locator(".media-feature-visual");
               const description = card.locator(".media-feature-body");
               const images = card.locator(".media-feature-visual-link");
-              const countLabel = await page.locator(".media-history-feature .media-link-button").innerText();
-              if (!countLabel.includes("(5)")) {
-                throw new Error(`Media history count is not 5: ${name} ${countLabel}`);
+              const archiveLabel = (await page.locator(".media-history-feature .media-link-button").innerText()).trim();
+              const expectedArchiveLabel = name === "media-ko" ? "전체 강의 보기" : "View all lectures";
+              const summary = (await page.locator(".media-history-feature .media-feature-description").innerText()).trim();
+              const expectedSummary = name === "media-ko"
+                ? "안될과학에서 진행하는 과학사 연속 강의입니다."
+                : "A continuing history-of-science lecture series with Unrealscience.";
+              console.log(`MEDIA_HISTORY_COPY ${name} ${JSON.stringify({ archiveLabel, summary })}`);
+              if (archiveLabel !== expectedArchiveLabel || summary !== expectedSummary) {
+                throw new Error(`History summary or count-free archive link is wrong: ${name}`);
               }
               if ((await card.count()) !== 1 || (await images.count()) !== 1) {
                 throw new Error(`History series must show just one featured video: ${name}`);
@@ -488,6 +494,10 @@ async function main() {
             }
 
             if (name.startsWith("history-")) {
+              const countElements = await page.locator(".media-history-count").count();
+              if (countElements !== 0) {
+                throw new Error(`History archive should not display a video count: ${name}`);
+              }
               const intro = await page.locator(".media-history-intro").evaluate((element) => {
                 const style = getComputedStyle(element);
                 return {

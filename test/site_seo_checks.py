@@ -189,6 +189,16 @@ for media_route, history_route in (
                 f"{media_route}: archive link missing from featured lecture")
     fail_unless(f">{title}</a>" in feature_html,
                 f"{media_route}: generic history lecture title missing")
+    archive_text = "전체 강의 보기" if ko else "View all lectures"
+    fail_unless(re.search(r'<a class="media-link-button"[^>]*>\s*' +
+                          re.escape(archive_text) + r'\s*</a>', feature_html),
+                f"{media_route}: archive link must have no numeric count")
+    summary_text = ("안될과학에서 진행하는 과학사 연속 강의입니다." if ko else
+                    "A continuing history-of-science lecture series with Unrealscience.")
+    fail_unless(summary_text in feature_html and
+                "전체 영상은 공개일 순서대로 정리했습니다." not in feature_html and
+                "Browse all episodes in their publication order." not in feature_html,
+                f"{media_route}: history series description must stay concise")
     fail_unless("최신 공개 영상" not in feature_html and "Latest video" not in feature_html and
                 "Watch latest video" not in feature_html and "안될과학 | 과학사 강의" not in feature_html,
                 f"{media_route}: latest-episode or redundant series title still visible")
@@ -212,6 +222,10 @@ for media_route, history_route in (
                 f"{media_route}: unexpected number of general YouTube cards")
     fail_unless(history_html.count('class="media-history-row"') == len(history_ids),
                 f"{history_route}: expected one horizontal card for each history lecture")
+    fail_unless('class="media-history-count"' not in history_html and
+                "공개된 영상:" not in history_html and
+                "Published videos:" not in history_html,
+                f"{history_route}: remove the redundant published-video count")
     fail_unless('class="media-history-archive-list"' in history_html and
                 history_html.count('class="media-video-card"') == 0,
                 f"{history_route}: old three-column video grid still present")
