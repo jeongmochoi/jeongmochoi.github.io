@@ -99,7 +99,7 @@ for entry in general_items:
     match = re.search(r'date: "([0-9]{4}-[0-9]{2}-[0-9]{2})"', entry)
     fail_unless(match is not None, f"Missing YouTube publication date: {item_name}")
     date.fromisoformat(match.group(1))
-fail_unless(len(general_items) == 12, "Unexpected number of general YouTube videos")
+fail_unless(len(general_items) == 13, "Unexpected number of general YouTube videos")
 for route in ("/media/", "/ko/media/", "/media/history-of-science/", "/ko/media/history-of-science/"):
     html, _ = parsed(route)
     history_archive = "history-of-science" in route
@@ -148,9 +148,9 @@ fail_unless("border: 1px solid var(--global-divider-color);" in source_css.split
 # Exact visible section/group order matters. A generic history-of-science
 # entry belongs first within the Unrealscience YouTube group, before the
 # existing three-column videos. No latest-episode copy on the landing page.
-history_ids = ("_WNy7BQ0gIw", "a_lwVYd8BP4", "ld0fBMB_IkM", "75FUhl4lr9A", "b-EpfOwah1k")
+history_ids = ("_WNy7BQ0gIw", "a_lwVYd8BP4", "ld0fBMB_IkM", "75FUhl4lr9A", "b-EpfOwah1k", "Yu9xxVJ9mzQ")
 general_ids = ("tq9BirqS12c", "hPnVfGZk86U", "S0iTk9liUKQ", "AwHJryy_0vo",
-               "1g6xOq3Hf2M", "AOaoELveR8s", "M7bTESbZi_U", "eg4plhiTFZU",
+               "1g6xOq3Hf2M", "AOaoELveR8s", "M7bTESbZi_U", "eg4plhiTFZU", "NKEJEBm4k10",
                "LrOIUwUxQfU", "4B9ke8WJ2s0", "Ryubz9AwsHc", "2c0y2yyhF8c")
 for media_route, history_route in (
     ("/media/", "/media/history-of-science/"),
@@ -256,8 +256,10 @@ expected_history_titles = (
      "Hippocrates, the So-Called Father of Medicine: Who Was He Really?"),
     ("철학자가 왕이 되려면 수학 10년? 과학사의 두 거장 플라톤과 아리스토텔레스",
      "Ten Years of Mathematics to Become a Philosopher-King? Two Giants in the History of Science: Plato and Aristotle"),
-    ("돌은 왜 가라앉고 불은 왜 올라갈까? 아리스토텔레스가 세상을 설명한 방법",
-     "Why Do Stones Sink and Fire Rise? How Aristotle Explained the World"),
+    ("듣다 보면 천동설도 믿게 된다? 세상 모든 것을 설명한 아리스토텔레스의 철학",
+     "Could You Be Convinced by Geocentrism? Aristotle's Philosophy That Explained Everything"),
+    ("학교에서 배운 원자 이야기, 처음부터 끝까지 틀렸다? 히포크라테스와 데모크리토스의 진짜 정체",
+     "What You Learned About Atoms in School: Wrong from Start to Finish? The True Identities of Hippocrates and Democritus"),
 )
 for original_title, translated_title in expected_history_titles:
     fail_unless(original_title in korean_history,

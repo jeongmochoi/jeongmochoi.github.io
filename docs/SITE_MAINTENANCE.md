@@ -11,13 +11,21 @@ This repository publishes https://jeongmochoi.github.io, the site owner's academ
 3. Edit only necessary files. Typical content locations include `_pages/` (English and Korean pages), `_bibliography/` (publications), `_books/`, `_news/`, and `assets/`. Verify the actual layout before choosing paths.
 4. Preserve the site's existing design, navigation, URLs, and bilingual structure unless the request explicitly changes them. Do not invent academic publications, achievements, dates, affiliations, links, images, or translations; flag missing facts for confirmation.
 5. Run relevant validation (at minimum a Jekyll build for site changes; formatting and tests when relevant). Report any check that could not be run. Never claim a check succeeded without evidence.
-6. Create a **draft pull request** targeting `main`, with an explanation in Korean of what changed, affected pages, tests, and limitations. Provide screenshots or another verifiable preview where possible. Keep the draft open for the owner's feedback and revisions.
+6. Create a **draft pull request** targeting `main`, with an explanation in Korean of what changed, affected pages, tests, and limitations. Always present previews of the final changed portions in the conversation before requesting owner approval, following the requirements below. Keep the draft open for the owner's feedback and revisions.
 7. **Stop before publication.** Merge or publish only after the owner explicitly approves the specific final changes (for example, "이 PR을 배포해"). No autonomous merging or production publication.
 
 An instruction to prepare, revise, check, or show a result is not permission to publish it. When feedback requests further edits, update the same PR and request review again.
 
+## External link format
+
+- Use the final direct destination URL, avoiding short links and redirect wrappers. Keep URLs as short as possible while retaining parameters required to identify the destination.
+- YouTube video links use `https://www.youtube.com/watch?v=VIDEO_ID`. Convert `youtu.be` links to this form and omit optional sharing, tracking, timestamp, and playlist-context parameters. A playlist link itself retains its required `list` parameter: `https://www.youtube.com/playlist?list=PLAYLIST_ID`.
+- Do not remove required query parameters from other services; check what identifies the intended page before shortening a URL.
+
 ## Preview and checks
 
+- For every requested website edit, show a preview of the final changed portions immediately before asking the owner to approve publication. Include the affected subpages and languages, using rendered screenshots for visible changes and the exact before/after destination URLs for link-only changes. Do not substitute a statement that screenshots exist for the actual preview.
+- Previews must correspond to the PR's final head commit. Regenerate them after revisions, inspect desktop and mobile rendering, and provide accessible full-size preview files. If a preview cannot be produced, explain the blocker before requesting approval.
 - `.github/workflows/deploy.yml` builds and publishes only approved pushes to `main`. PR builds run in `site-pr-checks.yml`; screenshot builds run in `pr-preview.yml`.
 - `.github/workflows/site-pr-checks.yml` provides a consistent `site-build` check for pull requests. Draft PRs opened by the repository's own `GITHUB_TOKEN` cannot automatically trigger PR checks: the owner can run **Actions → Site build gate → Run workflow**, choosing the automation PR's branch. Verify that the check passes on the PR head commit before merging.
 - `.github/workflows/pr-preview.yml` provides screenshot artifacts for English/Korean page entry points when relevant site files change. These are not live preview URLs. For an edited subpage not included in those screenshots, add page-specific review evidence.

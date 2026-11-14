@@ -1,6 +1,7 @@
 # Single source of truth for the ongoing Unrealscience history-of-science series.
 # Keep in chronological PUBLICATION order. Add future episodes to the end.
-# Korean titles follow the official YouTube oEmbed headlines, except for the
+# Korean titles follow the current YouTube watch-page headlines, checked
+# against fresh official metadata, except for the
 # optional professor affiliation credit removed at the owner's request.
 # English titles translate the same text without the removed credit.
 # Do not invent short editorial labels or change video dates/URLs.
@@ -41,7 +42,14 @@ items:
 
   - id: history-aristotle-natural-motion
     date: "2026-11-12"
-    title_ko: "돌은 왜 가라앉고 불은 왜 올라갈까? 아리스토텔레스가 세상을 설명한 방법"
-    title_en: "Why Do Stones Sink and Fire Rise? How Aristotle Explained the World"
+    title_ko: "듣다 보면 천동설도 믿게 된다? 세상 모든 것을 설명한 아리스토텔레스의 철학"
+    title_en: "Could You Be Convinced by Geocentrism? Aristotle's Philosophy That Explained Everything"
     youtube_id: "b-EpfOwah1k"
     url: "https://www.youtube.com/watch?v=b-EpfOwah1k"
+
+  - id: history-hippocrates-democritus
+    date: "2026-11-14"
+    title_ko: "학교에서 배운 원자 이야기, 처음부터 끝까지 틀렸다? 히포크라테스와 데모크리토스의 진짜 정체"
+    title_en: "What You Learned About Atoms in School: Wrong from Start to Finish? The True Identities of Hippocrates and Democritus"
+    youtube_id: "Yu9xxVJ9mzQ"
+    url: "https://www.youtube.com/watch?v=Yu9xxVJ9mzQ"

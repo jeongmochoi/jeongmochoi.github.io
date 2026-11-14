@@ -23,7 +23,7 @@
   <dd>Midterm essay 50%, final exam 50%</dd>
 
   <dt>On-line guide lectures</dt>
-  <dd><a href="https://youtube.com/playlist?list=PL33H1AxVwTvx11GDDzY9AcPR5Wm4XYrad">On-line guide lectures</a> (in Korean)</dd>
+  <dd><a href="https://www.youtube.com/playlist?list=PL33H1AxVwTvx11GDDzY9AcPR5Wm4XYrad">On-line guide lectures</a> (in Korean)</dd>
 </dl>
 
 ## Schedule
