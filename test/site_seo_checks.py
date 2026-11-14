@@ -256,8 +256,8 @@ expected_history_titles = (
      "Hippocrates, the So-Called Father of Medicine: Who Was He Really?"),
     ("철학자가 왕이 되려면 수학 10년? 과학사의 두 거장 플라톤과 아리스토텔레스",
      "Ten Years of Mathematics to Become a Philosopher-King? Two Giants in the History of Science: Plato and Aristotle"),
-    ("돌은 왜 가라앉고 불은 왜 올라갈까? 아리스토텔레스가 세상을 설명한 방법",
-     "Why Do Stones Sink and Fire Rise? How Aristotle Explained the World"),
+    ("듣다 보면 천동설도 믿게 된다? 세상 모든 것을 설명한 아리스토텔레스의 철학",
+     "Could You Be Convinced by Geocentrism? Aristotle's Philosophy That Explained Everything"),
     ("학교에서 배운 원자 이야기, 처음부터 끝까지 틀렸다? 히포크라테스와 데모크리토스의 진짜 정체",
      "What You Learned About Atoms in School: Wrong from Start to Finish? The True Identities of Hippocrates and Democritus"),
 )

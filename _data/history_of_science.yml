@@ -1,6 +1,7 @@
 # Single source of truth for the ongoing Unrealscience history-of-science series.
 # Keep in chronological PUBLICATION order. Add future episodes to the end.
-# Korean titles follow the official YouTube oEmbed headlines, except for the
+# Korean titles follow the current YouTube watch-page headlines, checked
+# against fresh official metadata, except for the
 # optional professor affiliation credit removed at the owner's request.
 # English titles translate the same text without the removed credit.
 # Do not invent short editorial labels or change video dates/URLs.
@@ -41,8 +42,8 @@ items:
 
   - id: history-aristotle-natural-motion
     date: "2026-11-12"
-    title_ko: "돌은 왜 가라앉고 불은 왜 올라갈까? 아리스토텔레스가 세상을 설명한 방법"
-    title_en: "Why Do Stones Sink and Fire Rise? How Aristotle Explained the World"
+    title_ko: "듣다 보면 천동설도 믿게 된다? 세상 모든 것을 설명한 아리스토텔레스의 철학"
+    title_en: "Could You Be Convinced by Geocentrism? Aristotle's Philosophy That Explained Everything"
     youtube_id: "b-EpfOwah1k"
     url: "https://www.youtube.com/watch?v=b-EpfOwah1k"
 
