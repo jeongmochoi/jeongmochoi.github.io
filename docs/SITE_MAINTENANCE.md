@@ -16,6 +16,12 @@ This repository publishes https://jeongmochoi.github.io, the site owner's academ
 
 An instruction to prepare, revise, check, or show a result is not permission to publish it. When feedback requests further edits, update the same PR and request review again.
 
+## External link format
+
+- Use the final direct destination URL, avoiding short links and redirect wrappers. Keep URLs as short as possible while retaining parameters required to identify the destination.
+- YouTube video links use `https://www.youtube.com/watch?v=VIDEO_ID`. Convert `youtu.be` links to this form and omit optional sharing, tracking, timestamp, and playlist-context parameters. A playlist link itself retains its required `list` parameter: `https://www.youtube.com/playlist?list=PLAYLIST_ID`.
+- Do not remove required query parameters from other services; check what identifies the intended page before shortening a URL.
+
 ## Preview and checks
 
 - `.github/workflows/deploy.yml` builds and publishes only approved pushes to `main`. PR builds run in `site-pr-checks.yml`; screenshot builds run in `pr-preview.yml`.

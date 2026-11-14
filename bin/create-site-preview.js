@@ -538,11 +538,11 @@ async function main() {
               const archiveRows = page.locator(".media-history-row");
               const titles = await archiveRows.locator(".media-history-row-title").allTextContents();
               if (
-                (await archiveRows.count()) !== 5 ||
-                titles.length !== 5 ||
+                (await archiveRows.count()) !== 6 ||
+                titles.length !== 6 ||
                 titles.some((title) => (name === "history-ko" ? !/[가-힣]/.test(title) : /[가-힣]/.test(title)))
               ) {
-                throw new Error(`History archive requires 5 individually translated, one-per-row cards: ${name}`);
+                throw new Error(`History archive requires 6 individually translated, one-per-row cards: ${name}`);
               }
               const latest = await archiveRows.last().evaluate((row) => ({
                 date: row.querySelector("time")?.getAttribute("datetime"),
@@ -550,13 +550,13 @@ async function main() {
                 url: row.querySelector(".media-history-row-title a")?.getAttribute("href"),
               }));
               const expectedLatestTitle = name === "history-ko"
-                ? "돌은 왜 가라앉고 불은 왜 올라갈까? 아리스토텔레스가 세상을 설명한 방법"
-                : "Why Do Stones Sink and Fire Rise? How Aristotle Explained the World";
+                ? "학교에서 배운 원자 이야기, 처음부터 끝까지 틀렸다? 히포크라테스와 데모크리토스의 진짜 정체"
+                : "What You Learned About Atoms in School: Wrong from Start to Finish? The True Identities of Hippocrates and Democritus";
               console.log(`HISTORY_LATEST_EPISODE ${name} ${JSON.stringify(latest)}`);
               if (
-                latest.date !== "2026-11-12" ||
+                latest.date !== "2026-11-14" ||
                 latest.title !== expectedLatestTitle ||
-                latest.url !== "https://www.youtube.com/watch?v=b-EpfOwah1k"
+                latest.url !== "https://www.youtube.com/watch?v=Yu9xxVJ9mzQ"
               ) {
                 throw new Error(`Latest history episode/date/translation is wrong: ${name}`);
               }
