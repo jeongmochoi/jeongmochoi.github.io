@@ -212,6 +212,13 @@ youtube_groups:
         youtube_id: "eg4plhiTFZU"
         url: "https://www.youtube.com/watch?v=eg4plhiTFZU"
 
+      - id: boda-history-172
+        date: "2026-11-13"
+        title_ko: "인간을 치유하고 금도 만들어낸다는 물질의 정체(중세의 AI..?)ㅣ역사를 보다 EP.172"
+        title_en: "The Substance Said to Heal People and Even Make Gold (Medieval AI..?) | History with BODA EP.172"
+        youtube_id: "NKEJEBm4k10"
+        url: "https://www.youtube.com/watch?v=NKEJEBm4k10"
+
   - id: sciencefriends
     title_ko: "사이언스프렌즈"
     title_en: "Science Friends"
