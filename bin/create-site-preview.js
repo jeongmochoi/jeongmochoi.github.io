@@ -577,7 +577,7 @@ async function main() {
                   }),
                 );
                 const stacked = mode === "mobile";
-                const aligned = boxes.length === 5 && boxes.every((row, i) => {
+                const aligned = boxes.length === 6 && boxes.every((row, i) => {
                   const ordered = !i || row.row.y > boxes[i - 1].row.bottom - 2;
                   const withinPage = row.row.width > 0 && row.row.right <= page.viewportSize().width + 1;
                   const correctLayout = stacked
