@@ -550,8 +550,8 @@ async function main() {
                 url: row.querySelector(".media-history-row-title a")?.getAttribute("href"),
               }));
               const expectedLatestTitle = name === "history-ko"
-                ? "학교에서 배운 원자 이야기, 처음부터 끝까지 틀렸다? 히포크라테스와 데모크리토스의 진짜 정체"
-                : "What You Learned About Atoms in School: Wrong from Start to Finish? The True Identities of Hippocrates and Democritus";
+                ? "천재 과학자들이 쏟아져 나온 고대 도시에는 특별한 비밀이 있었다"
+                : "The Ancient City That Produced So Many Brilliant Scientists Had a Special Secret";
               console.log(`HISTORY_LATEST_EPISODE ${name} ${JSON.stringify(latest)}`);
               if (
                 latest.date !== "2026-11-14" ||

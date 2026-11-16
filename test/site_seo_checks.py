@@ -258,8 +258,8 @@ expected_history_titles = (
      "Ten Years of Mathematics to Become a Philosopher-King? Two Giants in the History of Science: Plato and Aristotle"),
     ("듣다 보면 천동설도 믿게 된다? 세상 모든 것을 설명한 아리스토텔레스의 철학",
      "Could You Be Convinced by Geocentrism? Aristotle's Philosophy That Explained Everything"),
-    ("학교에서 배운 원자 이야기, 처음부터 끝까지 틀렸다? 히포크라테스와 데모크리토스의 진짜 정체",
-     "What You Learned About Atoms in School: Wrong from Start to Finish? The True Identities of Hippocrates and Democritus"),
+    ("천재 과학자들이 쏟아져 나온 고대 도시에는 특별한 비밀이 있었다",
+     "The Ancient City That Produced So Many Brilliant Scientists Had a Special Secret"),
 )
 for original_title, translated_title in expected_history_titles:
     fail_unless(original_title in korean_history,
