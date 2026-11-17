@@ -47,9 +47,9 @@
 |  | 11/5 | 15강 | 고체화학의 응용 | [슬라이드]({{ page.course_asset_base | append: 'lec15.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=CGgtTkidTuY) |
 | 11 | 11/10 | 16강 | 시험 안내 및 복습 | [슬라이드]({{ page.course_asset_base | append: 'lec16.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=WtcC0MNRHeY) |
 |  | 11/12 |  | <span class="course-row-muted">**2차 중간고사**</span> |  |
-| 12 | 11/17 | 17강 | 액체 및 유리 | 슬라이드 · 영상 |
-|  | 11/19 | 18강 | 고분자 구조: 이상 사슬 | 슬라이드 · 영상 |
-| 13 | 11/24 | 19강 | 고분자 구조: 실제 사슬 | 슬라이드 · 영상 |
+| 12 | 11/17 | 17강 | 액체 및 유리 | [슬라이드]({{ page.course_asset_base | append: 'lec17.pdf' | relative_url }}) · [영상](https://www.youtube.com/watch?v=MPiEjx3pyEE) |
+|  | 11/19 | 18강 | 이상 사슬 | 슬라이드 · 영상 |
+| 13 | 11/24 | 19강 | 실제 사슬 / 고분자 용액 | 슬라이드 · 영상 |
 |  | 11/26 | 20강 | 고분자의 여러 상 | 슬라이드 · 영상 |
 | 14 | 12/1 | 21강 | 단백질 | 슬라이드 · 영상 |
 |  | 12/3 |  | <span class="course-row-muted">휴강</span> |  |
