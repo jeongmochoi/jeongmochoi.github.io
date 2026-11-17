@@ -99,7 +99,7 @@ for entry in general_items:
     match = re.search(r'date: "([0-9]{4}-[0-9]{2}-[0-9]{2})"', entry)
     fail_unless(match is not None, f"Missing YouTube publication date: {item_name}")
     date.fromisoformat(match.group(1))
-fail_unless(len(general_items) == 13, "Unexpected number of general YouTube videos")
+fail_unless(len(general_items) == 14, "Unexpected number of general YouTube videos")
 for route in ("/media/", "/ko/media/", "/media/history-of-science/", "/ko/media/history-of-science/"):
     html, _ = parsed(route)
     history_archive = "history-of-science" in route
@@ -151,7 +151,7 @@ fail_unless("border: 1px solid var(--global-divider-color);" in source_css.split
 history_ids = ("_WNy7BQ0gIw", "a_lwVYd8BP4", "ld0fBMB_IkM", "75FUhl4lr9A", "b-EpfOwah1k", "Yu9xxVJ9mzQ")
 general_ids = ("tq9BirqS12c", "hPnVfGZk86U", "S0iTk9liUKQ", "AwHJryy_0vo",
                "1g6xOq3Hf2M", "AOaoELveR8s", "M7bTESbZi_U", "eg4plhiTFZU", "NKEJEBm4k10",
-               "LrOIUwUxQfU", "4B9ke8WJ2s0", "Ryubz9AwsHc", "2c0y2yyhF8c")
+               "LrOIUwUxQfU", "4B9ke8WJ2s0", "qB2rp8cV6iw", "Ryubz9AwsHc", "2c0y2yyhF8c")
 for media_route, history_route in (
     ("/media/", "/media/history-of-science/"),
     ("/ko/media/", "/ko/media/history-of-science/"),
@@ -173,8 +173,8 @@ for media_route, history_route in (
 
     group_titles = re.findall(r'<h3 class="media-video-group-title"[^>]*>(.*?)</h3>',
                               media_html, re.DOTALL)
-    expected_groups = ("안될과학", "보다", "사이언스프렌즈", "제로에너지바") if ko else (
-        "Unrealscience", "BODA", "Science Friends", "Zero Energy Bar"
+    expected_groups = ("안될과학", "보다", "사이언스프렌즈", "이과학 저과학", "제로에너지바") if ko else (
+        "Unrealscience", "BODA", "Science Friends", "Science This, Science That", "Zero Energy Bar"
     )
     fail_unless([g.strip() for g in group_titles] == list(expected_groups),
                 f"{media_route}: wrong YouTube group order: {group_titles}")
