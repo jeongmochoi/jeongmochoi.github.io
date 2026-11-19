@@ -148,7 +148,7 @@ fail_unless("border: 1px solid var(--global-divider-color);" in source_css.split
 # Exact visible section/group order matters. A generic history-of-science
 # entry belongs first within the Unrealscience YouTube group, before the
 # existing three-column videos. No latest-episode copy on the landing page.
-history_ids = ("_WNy7BQ0gIw", "a_lwVYd8BP4", "ld0fBMB_IkM", "75FUhl4lr9A", "b-EpfOwah1k", "Yu9xxVJ9mzQ")
+history_ids = ("_WNy7BQ0gIw", "a_lwVYd8BP4", "ld0fBMB_IkM", "75FUhl4lr9A", "b-EpfOwah1k", "Yu9xxVJ9mzQ", "UEbUNupruYk")
 general_ids = ("tq9BirqS12c", "hPnVfGZk86U", "S0iTk9liUKQ", "AwHJryy_0vo",
                "1g6xOq3Hf2M", "AOaoELveR8s", "M7bTESbZi_U", "eg4plhiTFZU", "NKEJEBm4k10",
                "LrOIUwUxQfU", "4B9ke8WJ2s0", "qB2rp8cV6iw", "Ryubz9AwsHc", "2c0y2yyhF8c")
@@ -260,6 +260,8 @@ expected_history_titles = (
      "Could You Be Convinced by Geocentrism? Aristotle's Philosophy That Explained Everything"),
     ("천재 과학자들이 쏟아져 나온 고대 도시에는 특별한 비밀이 있었다",
      "The Ancient City That Produced So Many Brilliant Scientists Had a Special Secret"),
+    ("4체액설로만 알았는데 해부 덕후였다? 황제의 주치의 갈레노스의 진짜 모습",
+     "Known for the Four Humors, Obsessed with Dissection? Meet the Real Galen, Physician to the Emperor"),
 )
 for original_title, translated_title in expected_history_titles:
     fail_unless(original_title in korean_history,
