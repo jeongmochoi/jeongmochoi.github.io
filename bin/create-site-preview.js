@@ -537,12 +537,13 @@ async function main() {
 
               const archiveRows = page.locator(".media-history-row");
               const titles = await archiveRows.locator(".media-history-row-title").allTextContents();
+              const expectedEpisodeCount = 7;
               if (
-                (await archiveRows.count()) !== 6 ||
-                titles.length !== 6 ||
+                (await archiveRows.count()) !== expectedEpisodeCount ||
+                titles.length !== expectedEpisodeCount ||
                 titles.some((title) => (name === "history-ko" ? !/[가-힣]/.test(title) : /[가-힣]/.test(title)))
               ) {
-                throw new Error(`History archive requires 6 individually translated, one-per-row cards: ${name}`);
+                throw new Error(`History archive requires ${expectedEpisodeCount} individually translated, one-per-row cards: ${name}`);
               }
               const latest = await archiveRows.last().evaluate((row) => ({
                 date: row.querySelector("time")?.getAttribute("datetime"),
@@ -550,13 +551,13 @@ async function main() {
                 url: row.querySelector(".media-history-row-title a")?.getAttribute("href"),
               }));
               const expectedLatestTitle = name === "history-ko"
-                ? "천재 과학자들이 쏟아져 나온 고대 도시에는 특별한 비밀이 있었다"
-                : "The Ancient City That Produced So Many Brilliant Scientists Had a Special Secret";
+                ? "4체액설로만 알았는데 해부 덕후였다? 황제의 주치의 갈레노스의 진짜 모습"
+                : "Known for the Four Humors, Obsessed with Dissection? Meet the Real Galen, Physician to the Emperor";
               console.log(`HISTORY_LATEST_EPISODE ${name} ${JSON.stringify(latest)}`);
               if (
-                latest.date !== "2026-11-14" ||
+                latest.date !== "2026-11-19" ||
                 latest.title !== expectedLatestTitle ||
-                latest.url !== "https://www.youtube.com/watch?v=Yu9xxVJ9mzQ"
+                latest.url !== "https://www.youtube.com/watch?v=UEbUNupruYk"
               ) {
                 throw new Error(`Latest history episode/date/translation is wrong: ${name}`);
               }
@@ -577,7 +578,7 @@ async function main() {
                   }),
                 );
                 const stacked = mode === "mobile";
-                const aligned = boxes.length === 6 && boxes.every((row, i) => {
+                const aligned = boxes.length === expectedEpisodeCount && boxes.every((row, i) => {
                   const ordered = !i || row.row.y > boxes[i - 1].row.bottom - 2;
                   const withinPage = row.row.width > 0 && row.row.right <= page.viewportSize().width + 1;
                   const correctLayout = stacked
